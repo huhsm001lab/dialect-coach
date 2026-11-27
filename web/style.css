@@ -474,3 +474,9 @@ body.show-intro main { display: none; }
   .room-card { min-height: 0; }
   .brand-row { flex-wrap: wrap; }
 }
+
+/* 저장소 안의 서비스: 상태 배지 */
+.badge-now, .badge-soon { display: inline-block; font-size: .75rem; font-weight: 700; padding: 2px 8px; border-radius: 999px; vertical-align: middle; margin-left: 4px; font-family: var(--font-ui); }
+.badge-now { background: var(--accent); color: var(--accent-text); }
+.badge-soon { border: 1px solid var(--border); color: var(--muted); }
+.soon-inline { display: block; margin-top: 4px; font-style: normal; font-size: .9em; color: var(--accent); }

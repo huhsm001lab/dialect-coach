@@ -412,13 +412,13 @@ function loadSaved() {
 }
 
 /* ---------- 소개 페이지와 연습실(방) ---------- */
-// 첫 페이지(소개)에서 "사투리·번역 연습실" 또는 "대본 분석실"을 골라 들어가요.
+// 첫 페이지(소개)에서 저장소 안의 서비스("사투리 코치" 또는 "대본 분석 스튜디오")를 골라 들어가요.
 // - 주소 끝에 #dialect 또는 #analyze 를 붙이면 그 방으로 바로 열려요 (다른 서비스에서 바로가기 링크로 쓰기 좋아요).
 // - 같은 탭에서 새로고침하면 들어가 있던 방이 그대로 보여요. 탭을 닫고 다시 열면 소개부터 나와요.
 var ROOM_KEY = 'dialectCoach.room';
 var ROOMS = {
-  dialect: { name: '사투리·번역 연습실', tabs: ['convert', 'practice', 'listen'], other: 'analyze' },
-  analyze: { name: '대본 분석실', tabs: ['analyze'], other: 'dialect' }
+  dialect: { name: '사투리 코치', tabs: ['convert', 'practice', 'listen'], other: 'analyze' },
+  analyze: { name: '대본 분석 스튜디오', tabs: ['analyze'], other: 'dialect' }
 };
 var currentRoom = 'dialect';
 
@@ -442,7 +442,7 @@ function enterRoom(room) {
   var r = ROOMS[room];
   document.body.setAttribute('data-room', room);
   $('roomName').textContent = r.name;
-  $('roomSwitch').textContent = ROOMS[r.other].name + '로 →';
+  $('roomSwitch').textContent = ROOMS[r.other].name + ' →';
   // 이 방의 탭만 보이게 (탭이 하나뿐이면 탭 줄 자체를 숨겨요)
   TAB_IDS.forEach(function (id) { $('tab-' + id).hidden = r.tabs.indexOf(id) === -1; });
   $('tabList').hidden = r.tabs.length < 2;
