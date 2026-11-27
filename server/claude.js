@@ -57,7 +57,8 @@ function taskSection(dialect) {
 - Use the regional variety's grammar and vocabulary where a native would naturally use them — authentic but not a caricature, not overloaded with slang.
 - "converted" = the translated script only.
 - "changes" = the regional/colloquial expressions you chose: from = the neutral/standard ${target} way to say it, to = the regional expression used in the script, rule = Korean explanation (meaning + why it fits this region).
-- In "notes" (Korean), add the meaning of any tricky line so the actor understands what they are saying.`;
+- In "notes" (Korean), add the meaning of any tricky line so the actor understands what they are saying.
+- LANGUAGE OF EXPLANATIONS: every "rule", every "notes" item and every tip MUST be written in KOREAN (한국어), even though the script itself is in ${target}. Only quoted ${target} words may appear inside them.`;
 }
 
 export function buildSystemPrompt(dialect) {
