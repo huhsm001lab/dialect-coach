@@ -412,7 +412,8 @@ function loadSaved() {
 }
 
 /* ---------- 소개 페이지 ---------- */
-// 처음 온 사람에게만 소개를 보여 주고, "시작하기"를 누르면 기억해 둬요.
+// 사이트를 새로 열 때마다 소개를 먼저 보여 줘요. "시작하기"를 누르면 이 탭에서는 기억해 둬서
+// 새로고침해도 앱이 그대로 보여요. (탭을 닫고 다시 열면 소개가 다시 나와요)
 var INTRO_KEY = 'dialectCoach.introSeen';
 
 function showIntro(on) {
@@ -424,9 +425,9 @@ function showIntro(on) {
 
 function initIntro() {
   var seen = false;
-  try { seen = localStorage.getItem(INTRO_KEY) === '1'; } catch (e) { /* 저장 막힘: 매번 소개 */ }
+  try { seen = sessionStorage.getItem(INTRO_KEY) === '1'; } catch (e) { /* 저장 막힘: 매번 소개 */ }
   function start() {
-    try { localStorage.setItem(INTRO_KEY, '1'); } catch (e) { /* 무시 */ }
+    try { sessionStorage.setItem(INTRO_KEY, '1'); } catch (e) { /* 무시 */ }
     showIntro(false);
     $('sourceText').focus();
   }
@@ -501,6 +502,7 @@ function makeBadge(confidence) {
 }
 
 function fillRegions(preferCode) {
+  applyMode(); // 언어에 맞게 버튼 문구(사투리로 바꾸기 / 번역하기) 맞추기
   var lang = $('langSelect').value;
   var sel = $('regionSelect');
   sel.innerHTML = '';
@@ -547,6 +549,32 @@ function updateConvertButton() {
   $('convertBtn').disabled = !ok;
 }
 
+/* ---------- 언어별 문구: 한국어는 "사투리로 바꾸기", 영어·중국어는 "번역하기" ---------- */
+function modeFor(language) {
+  if (language === 'en' || language === 'zh') {
+    return {
+      btn: '번역하기',
+      busy: '번역하는 중…',
+      title: '번역 대본',
+      hint: '(한국어로 넣으면 현지 회화체로 번역해요)',
+      placeholder: '여기에 한국어 독백(대사)을 붙여넣어 주세요. 영화 대사처럼 자연스러운 회화체로 번역해요.'
+    };
+  }
+  return {
+    btn: '사투리로 바꾸기',
+    busy: '바꾸는 중…',
+    title: '사투리 대본',
+    hint: '(표준어로 쓴 글)',
+    placeholder: '여기에 독백(대사)을 붙여넣어 주세요. 표준어로 쓴 글이면 돼요.'
+  };
+}
+function applyMode() {
+  var m = modeFor($('langSelect').value);
+  if (!converting) $('convertBtn').textContent = m.btn;
+  $('sourceText').placeholder = m.placeholder;
+  $('modeHint').textContent = m.hint;
+}
+
 var converting = false;
 var progressTimer = null;
 var PROGRESS_MSGS = [
@@ -583,7 +611,7 @@ async function doConvert() {
 
   converting = true;
   $('convertBtn').disabled = true;
-  $('convertBtn').textContent = '바꾸는 중…';
+  $('convertBtn').textContent = modeFor($('langSelect').value).busy;
   $('convertBtn').setAttribute('aria-busy', 'true');
   show($('convertError'), false);
   startProgress();
@@ -617,7 +645,7 @@ async function doConvert() {
   } finally {
     converting = false;
     stopProgress();
-    $('convertBtn').textContent = '사투리로 바꾸기';
+    $('convertBtn').textContent = modeFor($('langSelect').value).btn;
     $('convertBtn').removeAttribute('aria-busy');
     updateConvertButton();
   }
@@ -644,6 +672,7 @@ function renderResult() {
   show($('demoBanner'), c.demo);
   show($('resultLowWarn'), c.confidence === 'low');
   $('resultName').textContent = '· ' + c.name;
+  $('resultTitle').textContent = modeFor(c.language).title;
   $('originalView').textContent = c.original || '';
 
   // 바뀐 부분을 <mark>로 감싸서 보여주기

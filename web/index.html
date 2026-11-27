@@ -18,7 +18,7 @@
       <div class="wrap">
         <p class="intro-eyebrow">배우를 위한 사투리 연습 도구 · 사투리 코치</p>
         <h1 id="intro-title" class="intro-title">사투리 배역,<br>오디션 전까지 혼자서도 연습하세요</h1>
-        <p class="intro-lead">표준어 독백을 넣고 지역을 고르면 <strong>사투리 대본</strong>으로 바꿔 주고,
+        <p class="intro-lead">독백을 넣고 지역을 고르면 한국어는 <strong>사투리 대본</strong>으로, 영어·중국어는 <strong>현지 회화체</strong>로 번역해 주고,
           <strong>억양</strong>을 보여 주고, 내가 따라 한 말을 <strong>확인</strong>해 줘요.</p>
         <div class="intro-cta">
           <button id="introStart" class="btn btn-primary btn-lg" type="button">시작하기 →</button>
@@ -39,8 +39,8 @@
         <ol class="intro-steps">
           <li class="card intro-step">
             <span class="intro-num" aria-hidden="true">1</span>
-            <h3>사투리로 바꾸기</h3>
-            <p>독백을 붙여넣고 언어와 지역을 고르세요. 바뀐 곳은 색으로 표시되고, 왜 바뀌었는지 설명이 나와요.</p>
+            <h3>사투리로 바꾸기 · 번역하기</h3>
+            <p>독백을 붙여넣고 언어와 지역을 고르세요. 영어·중국어는 영화 대사처럼 자연스러운 회화체로 번역돼요. 바뀐 곳은 색으로 표시되고, 왜 바뀌었는지 설명이 나와요.</p>
           </li>
           <li class="card intro-step">
             <span class="intro-num" aria-hidden="true">2</span>
@@ -130,7 +130,7 @@
           이 지역의 사투리 규칙은 아직 근거가 부족해요. 결과를 그대로 믿지 말고, 그 지역 출신 분께 꼭 확인받으세요.
         </p>
 
-        <label for="sourceText" class="block-label">원본 독백</label>
+        <label for="sourceText" class="block-label">원본 독백 <span id="modeHint" class="muted small"></span></label>
         <textarea id="sourceText" maxlength="3000" rows="8" placeholder="여기에 독백(대사)을 붙여넣어 주세요. 표준어로 쓴 글이면 돼요."></textarea>
         <div class="counter-row">
           <span id="charCount" aria-live="polite">0 / 3000자</span>
@@ -154,7 +154,7 @@
             <div id="originalView" class="script-text"></div>
           </article>
           <article class="card script-card">
-            <h2>사투리 대본 <span id="resultName" class="muted small"></span></h2>
+            <h2><span id="resultTitle">사투리 대본</span> <span id="resultName" class="muted small"></span></h2>
             <p class="hint">색이 칠해진 부분이 바뀐 곳이에요. 마우스를 올리거나 눌러 보세요.</p>
             <div id="convertedView" class="script-text"></div>
           </article>

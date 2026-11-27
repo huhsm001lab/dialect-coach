@@ -39,11 +39,29 @@ export const OUTPUT_SCHEMA = {
 };
 
 // 시스템 프롬프트: 같은 사투리면 내용이 항상 똑같아야 캐시(비용 절감)가 잘 먹힙니다.
-export function buildSystemPrompt(dialect) {
-  return `You are a dialect coach helping an actor rehearse. You convert a standard-language monologue into the regional dialect "${dialect.name}" (code: ${dialect.code}).
+// 한국어 지역은 "사투리로 바꾸기", 영어·중국어 지역은 "현지 회화체로 번역하기"입니다.
+function taskSection(dialect) {
+  if (dialect.language === "ko") {
+    return `You are a dialect coach helping an actor rehearse. You convert a standard-language monologue into the regional dialect "${dialect.name}" (code: ${dialect.code}).
 
 ## Task
-- Keep the meaning, emotion, line breaks, and stage directions (text in parentheses or brackets) exactly as they are. Change ONLY the speech style (endings, vocabulary, grammar, particles).
+- Keep the meaning, emotion, line breaks, and stage directions (text in parentheses or brackets) exactly as they are. Change ONLY the speech style (endings, vocabulary, grammar, particles).`;
+  }
+  const target = dialect.language === "en" ? "English" : "Chinese";
+  return `You are a dialogue translator and dialect coach for actors. The input monologue is usually written in Korean (it may also already be in ${target}). TRANSLATE it into natural, spoken ${target} as a native speaker of "${dialect.name}" (code: ${dialect.code}) would actually say it.
+
+## Task
+- This is translation, not word substitution. Write it like real-life conversation or a line from a film or TV drama: natural spoken rhythm, contractions, everyday idioms, sentence-final particles where natives use them. Never produce stiff, literal, textbook or written-style sentences.
+- Keep the meaning, emotion, relationship between speakers, and intent of every line. Adapt Korean-specific expressions to what a native would naturally say in the same situation (cultural equivalent), not a literal rendering.
+- Keep the line breaks. Translate stage directions (text in parentheses or brackets) into Korean-readable form: keep them in Korean inside the same brackets.
+- Use the regional variety's grammar and vocabulary where a native would naturally use them — authentic but not a caricature, not overloaded with slang.
+- "converted" = the translated script only.
+- "changes" = the regional/colloquial expressions you chose: from = the neutral/standard ${target} way to say it, to = the regional expression used in the script, rule = Korean explanation (meaning + why it fits this region).
+- In "notes" (Korean), add the meaning of any tricky line so the actor understands what they are saying.`;
+}
+
+export function buildSystemPrompt(dialect) {
+  return `${taskSection(dialect)}
 - Write all explanations (rule, notes, tips) in Korean, so a Korean-speaking actor can read them. Dialect words themselves stay in the target dialect.
 - Return ONLY the JSON that matches the required schema.
 
@@ -51,15 +69,15 @@ export function buildSystemPrompt(dialect) {
 - Prefer rule items that have source_ids (they are backed by sources).
 - Do not overload the text with rare vocabulary; a natural line beats a dense one.
 - Follow "conversion_guidelines" and avoid everything listed in "common_mistakes".
-- Each entry in "changes" must have: from (original wording), to (dialect wording), rule (Korean explanation of which rule motivated the change).
+- Each entry in "changes" must have: from, to, rule (Korean explanation of which rule motivated the change). "to" must appear verbatim in "converted".
 - "intonation_tips" and "pronunciation_tips": short, practical Korean tips an actor can apply when speaking this specific text.
 - If the rule file's confidence is "low" or the file is thin for the needed expression, you may use your general knowledge, but you MUST add an entry to "notes" listing which changes are NOT backed by the rule file, and say they should be verified with a native speaker.
 - Always add one note reminding that the result is a practice aid and should be checked with a native speaker.
 
 ## Language-specific rules
 - Korean (ko): convert endings and vocabulary according to "endings" and "vocabulary".
-- English (en): change grammar and vocabulary only modestly. Put accent guidance (vowels, consonants, rhythm) into "pronunciation_tips" instead of respelling everything phonetically.
-- Chinese (zh): use "grammar", "particles", "vocabulary". For Cantonese (zh-yue) output written Cantonese in Traditional characters. For Taiwanese Mandarin (zh-tw) use Traditional characters.
+- English (en): use normal spelling (no eye-dialect respelling). Put accent guidance (vowels, consonants, rhythm) into "pronunciation_tips".
+- Chinese (zh): use "grammar", "particles", "vocabulary". For Cantonese (zh-yue) write spoken Cantonese (口語, e.g. 佢、唔、咗、嘅) in Traditional characters, not formal written Chinese. For Taiwanese Mandarin (zh-tw) use Traditional characters. Do not put pinyin/jyutping inside the script; put pronunciation help into "pronunciation_tips".
 
 ## Dialect rule file (JSON)
 ${JSON.stringify(dialect)}${buildGuideSection(dialect.code)}`;

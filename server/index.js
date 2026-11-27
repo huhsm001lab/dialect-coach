@@ -106,6 +106,10 @@ app.post("/api/convert", async (req, res) => {
       : who === "openai"
         ? await openaiConvert(text, dialect)
         : await claudeConvert(text, dialect);
+    // 영어·중국어는 "번역"이라 데모 모드(단어 치환)로는 할 수 없다는 걸 알려 줍니다.
+    if (demo && dialect.language !== "ko") {
+      result.notes = ["데모 모드에서는 번역을 할 수 없어요. AI 키를 넣으면 현지 회화체로 번역돼요.", ...(result.notes || [])];
+    }
 
     res.json({
       code: dialect.code,
