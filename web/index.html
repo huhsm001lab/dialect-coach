@@ -52,6 +52,11 @@
             <h3>따라 말하고 확인하기</h3>
             <p>마이크로 따라 말하면 대본과 얼마나 맞는지 점수가 나오고, 내 억양 그래프를 기준과 겹쳐 볼 수 있어요.</p>
           </li>
+          <li class="card intro-step">
+            <span class="intro-num" aria-hidden="true">4</span>
+            <h3>대본 흐름 분석</h3>
+            <p>전체 대본을 넣으면 장면·인물·감정 흐름과 내 배역의 행동동사를 정리해 줘요.</p>
+          </li>
         </ol>
       </section>
 
@@ -93,11 +98,12 @@
         (키는 이 화면에 붙여넣지 않아요.)
       </p>
 
-      <!-- 탭 3개: 화살표 키(← →)로도 이동할 수 있어요 -->
+      <!-- 탭 4개: 화살표 키(← →)로도 이동할 수 있어요 -->
       <div class="tabs" role="tablist" aria-label="사투리 코치 단계">
         <button class="tab" role="tab" id="tab-convert" aria-controls="panel-convert" aria-selected="true" tabindex="0">① 변환</button>
         <button class="tab" role="tab" id="tab-practice" aria-controls="panel-practice" aria-selected="false" tabindex="-1">② 연습</button>
         <button class="tab" role="tab" id="tab-listen" aria-controls="panel-listen" aria-selected="false" tabindex="-1">③ 듣고 따라하기</button>
+        <button class="tab" role="tab" id="tab-analyze" aria-controls="panel-analyze" aria-selected="false" tabindex="-1">④ 대본 분석</button>
       </div>
     </div>
   </header>
@@ -298,6 +304,65 @@
         </div>
 
         <ol id="listenList" class="listen-list"></ol>
+      </div>
+    </section>
+
+    <!-- ============ ④ 대본 분석 탭 ============ -->
+    <section id="panel-analyze" class="panel" role="tabpanel" aria-labelledby="tab-analyze" hidden>
+      <div class="card">
+        <h2>대본 분석</h2>
+        <label for="anText" class="block-label">대본 / 희곡 붙여넣기</label>
+        <textarea id="anText" maxlength="20000" rows="10" placeholder="전체 대본이나 희곡을 여기에 붙여넣어 주세요. (최대 20,000자)"></textarea>
+        <div class="counter-row">
+          <span id="anCount" aria-live="polite">0 / 20,000자</span>
+        </div>
+
+        <label for="anRole" class="block-label">내 배역 이름 <span class="muted small">(비우면 주인공 기준)</span></label>
+        <input id="anRole" class="text-input" type="text" maxlength="40" autocomplete="off" placeholder="예: 영희">
+
+        <div class="actions">
+          <button id="anBtn" class="btn btn-primary btn-lg" type="button" disabled>분석하기</button>
+          <button id="anImportBtn" class="btn" type="button">① 변환 탭의 독백 가져오기</button>
+        </div>
+        <p id="anReason" class="small muted" role="status" aria-live="polite"></p>
+        <p id="anProgress" class="progress" role="status" aria-live="polite" hidden></p>
+        <p id="anError" class="notice notice-error" role="alert" hidden></p>
+        <p class="notice notice-info small">대본은 서버에 저장하지 않고 분석에만 써요. 다른 사람의 작품은 개인 연습 용도로만 사용하세요.</p>
+      </div>
+
+      <!-- 분석 결과: 끝나면 app.js가 채우고 보여줘요 -->
+      <div id="anResult" hidden>
+        <div class="card" id="anOverview"></div>
+
+        <div class="card">
+          <h2>감정·긴장 흐름</h2>
+          <p class="hint">점을 누르면 해당 장면으로 이동해요. 큰 점은 전환점이에요.</p>
+          <div id="anChart" class="an-chart"></div>
+        </div>
+
+        <section aria-labelledby="anScenesTitle">
+          <h2 id="anScenesTitle" class="an-h2">장면 타임라인</h2>
+          <ol id="anScenes" class="an-list"></ol>
+        </section>
+
+        <section aria-labelledby="anCharsTitle">
+          <h2 id="anCharsTitle" class="an-h2">인물</h2>
+          <div id="anChars" class="an-grid"></div>
+          <div id="anRels"></div>
+        </section>
+
+        <section aria-labelledby="anFocusTitle">
+          <h2 id="anFocusTitle" class="an-h2">내 배역 여정</h2>
+          <div class="card" id="anFocus"></div>
+        </section>
+
+        <div id="anNotes" class="notice notice-warn small" hidden></div>
+
+        <div class="actions">
+          <button id="anCopyBtn" class="btn" type="button">결과 복사(텍스트)</button>
+          <button id="anAgainBtn" class="btn" type="button">다시 분석</button>
+        </div>
+        <p id="anCopyStatus" class="small muted" role="status" aria-live="polite"></p>
       </div>
     </section>
   </main>

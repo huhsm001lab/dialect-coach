@@ -438,7 +438,7 @@ function initIntro() {
 }
 
 /* ---------- 탭 ---------- */
-var TAB_IDS = ['convert', 'practice', 'listen'];
+var TAB_IDS = ['convert', 'practice', 'listen', 'analyze'];
 
 function selectTab(name, focus) {
   stopListening();
@@ -1614,11 +1614,500 @@ function redrawAllGraphs() {
   document.querySelectorAll('.graph-canvas').forEach(function (cv) { if (cv._draw) cv._draw(); });
 }
 
+/* ---------- ④ 대본 분석: 순수 함수 (화면과 상관없이 계산만 해요) ---------- */
+// AN_PURE_START
+var AN_MAX = 20000;
+var AN_KEY = 'dialectCoach.analysis.v1';
+
+// 긴장도를 0~10 정수로 맞춰요 (이상한 값이 와도 차트가 깨지지 않게)
+function clampTension(t) {
+  var n = Math.round(Number(t));
+  if (!isFinite(n)) n = 0;
+  return Math.max(0, Math.min(10, n));
+}
+
+// 차트 좌표 계산: 장면 목록 -> 점 위치, 선/면 경로, 눈금
+// (SVG 안의 좌표만 계산하는 순수 함수라서 node로도 시험할 수 있어요)
+function chartGeometry(scenes) {
+  var n = scenes.length;
+  var H = 280, padL = 40, padR = 28, padT = 44, padB = 40;
+  var step = n > 12 ? 56 : 0;                       // 12개 넘으면 장면당 56px 간격 (가로 스크롤)
+  var W = n > 12 ? padL + padR + step * (n - 1) : 640;
+  var innerW = W - padL - padR, innerH = H - padT - padB;
+  var points = scenes.map(function (s, i) {
+    var t = clampTension(s.tension);
+    var x = n === 1 ? padL + innerW / 2 : padL + innerW * i / (n - 1);
+    var y = padT + innerH * (1 - t / 10);
+    return { x: x, y: y, t: t, no: s.no != null ? s.no : i + 1, label: String(i + 1), turn: s.turning_point === true };
+  });
+  var line = points.map(function (p, i) { return (i ? 'L' : 'M') + p.x.toFixed(1) + ' ' + p.y.toFixed(1); }).join(' ');
+  var baseY = padT + innerH;
+  var area = n ? line + ' L' + points[n - 1].x.toFixed(1) + ' ' + baseY + ' L' + points[0].x.toFixed(1) + ' ' + baseY + ' Z' : '';
+  var ticks = [0, 5, 10].map(function (v) { return { v: v, y: padT + innerH * (1 - v / 10) }; });
+  return { W: W, H: H, padL: padL, padR: padR, padT: padT, padB: padB, baseY: baseY,
+           points: points, line: line, area: area, ticks: ticks, scroll: n > 12 };
+}
+
+// 점에 붙일 설명 문장 (aria-label, 말풍선 공용)
+function pointLabel(s, i) {
+  var no = s.no != null ? s.no : i + 1;
+  return '장면 ' + no + ': ' + (s.title || '제목 없음') + ' · 긴장 ' + clampTension(s.tension) + '/10' +
+    (s.emotion ? ' · ' + s.emotion : '') + (s.turning_point === true ? ' · 전환점' : '');
+}
+
+function asArr(v) { return Array.isArray(v) ? v : []; }
+function asStr(v) { return v == null ? '' : String(v); }
+
+// 서버 응답을 화면이 안전하게 쓸 수 있는 모양으로 정리해요 (빠진 칸은 빈 값)
+function normalizeAnalysis(d) {
+  d = d || {};
+  var f = d.focus || {};
+  return {
+    title_guess: asStr(d.title_guess), logline: asStr(d.logline), genre_tone: asStr(d.genre_tone),
+    themes: asArr(d.themes).map(asStr), structure: asStr(d.structure),
+    scenes: asArr(d.scenes).map(function (s, i) {
+      s = s || {};
+      return { no: s.no != null ? s.no : i + 1, title: asStr(s.title), place_time: asStr(s.place_time),
+        characters: asArr(s.characters).map(asStr), summary: asStr(s.summary),
+        tension: clampTension(s.tension), emotion: asStr(s.emotion),
+        turning_point: s.turning_point === true, start_quote: asStr(s.start_quote) };
+    }),
+    characters: asArr(d.characters).map(function (c) {
+      c = c || {};
+      return { name: asStr(c.name), description: asStr(c.description), want: asStr(c.want),
+        obstacle: asStr(c.obstacle), arc: asStr(c.arc) };
+    }),
+    relationships: asArr(d.relationships).map(function (r) {
+      r = r || {};
+      return { a: asStr(r.a), b: asStr(r.b), relation: asStr(r.relation), change: asStr(r.change) };
+    }),
+    focus: {
+      character: asStr(f.character), super_objective: asStr(f.super_objective),
+      beats: asArr(f.beats).map(function (b) {
+        b = b || {};
+        return { scene_no: b.scene_no, objective: asStr(b.objective), action_verb: asStr(b.action_verb),
+          emotion: asStr(b.emotion), subtext: asStr(b.subtext) };
+      }),
+      acting_tips: asArr(f.acting_tips).map(asStr)
+    },
+    notes: asArr(d.notes).map(asStr)
+  };
+}
+
+// 복사용 일반 글 요약
+function analysisToText(a) {
+  var L = [];
+  if (a.title_guess) L.push('[' + a.title_guess + ']');
+  if (a.logline) L.push(a.logline);
+  if (a.genre_tone) L.push('장르·분위기: ' + a.genre_tone);
+  if (a.themes.length) L.push('주제: ' + a.themes.join(', '));
+  if (a.structure) L.push('구조: ' + a.structure);
+  if (a.scenes.length) {
+    L.push('', '■ 장면 흐름');
+    a.scenes.forEach(function (s) {
+      L.push(s.no + '. ' + s.title + (s.place_time ? ' (' + s.place_time + ')' : '') +
+        ' - 긴장 ' + s.tension + '/10' + (s.emotion ? ', ' + s.emotion : '') + (s.turning_point ? ' [전환점]' : ''));
+      if (s.summary) L.push('   ' + s.summary);
+    });
+  }
+  if (a.characters.length) {
+    L.push('', '■ 인물');
+    a.characters.forEach(function (c) {
+      L.push('- ' + c.name + ': ' + c.description);
+      if (c.want) L.push('   원하는 것: ' + c.want);
+      if (c.obstacle) L.push('   가로막는 것: ' + c.obstacle);
+      if (c.arc) L.push('   변화: ' + c.arc);
+    });
+  }
+  if (a.relationships.length) {
+    L.push('', '■ 관계');
+    a.relationships.forEach(function (r) {
+      L.push('- ' + r.a + ' ↔ ' + r.b + ' : ' + r.relation + (r.change ? ' (변화: ' + r.change + ')' : ''));
+    });
+  }
+  var f = a.focus;
+  if (f.character || f.beats.length) {
+    L.push('', '■ 내 배역 여정' + (f.character ? ' - ' + f.character : ''));
+    if (f.super_objective) L.push('최상위 목표: ' + f.super_objective);
+    f.beats.forEach(function (b) {
+      L.push('- 장면 ' + b.scene_no + ': ' + b.objective + ' / 행동동사 ' + b.action_verb +
+        ' / 감정 ' + b.emotion + ' / 속마음 ' + b.subtext);
+    });
+    if (f.acting_tips.length) {
+      L.push('연기 팁:');
+      f.acting_tips.forEach(function (t) { L.push('- ' + t); });
+    }
+  }
+  L.push('', '(AI 분석 · 해석은 참고용)');
+  return L.join('\n');
+}
+// AN_PURE_END
+
+/* ---------- ④ 대본 분석: 화면 ---------- */
+var analyzing = false;
+var anTimer = null;
+var anData = null; // 가장 최근 분석 결과 (정리된 모양)
+
+var AN_PROGRESS = [
+  '대본을 끝까지 읽고 있어요…',
+  '장면을 나누고 긴장의 높낮이를 재는 중이에요…',
+  '인물과 관계를 정리하고 있어요…',
+  '내 배역의 행동동사를 고르는 중이에요…',
+  '긴 대본은 90초까지 걸릴 수 있어요. 조금만 기다려 주세요…'
+];
+
+function anSave() {
+  try {
+    localStorage.setItem(AN_KEY, JSON.stringify({
+      text: $('anText').value, role: $('anRole').value, analysis: anData
+    }));
+  } catch (e) { /* 저장이 안 돼도 괜찮아요 */ }
+}
+
+function anLoad() {
+  try {
+    var raw = localStorage.getItem(AN_KEY);
+    return raw ? JSON.parse(raw) : null;
+  } catch (e) { return null; }
+}
+
+function anUpdateButton() {
+  var n = $('anText').value.length;
+  $('anCount').textContent = n.toLocaleString('en-US') + ' / ' + AN_MAX.toLocaleString('en-US') + '자';
+  var h = state.health;
+  var noKey = !!(h && h.hasKey === false);
+  var reason = '';
+  if (noKey) reason = '데모 모드(AI 키 없음)에서는 대본 분석을 쓸 수 없어요. README-run.md를 보고 키를 넣어 주세요.';
+  else if (!h) reason = '';
+  $('anReason').textContent = analyzing ? '' : reason;
+  $('anBtn').disabled = analyzing || noKey || !$('anText').value.trim();
+}
+
+/* 작은 DOM 도우미: 라벨이 붙은 항목(dt/dd) 만들기 */
+function anDef(dl, label, value) {
+  if (!value) return;
+  dl.appendChild(el('dt', null, label));
+  dl.appendChild(el('dd', null, value));
+}
+
+function anChips(items) {
+  var ul = el('ul', 'an-chips');
+  items.forEach(function (t) { ul.appendChild(el('li', 'an-chip', t)); });
+  return ul;
+}
+
+function anRenderOverview(a) {
+  var box = $('anOverview');
+  box.innerHTML = '';
+  box.appendChild(el('span', 'badge badge-medium an-badge', 'AI 분석 · 해석은 참고용'));
+  if (a.title_guess) box.appendChild(el('p', 'an-title', a.title_guess));
+  box.appendChild(el('p', 'an-logline', a.logline || '(한 줄 요약이 없어요)'));
+  if (a.genre_tone) box.appendChild(el('p', 'an-tone', a.genre_tone));
+  if (a.themes.length) {
+    box.appendChild(el('h3', 'an-sub', '주제'));
+    box.appendChild(anChips(a.themes));
+  }
+  if (a.structure) {
+    box.appendChild(el('h3', 'an-sub', '구조'));
+    box.appendChild(el('p', null, a.structure));
+  }
+}
+
+var SVG_NS = 'http://www.w3.org/2000/svg';
+function svgEl(tag, attrs, text) {
+  var e = document.createElementNS(SVG_NS, tag);
+  for (var k in attrs) e.setAttribute(k, attrs[k]);
+  if (text != null) e.textContent = text;
+  return e;
+}
+
+// 장면 카드로 부드럽게 이동 + 잠깐 테두리 표시
+function anGoScene(i) {
+  var card = $('an-scene-' + i);
+  if (!card) return;
+  card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  card.focus({ preventScroll: true });
+  card.classList.add('flash');
+  setTimeout(function () { card.classList.remove('flash'); }, 1600);
+}
+
+function anRenderChart(a) {
+  var box = $('anChart');
+  box.innerHTML = '';
+  if (!a.scenes.length) { box.appendChild(el('p', 'muted', '장면 정보가 없어요.')); return; }
+  var g = chartGeometry(a.scenes);
+  var svg = svgEl('svg', { viewBox: '0 0 ' + g.W + ' ' + g.H, 'class': 'an-svg', role: 'group',
+    'aria-label': '장면별 긴장도 그래프. 가로는 장면 순서, 세로는 긴장도 0에서 10.' });
+  if (g.scroll) svg.style.minWidth = g.W + 'px';
+  // 가로 눈금선(0, 5, 10)과 숫자
+  g.ticks.forEach(function (t) {
+    svg.appendChild(svgEl('line', { x1: g.padL, x2: g.W - g.padR, y1: t.y, y2: t.y, 'class': t.v === 0 ? 'an-axis' : 'an-gl' }));
+    svg.appendChild(svgEl('text', { x: g.padL - 8, y: t.y + 4, 'text-anchor': 'end', 'class': 'an-tick' }, String(t.v)));
+  });
+  svg.appendChild(svgEl('path', { d: g.area, 'class': 'an-area' }));
+  svg.appendChild(svgEl('path', { d: g.line, 'class': 'an-line' }));
+  g.points.forEach(function (p, i) {
+    var s = a.scenes[i];
+    var label = pointLabel(s, i);
+    var grp = svgEl('g', { 'class': 'an-pt-g', tabindex: '0', role: 'button', 'aria-label': label + '. 누르면 장면 카드로 이동' });
+    grp.appendChild(svgEl('title', {}, label)); // 마우스를 올리면 나오는 말풍선
+    grp.appendChild(svgEl('circle', { cx: p.x, cy: p.y, r: 16, fill: 'transparent' })); // 누르기 쉬운 넓은 영역
+    grp.appendChild(svgEl('circle', { cx: p.x, cy: p.y, r: p.turn ? 9 : 5.5, 'class': 'an-pt' + (p.turn ? ' turn' : '') }));
+    grp.addEventListener('click', function () { anGoScene(i); });
+    grp.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); anGoScene(i); }
+    });
+    svg.appendChild(grp);
+    if (p.turn) svg.appendChild(svgEl('text', { x: p.x, y: p.y - 16, 'text-anchor': 'middle', 'class': 'an-turn-label' }, '전환점'));
+    svg.appendChild(svgEl('text', { x: p.x, y: g.baseY + 26, 'text-anchor': 'middle', 'class': 'an-tick' }, p.label));
+  });
+  box.appendChild(svg);
+}
+
+function anRenderScenes(a) {
+  var ol = $('anScenes');
+  ol.innerHTML = '';
+  if (!a.scenes.length) { ol.appendChild(el('li', 'muted', '장면 정보가 없어요.')); return; }
+  a.scenes.forEach(function (s, i) {
+    var li = el('li', 'card an-scene');
+    li.id = 'an-scene-' + i;
+    li.tabIndex = -1;
+    var head = el('div', 'an-scene-head');
+    head.appendChild(el('span', 'an-no', String(s.no)));
+    head.appendChild(el('h3', null, s.title || '제목 없음'));
+    if (s.turning_point) head.appendChild(el('span', 'badge an-turn-badge', '전환점'));
+    li.appendChild(head);
+    if (s.place_time) li.appendChild(el('p', 'an-meta', s.place_time));
+    if (s.characters.length) li.appendChild(anChips(s.characters));
+    if (s.summary) li.appendChild(el('p', null, s.summary));
+    if (s.emotion) li.appendChild(el('p', 'small', '감정: ' + s.emotion));
+    var row = el('div', 'an-bar-row');
+    row.appendChild(el('span', null, '긴장 ' + s.tension + '/10'));
+    var bar = el('div', 'an-bar');
+    bar.setAttribute('role', 'img');
+    bar.setAttribute('aria-label', '긴장 ' + s.tension + '/10');
+    var fill = el('span');
+    fill.style.width = (s.tension * 10) + '%';
+    bar.appendChild(fill);
+    row.appendChild(bar);
+    li.appendChild(row);
+    ol.appendChild(li);
+  });
+}
+
+function anRenderCharacters(a) {
+  var grid = $('anChars');
+  grid.innerHTML = '';
+  if (!a.characters.length) grid.appendChild(el('p', 'muted', '인물 정보가 없어요.'));
+  a.characters.forEach(function (c) {
+    var card = el('article', 'card');
+    card.appendChild(el('h3', null, c.name || '이름 없음'));
+    if (c.description) card.appendChild(el('p', null, c.description));
+    var dl = el('dl');
+    anDef(dl, '원하는 것', c.want);
+    anDef(dl, '가로막는 것', c.obstacle);
+    anDef(dl, '변화', c.arc);
+    card.appendChild(dl);
+    grid.appendChild(card);
+  });
+  var rels = $('anRels');
+  rels.innerHTML = '';
+  if (a.relationships.length) {
+    var card2 = el('div', 'card');
+    card2.appendChild(el('h3', null, '관계'));
+    var ul = el('ul', 'an-rels');
+    a.relationships.forEach(function (r) {
+      ul.appendChild(el('li', null, r.a + ' ↔ ' + r.b + ' : ' + r.relation + (r.change ? ' (변화: ' + r.change + ')' : '')));
+    });
+    card2.appendChild(ul);
+    rels.appendChild(card2);
+  }
+}
+
+function anRenderFocus(a) {
+  var box = $('anFocus');
+  box.innerHTML = '';
+  box.classList.add('an-focus');
+  var f = a.focus;
+  if (!f.character && !f.beats.length) { box.appendChild(el('p', 'muted', '내 배역 정보가 없어요.')); return; }
+  box.appendChild(el('h3', null, f.character || '주인공'));
+  if (f.super_objective) {
+    var sup = el('p', 'an-super');
+    sup.appendChild(el('span', 'small muted', '최상위 목표 '));
+    sup.appendChild(document.createElement('br'));
+    sup.appendChild(document.createTextNode(f.super_objective));
+    box.appendChild(sup);
+  }
+  if (f.beats.length) {
+    var wrap = el('div', 'an-table-wrap');
+    var table = el('table', 'an-beats');
+    var cap = el('caption', 'small muted', '장면별 행동 흐름');
+    cap.style.cssText = 'text-align:left;padding-bottom:4px';
+    table.appendChild(cap);
+    var tr = el('tr');
+    ['장면', '원하는 것', '행동동사', '감정', '속마음'].forEach(function (h) {
+      var th = el('th', null, h); th.scope = 'col'; tr.appendChild(th);
+    });
+    table.appendChild(el('thead')).appendChild(tr);
+    var body = el('tbody');
+    f.beats.forEach(function (b) {
+      var r = el('tr');
+      [['장면', '장면 ' + (b.scene_no != null ? b.scene_no : '?'), ''], ['원하는 것', b.objective, ''],
+       ['행동동사', b.action_verb, 'an-verb'], ['감정', b.emotion, ''], ['속마음', b.subtext, '']].forEach(function (c) {
+        var td = el('td', c[2], c[1]);
+        td.setAttribute('data-label', c[0]);
+        r.appendChild(td);
+      });
+      body.appendChild(r);
+    });
+    table.appendChild(body);
+    wrap.appendChild(table);
+    box.appendChild(wrap);
+  }
+  if (f.acting_tips.length) {
+    box.appendChild(el('h3', null, '연기 팁'));
+    var ul = el('ul', 'plain-list');
+    f.acting_tips.forEach(function (t) { ul.appendChild(el('li', null, t)); });
+    box.appendChild(ul);
+  }
+}
+
+function anRenderNotes(a) {
+  var box = $('anNotes');
+  box.innerHTML = '';
+  show(box, a.notes.length > 0);
+  if (!a.notes.length) return;
+  var ul = el('ul', 'plain-list');
+  a.notes.forEach(function (t) { ul.appendChild(el('li', null, t)); });
+  box.appendChild(ul);
+}
+
+// 분석 결과 전체를 화면에 그려요
+function renderAnalysis() {
+  var a = anData;
+  if (!a) { show($('anResult'), false); return; }
+  anRenderOverview(a);
+  anRenderChart(a);
+  anRenderScenes(a);
+  anRenderCharacters(a);
+  anRenderFocus(a);
+  anRenderNotes(a);
+  $('anCopyStatus').textContent = '';
+  show($('anResult'), true);
+}
+
+function anStartProgress() {
+  var t0 = Date.now();
+  var p = $('anProgress');
+  show(p, true);
+  function tick() {
+    var sec = Math.floor((Date.now() - t0) / 1000);
+    p.textContent = AN_PROGRESS[Math.min(AN_PROGRESS.length - 1, Math.floor(sec / 10))] + ' (' + sec + '초)';
+  }
+  tick();
+  anTimer = setInterval(tick, 1000);
+}
+
+function anStopProgress() {
+  clearInterval(anTimer);
+  show($('anProgress'), false);
+}
+
+async function doAnalyze() {
+  if (analyzing) return;
+  var text = $('anText').value.trim();
+  if (!text) return;
+  analyzing = true;
+  var btn = $('anBtn');
+  btn.disabled = true;
+  btn.textContent = '분석하는 중…';
+  btn.setAttribute('aria-busy', 'true');
+  show($('anError'), false);
+  anStartProgress();
+  try {
+    var body = { text: text };
+    var role = $('anRole').value.trim();
+    if (role) body.role = role;
+    var data = await api('/api/analyze', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body)
+    });
+    if (!data || typeof data !== 'object' || !Array.isArray(data.scenes)) {
+      throw new Error('서버가 이상한 답을 보냈어요. 다시 시도해 주세요.');
+    }
+    anData = normalizeAnalysis(data);
+    anSave();
+    renderAnalysis();
+    $('anResult').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  } catch (e) {
+    var box = $('anError');
+    box.textContent = e.message;
+    show(box, true);
+  } finally {
+    analyzing = false;
+    anStopProgress();
+    btn.textContent = '분석하기';
+    btn.removeAttribute('aria-busy');
+    anUpdateButton();
+  }
+}
+
+async function copyAnalysis() {
+  if (!anData) return;
+  var text = analysisToText(anData);
+  var status = $('anCopyStatus');
+  var ok = false;
+  try { await navigator.clipboard.writeText(text); ok = true; }
+  catch (e) {
+    try {
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      document.body.appendChild(ta);
+      ta.select();
+      ok = document.execCommand('copy');
+      document.body.removeChild(ta);
+    } catch (e2) { ok = false; }
+  }
+  status.textContent = ok ? '복사했어요!' : '복사하지 못했어요. 결과를 직접 드래그해서 복사해 주세요.';
+  setTimeout(function () { status.textContent = ''; }, 3000);
+}
+
+function initAnalyze() {
+  var saved = anLoad();
+  if (saved) {
+    if (typeof saved.text === 'string') $('anText').value = saved.text.slice(0, AN_MAX);
+    if (typeof saved.role === 'string') $('anRole').value = saved.role;
+    if (saved.analysis && Array.isArray(saved.analysis.scenes)) {
+      anData = normalizeAnalysis(saved.analysis);
+      renderAnalysis();
+    }
+  }
+  $('anText').addEventListener('input', function () { anUpdateButton(); anSave(); });
+  $('anRole').addEventListener('input', anSave);
+  $('anBtn').addEventListener('click', doAnalyze);
+  $('anCopyBtn').addEventListener('click', copyAnalysis);
+  $('anAgainBtn').addEventListener('click', function () {
+    $('anText').focus();
+    $('anText').scrollIntoView({ behavior: 'smooth', block: 'center' });
+  });
+  $('anImportBtn').addEventListener('click', function () {
+    var src = $('sourceText').value;
+    if (!src.trim()) { $('anReason').textContent = '① 변환 탭에 독백이 아직 없어요.'; return; }
+    $('anText').value = src.slice(0, AN_MAX);
+    anUpdateButton();
+    anSave();
+    $('anReason').textContent = '독백을 가져왔어요.';
+  });
+  anUpdateButton();
+}
+
 /* ---------- 시작 ---------- */
 async function init() {
   initIntro();
   initTabs();
   initTooltip();
+  initAnalyze();
 
   // 저장돼 있던 변환 결과 불러오기 (새로고침해도 ②③ 탭이 동작하도록)
   var saved = loadSaved();
@@ -1679,6 +2168,7 @@ async function init() {
   api('/api/health').then(function (h) {
     show($('keyNotice'), h && h.hasKey === false);
     applyHealth(h);
+    anUpdateButton();
   }).catch(function () { applyHealth(null); /* 지역 목록 실패 때도 안내해요 */ });
 
   try {
