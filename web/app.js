@@ -411,30 +411,67 @@ function loadSaved() {
   } catch (e) { return null; }
 }
 
-/* ---------- 소개 페이지 ---------- */
-// 사이트를 새로 열 때마다 소개를 먼저 보여 줘요. "시작하기"를 누르면 이 탭에서는 기억해 둬서
-// 새로고침해도 앱이 그대로 보여요. (탭을 닫고 다시 열면 소개가 다시 나와요)
-var INTRO_KEY = 'dialectCoach.introSeen';
+/* ---------- 소개 페이지와 연습실(방) ---------- */
+// 첫 페이지(소개)에서 "사투리·번역 연습실" 또는 "대본 분석실"을 골라 들어가요.
+// - 주소 끝에 #dialect 또는 #analyze 를 붙이면 그 방으로 바로 열려요 (다른 서비스에서 바로가기 링크로 쓰기 좋아요).
+// - 같은 탭에서 새로고침하면 들어가 있던 방이 그대로 보여요. 탭을 닫고 다시 열면 소개부터 나와요.
+var ROOM_KEY = 'dialectCoach.room';
+var ROOMS = {
+  dialect: { name: '사투리·번역 연습실', tabs: ['convert', 'practice', 'listen'], other: 'analyze' },
+  analyze: { name: '대본 분석실', tabs: ['analyze'], other: 'dialect' }
+};
+var currentRoom = 'dialect';
+
+function roomTabs() { return ROOMS[currentRoom].tabs; }
 
 function showIntro(on) {
   document.body.classList.toggle('show-intro', on);
   $('intro').hidden = !on;
   window.scrollTo(0, 0);
-  if (on) $('introStart').focus();
+  if (on) {
+    try { sessionStorage.removeItem(ROOM_KEY); } catch (e) { /* 무시 */ }
+    if (location.hash) history.replaceState(null, '', location.pathname + location.search);
+    var first = document.querySelector('.room-card');
+    if (first) first.focus({ preventScroll: true });
+  }
+}
+
+function enterRoom(room) {
+  if (!ROOMS[room]) room = 'dialect';
+  currentRoom = room;
+  var r = ROOMS[room];
+  document.body.setAttribute('data-room', room);
+  $('roomName').textContent = r.name;
+  $('roomSwitch').textContent = ROOMS[r.other].name + '로 →';
+  // 이 방의 탭만 보이게 (탭이 하나뿐이면 탭 줄 자체를 숨겨요)
+  TAB_IDS.forEach(function (id) { $('tab-' + id).hidden = r.tabs.indexOf(id) === -1; });
+  $('tabList').hidden = r.tabs.length < 2;
+  try { sessionStorage.setItem(ROOM_KEY, room); } catch (e) { /* 무시 */ }
+  if (location.hash !== '#' + room) history.replaceState(null, '', '#' + room);
+  showIntro(false);
+  selectTab(r.tabs[0], false);
+  var focusEl = room === 'analyze' ? document.querySelector('#panel-analyze textarea') : $('sourceText');
+  if (focusEl) focusEl.focus();
+}
+
+function roomFromHash() {
+  var h = (location.hash || '').replace('#', '');
+  return ROOMS[h] ? h : null;
 }
 
 function initIntro() {
-  var seen = false;
-  try { seen = sessionStorage.getItem(INTRO_KEY) === '1'; } catch (e) { /* 저장 막힘: 매번 소개 */ }
-  function start() {
-    try { sessionStorage.setItem(INTRO_KEY, '1'); } catch (e) { /* 무시 */ }
-    showIntro(false);
-    $('sourceText').focus();
-  }
-  $('introStart').addEventListener('click', start);
-  $('introStart2').addEventListener('click', start);
+  if ('scrollRestoration' in history) history.scrollRestoration = 'manual'; // 새로고침해도 맨 위부터 보이게
+  document.querySelectorAll('[data-room]').forEach(function (btn) {
+    btn.addEventListener('click', function () { enterRoom(btn.getAttribute('data-room')); });
+  });
   $('introOpen').addEventListener('click', function () { showIntro(true); });
-  showIntro(!seen);
+  $('roomSwitch').addEventListener('click', function () { enterRoom(ROOMS[currentRoom].other); });
+  window.addEventListener('hashchange', function () { var r = roomFromHash(); if (r && r !== currentRoom) enterRoom(r); });
+
+  var saved = null;
+  try { saved = sessionStorage.getItem(ROOM_KEY); } catch (e) { /* 저장 막힘 */ }
+  var start = roomFromHash() || (ROOMS[saved] ? saved : null);
+  if (start) enterRoom(start); else showIntro(true);
 }
 
 /* ---------- 탭 ---------- */
@@ -457,16 +494,18 @@ function selectTab(name, focus) {
 }
 
 function initTabs() {
-  TAB_IDS.forEach(function (id, idx) {
+  TAB_IDS.forEach(function (id) {
     var tab = $('tab-' + id);
     tab.addEventListener('click', function () { selectTab(id, false); });
     tab.addEventListener('keydown', function (e) {
+      var list = roomTabs(); // 지금 들어와 있는 방의 탭들 안에서만 이동
+      var idx = list.indexOf(id);
       var next = null;
-      if (e.key === 'ArrowRight') next = (idx + 1) % TAB_IDS.length;
-      else if (e.key === 'ArrowLeft') next = (idx + TAB_IDS.length - 1) % TAB_IDS.length;
+      if (e.key === 'ArrowRight') next = (idx + 1) % list.length;
+      else if (e.key === 'ArrowLeft') next = (idx + list.length - 1) % list.length;
       else if (e.key === 'Home') next = 0;
-      else if (e.key === 'End') next = TAB_IDS.length - 1;
-      if (next !== null) { e.preventDefault(); selectTab(TAB_IDS[next], true); }
+      else if (e.key === 'End') next = list.length - 1;
+      if (next !== null) { e.preventDefault(); selectTab(list[next], true); }
     });
   });
   document.querySelectorAll('[data-goto]').forEach(function (b) {
@@ -2104,8 +2143,8 @@ function initAnalyze() {
 
 /* ---------- 시작 ---------- */
 async function init() {
-  initIntro();
   initTabs();
+  initIntro(); // 탭 준비가 끝난 뒤 첫 페이지 또는 방을 열어요
   initTooltip();
   initAnalyze();
 
