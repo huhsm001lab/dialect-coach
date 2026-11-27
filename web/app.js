@@ -411,6 +411,31 @@ function loadSaved() {
   } catch (e) { return null; }
 }
 
+/* ---------- 소개 페이지 ---------- */
+// 처음 온 사람에게만 소개를 보여 주고, "시작하기"를 누르면 기억해 둬요.
+var INTRO_KEY = 'dialectCoach.introSeen';
+
+function showIntro(on) {
+  document.body.classList.toggle('show-intro', on);
+  $('intro').hidden = !on;
+  window.scrollTo(0, 0);
+  if (on) $('introStart').focus();
+}
+
+function initIntro() {
+  var seen = false;
+  try { seen = localStorage.getItem(INTRO_KEY) === '1'; } catch (e) { /* 저장 막힘: 매번 소개 */ }
+  function start() {
+    try { localStorage.setItem(INTRO_KEY, '1'); } catch (e) { /* 무시 */ }
+    showIntro(false);
+    $('sourceText').focus();
+  }
+  $('introStart').addEventListener('click', start);
+  $('introStart2').addEventListener('click', start);
+  $('introOpen').addEventListener('click', function () { showIntro(true); });
+  showIntro(!seen);
+}
+
 /* ---------- 탭 ---------- */
 var TAB_IDS = ['convert', 'practice', 'listen'];
 
@@ -1562,6 +1587,7 @@ function redrawAllGraphs() {
 
 /* ---------- 시작 ---------- */
 async function init() {
+  initIntro();
   initTabs();
   initTooltip();
 
