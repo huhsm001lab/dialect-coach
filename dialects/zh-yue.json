@@ -1,0 +1,353 @@
+{
+  "code": "zh-yue",
+  "name": "粤语 (Cantonese; Hong Kong written and spoken)",
+  "language": "zh",
+  "summary": "Cantonese is a separate Chinese language, not a Mandarin dialect. This file targets Hong Kong Cantonese, written in Traditional characters with Jyutping romanization (Jyutping tone numbers 1 to 6 are shown after each syllable). Several Cantonese-specific characters (佢, 嘅, 唔, 咗, 喺, 哋, 啲, 嚟, 冇) are documented in the sources below. Yale romanization in the CUHK page was converted to Jyutping by hand, so check those conversions. Written Cantonese is a set of characters used to record speech, so the characters are not standardized. Most grammar examples come from the CUHK Cantonese Grammar site and the Cantonese grammar reference. Sentence-final particles beyond the ones listed were not verified.",
+  "grammar": [
+    {
+      "standard": "他 / 她 / 它 (he, she, it)",
+      "dialect": "佢",
+      "condition": "Third-person pronoun for one person or thing. Use 佢 for he or she in Hong Kong Cantonese speech.",
+      "example_standard": "我和他在谈恋爱。",
+      "example_dialect": "我同佢拍緊拖。",
+      "romanization": "ngo5 tung4 keoi5 paak3 gan2 to1",
+      "source_ids": [1, 2]
+    },
+    {
+      "standard": "他们 (they)",
+      "dialect": "佢哋",
+      "condition": "Plural form made by adding 哋 to 佢. The source notes that 佢哋 replaces 他們 in Cantonese.",
+      "example_standard": "他们",
+      "example_dialect": "佢哋",
+      "romanization": "keoi5 dei6",
+      "source_ids": [2]
+    },
+    {
+      "standard": "的 (possessive; ~'s)",
+      "dialect": "嘅",
+      "condition": "Possessive or modifying marker. Also used as a sentence-final particle for emphasis.",
+      "example_standard": "那是他的。",
+      "example_dialect": "係佢嘅呀！",
+      "romanization": "hai6 keoi5 ge3 aa3",
+      "source_ids": [2, 3]
+    },
+    {
+      "standard": "不是 (is not)",
+      "dialect": "唔係",
+      "condition": "Negation of 係 (to be). Use 唔 (not) plus 係 (be).",
+      "example_standard": "我不太熟悉他。",
+      "example_dialect": "我唔係好熟佢。",
+      "romanization": "ngo5 m4 hai6 hou2 suk6 keoi5",
+      "source_ids": [1]
+    },
+    {
+      "standard": "没有 (do not have)",
+      "dialect": "冇",
+      "condition": "Colloquial negative for possession or existence. Source calls 冇 the colloquial form of 無.",
+      "example_standard": "没有钱。",
+      "example_dialect": "冇錢。",
+      "romanization": "mou5 cin2",
+      "source_ids": [2]
+    },
+    {
+      "standard": "了 (completed action)",
+      "dialect": "咗",
+      "condition": "Marks a completed action whose result still matters now. Use after the verb.",
+      "example_standard": "我在香港住了一年（至今仍住）。",
+      "example_dialect": "我喺香港住咗一年。",
+      "romanization": "ngo5 hai2 hoeng1 gong2 zyu6 zo2 jat1 nin4",
+      "source_ids": [3]
+    },
+    {
+      "standard": "过 (experience marker: did it before, not now)",
+      "dialect": "過",
+      "condition": "Marks a past experience that no longer applies now. Contrast with 咗.",
+      "example_standard": "我在香港住过一年（现在已经不住了）。",
+      "example_dialect": "我喺香港住過一年。",
+      "romanization": "ngo5 hai2 hoeng1 gong2 zyu6 gwo3 jat1 nin4",
+      "source_ids": [3]
+    },
+    {
+      "standard": "正在 (in progress)",
+      "dialect": "緊",
+      "condition": "Marks an ongoing action. Placed between the verb and the object or after the verb.",
+      "example_standard": "我正在谈恋爱。",
+      "example_dialect": "我拍緊拖。",
+      "romanization": "ngo5 paak3 gan2 to1",
+      "source_ids": [3]
+    },
+    {
+      "standard": "在 (at, in, on)",
+      "dialect": "喺",
+      "condition": "Preposition for place. Used in written and spoken Cantonese.",
+      "example_standard": "我在香港。",
+      "example_dialect": "我喺香港。",
+      "romanization": "ngo5 hai2 hoeng1 gong2",
+      "source_ids": [2, 3]
+    },
+    {
+      "standard": "和 / 跟 (with)",
+      "dialect": "同",
+      "condition": "Preposition meaning with. Use before the second person or thing.",
+      "example_standard": "我和他",
+      "example_dialect": "我同佢",
+      "romanization": "ngo5 tung4 keoi5",
+      "source_ids": [1]
+    },
+    {
+      "standard": "来 (come)",
+      "dialect": "嚟",
+      "condition": "Colloquial form of 來 in spoken Cantonese. The source says the choice of character is disputed.",
+      "example_standard": "来",
+      "example_dialect": "嚟",
+      "romanization": "lei4",
+      "source_ids": [2]
+    },
+    {
+      "standard": "一些 (some)",
+      "dialect": "啲",
+      "condition": "Plural or quantity word for some or many. Source says 啲 means some or a little.",
+      "example_standard": "一些朋友",
+      "example_dialect": "啲朋友",
+      "romanization": "di1 pang4 jau5",
+      "source_ids": [2]
+    }
+  ],
+  "vocabulary": [
+    {
+      "standard": "他",
+      "dialect": "佢",
+      "romanization": "keoi5",
+      "note": "Core pronoun. Source notes it is the Cantonese form of 他/她/它.",
+      "source_ids": [1, 2]
+    },
+    {
+      "standard": "他们",
+      "dialect": "佢哋",
+      "romanization": "keoi5 dei6",
+      "note": "Plural pronoun.",
+      "source_ids": [2]
+    },
+    {
+      "standard": "的",
+      "dialect": "嘅",
+      "romanization": "ge3",
+      "note": "Possessive marker.",
+      "source_ids": [2]
+    },
+    {
+      "standard": "不",
+      "dialect": "唔",
+      "romanization": "m4",
+      "note": "General negation.",
+      "source_ids": [2]
+    },
+    {
+      "standard": "没有",
+      "dialect": "冇",
+      "romanization": "mou5",
+      "note": "Colloquial negative existence.",
+      "source_ids": [2]
+    },
+    {
+      "standard": "了",
+      "dialect": "咗",
+      "romanization": "zo2",
+      "note": "Completed-action marker.",
+      "source_ids": [2]
+    },
+    {
+      "standard": "在",
+      "dialect": "喺",
+      "romanization": "hai2",
+      "note": "Place preposition.",
+      "source_ids": [2]
+    },
+    {
+      "standard": "来",
+      "dialect": "嚟",
+      "romanization": "lei4",
+      "note": "Spoken form. The written choice (來 vs 嚟) is disputed in the source.",
+      "source_ids": [2]
+    },
+    {
+      "standard": "一些",
+      "dialect": "啲",
+      "romanization": "di1",
+      "note": "Some or a few.",
+      "source_ids": [2]
+    },
+    {
+      "standard": "谈恋爱",
+      "dialect": "拍拖",
+      "romanization": "paak3 to1",
+      "note": "Dating or in a relationship. Source gives it as 拍緊拖 in an example sentence, so the meaning is inferred from that example.",
+      "source_ids": [1]
+    },
+    {
+      "standard": "不是",
+      "dialect": "唔係",
+      "romanization": "m4 hai6",
+      "note": "Negative of 是.",
+      "source_ids": [1]
+    },
+    {
+      "standard": "公共汽车 (bus)",
+      "dialect": "巴士",
+      "romanization": "baa1 si2",
+      "note": "Hong Kong word for bus, borrowed from English. Source says it differs from standard Chinese.",
+      "source_ids": [4]
+    },
+    {
+      "standard": "喜欢",
+      "dialect": "鍾意",
+      "romanization": "zung1 ji3",
+      "note": "Like or to be fond of. Common in everyday speech.",
+      "source_ids": [4]
+    },
+    {
+      "standard": "不知道",
+      "dialect": "唔知",
+      "romanization": "m4 zi1",
+      "note": "Do not know. Source says 唔知 is also used as a pun on '5G' in writing.",
+      "source_ids": [4]
+    },
+    {
+      "standard": "家庭主妇 / 太太",
+      "dialect": "師奶",
+      "romanization": "si1 naai1",
+      "note": "Housewife, often used with a slightly teasing tone. Source gives the meaning.",
+      "source_ids": [4]
+    },
+    {
+      "standard": "7-Eleven",
+      "dialect": "七仔",
+      "romanization": "chat1 jai2",
+      "note": "Common nickname for the convenience store chain. Source lists it as a Hong Kong expression.",
+      "source_ids": [4]
+    }
+  ],
+  "particles": [
+    {
+      "particle": "呀",
+      "function": "Sentence-final particle for a positive statement or emphasis. Source gives aa3 for affirmative statements and aa4 for questions that expect a yes answer.",
+      "example": "係佢嘅呀！ (hai6 keoi5 ge3 aa3)",
+      "source_ids": [3]
+    },
+    {
+      "particle": "咩",
+      "function": "Question particle for surprise or checking an unexpected fact (similar to 'really?' or 'no way?'). Source gives me1.",
+      "example": "你唔知嘅咩？ (nei5 m4 zi1 ge3 me1)",
+      "source_ids": [3]
+    },
+    {
+      "particle": "吓",
+      "function": "Used for surprise or repeating a question back. Source uses haa5 for a question and a surprised reply.",
+      "example": "吓？你下個禮拜放假呀？ (haa5 ... )",
+      "source_ids": [3]
+    },
+    {
+      "particle": "喇",
+      "function": "Sentence-final particle. Source shows it in an example without giving a function, so treat its nuance as unverified.",
+      "example": "去嘅喇 (heoi3 ge3 laa3)",
+      "source_ids": [1]
+    },
+    {
+      "particle": "嘞",
+      "function": "Sentence-final particle. Source shows it in an example without giving a function, so treat its nuance as unverified. Low confidence.",
+      "example": "佢就會嘞 (keoi5 zau6 wui5 laak3)",
+      "source_ids": [1]
+    },
+    {
+      "particle": "㗎",
+      "function": "Contraction of 嘅 and 呀 in speech, according to the source. Low confidence: no example was verified.",
+      "example": "",
+      "source_ids": [3]
+    }
+  ],
+  "pronunciation": [
+    {
+      "rule": "In casual Hong Kong speech, the initial n- is often pronounced as l-. This is called 懶音 (lazy sound) in the source.",
+      "actor_tip": "In casual lines, say 你 as 'lei5' with a light l sound. Avoid this in formal speeches, news-style lines or characters who speak very formally.",
+      "example": "你 nei5 → lei5",
+      "source_ids": [4]
+    },
+    {
+      "rule": "Educated Hong Kong speakers avoid some sound mergers, but some older speakers still keep the distinction.",
+      "actor_tip": "For formal or educated characters, keep the original sound (for example n in 你). For older characters, keep the distinction clear.",
+      "example": "唔 m4 (source notes older speakers may keep this distinction)",
+      "source_ids": [4]
+    },
+    {
+      "rule": "Jyutping numbers 1 to 6 mark the pitch of each syllable.",
+      "actor_tip": "Each syllable ends in a number. The same syllable with a different number is a different word. For example 嘅 ge3 and 咗 zo2 differ in tone. Practice each line with the tone numbers beside it.",
+      "example": "嘅 ge3 vs 咗 zo2",
+      "source_ids": [3]
+    }
+  ],
+  "tones_intonation": [
+    {
+      "rule": "A question can be made by raising the pitch at the end of a statement, without any question particle.",
+      "source_ids": [3]
+    },
+    {
+      "rule": "In loanwords that have two syllables, the second syllable is said with a rising 2nd tone. Source gives 巴士 baa1 si2 as an example, but this is a low-confidence generalization from one article.",
+      "source_ids": [4]
+    }
+  ],
+  "common_mistakes": [
+    "Putting 嘅, 咗, 唔, 佢 and 喺 into every line. Use them in dialogue, not in every sentence.",
+    "Mixing Standard Chinese words (他們, 在, 不) with Cantonese particles in the same line.",
+    "Over-using English loanwords (巴士, 七仔) to sound local. Use one per scene at most.",
+    "Imitating the l-for-n change in formal lines or in narration.",
+    "Using 咩 or 吓 in every question. They signal surprise and are not neutral question markers."
+  ],
+  "generational_notes": [
+    "Younger Hong Kong speakers use more English loanwords, abbreviations and puns, according to the source. Older speakers more often keep the original sound distinctions.",
+    "The 5G pun for 唔知 shows how writing play works in online speech. It is not a spoken form."
+  ],
+  "conversion_guidelines": [
+    "Default to Hong Kong Traditional characters with Jyutping after each line, so the actor can check tones.",
+    "In dialogue, change 他/她 to 佢, 他们 to 佢哋, 的 to 嘅, 不 to 唔, 没有 to 冇, 了 to 咗, 在 to 喺. Keep narration in standard written Chinese, or in a clearly labeled formal register.",
+    "Use only one or two sentence-final particles per character, chosen by emotion: 呀 (statement), 咩 (surprised question), 吓 (question back).",
+    "Keep English loanwords to a minimum, for example one per scene.",
+    "Do not apply the n-to-l change to formal or narrated lines. Apply it only in casual dialogue, and mark it for native review.",
+    "Check every Jyutping tone against a Cantonese dictionary before performance. The Yale-to-Jyutping conversions were done by hand."
+  ],
+  "sources": [
+    {
+      "id": 1,
+      "title": "CUHK Cantonese Grammar, section 3 (Chinese University of Hong Kong)",
+      "url": "https://www.cuhk.edu.hk/lin/cbrc/CantoneseGrammar/multimedia/03.htm",
+      "type": "academic"
+    },
+    {
+      "id": 2,
+      "title": "Written Cantonese - Wikipedia (English)",
+      "url": "https://en.wikipedia.org/wiki/Written_Cantonese",
+      "type": "encyclopedia"
+    },
+    {
+      "id": 3,
+      "title": "Cantonese grammar - Wikipedia (English)",
+      "url": "https://en.wikipedia.org/wiki/Cantonese_grammar",
+      "type": "encyclopedia"
+    },
+    {
+      "id": 4,
+      "title": "Hong Kong Cantonese - Wikipedia (English)",
+      "url": "https://en.wikipedia.org/wiki/Hong_Kong_Cantonese",
+      "type": "encyclopedia"
+    }
+  ],
+  "confidence": "medium",
+  "open_questions": [
+    "Verify all Jyutping tones against words.hk or CantoDict. The words.hk page I tried returned 404, so no dictionary entry was confirmed.",
+    "Sentence-final particles 啦, 喎, 嘛, 囉, 嗱, 啩 and 掛 were listed in the source without functions. Verify with Matthews and Yip, Cantonese: A Comprehensive Grammar, or a native speaker.",
+    "The source's examples for 呀, 喇 and 嘞 were not clearly explained. Check their functions.",
+    "Whether 咗 and 了 always match in meaning is not settled in the sources reviewed. Check with a native speaker.",
+    "Spoken versus written register differences were only partly covered. The source describes written Cantonese as recording spoken forms, but did not compare sentence-level usage in detail.",
+    "Source claims about 2nd-tone rising in loanword syllables come from one article and should be checked before use.",
+    "Choice between 來 and 嚟 is disputed in the source. Decide which form to use with a native speaker or the Hong Kong Government's Cantonese guidance."
+  ]
+}

@@ -1,0 +1,198 @@
+{
+  "code": "en-scot",
+  "name": "Scottish English (Scottish Standard English and Scots)",
+  "language": "en",
+  "summary": "Scottish English covers a range of speech from Scottish Standard English (SSE), the formal variety used in Scotland, to Scots, a separate Germanic language closely related to English that sits at the broad end of a continuum. Most middle-class speakers conform to standard grammar and use SSE in formal settings and Scots-influenced speech informally. The most useful features for an actor are sound features: rhoticity (r is pronounced), the /hw/ versus /w/ distinction in 'which' and 'witch', the Scottish Vowel Length Rule (vowels before voiced sounds are longer), the pull-pool merger, and the 'ch' sound in 'loch'. Grammar and vocabulary differences are fewer and mostly come from Scots. Sources are Wikipedia articles on Scottish English, the Scottish Vowel Length Rule and Scots. Scots-specific words such as 'och', 'ken' and 'dinnae' were NOT found in the opened sources and are deliberately left out.",
+  "grammar": [
+    {
+      "standard": "My hair needs washing.",
+      "dialect": "My hair needs washed.",
+      "condition": "Scottish English, including some northern English. The source gives the example and says it means 'needs washing'. Medium confidence (from one summary).",
+      "example_standard": "The car needs cleaning.",
+      "example_dialect": "The car needs cleaned.",
+      "source_ids": [1]
+    },
+    {
+      "standard": "I want a drink.",
+      "dialect": "I'm wanting a drink.",
+      "condition": "Informal speech. Progressive form used with verbs of wanting or liking that standard English normally does not use in the progressive. LOW confidence: from one summary, not checked in the original text.",
+      "example_standard": "I know what you mean.",
+      "example_dialect": "I'm knowing what you mean.",
+      "source_ids": [1]
+    },
+    {
+      "standard": "wait for you",
+      "dialect": "wait on you",
+      "condition": "Scottish English, informal. LOW confidence: noted in one summary of the source; check before use.",
+      "example_standard": "I'll wait for you at the station.",
+      "example_dialect": "I'll wait on you at the station.",
+      "source_ids": [1]
+    }
+  ],
+  "vocabulary": [
+    {
+      "standard": "yes",
+      "dialect": "aye",
+      "note": "Scots word for 'yes'. Source gives it in the Scots article. Common in informal Scottish speech; use for working-class or rural characters, or as a neutral yes in Scottish speech.",
+      "source_ids": [3]
+    },
+    {
+      "standard": "small / little",
+      "dialect": "wee",
+      "note": "Listed in the source as Scots-origin. Very common.",
+      "source_ids": [1]
+    },
+    {
+      "standard": "child",
+      "dialect": "wean / bairn",
+      "note": "Listed in the source as Scots-origin. Regional preference (e.g. wean vs bairn) was not verified; check before choosing by region.",
+      "source_ids": [1]
+    },
+    {
+      "standard": "pretty / nice",
+      "dialect": "bonnie",
+      "note": "Listed in the source as Scots-origin.",
+      "source_ids": [1]
+    },
+    {
+      "standard": "fine / excellent",
+      "dialect": "braw",
+      "note": "Listed in the source as Scots-origin. Used for 'good' or 'excellent'.",
+      "source_ids": [1]
+    },
+    {
+      "standard": "big",
+      "dialect": "muckle",
+      "note": "Listed in the source as Scots-origin. Older or rural.",
+      "source_ids": [1]
+    },
+    {
+      "standard": "outside of",
+      "dialect": "outwith",
+      "note": "Listed in the source as a Scottish formal/legal term used in everyday speech. Use only for formal or official speech.",
+      "source_ids": [1]
+    },
+    {
+      "standard": "you (singular or plural, informal)",
+      "dialect": "ye",
+      "note": "Source gives 'haste ye back' as an example. Use sparingly.",
+      "source_ids": [3]
+    },
+    {
+      "standard": "mayor (council leader in a Scottish town)",
+      "dialect": "provost",
+      "note": "Civic title used in Scotland, listed in the source. Use only for civic or political scenes.",
+      "source_ids": [1]
+    },
+    {
+      "standard": "why",
+      "dialect": "how? (meaning 'why?')",
+      "note": "Source notes this use. LOW confidence: one summary; check before use.",
+      "source_ids": [1]
+    },
+    {
+      "standard": "your turn",
+      "dialect": "it's your shot",
+      "note": "Source gives this as a meaning of 'your turn'. LOW confidence: one summary; check before use.",
+      "source_ids": [1]
+    }
+  ],
+  "pronunciation": [
+    {
+      "rule": "Rhoticity: Scottish English is mostly rhotic, so /r/ is pronounced in the syllable coda (after a vowel, at the end of a word or before a consonant).",
+      "ipa": "/r/ in coda pronounced (realisation varies by speaker)",
+      "actor_tip": "Pronounce every r you see after a vowel: 'car', 'hard', 'bird', 'worst'. Do not drop it. Keep it clear rather than soft.",
+      "example": "car, hard, bird, first",
+      "source_ids": [1]
+    },
+    {
+      "rule": "W and wh are distinct in many speakers: 'which' starts with a /hw/ sound while 'witch' starts with a plain /w/.",
+      "ipa": "which /hwɪtʃ/; witch /wɪtʃ/",
+      "actor_tip": "Breathe a little puff of air before the w in 'which', 'whale', 'whisky' so it starts like 'hw'. 'Witch' and 'wind' start with a plain w, no puff.",
+      "example": "which vs witch; whale vs wail",
+      "source_ids": [1]
+    },
+    {
+      "rule": "Scottish Vowel Length Rule: a vowel is phonetically longer before voiced fricatives (v, z, th as in 'this', zh), before /r/, and before a morpheme boundary; it is shorter before the voiceless counterparts.",
+      "ipa": "[seːv] save vs [sef] safe; [doːz] doze vs [dos] dose; [tiːð] teethe vs [tiθ] teeth",
+      "actor_tip": "Lengthen the vowel before voiced sounds (v, z, 'th' in 'this'). 'Save' has a longer vowel than 'safe'; 'doze' is longer than 'dose'. Keep the length moderate; this is about length, not stress or emphasis. Note that 'need' stays short but 'kneed' (the past of 'knee' used as a verb) is longer, showing the rule responds to word structure.",
+      "example": "save / safe; doze / dose; teethe / teeth; need / kneed",
+      "source_ids": [2]
+    },
+    {
+      "rule": "Pull-pool merger: Scottish English has no /ʊ/ and uses Scots /u/ instead, so 'pull' and 'pool' are homophones (sound the same).",
+      "ipa": "/ʊ/ -> [u] (pull = pool)",
+      "actor_tip": "Say 'pull' with the same vowel as 'pool' (the long 'oo'). Do not use the short 'uh'-like vowel of standard English.",
+      "example": "pull / pool; full / fool",
+      "source_ids": [1]
+    },
+    {
+      "rule": "BATH, TRAP and PALM share the same open 'a' vowel in many Scottish speakers, so they do not get the long RP-style 'bahth' vowel.",
+      "ipa": "/a/ in bath, trap, palm (approximate)",
+      "actor_tip": "Use the same short open 'a' as in 'cat' for 'bath', 'path' and 'palm'. Do not lengthen 'bath' into 'bahth'.",
+      "example": "bath, cat, palm",
+      "source_ids": [1]
+    },
+    {
+      "rule": "Loch sound: the ch in 'loch' (and some Scots words) is a voiceless velar fricative, made at the back of the throat.",
+      "ipa": "/x/",
+      "actor_tip": "Make a soft 'kh' sound with the back of the tongue near the soft palate, like a gentle throat clear. Use only in words that have this sound in the text (loch, Gaelic-derived names). Do not add it to ordinary 'ch' words like 'church'.",
+      "example": "loch, Lochaber",
+      "source_ids": [1]
+    }
+  ],
+  "intonation": [],
+  "common_mistakes": [
+    "Putting 'och', 'aye', 'ken', 'dinnae' and similar Scots words into every line. Only 'aye' is verified here; the others need checking before use.",
+    "Applying the Scottish Vowel Length Rule as a stressed drawl. It is a length difference, not emphasis.",
+    "Rolling the r heavily in every word. Rhotic means the r is pronounced, not that it is trilled throughout.",
+    "Using a 'Highland' or 'Braveheart' accent for a Glasgow or Edinburgh character. Scottish accents differ strongly by region.",
+    "Using Scots vocabulary for a formal or professional character. SSE is the formal variety.",
+    "Applying the loch sound to every 'ch'."
+  ],
+  "generational_notes": [
+    "The source describes Scots as informal and Scottish Standard English as the formal variety, with many speakers switching between them.",
+    "Source does not give clear age-based decline figures for Scots or SSE; treat generational claims as unverified until checked.",
+    "The Scottish Vowel Length Rule article notes that some Scots dialects, including Northern Scots and Shetland, apply the rule less consistently; regional spread of other features was not verified."
+  ],
+  "conversion_guidelines": [
+    "Decide the register first: formal or professional character uses SSE (no Scots vocabulary, standard grammar, sound features only). Informal, working-class or rural characters can take Scots vocabulary.",
+    "Apply sound features first: rhoticity, /hw/ in wh-words, pull-pool, and the Scottish Vowel Length Rule. These are the safest and most accurate.",
+    "Use at most one or two grammar items per monologue (needs washed; wait on).",
+    "Use aye and wee where they fit naturally. Use bairn/wean only for children, chosen by region.",
+    "Apply the loch sound only to words spelled with ch that the text uses as loch-type words.",
+    "Do not add 'och', 'ken' or 'dinnae' unless the user supplies a verified source for them.",
+    "In stage notes, mark the register (SSE or Scots) and the region if known, because Scottish speech differs greatly by place."
+  ],
+  "sources": [
+    {
+      "id": 1,
+      "title": "Scottish English (Wikipedia)",
+      "url": "https://en.wikipedia.org/wiki/Scottish_English",
+      "type": "encyclopedia"
+    },
+    {
+      "id": 2,
+      "title": "Scottish Vowel Length Rule (Wikipedia)",
+      "url": "https://en.wikipedia.org/wiki/Scottish_Vowel_Length_Rule",
+      "type": "encyclopedia"
+    },
+    {
+      "id": 3,
+      "title": "Scots language (Wikipedia)",
+      "url": "https://en.wikipedia.org/wiki/Scots_language",
+      "type": "encyclopedia"
+    }
+  ],
+  "confidence": "medium",
+  "open_questions": [
+    "Scots words 'och', 'ken', 'dinnae' and 'wee' in Scots versus English were not confirmed in the Scots article; 'aye' is confirmed there. Check the Scots Language Dictionaries (dsl.ac.uk) and the Scottish Language Dictionaries site before using the others.",
+    "The source for 'loch' is the Scottish English summary, which did not give IPA or a detailed pronunciation. Confirm the realisation against a phonetic source.",
+    "Whether BATH/TRAP/PALM share a vowel in all Scottish speakers or only in some central dialects: the summary did not specify.",
+    "Grammar items 'I'm wanting' and 'wait on you' are low confidence and need checking in the original text.",
+    "The 'how? meaning why?' and 'it's your shot' items are low confidence.",
+    "Intonation: no pattern verified for Scottish English. Leave empty until checked.",
+    "Glottal stop for /t/ in Scottish speech was mentioned in one summary but was not verified in the source text, so it is omitted.",
+    "The FOOT / GOOSE / pull-pool details rest on the pull-pool statement only; the broader vowel system has not been verified."
+  ]
+}

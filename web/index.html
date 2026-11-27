@@ -1,0 +1,201 @@
+<!doctype html>
+<!-- 사투리 코치: 화면의 뼈대(구조)를 정의하는 파일이에요. 글자 모양은 style.css, 동작은 app.js가 맡아요. -->
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>사투리 코치</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">본문으로 건너뛰기</a>
+
+  <header class="site-header">
+    <div class="wrap">
+      <h1 class="brand">사투리 코치 <span class="brand-sub">DialectCoach</span></h1>
+
+      <!-- API 키가 없을 때만 app.js가 보여주는 작은 안내 (키를 이 화면에 입력하지 않아요) -->
+      <p id="keyNotice" class="notice notice-info" role="status" hidden>
+        AI 연결 키가 아직 없어서 <strong>데모 모드</strong>로 동작해요.
+        키를 넣는 방법은 <strong>README-run.md</strong> 파일을 봐 주세요.
+        (키는 이 화면에 붙여넣지 않아요.)
+      </p>
+
+      <!-- 탭 3개: 화살표 키(← →)로도 이동할 수 있어요 -->
+      <div class="tabs" role="tablist" aria-label="사투리 코치 단계">
+        <button class="tab" role="tab" id="tab-convert" aria-controls="panel-convert" aria-selected="true" tabindex="0">① 변환</button>
+        <button class="tab" role="tab" id="tab-practice" aria-controls="panel-practice" aria-selected="false" tabindex="-1">② 연습</button>
+        <button class="tab" role="tab" id="tab-listen" aria-controls="panel-listen" aria-selected="false" tabindex="-1">③ 듣고 따라하기 <span class="beta">(베타)</span></button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main" class="wrap">
+
+    <!-- ============ ① 변환 탭 ============ -->
+    <section id="panel-convert" class="panel" role="tabpanel" aria-labelledby="tab-convert">
+      <div class="card">
+        <div class="row">
+          <div class="field">
+            <label for="langSelect">언어</label>
+            <select id="langSelect" aria-label="언어 선택">
+              <option value="ko">한국어</option>
+              <option value="en">English</option>
+              <option value="zh">中文</option>
+            </select>
+          </div>
+          <div class="field grow">
+            <label for="regionSelect">지역</label>
+            <select id="regionSelect" aria-label="지역 선택" disabled>
+              <option>지역 목록을 불러오는 중…</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- 선택한 지역의 신뢰도 배지 + 한 줄 설명 -->
+        <p id="regionInfo" class="region-info" aria-live="polite"></p>
+        <p id="lowWarn" class="notice notice-warn" hidden>
+          이 지역의 사투리 규칙은 아직 근거가 부족해요. 결과를 그대로 믿지 말고, 그 지역 출신 분께 꼭 확인받으세요.
+        </p>
+
+        <label for="sourceText" class="block-label">원본 독백</label>
+        <textarea id="sourceText" maxlength="3000" rows="8" placeholder="여기에 독백(대사)을 붙여넣어 주세요. 표준어로 쓴 글이면 돼요."></textarea>
+        <div class="counter-row">
+          <span id="charCount" aria-live="polite">0 / 3000자</span>
+        </div>
+
+        <div class="actions center">
+          <button id="convertBtn" class="btn btn-primary btn-lg" type="button" disabled>사투리로 바꾸기</button>
+        </div>
+        <p id="progress" class="progress" role="status" aria-live="polite" hidden></p>
+        <p id="convertError" class="notice notice-error" role="alert" hidden></p>
+      </div>
+
+      <!-- 결과 영역: 변환이 끝나면 보여요 -->
+      <div id="result" hidden>
+        <p id="demoBanner" class="notice notice-warn" hidden><strong>데모 모드 (API 키 없음)</strong> — 진짜 AI 변환이 아니라 미리보기용 예시 결과예요.</p>
+        <p id="resultLowWarn" class="notice notice-warn" hidden>이 결과는 <strong>검증 필요</strong> 단계예요. 지역 출신 분께 확인받고 사용하세요.</p>
+
+        <div class="compare">
+          <article class="card script-card">
+            <h2>원본</h2>
+            <div id="originalView" class="script-text"></div>
+          </article>
+          <article class="card script-card">
+            <h2>사투리 대본 <span id="resultName" class="muted small"></span></h2>
+            <p class="hint">색이 칠해진 부분이 바뀐 곳이에요. 마우스를 올리거나 눌러 보세요.</p>
+            <div id="convertedView" class="script-text"></div>
+          </article>
+        </div>
+
+        <details id="changesBox" class="card">
+          <summary>바뀐 곳 모두 보기 <span id="changesCount"></span></summary>
+          <ul id="changesList" class="changes-list"></ul>
+        </details>
+
+        <div class="tips-grid">
+          <article class="card">
+            <h2>억양 팁</h2>
+            <ul id="tipsIntonation" class="plain-list"></ul>
+          </article>
+          <article class="card">
+            <h2>발음 팁</h2>
+            <ul id="tipsPronunciation" class="plain-list"></ul>
+          </article>
+        </div>
+
+        <article id="notesBox" class="card" hidden>
+          <h2>참고 사항</h2>
+          <ul id="notesList" class="plain-list"></ul>
+        </article>
+
+        <div class="actions center">
+          <button id="copyBtn" class="btn" type="button" aria-label="사투리 대본 복사">복사</button>
+          <button id="toPracticeBtn" class="btn btn-primary" type="button">연습하러 가기 →</button>
+        </div>
+        <p id="copyStatus" class="center small muted" role="status" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <!-- ============ ② 연습 탭 ============ -->
+    <section id="panel-practice" class="panel" role="tabpanel" aria-labelledby="tab-practice" hidden>
+      <div id="practiceEmpty" class="card empty" hidden>
+        <p>아직 바뀐 대본이 없어요.</p>
+        <button class="btn btn-primary" type="button" data-goto="convert">① 변환 탭에서 대본 만들기</button>
+      </div>
+
+      <div id="practiceBody" hidden>
+        <p class="notice notice-info">음성인식은 표준어로 받아 적는 경향이 있어, 사투리 발음·억양은 점수에 정확히 반영되지 않을 수 있어요. 대본 암기 확인용으로 쓰세요.</p>
+        <p id="sttUnsupported" class="notice notice-error" role="alert" hidden>이 브라우저는 음성인식을 지원하지 않아요. <strong>Chrome</strong> 브라우저에서 열어 주세요.</p>
+
+        <div class="card">
+          <h2>연습할 문장 고르기</h2>
+          <div id="sentencePicker" class="picker" role="group" aria-label="연습할 문장"></div>
+        </div>
+
+        <div class="card">
+          <h2>목표 대본</h2>
+          <div id="practiceTarget" class="script-text script-big"></div>
+
+          <div class="actions center">
+            <button id="micBtn" class="btn btn-primary btn-lg" type="button" aria-label="음성인식 시작">🎤 말하기 시작</button>
+          </div>
+          <p id="micStatus" class="center muted" role="status" aria-live="polite"></p>
+          <p id="micError" class="notice notice-error" role="alert" hidden></p>
+        </div>
+
+        <div id="scoreBox" class="card" hidden>
+          <h2>내가 말한 내용</h2>
+          <p id="transcriptView" class="script-text"></p>
+          <div class="score-row">
+            <div class="score" aria-live="polite"><span id="scoreNum">0</span><span class="score-unit">%</span></div>
+            <p class="muted">일치율 (대본과 받아 적힌 글이 얼마나 같은지)</p>
+          </div>
+          <h3>비교</h3>
+          <p class="hint"><span class="d-bad">빨간 글자</span> = 빠뜨렸거나 다르게 말한 부분 · <span class="d-extra">회색 글자</span> = 더 말한 부분</p>
+          <div id="diffView" class="script-text"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ ③ 듣고 따라하기 탭 ============ -->
+    <section id="panel-listen" class="panel" role="tabpanel" aria-labelledby="tab-listen" hidden>
+      <div id="listenEmpty" class="card empty" hidden>
+        <p>아직 바뀐 대본이 없어요.</p>
+        <button class="btn btn-primary" type="button" data-goto="convert">① 변환 탭에서 대본 만들기</button>
+      </div>
+
+      <div id="listenBody" hidden>
+        <p class="notice notice-info">브라우저 음성은 <strong>표준 발음</strong>으로 읽어 줘서 진짜 사투리 소리와는 달라요. 영어 지역 음성(영국·호주·아일랜드)은 내 컴퓨터에 설치돼 있을 때만 나와요.</p>
+        <p id="ttsUnsupported" class="notice notice-error" role="alert" hidden>이 브라우저는 소리 읽기를 지원하지 않아요. <strong>Chrome</strong> 브라우저에서 열어 주세요.</p>
+
+        <div class="card">
+          <div class="row wrap-row">
+            <fieldset class="speed">
+              <legend>속도</legend>
+              <label class="chip"><input type="radio" name="speed" value="0.75"> <span>0.75배</span></label>
+              <label class="chip"><input type="radio" name="speed" value="1" checked> <span>1배</span></label>
+            </fieldset>
+            <label class="chip toggle"><input type="checkbox" id="repeatToggle"> <span>반복 재생</span></label>
+            <button id="stopBtn" class="btn" type="button" aria-label="재생 멈추기">■ 멈추기</button>
+          </div>
+          <p id="voiceInfo" class="small muted" role="status" aria-live="polite"></p>
+        </div>
+
+        <ol id="listenList" class="listen-list"></ol>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer wrap">
+    <p class="small muted">AI가 만든 사투리는 틀릴 수 있어요. 중요한 오디션 전에는 그 지역 출신 분께 검수받으세요.</p>
+  </footer>
+
+  <!-- 바뀐 부분 설명 말풍선 (app.js가 위치와 내용을 채워요) -->
+  <div id="tooltip" role="tooltip" hidden></div>
+
+  <noscript><p class="notice notice-error wrap">이 앱은 JavaScript가 켜져 있어야 동작해요.</p></noscript>
+  <script src="app.js"></script>
+</body>
+</html>

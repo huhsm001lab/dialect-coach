@@ -1,0 +1,186 @@
+{
+  "code": "zh-tw",
+  "name": "台湾国语 (Taiwan Mandarin)",
+  "language": "zh",
+  "summary": "Taiwan Mandarin is Standard Mandarin as spoken in Taiwan. It uses Traditional characters and keeps some differences in vocabulary, sentence-final particles and pronunciation. Only one encyclopedia page was opened and it covers pronunciation, a set of vocabulary pairs, and a few particles, so the evidence base is thin. The Ministry of Education dictionary pages I reached were index pages, not entries, so I did not verify any dictionary entry. Taiwanese Hokkien loan expressions are included only where the source mentions them. Common expressions such as 歹勢 and 呷飽未 are widely used, but the source did not confirm them.",
+  "grammar": [
+    {
+      "standard": "了啊 (completed action plus sentence-final tone)",
+      "dialect": "啦",
+      "condition": "Sentence-final particle used for complaints, suggestions and rebuttals. The source says it combines 了 and 啊.",
+      "example_standard": "快去睡觉吧！",
+      "example_dialect": "睡覺了啦！",
+      "romanization": "shuì jiào le la",
+      "source_ids": [1]
+    },
+    {
+      "standard": "吧 (suggestion)",
+      "dialect": "啦",
+      "condition": "Use 啦 for a friendly urging or suggestion that Mainland speakers would express with 吧.",
+      "example_standard": "不要客气，再吃一碗吧。",
+      "example_dialect": "不要客氣，再吃一碗啦。",
+      "romanization": "bú yào kè qi, zài chī yì wǎn la",
+      "source_ids": [1]
+    },
+    {
+      "standard": "不可能 (it is impossible)",
+      "dialect": "不可能啦",
+      "condition": "Rebuttal. Adds 啦 to show that the speaker is pushing back on a claim.",
+      "example_standard": "不可能（啊）。",
+      "example_dialect": "不可能啦。",
+      "romanization": "bù kě néng la",
+      "source_ids": [1]
+    },
+    {
+      "standard": "妹妹 (younger sister)",
+      "dialect": "阿妹",
+      "condition": "A Hokkien-influenced prefix 阿 added to a kinship term or a name to show familiarity.",
+      "example_standard": "妹妹",
+      "example_dialect": "阿妹",
+      "romanization": "ā mèi",
+      "source_ids": [1]
+    }
+  ],
+  "vocabulary": [
+    {
+      "standard": "互联网 / 网络 (internet)",
+      "dialect": "網路",
+      "romanization": "wǎng lù",
+      "note": "Mainland uses 网络 (wǎng luò).",
+      "source_ids": [1]
+    },
+    {
+      "standard": "软件 (software)",
+      "dialect": "軟體",
+      "romanization": "ruǎn tǐ",
+      "note": "Mainland uses 软件.",
+      "source_ids": [1]
+    },
+    {
+      "standard": "打印 (print)",
+      "dialect": "列印",
+      "romanization": "liè yìn",
+      "note": "Mainland uses 打印.",
+      "source_ids": [1]
+    },
+    {
+      "standard": "公共汽车 (bus)",
+      "dialect": "公車",
+      "romanization": "gōng chē",
+      "note": "In Taiwan 公車 means bus. On the Mainland 公车 means an official vehicle, so do not use it as bus in Mainland-facing material.",
+      "source_ids": [1]
+    },
+    {
+      "standard": "土豆 (potato, Mainland usage)",
+      "dialect": "馬鈴薯",
+      "romanization": "mǎ líng shǔ",
+      "note": "FALSE FRIEND: in Taiwan 土豆 means peanut, so a Mainland 土豆 (potato) must become 馬鈴薯. Never convert 马铃薯 into 土豆. (Corrected by orchestrator review.)",
+      "source_ids": [1]
+    },
+    {
+      "standard": "红薯 (sweet potato)",
+      "dialect": "蕃薯",
+      "romanization": "fān shǔ",
+      "note": "Sweet potato. Source lists it as a Hokkien-origin word used in Taiwan.",
+      "source_ids": [1]
+    },
+    {
+      "standard": "胡说八道 (talk nonsense)",
+      "dialect": "黑白讲",
+      "romanization": "hēi bái jiǎng",
+      "note": "Hokkien-origin expression (烏白講 in Hokkien) meaning to talk nonsense.",
+      "source_ids": [1]
+    },
+    {
+      "standard": "拜拜 (ritual worship)",
+      "dialect": "拜拜",
+      "romanization": "bài bài",
+      "note": "Source gives the Hokkien-origin sense of worship or religious ritual. Its use as a casual goodbye was not confirmed by the source.",
+      "source_ids": [1]
+    }
+  ],
+  "particles": [
+    {
+      "particle": "啦",
+      "function": "Very common in Taiwan Mandarin. Used for complaints, suggestions and rebuttals. Source says it combines 了 and 啊.",
+      "example": "睡覺了啦 (shuì jiào le la)",
+      "source_ids": [1]
+    },
+    {
+      "particle": "乎 (hoⁿh)",
+      "function": "Hokkien-influenced particle that asks for agreement, similar to English 'right?'. Source gives it as a loan from Hokkien.",
+      "example": "No example verified in the source.",
+      "source_ids": [1]
+    },
+    {
+      "particle": "呗 / 嚜 / 罢了",
+      "function": "Source says these are more common in Beijing Mandarin and rare in Taiwan Mandarin. Avoid using them as Taiwan markers.",
+      "example": "",
+      "source_ids": [1]
+    }
+  ],
+  "pronunciation": [
+    {
+      "rule": "Retroflex initials zh-, ch- and sh- are mostly pronounced as z-, c- and s- in Taiwan Mandarin. Source says retroflex pronunciation is treated as a sign of good Mandarin in Taiwan.",
+      "actor_tip": "Do not curl the tongue for zh, ch, sh. Say them with a flat tongue position, like z, c, s. Keep it natural, not exaggerated.",
+      "example": "知道 zhīdào → zīdào (illustrative; the source describes the rule, not this word)",
+      "source_ids": [1]
+    },
+    {
+      "rule": "Erhua (adding a curled r-ending to words) is rare in Taiwan Mandarin and common in Beijing Mandarin.",
+      "actor_tip": "Drop the r-ending on words that take it in Beijing speech. Say the word without the curled tongue at the end.",
+      "example": "玩儿 wánr → wán (illustrative)",
+      "source_ids": [1]
+    },
+    {
+      "rule": "The neutral (light) tone is less common in Taiwan. Many words keep their full tone where Beijing speech would soften them.",
+      "actor_tip": "Do not soften the last syllable of words like 但是 and 先生. Keep full tones. Exception: some -子 nouns like 孩子 may still soften.",
+      "example": "但是 dànshì; 先生 xiānshēng",
+      "source_ids": [1]
+    }
+  ],
+  "tones_intonation": [
+    {
+      "rule": "啦 carries emotion through intonation: a complaint, a friendly urging or a rebuttal. The same particle needs different pitch in each case.",
+      "source_ids": [1]
+    }
+  ],
+  "common_mistakes": [
+    "Putting 啦 at the end of every sentence. It is common but not in every line.",
+    "Using Hokkien-origin words (阿妹, 蕃薯, 黑白讲) as standard Taiwan Mandarin in formal speech.",
+    "Exaggerating z/c/s for zh/ch/sh until the words are hard to understand.",
+    "Mixing Mainland words (网络, 软件, 打印) into Taiwan-facing lines.",
+    "Using 呗, 嚜 or 罢了 as Taiwan markers, since the source says they are rare there.",
+    "Using 歹勢, 夭壽 or 呷飽未 without checking them, because the source did not confirm them."
+  ],
+  "generational_notes": [
+    "The source does not compare older and younger Taiwan speakers. Vocabulary such as 網路 and 軟體 is standard across ages.",
+    "Hokkien-origin expressions are more often used by older or more local speakers. This is general knowledge and was not verified in the source."
+  ],
+  "conversion_guidelines": [
+    "Use Traditional characters throughout. Replace Mainland vocabulary with the Taiwan form from the vocabulary list (網路, 軟體, 列印, 公車).",
+    "Add 啦 to at most one or two lines, matching emotion: complaints, suggestions or rebuttals.",
+    "Soften the zh/ch/sh sounds only in pronunciation practice notes, not in written lines. Keep actor guidance in the script's notes.",
+    "Keep full tones on words like 但是 and 先生. Do not add erhua.",
+    "Do not add 呗, 嚜 or 罢了. Do not use Hokkien-origin words in formal or narrated lines.",
+    "Flag every low-confidence item (歹勢, 夭壽, 呷飽未, 乎) for checking against the Ministry of Education's 臺灣閩南語常用詞辭典 or a Taiwan native speaker."
+  ],
+  "sources": [
+    {
+      "id": 1,
+      "title": "Taiwanese Mandarin - Wikipedia (English)",
+      "url": "https://en.wikipedia.org/wiki/Taiwanese_Mandarin",
+      "type": "encyclopedia"
+    }
+  ],
+  "confidence": "low",
+  "open_questions": [
+    "Only one source was opened for this file. Verify the vocabulary pairs against the Ministry of Education's 國語辭典 (dict.revised.moe.edu.tw) and 臺灣閩南語常用詞辭典 (sutian.moe.edu.tw). The sutian page I reached was an index page, not an entry.",
+    "Confirm the usage of 歹勢, 夭壽 and 呷飽未 in current Taiwan Mandarin. They are common in practice but were not confirmed by a source I opened.",
+    "Confirm 计程车 vs 出租车 (taxi), 机车 (motorcycle) and 垃圾车 (garbage truck) with a Taiwan source. The sources reviewed did not confirm them.",
+    "Confirm whether 喔, 喲 and 厚 are used as sentence-final particles in Taiwan Mandarin. The source did not cover them.",
+    "The source's claim that 啦 combines 了 and 啊 is a historical or analytical claim. Check it against a Taiwan linguistics source before using the explanation in actor notes.",
+    "The pronunciation rules (zh/ch/sh to z/c/s, erhua, neutral tone) need a phonetic study or Taiwan speaker check for how strong the effect is in each age group.",
+    "Check the meaning of 拜拜 as a casual goodbye in Taiwan. The source only gives the worship sense."
+  ]
+}

@@ -1,0 +1,141 @@
+{
+  "code": "en-us-ny",
+  "name": "New York City English",
+  "language": "en",
+  "summary": "New York City English is an urban accent with several distinctive vowels and a historically non-rhotic (r-dropping) pronunciation that is now much less consistent. The most recognisable features are the three-way split of Mary / marry / merry, a split short-a system, a raised and glided vowel in 'talk' and 'thought', and, in working-class speech, 'th' pronounced as t and d. Grammar evidence in the sources is thin, so this file contains almost no grammar rules; do not add grammar features for NYC without a source. Features like coil-curl merger and r-dropping are documented as declining, especially among younger and middle-class speakers. Evidence comes from the Wikipedia article on New York City English and related pages. Primary sources (Labov's work on New York City) were not opened and should be checked before the file is finalised.",
+  "grammar": [],
+  "vocabulary": [
+    {
+      "standard": "in line (queue)",
+      "dialect": "on line",
+      "note": "The source says New Yorkers tend to say 'on line' where others say 'in line'.",
+      "source_ids": [1]
+    },
+    {
+      "standard": "long sandwich (submarine / sub)",
+      "dialect": "hero",
+      "note": "Listed in the source as a New York term for a long sandwich.",
+      "source_ids": [1]
+    },
+    {
+      "standard": "small neighbourhood convenience store",
+      "dialect": "bodega",
+      "note": "Spanish-origin term from New York neighbourhoods. Source describes it as a small neighbourhood convenience store.",
+      "source_ids": [1]
+    },
+    {
+      "standard": "chocolate or vanilla soda with milk",
+      "dialect": "egg cream",
+      "note": "Source describes it as cold milk, chocolate or vanilla syrup and seltzer, with no egg. Use only for a specific food reference.",
+      "source_ids": [1]
+    },
+    {
+      "standard": "street baseball",
+      "dialect": "stickball / punchball",
+      "note": "Listed in the source as street baseball variants.",
+      "source_ids": [1]
+    },
+    {
+      "standard": "fool / idiot",
+      "dialect": "schmuck",
+      "note": "Yiddish-origin word. Source lists it among New York slang. Use sparingly; it can be offensive.",
+      "source_ids": [1]
+    },
+    {
+      "standard": "nothing / trivial amount",
+      "dialect": "bubkes",
+      "note": "Yiddish-origin word listed in the source as New York slang.",
+      "source_ids": [1]
+    }
+  ],
+  "pronunciation": [
+    {
+      "rule": "Traditional non-rhoticity: /r/ is dropped before consonants and at the end of words (it is still pronounced before vowels). Current New York speech is often rhotic or variably rhotic, so treat this as a feature of older or working-class speakers.",
+      "ipa": "/r/ -> silent before consonants and word-finally (traditional)",
+      "actor_tip": "For an older or working-class character, let the r fade in words like 'car', 'floor' and 'park' so they sound like 'cah', 'floh' and 'pahk'. Keep the r before vowels ('car alarm' keeps its r). For a young or middle-class character, keep the r.",
+      "example": "car, floor, park, fourth",
+      "source_ids": [1]
+    },
+    {
+      "rule": "Short-a split: the /æ/ vowel of short-a words is split into two different vowels, so some words (e.g. 'gas') and others (e.g. 'gap') do not share the same vowel.",
+      "ipa": "/æ/ split into two vowels; exact conditioning not captured in source",
+      "actor_tip": "Do not give every short-a word the same vowel. The exact rule is not verified here. Before using this in a monologue, listen to a native New York recording of the words you need and copy the vowel you hear. Mark the line as low confidence in stage notes.",
+      "example": "gas vs gap",
+      "source_ids": [1]
+    },
+    {
+      "rule": "Raised, gliding /ɔ/ in 'talk', 'thought' and 'all': the vowel is higher and glides rather than being a flat 'aw'. This is why NYC keeps 'caught' and 'cot' distinct.",
+      "ipa": "/ɔ/ raised and gliding (exact IPA not captured from source)",
+      "actor_tip": "Say 'talk', 'thought' and 'all' with a higher, rounded 'aw' that rises slightly at the end, not a flat 'aw' like a British or Midwestern speaker. Keep 'caught' and 'cot' sounding different.",
+      "example": "talk, thought, all, caught",
+      "source_ids": [1]
+    },
+    {
+      "rule": "Three different vowels in Mary, marry and merry: New York keeps the three words distinct (no merger).",
+      "ipa": "Mary /ˈmɛəri/ or /ˈmeɹi/; marry /ˈmæɹi/; merry /ˈmɛɹi/ (as given in source)",
+      "actor_tip": "Keep three different vowels: Mary (close to 'MAIR-ee'), marry (a short 'a' as in 'cat' plus 'ree'), merry ('MEH-ree'). Do not merge them, even when speaking quickly.",
+      "example": "Mary / marry / merry",
+      "source_ids": [1, 3]
+    },
+    {
+      "rule": "Th-stopping in working-class speech: θ (as in 'think') becomes t and ð (as in 'this') becomes d. Documented for working-class New York City speakers.",
+      "ipa": "θ -> [t]; ð -> [d]",
+      "actor_tip": "Touch the tongue to the back of the upper front teeth and release quickly, as if saying t or d. 'Three' sounds like 'tree', 'this' sounds like 'dis'. Use only for working-class or older characters.",
+      "example": "three -> tree; this -> dis; think -> tink",
+      "source_ids": [2, 1]
+    }
+  ],
+  "intonation": [],
+  "common_mistakes": [
+    "Dropping the r in every word for every character. Non-rhoticity is traditional and variable, and is now less common.",
+    "Using 'coil' and 'curl' as the same word. The coil-curl merger is described in the source as largely extinct.",
+    "Turning every short-a into a flat or nasal 'a' without listening to the words first.",
+    "Using gangster or Sopranos-style slang and catchphrases to signal New York. This is a caricature and the sources do not support it as a feature of the accent.",
+    "Using th-stopping on every character. It is a working-class feature in the source, not a universal New York feature.",
+    "Adding grammar features (double negatives, 'youse', 'he don't') without a source. None were verified here."
+  ],
+  "generational_notes": [
+    "The source documents that the coil-curl merger is largely extinct, the raised 'talk' vowel is declining, and r-dropping is decreasing, especially among young speakers of middle- and upper-middle-class backgrounds.",
+    "According to the source, some young people avoid these features because of their association with working-class speech and, for some, to avoid marking ethnic identity.",
+    "Working-class and older speakers keep the most traditional features (r-dropping, th-stopping, raised 'talk' vowel)."
+  ],
+  "conversion_guidelines": [
+    "Pick the speaker profile first: older/working-class speakers get the most features; young/middle-class speakers get few or none.",
+    "Apply at most two pronunciation rules per monologue: the three-way Mary/marry/merry distinction, and the raised 'talk' vowel are the safest.",
+    "Use th-stopping only for working-class or older characters, and only on 'th' words in the text.",
+    "Apply traditional r-dropping only before consonants and at word end, and keep r before vowels.",
+    "Use vocabulary only where the text naturally refers to food, streets or the neighbourhood (hero, bodega, on line, egg cream).",
+    "Do not add grammar changes. Do not add catchphrases.",
+    "In stage notes, mark the short-a split as 'to be checked with a native recording' because the exact conditioning was not verified."
+  ],
+  "sources": [
+    {
+      "id": 1,
+      "title": "New York City English (Wikipedia)",
+      "url": "https://en.wikipedia.org/wiki/New_York_City_English",
+      "type": "encyclopedia"
+    },
+    {
+      "id": 2,
+      "title": "Th-stopping (Wikipedia)",
+      "url": "https://en.wikipedia.org/wiki/Th-stopping",
+      "type": "encyclopedia"
+    },
+    {
+      "id": 3,
+      "title": "Mary-marry-merry merger (Wikipedia)",
+      "url": "https://en.wikipedia.org/wiki/Mary%E2%80%93marry%E2%80%93merry_merger",
+      "type": "encyclopedia"
+    }
+  ],
+  "confidence": "medium",
+  "open_questions": [
+    "Exact conditioning of the short-a split (why 'gas' and 'gap' differ) was not captured. Needs a primary phonetic source or native recordings.",
+    "The Wikipedia summary mentions a /æ/ tensing link but gave no details for 'bad'. The 'bad' vowel is not verified.",
+    "Dh-stopping (the voiced th in 'this') in New York was not verified separately from th-stopping.",
+    "Dropped r in New York is described as 'traditional and variable'; the frequency by age and class was not verified.",
+    "No NYC grammar features were verified. Common claims (double negation, 'youse', 'he don't') are not supported by the opened sources and are omitted.",
+    "'Stoop' and 'the city' were mentioned in the task list but do not appear in the source; they are omitted.",
+    "Exact IPA for the raised 'talk' vowel should be checked against a phonetic source."
+  ]
+}

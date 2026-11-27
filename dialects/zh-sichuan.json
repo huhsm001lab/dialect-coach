@@ -1,0 +1,92 @@
+{
+  "code": "zh-sichuan",
+  "name": "四川话 (Sichuanese; 成都 and 重庆 varieties)",
+  "language": "zh",
+  "summary": "Sichuanese is a Southwestern Mandarin group. The Chengdu and Chongqing varieties are usually grouped together, but this matters here: the one source I could open gives different tone values for each city, and says Chongqing's grammar differs little from Chengdu's while vocabulary and pronunciation differ more. Only one usable source was found, and it mostly covers tones and sound inventory. Sentence-final particles and grammar were not verified, so those arrays are empty. Any user-facing output should name which city variety it targets.",
+  "grammar": [],
+  "vocabulary": [
+    {
+      "standard": "好 (good)",
+      "dialect": "巴适",
+      "romanization": "bā shì",
+      "note": "Chengdu-area word for 'good'. Source gives the meaning as 好. It is a strong regional marker, so use it once in a monologue at most.",
+      "source_ids": [1]
+    },
+    {
+      "standard": "加油 (cheer on / go for it)",
+      "dialect": "雄起",
+      "romanization": "xióng qǐ",
+      "note": "Source describes it as a newer urban word used to cheer on. Check whether it sounds natural to a current Chengdu speaker.",
+      "source_ids": [1]
+    },
+    {
+      "standard": "妻管严 (a husband who is afraid of his wife)",
+      "dialect": "耙耳朵",
+      "romanization": "pá ěr duo",
+      "note": "Describes a husband who obeys his wife. Source gives the standard equivalent 妻管严.",
+      "source_ids": [1]
+    }
+  ],
+  "particles": [],
+  "pronunciation": [
+    {
+      "rule": "The retroflex initials zh-, ch-, sh- and r- are not present in the Chengdu sound system described by the source.",
+      "actor_tip": "Do not curl the tongue for zh, ch, sh or r. Say them with a flat tongue position. The source does not name the replacement sound, so have a native speaker confirm the exact sound before performance.",
+      "example": "No example given in the source.",
+      "source_ids": [1]
+    },
+    {
+      "rule": "Entering-tone (short, checked) syllables merge into the 2nd tone in this Chengdu-Chongqing group.",
+      "actor_tip": "Words that end in a short, clipped sound in Standard Mandarin (for example 白, 图, 合 in older readings) should be said as a 2nd-tone rising sound, not as a short clipped syllable.",
+      "example": "Source states the rule for the group but gives no example words.",
+      "source_ids": [1]
+    }
+  ],
+  "tones_intonation": [
+    {
+      "rule": "Chengdu tone values per the source: 1st tone 55 or 45, 3rd tone 53, 4th tone 213. Chongqing tone values per the source: 1st tone 55, 3rd tone 42, 4th tone 214.",
+      "source_ids": [1]
+    },
+    {
+      "rule": "Tone sandhi (tone change when syllables combine) exists in this group. The source says there are four types but does not list the rules in the portion I read. Do not apply sandhi rules until they are verified.",
+      "source_ids": [1]
+    }
+  ],
+  "common_mistakes": [
+    "Mixing Chengdu and Chongqing words and tones in the same monologue. State which city the performance targets.",
+    "Using 巴适 or 雄起 in every line. One marker per monologue is enough.",
+    "Exaggerating the flattened zh/ch/sh sounds until the words become hard to understand.",
+    "Adding 龙门阵, 啥子 or 龟儿子 for flavor. Their meanings and usage were not verified in the source, so do not use them without a native check.",
+    "Applying the n/l distinction from general knowledge. The source says the Chengdu sound system has no [l], which conflicts with common descriptions of Sichuanese n/l merger. Resolve this with a native speaker before relying on either claim."
+  ],
+  "generational_notes": [
+    "The source describes 雄起 as a newer urban word, which suggests it is more typical of younger urban speakers. No verified source on older versus younger vocabulary was found.",
+    "Chongqing speech may sound more clipped or rapid to outsiders, but this was not verified in the sources reviewed."
+  ],
+  "conversion_guidelines": [
+    "First ask the user (or the production brief) to pick Chengdu or Chongqing. Do not silently mix them.",
+    "Keep Standard Mandarin grammar and word order. No verified Sichuanese grammar was found, so do not add grammatical changes.",
+    "Use at most one verified lexical marker (巴适, 雄起 or 耙耳朵) per monologue, and only in casual speech.",
+    "Apply the entering-tone change only to words whose Standard Mandarin reading is a checked-tone syllable, and mark each change for native review.",
+    "Do not change tone values in performance by ear. Use the source's Chengdu or Chongqing tone values as a guide for the actor's practice.",
+    "Mark every low-confidence item for review by a Chengdu or Chongqing native speaker before performance."
+  ],
+  "sources": [
+    {
+      "id": 1,
+      "title": "Sichuanese dialects - Wikipedia (English)",
+      "url": "https://en.wikipedia.org/wiki/Sichuanese_dialects",
+      "type": "encyclopedia"
+    }
+  ],
+  "confidence": "low",
+  "open_questions": [
+    "No verified sentence-final particle data was found. A search result suggested 嘛 appears in questions and 啥 can act as a conditional marker in sentence-final position, but I did not open those sources, so they are not used here. Check CNKI for 四川话 or 成都话 语气词 studies.",
+    "Verify grammar features such as noun reduplication (抽抽, 坝坝) and 'V起来' constructions. A search snippet suggested them, but the source was not opened.",
+    "Confirm whether the Chengdu sound system has n/l merger, since the source says no [l] exists. This conflicts with common descriptions.",
+    "Find the correct replacement sound for zh/ch/sh/r in Chengdu and Chongqing speech.",
+    "Verify tone sandhi rules for the four types the source mentions.",
+    "Confirm meanings and usage of 龙门阵, 啥子, 龟儿子, 要得 and 摆龙门阵. The source does not define them.",
+    "Chongqing vocabulary and grammar need their own source. The one source reviewed covers Chengdu in detail and Chongqing only in the tone table."
+  ]
+}

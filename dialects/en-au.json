@@ -1,0 +1,177 @@
+{
+  "code": "en-au",
+  "name": "Australian English",
+  "language": "en",
+  "summary": "Australian English is a non-rhotic accent (r is not pronounced after a vowel) with a distinctive vowel system. The most noticeable features are the PRICE and MOUTH vowels (starting from a more open or back position), a split short-a system (bath and grass use a long vowel while most other short-a words do not), dark l, flapping of t and d between vowels, and a high rising terminal ('uptalk') in statements. Australian English keeps Mary, marry and merry distinct. Vocabulary is strongly informal (diminutives such as 'arvo' and 'barbie'). Grammar evidence in the sources is thin, so this file has no grammar rules. The 'broad' and 'cultivated' varieties are distinct: most actors will need General Australian. Evidence comes from the Australian English Wikipedia article, which cites academic phonetic work (Macquarie University phonetics pages were seen in search results only, not opened). Primary sources were not opened and should be checked before the file is finalised.",
+  "grammar": [],
+  "vocabulary": [
+    {
+      "standard": "afternoon",
+      "dialect": "arvo",
+      "note": "Listed in the source as an example of Australian shortening and diminutives.",
+      "source_ids": [1]
+    },
+    {
+      "standard": "barbecue",
+      "dialect": "barbie",
+      "note": "Listed in the source as an Australian diminutive. Use for a barbecue meal or event.",
+      "source_ids": [1]
+    },
+    {
+      "standard": "smoke break / tea break (meaning to verify)",
+      "dialect": "smoko",
+      "note": "Listed in the source as an Australian term. The meaning given here is not stated in the source and must be verified before use.",
+      "source_ids": [1]
+    },
+    {
+      "standard": "Australian (informal)",
+      "dialect": "Aussie",
+      "note": "Diminutive, listed in the source. Common and friendly.",
+      "source_ids": [1]
+    },
+    {
+      "standard": "Australia (informal)",
+      "dialect": "Straya",
+      "note": "Listed in the source as a casual, humorous shortening. Use only in comedic or very informal dialogue.",
+      "source_ids": [1]
+    },
+    {
+      "standard": "friend",
+      "dialect": "mate",
+      "note": "Source says it means the same as in British English. Use freely.",
+      "source_ids": [1]
+    },
+    {
+      "standard": "true, genuine, honest",
+      "dialect": "fair dinkum",
+      "note": "Source gives 'true' or 'legitimate'. Informal, a little old-fashioned.",
+      "source_ids": [1]
+    },
+    {
+      "standard": "uncouth working-class person",
+      "dialect": "bogan",
+      "note": "Source compares it with the British 'chav' and describes it as a lower-socio-economic term. Can be insulting.",
+      "source_ids": [1]
+    },
+    {
+      "standard": "pickup truck",
+      "dialect": "ute",
+      "note": "Listed in the source. Common everyday word.",
+      "source_ids": [1]
+    }
+  ],
+  "pronunciation": [
+    {
+      "rule": "Non-rhoticity: r is not pronounced at the end of a word or before a consonant (it is pronounced only before a vowel).",
+      "ipa": "/r/ -> silent in coda",
+      "actor_tip": "Drop the r in 'car', 'bird', 'word', 'hard' so they sound like 'cah', 'buhd', 'wuhd', 'hahd'. Keep the r before a vowel ('car alarm' keeps it).",
+      "example": "car, bird, hard, word",
+      "source_ids": [1]
+    },
+    {
+      "rule": "Linking and intrusive r: where a word ends in an r-spelling and the next word begins with a vowel, a linking r is pronounced. In some cases an r is added where the spelling has none.",
+      "ipa": "linking /r/ between vowels across words (e.g. 'law-r-and order')",
+      "actor_tip": "If the next word starts with a vowel, add a soft r between the words: 'idea of' becomes 'idea-r-of'. Use it naturally, not on every vowel junction.",
+      "example": "law and order -> law-r-and order; idea of -> idea-r-of",
+      "source_ids": [1]
+    },
+    {
+      "rule": "PRICE vowel (as in 'ride', 'my', 'time') starts from an open, back vowel and glides up to 'ee'. General Australian is more open; Cultivated Australian is more centralised.",
+      "ipa": "General: [ɑe] or [ɒe]; Cultivated: [a̠e]",
+      "actor_tip": "Start the 'I' sound with an open, slightly back 'ah' (lips neutral, not rounded) and glide up quickly toward 'ee'. 'My' is roughly 'mah-ee' with a fast glide, not 'my' as in American English.",
+      "example": "my, ride, time, price",
+      "source_ids": [1]
+    },
+    {
+      "rule": "MOUTH vowel (as in 'house', 'now', 'down') starts from an open front or central vowel and glides to a rounded 'oo'. General is more front-starting; Cultivated is more central.",
+      "ipa": "General: [æo]; Cultivated: [a̠ʊ]",
+      "actor_tip": "Start 'house' and 'now' from a front open 'a' (as in 'cat') and glide to 'oo'. Round the lips at the end.",
+      "example": "house, now, down, mouth",
+      "source_ids": [1]
+    },
+    {
+      "rule": "Trap-bath split (partial): bath, grass and can't use a long open vowel (like 'father'); most other short-a words such as 'cat', 'dance' and 'plant' use a flat short 'a'. South Australia has a fuller split.",
+      "ipa": "/ɐː/ in bath, grass, can't; /æ/ in cat, dance, plant",
+      "actor_tip": "For 'bath', 'grass' and 'can't', say a long 'ah' like the vowel in 'father'. For 'cat', 'dance' and 'plant', use the flat 'a' of 'cat'. Note that 'dance' and 'plant' are in the flat group per the source's general description.",
+      "example": "bath / cat; grass / gas; can't / cat",
+      "source_ids": [1]
+    },
+    {
+      "rule": "NEAR and SQUARE: in Western Australia and Queensland these are centring diphthongs (two-part vowels); in other states they are a single long vowel.",
+      "ipa": "WA and QLD: [ɪə] (near), [ɛə] (square); other states: [ɪː], [ɛː]",
+      "actor_tip": "In WA or Queensland characters, say 'near' and 'square' as two parts ('ee-uh', 'eh-uh'). In other states, keep a single long vowel ('neer', 'skwair'). Medium-low confidence on the square vowel.",
+      "example": "near, here, square, hair",
+      "source_ids": [1]
+    },
+    {
+      "rule": "Dark l: l is dark (back, velarised) in almost all positions in Australian English. L-vocalisation (l becoming a vowel-like sound) is more common in South Australia.",
+      "ipa": "/l/ -> [ɫ] (almost all positions); L-vocalisation in South Australia",
+      "actor_tip": "Keep the l dark everywhere: pull the back of the tongue up and keep the tongue tip low. In South Australian characters, the l at the end of words can become a w-like sound.",
+      "example": "milk, feel, all",
+      "source_ids": [1]
+    },
+    {
+      "rule": "Flapping: t and d between vowels are pronounced as a quick tap of the tongue, so 'latter' and 'ladder' sound alike.",
+      "ipa": "/t/, /d/ between vowels -> [ɾ]",
+      "actor_tip": "Make a very quick tap of the tongue tip on the ridge behind the top teeth for a t or d that sits between two vowels. Do not make a full t sound.",
+      "example": "latter / ladder; butter / budder",
+      "source_ids": [1]
+    },
+    {
+      "rule": "Yod-dropping after s, l, z and th: the y-glide before a long 'oo' is dropped, so 'news', 'lute' and 'suit' sound like 'noos', 'loot' and 'soot'.",
+      "ipa": "/sjuː/ -> /suː/; /ljuː/ -> /luː/ (after s, l, z, θ)",
+      "actor_tip": "After s, l, z or th, go straight from the consonant to the 'oo' vowel with no y-sound. 'New' keeps the y after n. 'Suit' is 'soot', 'lute' is 'loot'.",
+      "example": "suit, lute, news, Zeus",
+      "source_ids": [1]
+    }
+  ],
+  "intonation": [
+    {
+      "rule": "High rising terminal ('uptalk'): statements often end with a rising pitch, so they sound like questions. The source says it was spread by young people from the 1960s, is used more by young people than older speakers, and is more common among women.",
+      "source_ids": [1]
+    }
+  ],
+  "common_mistakes": [
+    "Using 'G'day mate', 'crikey' and 'strewth' in every speech. These are stereotypes; the sources do not present them as typical features of everyday speech.",
+    "Pulling the uptalk rise onto every sentence, including serious or formal statements.",
+    "Dropping the r at the start of words or before vowels (the rule is only for r after a vowel and before a consonant or at the end of a word).",
+    "Making every short-a word sound like 'father' (the long vowel is only for bath, grass and can't in the source).",
+    "Using the Crocodile Dundee or 'Strine' exaggeration for general characters. Australian accents vary widely by age, class and state.",
+    "Turning every t between vowels into a full t, which loses the flap."
+  ],
+  "generational_notes": [
+    "The source describes the broad variety as declining among the population; fewer people in the current generation use the most strongly marked forms.",
+    "Cultivated Australian is described in the source as largely extinct in the 21st century; use General Australian as the default.",
+    "Uptalk (high rising terminal) is spread among young people and women more than older people. The 1986 study described in the source found young speakers used it more than twice as often as older speakers.",
+    "Older speakers keep fuller vowels in endings such as -ary and -ery; younger speakers tend to use full vowels in these positions. The source describes this as a generational change, not a decline."
+  ],
+  "conversion_guidelines": [
+    "Use General Australian as the default. Use the Cultivated variety only for formal or older characters who are described as educated or upper-class in the text (rare in modern speech).",
+    "Apply non-rhoticity and the PRICE and MOUTH vowels as the core features. Add dark l and flapping for natural speech.",
+    "Apply the trap-bath split only to bath, grass and can't, as the source describes.",
+    "Apply uptalk to casual statements from young or casual characters. Do not apply it to formal, serious or emotional lines.",
+    "Use vocabulary sparingly: 1-2 Australian words per monologue (arvo, mate, ute) where they fit the text.",
+    "Do not add grammar features; none are verified in the sources.",
+    "Keep spelling close to standard English. Do not add apostrophes or spelling changes for the accent."
+  ],
+  "sources": [
+    {
+      "id": 1,
+      "title": "Australian English (Wikipedia)",
+      "url": "https://en.wikipedia.org/wiki/Australian_English",
+      "type": "encyclopedia"
+    }
+  ],
+  "confidence": "medium",
+  "open_questions": [
+    "Only one source (the Australian English Wikipedia article) was opened for this file. Academic sources (Macquarie University phonetics pages, Cox and Palethorpe, Harrington et al.; the Australian National Dictionary Centre) should be checked before finalising the vowel IPA values.",
+    "Mary-marry-merry: the Wikipedia article 'Mary-marry-merry merger' (https://en.wikipedia.org/wiki/Mary%E2%80%93marry%E2%80%93merry_merger) says Australian English keeps the three words distinct. It was opened in this pass; if used as a rule, add it to sources as id 2 and cite it.",
+    "The happY (word-final -y) vowel and the Australian Vowel Shift were not verified in the opened text and are omitted.",
+    "'No worries', 'brekkie' and 'ta' were searched for but do not appear in the opened text. Omit until verified.",
+    "The 'bad-lad' split and the 'can' example were mentioned in one summary; the exact conditions are not verified.",
+    "GOOSE fronting or 'tru-e' diphthongisation was mentioned in a summary and is omitted until verified from the source text.",
+    "Grammar: a final particle 'but' was mentioned in one summary but not confirmed; omitted.",
+    "The 'smoko' meaning is not stated in the source and is marked for verification.",
+    "The uptalk research details (1986 Sydney study) are reported by the Wikipedia summary; verify the original study before quoting it."
+  ]
+}

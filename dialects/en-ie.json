@@ -1,0 +1,174 @@
+{
+  "code": "en-ie",
+  "name": "Irish English (Hiberno-English, with Dublin focus)",
+  "language": "en",
+  "summary": "Irish English (Hiberno-English) is the English spoken across Ireland, with strong regional variation. This file focuses on the Dublin varieties because they are the most documented and most often used for drama: Local (traditional working-class) Dublin English and Advanced (newer, higher-status) Dublin English. Key sound features are th-stopping outside Ulster (th becomes t and d), a rhotic or weakly rhotic r, a vowel system with a diphthong in PRICE and a fronted MOUTH vowel, and a low starting point for the CHOICE vowel. Grammar features include the 'after' perfect (for recent past), habitual 'do be', and plural 'ye' and 'yous'. Ulster English (Northern Ireland) differs: it does not use th-stopping. Evidence comes from the Hiberno-English and Dublin English Wikipedia articles; the Hiberno-English article contains a section marked as uncited, and that section is flagged in the open questions. Primary sources (Raymond Hickey, Irish English: History and Present-Day Forms; the IDEA archive recordings) were not opened in this pass.",
+  "grammar": [
+    {
+      "standard": "He has just given me cheek.",
+      "dialect": "He was after giving me cheek.",
+      "condition": "Recent past: something that just happened. The construction is 'was/is after + -ing'. Source calls it the 'hot news' or 'after' perfect and gives it as a feature of Irish English.",
+      "example_standard": "She has just finished her dinner.",
+      "example_dialect": "She is after finishing her dinner.",
+      "source_ids": [1]
+    },
+    {
+      "standard": "He is always working. / He usually works.",
+      "dialect": "He does be working every day.",
+      "condition": "Habitual aspect: repeated or regular action. Source lists it as used in rural areas and in parts of Dublin and Cork. The source section on this is uncited, so use with medium confidence.",
+      "example_standard": "He works every day.",
+      "example_dialect": "He does be working every day.",
+      "source_ids": [1]
+    },
+    {
+      "standard": "you (plural)",
+      "dialect": "yous / youse",
+      "condition": "Second-person plural, Dublin and Ulster, informal.",
+      "example_standard": "Are you coming to the pub?",
+      "example_dialect": "Are yous coming to the pub?",
+      "source_ids": [1, 2]
+    },
+    {
+      "standard": "you (plural)",
+      "dialect": "ye",
+      "condition": "Second-person plural across Ireland. The source says it is otherwise archaic but still used in place of 'you'. Informal.",
+      "example_standard": "Are you all ready?",
+      "example_dialect": "Are ye all ready?",
+      "source_ids": [1]
+    }
+  ],
+  "vocabulary": [
+    {
+      "standard": "fun, good times",
+      "dialect": "craic",
+      "note": "Listed in the source as meaning 'fun, entertainment'. Common in Irish speech; spelling is also 'crack'. Use one or two times per monologue at most.",
+      "source_ids": [1]
+    },
+    {
+      "standard": "idiot, fool",
+      "dialect": "eejit",
+      "note": "Listed in the source as Irish and Scottish term for idiot. Used in Ireland and spread to UK broadcasting.",
+      "source_ids": [1]
+    },
+    {
+      "standard": "broken, ruined",
+      "dialect": "banjaxed",
+      "note": "Listed in the source with the meaning 'broken, ruined, or rendered incapable of use'. The source says it is not widespread, so use only for colour.",
+      "source_ids": [1]
+    }
+  ],
+  "pronunciation": [
+    {
+      "rule": "Th-stopping outside Ulster: th (θ, as in 'think') becomes t and th (ð, as in 'then') becomes d. Usually a dental stop, with the tongue against the back of the upper teeth.",
+      "ipa": "θ -> [t̪] or [t]; ð -> [d̪] or [d]",
+      "actor_tip": "Say 'think' as 'tink' and 'then' as 'den', with the tongue against the back of the top front teeth. Ulster speakers keep the normal th sound, so do not apply this to Northern Irish characters.",
+      "example": "think -> tink; then -> den; three -> tree",
+      "source_ids": [1, 2, 3]
+    },
+    {
+      "rule": "Rhoticity: historical r is pronounced in Irish English. Local Dublin is described as weakly rhotic; Advanced Dublin uses a retroflex r (tongue tip curled slightly back).",
+      "ipa": "Local Dublin: weak r; Advanced Dublin: [ɻ]",
+      "actor_tip": "Pronounce r after vowels in 'car', 'hard', 'girl', but lightly in Local Dublin, where it is soft and almost a hint of sound. In Advanced Dublin, curl the tongue tip slightly back for the r.",
+      "example": "car, hard, girl, word",
+      "source_ids": [1, 2]
+    },
+    {
+      "rule": "TRAP vowel: 'bad', 'cat' have a flat front a in Local Dublin, and a more open a in Advanced Dublin. In Local Dublin, BATH and DANCE use the same long vowel.",
+      "ipa": "Local: [æ] (BATH/DANCE long); Advanced: [a] or [ä]",
+      "actor_tip": "Say 'bad' with a flat front 'a' as in 'cat' for Local Dublin. In Advanced Dublin, open the mouth more for the same vowel. In Local Dublin, hold 'bath' and 'dance' longer with the same flat 'a'.",
+      "example": "bad, cat, bath, dance",
+      "source_ids": [2]
+    },
+    {
+      "rule": "PRICE vowel is a diphthong: 'ride', 'my', 'time' start from a mid vowel and glide up. Local Dublin starts mid-central and narrow; Advanced Dublin starts lower and more open.",
+      "ipa": "Local: [əɪ]; Advanced: [ɐɪ] to [ɑɪ]",
+      "actor_tip": "For Local Dublin, start from a mid 'uh' sound and glide up toward 'ee' in 'my', 'ride', 'time'. For Advanced Dublin, start from a lower, more open 'ah' sound.",
+      "example": "my, ride, time, price",
+      "source_ids": [2]
+    },
+    {
+      "rule": "FACE vowel is a clear diphthong in all Dublin accents: a glide from a front mid vowel up to 'ee'.",
+      "ipa": "[eɪ] to [ɛɪ]",
+      "actor_tip": "Keep a clear 'ay' glide in 'face', 'day', 'make'. Do not make it a single long vowel.",
+      "example": "face, day, make",
+      "source_ids": [2]
+    },
+    {
+      "rule": "MOUTH vowel is fronted and raised in Dublin English, starting from a front vowel and gliding up toward 'oo'. Mainstream Dublin speech is less raised.",
+      "ipa": "[æʊ] to [ɛʊ] to [eʊ] (fronted/raised); mainstream [aʊ]",
+      "actor_tip": "Start 'house' and 'now' from a front vowel, like the 'a' in 'cat' or a bit higher, then glide up and back to 'oo'. Lift the middle of the tongue for the start of the sound.",
+      "example": "house, now, down, mouth",
+      "source_ids": [2]
+    },
+    {
+      "rule": "CHOICE vowel starts lower than in most accents outside Ulster: the 'oi' in 'boy' and 'choice' opens more at the start.",
+      "ipa": "/ɔɪ/ starts lower outside Ulster (exact IPA not verified)",
+      "actor_tip": "Start 'boy' and 'choice' with a more open 'aw' than standard English, then glide up to 'ee'. Do not use a short flat 'oy'.",
+      "example": "boy, choice, voice",
+      "source_ids": [1]
+    },
+    {
+      "rule": "L colour: l is usually clear (light) in most Irish English. Advanced Dublin is described as velarised (darker) for word-final l; Ulster can have a dark l occasionally.",
+      "ipa": "Usually [l]; Advanced Dublin and some Ulster: [ɫ] (word-final)",
+      "actor_tip": "Keep l clear (tongue tip on the ridge behind the top teeth) in most words. For Advanced Dublin, make word-final l darker by pulling the back of the tongue up slightly. Do not turn it into a vowel.",
+      "example": "milk, feel, all",
+      "source_ids": [1, 2]
+    }
+  ],
+  "intonation": [],
+  "common_mistakes": [
+    "Applying th-stopping to Ulster or Northern Irish characters. Ulster speakers usually keep the normal th sounds.",
+    "Using 'top o' the morning', 'begorrah' or leprechaun-style phrases. These are stage stereotypes and are not supported by the sources.",
+    "Using craic in every line. The source says it is common, but overuse becomes a caricature.",
+    "Putting the Local Dublin and Advanced Dublin features together on the same character. Choose one register.",
+    "Turning the Irish 'r' into a strong American r on every word. Local Dublin's r is weak; Advanced Dublin's is retroflex.",
+    "Using the 'after' perfect or do be in every sentence. Use only in one or two lines of a monologue."
+  ],
+  "generational_notes": [
+    "Source describes Local Dublin English as traditional working-class speech and Advanced Dublin English as a newer, higher-status accent used by many younger speakers from the 1990s on, which some describe as rejecting traditional working-class Dublin.",
+    "In Advanced Dublin, earn and urn merge into the NURSE vowel, and horse and hoarse become the same (the NORTH/FORCE merger). These are features of the newer accent only and should not be applied to Local Dublin characters.",
+    "Advanced Dublin English is described in the source as a 'new mainstream accent' for younger speakers.",
+    "Local Dublin's r is described as weakly rhotic in the 21st century, so older Dublin speakers who were once non-rhotic now have a weak r."
+  ],
+  "conversion_guidelines": [
+    "Choose the variety first: Local Dublin (working-class, older) or Advanced Dublin (younger, higher-status). Do not mix the two for one character.",
+    "For Local Dublin, apply th-stopping, the PRICE diphthong and the fronted MOUTH vowel as the core features. Add weak r.",
+    "For Advanced Dublin, apply the lower PRICE onset, retroflex r, and the horse-hoarse merger (only if the text uses these words).",
+    "For Ulster characters, do not apply th-stopping; use the other vowel features only after checking a source.",
+    "Use grammar sparingly: at most one of 'after' perfect, 'do be', 'yous', or 'ye' per monologue.",
+    "Use craic or eejit at most once or twice; choose the line where it fits best.",
+    "Keep spelling close to standard English. Do not spell out the accent (for example, do not write 'tink' in the text), except where the text uses th words, and then only in stage notes."
+  ],
+  "sources": [
+    {
+      "id": 1,
+      "title": "Hiberno-English (Wikipedia)",
+      "url": "https://en.wikipedia.org/wiki/Hiberno-English",
+      "type": "encyclopedia"
+    },
+    {
+      "id": 2,
+      "title": "Dublin English (Wikipedia)",
+      "url": "https://en.wikipedia.org/wiki/Dublin_English",
+      "type": "encyclopedia"
+    },
+    {
+      "id": 3,
+      "title": "Th-stopping (Wikipedia)",
+      "url": "https://en.wikipedia.org/wiki/Th-stopping",
+      "type": "encyclopedia"
+    }
+  ],
+  "confidence": "medium",
+  "open_questions": [
+    "The Hiberno-English article section on habitual 'do be' is uncited; the regional list (Mayo, Sligo, Waterford, Dublin city, Cork city) was not checked against a source.",
+    "'Sure look', 'grand' and 'gas' were not found in the opened text (the article was truncated) and are omitted.",
+    "'Amn't' was listed as a vocabulary item in the source but its current usage was not stated; omitted until verified.",
+    "The h-dropping and h-adding status in Dublin was not found in the opened sources and is omitted.",
+    "The Hiberno-English article's section on the PRICE vowel described it as a diphthong, while an earlier summary described FACE as a monophthong; the Dublin English article describes FACE as a diphthong, which is used here. Verify with a primary source (Hickey 2005).",
+    "Whether the 'bad' vowel and the PRICE onset apply to all Dublin speakers or only Local speakers needs checking.",
+    "The 'is it yourself' construction and 'Is it...' tags were not verified and are omitted.",
+    "Intonation for Irish English was not verified. Leave empty until checked.",
+    "Ulster English is only mentioned as an exception to th-stopping; a separate Ulster file would be needed for full coverage."
+  ]
+}

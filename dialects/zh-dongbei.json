@@ -1,0 +1,220 @@
+{
+  "code": "zh-dongbei",
+  "name": "东北话 (Northeastern Mandarin)",
+  "language": "zh",
+  "summary": "东北官话 is the Mandarin variety of China's Northeast. The sources I could open confirm only a few pronunciation traits (r- sound often absent, -ian/-üan more open, more erhua, entering-tone syllables spread across other tones) and a small set of lexical items. Verified grammar and sentence-final particles were NOT found, so grammar and particle arrays are empty on purpose. Most vocabulary comes from a Chinese Wikipedia page that itself marks much of its lexicon as unsourced, so treat all vocabulary as low confidence until checked against a dialect dictionary or a native speaker.",
+  "grammar": [
+    {
+      "standard": "做 / 办 (general verb meaning do/handle)",
+      "dialect": "整 (general verb) in question forms like 咋整",
+      "condition": "Used as a catch-all verb in casual speech. The example sentence is a constructed illustration of the pattern 咋整 given in the source, not a quoted sentence. Native check needed.",
+      "example_standard": "这事儿怎么办？",
+      "example_dialect": "这事儿咋整？",
+      "romanization": "zhè shìr zǎ zhěng?",
+      "source_ids": [2]
+    },
+    {
+      "standard": "很 / 非常 (very)",
+      "dialect": "贼 + adjective",
+      "condition": "Intensifier placed before an adjective, used in casual speech. Source gives the pattern but no example sentence. Overuse sounds like a caricature.",
+      "example_standard": "很好",
+      "example_dialect": "贼好",
+      "romanization": "zéi hǎo",
+      "source_ids": [2]
+    }
+  ],
+  "vocabulary": [
+    {
+      "standard": "做什么 / 干什么",
+      "dialect": "嘎哈 (source writes 噶哈呢)",
+      "romanization": "gǎ hā ne",
+      "note": "Source says it is a mispronunciation-based form of 干啥呢. Written form varies between sources, so verify. Low confidence: source marks this entry as unsourced.",
+      "source_ids": [2]
+    },
+    {
+      "standard": "怎么样 / 怎么了",
+      "dialect": "咋地",
+      "romanization": "zǎ dì",
+      "note": "Asks what is going on. Low confidence: source marks as unsourced.",
+      "source_ids": [2]
+    },
+    {
+      "standard": "怎么 / 为什么",
+      "dialect": "咋",
+      "romanization": "zǎ",
+      "note": "Common question word. Used in 咋整 and 咋地.",
+      "source_ids": [2]
+    },
+    {
+      "standard": "聊天 / 闲聊",
+      "dialect": "唠嗑儿",
+      "romanization": "làor kēr",
+      "note": "Chatting or gossiping. Source calls it 'characteristic vocabulary' but marks it unsourced.",
+      "source_ids": [2]
+    },
+    {
+      "standard": "炫耀 (negative sense)",
+      "dialect": "得瑟",
+      "romanization": "dé se",
+      "note": "To show off in a negative way. Low confidence: unsourced in the source.",
+      "source_ids": [2]
+    },
+    {
+      "standard": "吹牛 / 胡扯",
+      "dialect": "扯犊子",
+      "romanization": "chě dúzi",
+      "note": "Bragging or talking nonsense. Low confidence: unsourced in the source. Strong slang, use sparingly.",
+      "source_ids": [2]
+    },
+    {
+      "standard": "非常新 (very new)",
+      "dialect": "嘎嘎新 (嘎儿嘎儿 as intensifier)",
+      "romanization": "gā gā xīn",
+      "note": "嘎儿嘎儿 is an intensifier meaning 'very'. Low confidence: unsourced in the source.",
+      "source_ids": [2]
+    },
+    {
+      "standard": "玉米",
+      "dialect": "苞米",
+      "romanization": "bāo mi",
+      "note": "Corn. Low confidence: unsourced in the source, but a common regional word to verify.",
+      "source_ids": [2]
+    },
+    {
+      "standard": "老婆 (said by a husband to his wife)",
+      "dialect": "老蒯",
+      "romanization": "lǎo kuài",
+      "note": "Source says a man uses this to address his wife. Low confidence: unsourced in the source.",
+      "source_ids": [2]
+    },
+    {
+      "standard": "吝啬的 / 小气的",
+      "dialect": "抠搜",
+      "romanization": "kōu sou",
+      "note": "Stingy. Source says Manchu loanword. Cited reference not opened.",
+      "source_ids": [2]
+    },
+    {
+      "standard": "面包 (Russian-style bread)",
+      "dialect": "列巴",
+      "romanization": "liè bā",
+      "note": "Russian loanword as described by the source. The source's cited book was not opened.",
+      "source_ids": [2]
+    },
+    {
+      "standard": "萝卜 / 芜菁 (turnip)",
+      "dialect": "卜留克",
+      "romanization": "bǔ liú kè",
+      "note": "Russian loanword as described by the source. Cited book not opened.",
+      "source_ids": [2]
+    },
+    {
+      "standard": "厕所",
+      "dialect": "便所",
+      "romanization": "biàn suǒ",
+      "note": "Source lists it as a Japanese-origin word used in the Northeast. Check whether it is still common in current speech before using.",
+      "source_ids": [2]
+    },
+    {
+      "standard": "下水道井盖 (manhole)",
+      "dialect": "马胡陆",
+      "romanization": "mǎ hú lù",
+      "note": "Japanese-origin word as described by the source.",
+      "source_ids": [2]
+    },
+    {
+      "standard": "味精 (MSG)",
+      "dialect": "味素",
+      "romanization": "wèi sù",
+      "note": "Japanese-origin word as described by the source.",
+      "source_ids": [2]
+    },
+    {
+      "standard": "冰淇淋",
+      "dialect": "冰果",
+      "romanization": "bīng guǒ",
+      "note": "Source says it comes from Japanese 氷菓. Low confidence on current usage.",
+      "source_ids": [2]
+    }
+  ],
+  "particles": [],
+  "pronunciation": [
+    {
+      "rule": "The retroflex r- initial (ʐ, as in 人, 肉) is mostly absent. It is replaced by a y- sound in many words, and by l in some areas.",
+      "actor_tip": "For 人, 肉, 日 and similar words, do not curl the tongue for r. Start the word with a soft y sound instead. Keep it light, not exaggerated.",
+      "example": "肉 ròu → yòu; 人 rén → yín",
+      "source_ids": [1, 2]
+    },
+    {
+      "rule": "The -ian and -üan rhymes are pronounced with a more open vowel, close to [æ], than in Beijing Mandarin.",
+      "actor_tip": "Open the mouth wider on the vowel in words like 先, 天, 元. It should sound like a slightly flatter, wider 'yen' sound.",
+      "example": "先 xiān (more open vowel)",
+      "source_ids": [1]
+    },
+    {
+      "rule": "The w- initial is kept. It does not shift to v- as in neighboring Hebei dialects.",
+      "actor_tip": "Keep the lip-rounded w sound at the start of words like 我, 为, 王. Do not change it to a v sound.",
+      "example": "No example given in the source.",
+      "source_ids": [1]
+    },
+    {
+      "rule": "After b, p, m, f, the vowel o is pronounced closer to [ɤ] (like the vowel in Korean ㅓ).",
+      "actor_tip": "For bo, po, mo, fo, use a 'uh' sound closer to Korean 어 rather than 오. Medium-low confidence: the source cites a Chinese dialect atlas that was not opened.",
+      "example": "摸 mō pronounced with an ɤ-like vowel",
+      "source_ids": [2]
+    },
+    {
+      "rule": "Erhua (adding a curled-tongue -r ending to words) is more frequent and more prominent than in Beijing Mandarin.",
+      "actor_tip": "Add a light r ending by curling the tongue at the end of certain nouns, for example 超市儿. Use sparingly. Source is a WeChat article, so weak evidence.",
+      "example": "超市 → 超市儿 chāoshìr",
+      "source_ids": [2]
+    }
+  ],
+  "tones_intonation": [
+    {
+      "rule": "Old entering-tone (short, checked) syllables are spread across the 1st, 2nd, 3rd and 4th tones rather than all going to one tone. Source cites a Chinese dialectology textbook that was not opened. Low confidence on specific tone assignments.",
+      "source_ids": [2]
+    }
+  ],
+  "common_mistakes": [
+    "Packing many dialect words (嘎哈, 整, 贼, 唠嗑儿, 扯犊子) into every line. This is the classic caricature and should be limited to roughly one per paragraph in casual speech.",
+    "Turning every r sound into y. The change applies to certain r words (人, 肉), not to all syllables.",
+    "Using dialect words in formal speech, narration or announcements.",
+    "Making up particles such as 呗 or 哩 without evidence. The sources reviewed did not confirm them."
+  ],
+  "generational_notes": [
+    "No verified source on which words older or younger Northeasterners use. The source notes are based on older textbooks and general observation.",
+    "Younger speakers may use the same words in online or comedic contexts. Actors should confirm this with a native speaker before deciding how strong to make the dialect."
+  ],
+  "conversion_guidelines": [
+    "Keep the standard Mandarin sentence structure and word order. No verified grammar changes were found, so do not invent new grammar.",
+    "Replace at most one or two lexical items per paragraph (for example 整, 咋, 贼, 唠嗑儿). Use them in casual dialogue only, never in narration.",
+    "Apply the r-to-y change only to words where it is documented (人, 肉), not to all words with r.",
+    "Do not add sentence-final particles (呗, 哩, 嘛) until they are verified. Leave the standard particles unchanged.",
+    "Mark each converted word in a glossary so the actor can check the source and confidence.",
+    "Flag every low-confidence item for native-speaker review before performance."
+  ],
+  "sources": [
+    {
+      "id": 1,
+      "title": "Northeastern Mandarin - Wikipedia (English)",
+      "url": "https://en.wikipedia.org/wiki/Northeastern_Mandarin",
+      "type": "encyclopedia"
+    },
+    {
+      "id": 2,
+      "title": "东北官话 - Wikipedia (中文)",
+      "url": "https://zh.wikipedia.org/wiki/東北官話",
+      "type": "encyclopedia"
+    }
+  ],
+  "confidence": "low",
+  "open_questions": [
+    "No verified grammar or sentence-final particle data was found. Need a Northeastern dialect dictionary (东北方言词典 or 东北方言大词典) or CNKI articles on 东北官话 语气词.",
+    "Verify 老鼻子, 忒, 呗, 哩, 嘛, 得, 给, 把 and 处置 usage. The sources reviewed do not cover them.",
+    "The source's cited academic works (Li 1989, 中国语言地图集, 汉语方言学基础教程) were not opened. Check them directly.",
+    "Confirm the correct written form (嘎哈 vs 噶哈呢) and current usage frequency.",
+    "The 'ian -> æ' and 'w kept' rules come from an English encyclopedia summary. Check with a Northeastern native speaker or phonetic study before relying on them.",
+    "Ask a native speaker to rate which words sound natural now versus dated."
+  ]
+}
