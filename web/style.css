@@ -448,7 +448,7 @@ body.show-intro main { display: none; }
 @media (max-width: 760px) { .intro-soon { grid-template-columns: 1fr; } }
 
 /* ---------- 연습실 고르기 카드 (소개 페이지) ---------- */
-.room-pick { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; max-width: 880px; }
+.room-pick { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; max-width: 1100px; }
 .room-card {
   display: flex; flex-direction: column; align-items: flex-start; gap: 6px; text-align: left;
   padding: 24px 24px 20px; min-height: 180px; border-radius: 16px; cursor: pointer;
@@ -480,3 +480,115 @@ body.show-intro main { display: none; }
 .badge-now { background: var(--accent); color: var(--accent-text); }
 .badge-soon { border: 1px solid var(--border); color: var(--muted); }
 .soon-inline { display: block; margin-top: 4px; font-style: normal; font-size: .9em; color: var(--accent); }
+
+/* ---------- 서비스 바꾸기 (제목줄) ---------- */
+.room-switch { display: flex; flex-wrap: wrap; gap: 6px; }
+.room-switch .btn[aria-current="page"] { background: var(--accent); color: var(--accent-text); }
+
+/* ---------- 연기 노트 ---------- */
+/* 형광펜 색 (글자 배경). 어두운 모드에서는 어두운 색 + 밝은 글자로 바뀌어요 */
+:root {
+  --hl-yellow: #fff176; --hl-pink: #f8bbd0; --hl-sky: #81d4fa; --hl-green: #c5e1a5;
+  --paper-bg: #fffefa; --paper-text: #1f1b16; --paper-line: #d9cfbf; --em-color: #c62828;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --hl-yellow: #7a6a12; --hl-pink: #7d3a52; --hl-sky: #1f5f80; --hl-green: #476332;
+    --paper-bg: #1b1814; --paper-text: #f1ebe0; --paper-line: #4a4238; --em-color: #ff8a80;
+  }
+}
+.nt-toolbar {
+  position: sticky; top: 0; z-index: 20; display: flex; flex-wrap: wrap; gap: 8px 14px;
+  padding: 8px; margin-bottom: 8px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+}
+.nt-group { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.nt-btn { min-height: 44px; min-width: 44px; padding: 6px 12px; }
+.nt-btn[aria-pressed="true"] { background: var(--accent); color: var(--accent-text); }
+.nt-hl { color: #1f1b16; border-color: var(--border); }
+.nt-hl-yellow { background: var(--hl-yellow); } .nt-hl-pink { background: var(--hl-pink); }
+.nt-hl-sky { background: var(--hl-sky); } .nt-hl-green { background: var(--hl-green); }
+@media (prefers-color-scheme: dark) { .nt-hl { color: #fff; } }
+.nt-hl:hover:not(:disabled) { filter: brightness(.95); background-color: inherit; }
+.nt-em-sample { color: var(--em-color); }
+.nt-status { margin: 4px 2px 8px; }
+
+.nt-paper-wrap { position: relative; margin: 0 0 16px; }
+.nt-paper {
+  position: relative; background: var(--paper-bg); color: var(--paper-text);
+  border: 1px solid var(--paper-line); border-radius: 6px; box-shadow: 0 2px 10px rgba(0,0,0,.08);
+  padding: 28px 16px 28px 56px; font-family: var(--font-script); font-size: 1.3rem; line-height: 2.1;
+  -webkit-user-select: text; user-select: text; word-break: keep-all; overflow-wrap: anywhere;
+}
+.nt-line { position: relative; display: block; min-height: 2.1em; white-space: pre-wrap; }
+.nt-lineno {
+  position: absolute; left: -44px; width: 34px; text-align: right; top: 0; font-family: var(--font-ui);
+  font-size: .75rem; color: var(--muted); user-select: none; -webkit-user-select: none; line-height: 2.8;
+}
+.nt-text { display: inline; }
+.nt-line.flash { animation: ntflash 1.4s ease; }
+@keyframes ntflash { 0%,60% { background: var(--accent-soft); } 100% { background: transparent; } }
+@media (prefers-reduced-motion: reduce) { .nt-line.flash { animation: none; background: var(--accent-soft); } }
+.nt-hl-yellow.nt-span, .nt-span.hl-yellow { background: var(--hl-yellow); }
+.nt-span.hl-pink { background: var(--hl-pink); } .nt-span.hl-sky { background: var(--hl-sky); } .nt-span.hl-green { background: var(--hl-green); }
+.nt-span.ul { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 5px; }
+.nt-span.em { font-weight: 800; color: var(--em-color); }
+.nt-span.memo-on { border-bottom: 2px dotted var(--accent); }
+.nt-pause { color: var(--accent); font-weight: 800; font-family: var(--font-ui); padding: 0 2px; user-select: none; -webkit-user-select: none; }
+.nt-bubble {
+  display: inline-block; vertical-align: super; font-family: var(--font-ui); font-size: .7rem; line-height: 1;
+  min-width: 22px; height: 22px; padding: 4px 5px; margin: 0 2px; border-radius: 11px; border: 0; cursor: pointer;
+  background: var(--accent); color: var(--accent-text); font-weight: 700; user-select: none; -webkit-user-select: none;
+}
+.nt-canvas { position: absolute; left: 0; top: 0; width: 100%; height: 100%; pointer-events: none; z-index: 5; }
+.nt-draw-mode .nt-canvas, .nt-draw-mode .nt-sketch-canvas { pointer-events: auto; touch-action: none; cursor: crosshair; }
+.nt-draw-mode .nt-paper { user-select: none; -webkit-user-select: none; }
+
+.nt-memo-list { margin: 8px 0 0; padding-left: 24px; }
+.nt-memo-list li { margin-bottom: 8px; }
+.nt-memo-btn { background: none; border: 0; padding: 6px 4px; font: inherit; color: var(--text); text-align: left; cursor: pointer; min-height: 44px; }
+.nt-memo-btn:hover { background: var(--accent-soft); }
+.nt-memo-edit { margin-left: 6px; }
+
+.nt-check { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; margin-right: 12px; }
+.nt-check input { width: 22px; height: 22px; }
+.nt-sketch-wrap { position: relative; margin-top: 8px; background: var(--paper-bg); border: 1px solid var(--paper-line); border-radius: 6px; }
+.nt-sketch-canvas { display: block; width: 100%; aspect-ratio: 5 / 3; height: auto; touch-action: none; cursor: crosshair; }
+
+.nt-mini {
+  position: absolute; z-index: 60; display: flex; flex-wrap: wrap; gap: 4px; padding: 6px; max-width: min(92vw, 420px);
+  background: var(--surface); color: var(--text); border: 1px solid var(--border); border-radius: 10px; box-shadow: 0 6px 20px rgba(0,0,0,.25);
+}
+.nt-dot { width: 44px; height: 44px; border-radius: 50%; border: 2px solid var(--border); cursor: pointer; }
+.nt-mini-btn { min-height: 44px; padding: 4px 10px; border-radius: 8px; border: 1px solid var(--border); background: var(--surface); color: var(--text); font: inherit; cursor: pointer; }
+.nt-mini-btn:hover { background: var(--accent-soft); }
+.nt-pop {
+  position: absolute; z-index: 70; width: min(92vw, 340px); padding: 12px; background: var(--surface); color: var(--text);
+  border: 1px solid var(--border); border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,.3);
+}
+.nt-pop-title { margin: 0 0 8px; font-weight: 700; word-break: break-all; }
+.nt-pop-links { display: grid; gap: 6px; margin-bottom: 8px; }
+.nt-pop-links a { display: flex; align-items: center; min-height: 44px; padding: 6px 12px; border: 2px solid var(--accent); border-radius: 10px; color: var(--accent); font-weight: 700; text-decoration: none; }
+.nt-pop-links a:hover { background: var(--accent-soft); }
+.nt-dlg { width: min(92vw, 460px); border: 1px solid var(--border); border-radius: 12px; background: var(--surface); color: var(--text); }
+.nt-dlg::backdrop { background: rgba(0,0,0,.45); }
+.nt-dlg textarea { width: 100%; box-sizing: border-box; font-family: var(--font-ui); font-size: 1rem; }
+
+@media (max-width: 760px) {
+  .nt-paper { padding: 20px 10px 20px 44px; font-size: 1.25rem; }
+  .nt-lineno { left: -36px; width: 28px; }
+  .nt-toolbar { position: static; }
+  .nt-btn { flex: 1 1 auto; }
+}
+
+/* 인쇄: 노트 종이(+그림)와 메모 목록만 */
+@media print {
+  :root { --hl-yellow: #fff176; --hl-pink: #f8bbd0; --hl-sky: #81d4fa; --hl-green: #c5e1a5; --em-color: #c62828; }
+  body > *:not(main), main > .panel:not(#panel-note), .site-header, .site-footer, #intro, #ntToolbar, #ntStatus, #ntStart,
+  #ntSketchSection, #ntMini, #ntPop, .skip-link, #tooltip { display: none !important; }
+  #panel-note { display: block !important; }
+  #ntView { display: block !important; }
+  .nt-paper { box-shadow: none; border: 0; background: #fff; color: #000; }
+  .nt-canvas { position: absolute; }
+  .nt-memos { border: 0; break-inside: avoid; }
+  .nt-memo-edit { display: none; }
+}

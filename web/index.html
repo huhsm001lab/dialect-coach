@@ -34,6 +34,12 @@
             <span class="room-desc">대본·희곡의 장면·인물·감정 흐름과 내 배역의 여정을 분석해요 <em class="soon-inline">곧: 참고 자료 리서치 · 무드 이미지·영상</em></span>
             <span class="room-go">들어가기 →</span>
           </button>
+          <button class="room-card" type="button" data-room="note">
+            <span class="room-icon" aria-hidden="true">📝</span>
+            <span class="room-title">연기 노트</span>
+            <span class="room-desc">대본에 형광펜·메모·쉼 표시를 하고, 직접 그림을 그리고, 모르는 단어는 사전·이미지로 바로 찾아봐요</span>
+            <span class="room-go">들어가기 →</span>
+          </button>
         </div>
         <p class="intro-howlink"><a href="#intro-how">어떻게 쓰나요? ↓</a></p>
       </div>
@@ -43,7 +49,7 @@
       <section class="intro-block" aria-labelledby="intro-why">
         <h2 id="intro-why">왜 만들었나요?</h2>
         <p>배우의 대본·메모·녹음은 여기저기 흩어져 있고, 새 배역이 오면 작품 분석·자료 찾기·사투리 연습을 매번 혼자 처음부터 해요.
-          이곳은 배우 한 사람의 <strong>저장 공간이자 연기 연습 공간</strong>이 되려고 해요. 그 안에 <strong>사투리 코치</strong>와 <strong>대본 분석 스튜디오</strong>, 두 서비스를 먼저 열었어요.</p>
+          이곳은 배우 한 사람의 <strong>저장 공간이자 연기 연습 공간</strong>이 되려고 해요. 그 안에 <strong>사투리 코치</strong>, <strong>대본 분석 스튜디오</strong>, <strong>연기 노트</strong> 세 서비스를 먼저 열었어요.</p>
       </section>
 
       <section class="intro-block" aria-labelledby="intro-soon">
@@ -52,6 +58,7 @@
         <ul class="intro-soon">
           <li class="card"><h3>🎭 사투리 코치 <span class="badge-now">사용 가능</span></h3><p>사투리·현지 회화체 변환, AI 음성, 억양 악보, 음성인식 채점, 억양 그래프</p></li>
           <li class="card"><h3>📖 대본 분석 스튜디오 <span class="badge-now">분석 사용 가능</span></h3><p>흐름 분석 → <span class="muted">곧:</span> 참고 이미지·영상 리서치 → 무드 이미지·짧은 영상 제작</p></li>
+          <li class="card"><h3>📝 연기 노트 <span class="badge-now">사용 가능</span></h3><p>대본에 형광펜·밑줄·쉼 표시·메모를 하고 직접 그림을 그려요. 모르는 단어는 사전·이미지로 바로 찾아봐요</p></li>
           <li class="card"><h3>🗂 나의 대본 보관함 <span class="badge-soon">준비 중</span></h3><p>내 대본·분석 결과·연습 녹음·점수를 계정에 모아 두는 저장소의 바탕</p></li>
         </ul>
       </section>
@@ -115,6 +122,12 @@
             <span class="room-desc">대본·희곡의 장면·인물·감정 흐름과 내 배역의 여정을 분석해요 <em class="soon-inline">곧: 참고 자료 리서치 · 무드 이미지·영상</em></span>
             <span class="room-go">들어가기 →</span>
           </button>
+          <button class="room-card" type="button" data-room="note">
+            <span class="room-icon" aria-hidden="true">📝</span>
+            <span class="room-title">연기 노트</span>
+            <span class="room-desc">대본에 형광펜·메모·쉼 표시를 하고, 직접 그림을 그리고, 모르는 단어는 사전·이미지로 바로 찾아봐요</span>
+            <span class="room-go">들어가기 →</span>
+          </button>
         </div>
       </div>
     </div>
@@ -125,7 +138,12 @@
       <div class="brand-row">
         <h1 class="brand"><span id="roomName">사투리 코치</span> <span class="brand-sub">배우의 대본 저장소</span></h1>
         <div class="brand-actions">
-          <button id="roomSwitch" class="btn btn-sm" type="button">대본 분석 스튜디오 →</button>
+          <!-- 서비스 바꾸기: 지금 있는 서비스에 aria-current 표시가 붙어요 (app.js가 채움) -->
+          <nav id="roomSwitch" class="room-switch" aria-label="서비스 바꾸기">
+            <button class="btn btn-sm" type="button" data-switch="dialect">🎭 사투리 코치</button>
+            <button class="btn btn-sm" type="button" data-switch="analyze">📖 대본 분석</button>
+            <button class="btn btn-sm" type="button" data-switch="note">📝 연기 노트</button>
+          </nav>
           <button id="introOpen" class="btn btn-sm" type="button">🏠 처음으로</button>
         </div>
       </div>
@@ -143,6 +161,7 @@
         <button class="tab" role="tab" id="tab-practice" aria-controls="panel-practice" aria-selected="false" tabindex="-1">② 연습</button>
         <button class="tab" role="tab" id="tab-listen" aria-controls="panel-listen" aria-selected="false" tabindex="-1">③ 듣고 따라하기</button>
         <button class="tab" role="tab" id="tab-analyze" aria-controls="panel-analyze" aria-selected="false" tabindex="-1">대본 분석</button>
+        <button class="tab" role="tab" id="tab-note" aria-controls="panel-note" aria-selected="false" tabindex="-1" hidden>연기 노트</button>
       </div>
     </div>
   </header>
@@ -403,6 +422,127 @@
         </div>
         <p id="anCopyStatus" class="small muted" role="status" aria-live="polite"></p>
       </div>
+    </section>
+
+    <!-- ============ 연기 노트 ============ -->
+    <section id="panel-note" class="panel" role="tabpanel" aria-labelledby="tab-note" hidden>
+
+      <!-- 시작 화면: 대본 붙여넣기 -->
+      <div id="ntStart" class="card">
+        <h2>연기 노트</h2>
+        <label for="ntText" class="block-label">대본·희곡 붙여넣기</label>
+        <textarea id="ntText" maxlength="20000" rows="10" placeholder="내 대본이나 희곡을 여기에 붙여넣어 주세요. (최대 20,000자)"></textarea>
+        <div class="actions">
+          <button id="ntMake" class="btn btn-primary btn-lg" type="button">노트로 만들기</button>
+          <button id="ntFromDialect" class="btn" type="button">사투리 코치 결과 가져오기</button>
+          <button id="ntFromAnalyze" class="btn" type="button">대본 분석의 대본 가져오기</button>
+        </div>
+        <p id="ntStartMsg" class="small muted" role="status" aria-live="polite"></p>
+        <p class="notice notice-info small">노트는 이 브라우저에만 저장돼요(보관함 기능 준비 중).</p>
+      </div>
+
+      <!-- 노트 화면 -->
+      <div id="ntView" hidden>
+        <!-- 도구 모음: 화면 위에 붙어 있어요 -->
+        <div id="ntToolbar" class="nt-toolbar" role="toolbar" aria-label="연기 노트 도구">
+          <div class="nt-group" role="group" aria-label="모드">
+            <button id="ntModeSelect" class="btn btn-sm nt-btn" type="button" aria-pressed="true">선택 모드</button>
+            <button id="ntModeDraw" class="btn btn-sm nt-btn" type="button" aria-pressed="false">✏️ 그리기 모드</button>
+          </div>
+          <div class="nt-group" role="group" aria-label="형광펜 색">
+            <button class="btn btn-sm nt-btn nt-hl nt-hl-yellow" type="button" data-hl="yellow" aria-label="노랑 형광펜">노랑</button>
+            <button class="btn btn-sm nt-btn nt-hl nt-hl-pink" type="button" data-hl="pink" aria-label="분홍 형광펜">분홍</button>
+            <button class="btn btn-sm nt-btn nt-hl nt-hl-sky" type="button" data-hl="sky" aria-label="하늘색 형광펜">하늘</button>
+            <button class="btn btn-sm nt-btn nt-hl nt-hl-green" type="button" data-hl="green" aria-label="연두 형광펜">연두</button>
+          </div>
+          <div class="nt-group" role="group" aria-label="글자 표시">
+            <button class="btn btn-sm nt-btn" type="button" data-mark="ul" aria-label="밑줄"><u>밑줄</u></button>
+            <button class="btn btn-sm nt-btn" type="button" data-mark="em" aria-label="강조(굵게, 빨강)"><strong class="nt-em-sample">강조</strong></button>
+            <button class="btn btn-sm nt-btn" type="button" data-mark="pause" aria-label="쉼 표시 넣기">쉼 ‖</button>
+            <button class="btn btn-sm nt-btn" type="button" data-mark="memo" aria-label="메모 달기">💬 메모</button>
+            <button class="btn btn-sm nt-btn" type="button" data-lookup="dict" aria-label="선택한 말을 사전에서 찾기">📖 사전</button>
+            <button class="btn btn-sm nt-btn" type="button" data-lookup="image" aria-label="선택한 말을 이미지로 찾기">🖼 이미지</button>
+            <button class="btn btn-sm nt-btn" type="button" data-mark="clear" aria-label="선택한 부분의 표시 지우기">표시 지우기</button>
+          </div>
+          <div class="nt-group" role="group" aria-label="펜 설정">
+            <button class="btn btn-sm nt-btn nt-pen" type="button" data-pen="#222222" aria-pressed="true" aria-label="검정 펜">검정</button>
+            <button class="btn btn-sm nt-btn nt-pen" type="button" data-pen="#d32f2f" aria-pressed="false" aria-label="빨강 펜">빨강</button>
+            <button class="btn btn-sm nt-btn nt-pen" type="button" data-pen="#1565c0" aria-pressed="false" aria-label="파랑 펜">파랑</button>
+            <button class="btn btn-sm nt-btn nt-width" type="button" data-width="2" aria-pressed="false">얇게</button>
+            <button class="btn btn-sm nt-btn nt-width" type="button" data-width="4" aria-pressed="true">보통</button>
+            <button class="btn btn-sm nt-btn nt-width" type="button" data-width="8" aria-pressed="false">굵게</button>
+            <button id="ntEraser" class="btn btn-sm nt-btn" type="button" aria-pressed="false">지우개</button>
+          </div>
+          <div class="nt-group" role="group" aria-label="되돌리기와 저장">
+            <button id="ntUndo" class="btn btn-sm nt-btn" type="button">↶ 되돌리기</button>
+            <button id="ntClear" class="btn btn-sm nt-btn" type="button">모두 지우기</button>
+            <button id="ntPng" class="btn btn-sm nt-btn" type="button">🖼 PNG로 저장</button>
+            <button id="ntPrint" class="btn btn-sm nt-btn" type="button">🖨 인쇄</button>
+            <button id="ntNew" class="btn btn-sm nt-btn" type="button">새 노트</button>
+          </div>
+        </div>
+        <p id="ntStatus" class="small muted nt-status" role="status" aria-live="polite">글을 드래그해서 고른 뒤 형광펜·밑줄·메모를 눌러 보세요.</p>
+
+        <!-- 대본 종이: 글자 위에 투명한 그림 캔버스가 겹쳐져요 -->
+        <div id="ntPaperWrap" class="nt-paper-wrap">
+          <div id="ntPaper" class="nt-paper" aria-label="대본 노트 종이"></div>
+          <canvas id="ntCanvas" class="nt-canvas" aria-hidden="true"></canvas>
+        </div>
+
+        <!-- 메모 목록 -->
+        <section id="ntMemoSection" class="card nt-memos" aria-labelledby="ntMemoTitle">
+          <h2 id="ntMemoTitle">메모 목록</h2>
+          <ol id="ntMemoList" class="nt-memo-list"></ol>
+          <p id="ntMemoEmpty" class="small muted">아직 메모가 없어요. 글을 고르고 💬 메모를 눌러 보세요.</p>
+        </section>
+
+        <!-- 스케치 페이지 -->
+        <section id="ntSketchSection" class="card nt-sketch-sec" aria-labelledby="ntSketchTitle">
+          <h2 id="ntSketchTitle">스케치 페이지</h2>
+          <p class="small muted">동선(블로킹)이나 장면 그림을 자유롭게 그려요. 위의 펜 색·굵기·지우개를 같이 써요.</p>
+          <label class="nt-check"><input id="ntStageGuide" type="checkbox"> 무대 그림 틀 보기</label>
+          <button id="ntSketchUndo" class="btn btn-sm nt-btn" type="button">↶ 스케치 되돌리기</button>
+          <div id="ntSketchWrap" class="nt-sketch-wrap">
+            <canvas id="ntSketchCanvas" class="nt-sketch-canvas" aria-label="스케치 그리기 영역" role="img"></canvas>
+          </div>
+        </section>
+      </div>
+
+      <!-- 선택한 글 근처에 뜨는 작은 메뉴 -->
+      <div id="ntMini" class="nt-mini" role="toolbar" aria-label="선택한 글 도구" hidden>
+        <button class="nt-dot nt-hl-yellow" type="button" data-hl="yellow" aria-label="노랑 형광펜"></button>
+        <button class="nt-dot nt-hl-pink" type="button" data-hl="pink" aria-label="분홍 형광펜"></button>
+        <button class="nt-dot nt-hl-sky" type="button" data-hl="sky" aria-label="하늘색 형광펜"></button>
+        <button class="nt-dot nt-hl-green" type="button" data-hl="green" aria-label="연두 형광펜"></button>
+        <button class="nt-mini-btn" type="button" data-mark="ul"><u>밑줄</u></button>
+        <button class="nt-mini-btn" type="button" data-mark="em"><strong>강조</strong></button>
+        <button class="nt-mini-btn" type="button" data-mark="memo">💬 메모</button>
+        <button class="nt-mini-btn" type="button" data-lookup="dict">📖 사전</button>
+        <button class="nt-mini-btn" type="button" data-lookup="image">🖼 이미지</button>
+      </div>
+
+      <!-- 사전/이미지 링크 팝오버 -->
+      <div id="ntPop" class="nt-pop" role="dialog" aria-label="찾아보기" hidden>
+        <p id="ntPopTitle" class="nt-pop-title"></p>
+        <div id="ntPopLinks" class="nt-pop-links"></div>
+        <p class="small muted">새 탭에서 열려요 · 이미지는 저작권을 확인하고 쓰세요</p>
+        <button id="ntPopClose" class="btn btn-sm" type="button">닫기</button>
+      </div>
+
+      <!-- 메모 쓰기/고치기 창 -->
+      <dialog id="ntMemoDlg" class="nt-dlg" aria-labelledby="ntMemoDlgTitle">
+        <form method="dialog" id="ntMemoForm">
+          <h2 id="ntMemoDlgTitle">메모</h2>
+          <p id="ntMemoQuote" class="small muted"></p>
+          <label for="ntMemoInput" class="block-label">메모 내용</label>
+          <textarea id="ntMemoInput" rows="4" maxlength="500"></textarea>
+          <div class="actions">
+            <button id="ntMemoSave" class="btn btn-primary" type="submit" value="save">저장</button>
+            <button id="ntMemoDel" class="btn" type="button" hidden>삭제</button>
+            <button id="ntMemoCancel" class="btn" type="button">취소</button>
+          </div>
+        </form>
+      </dialog>
     </section>
   </main>
 

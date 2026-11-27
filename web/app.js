@@ -418,7 +418,8 @@ function loadSaved() {
 var ROOM_KEY = 'dialectCoach.room';
 var ROOMS = {
   dialect: { name: '사투리 코치', tabs: ['convert', 'practice', 'listen'], other: 'analyze' },
-  analyze: { name: '대본 분석 스튜디오', tabs: ['analyze'], other: 'dialect' }
+  analyze: { name: '대본 분석 스튜디오', tabs: ['analyze'], other: 'dialect' },
+  note: { name: '연기 노트', tabs: ['note'], other: 'dialect' }
 };
 var currentRoom = 'dialect';
 
@@ -442,7 +443,11 @@ function enterRoom(room) {
   var r = ROOMS[room];
   document.body.setAttribute('data-room', room);
   $('roomName').textContent = r.name;
-  $('roomSwitch').textContent = ROOMS[r.other].name + ' →';
+  // 서비스 바꾸기 버튼: 지금 있는 서비스에 aria-current 표시
+  document.querySelectorAll('#roomSwitch [data-switch]').forEach(function (b) {
+    if (b.getAttribute('data-switch') === room) b.setAttribute('aria-current', 'page');
+    else b.removeAttribute('aria-current');
+  });
   // 이 방의 탭만 보이게 (탭이 하나뿐이면 탭 줄 자체를 숨겨요)
   TAB_IDS.forEach(function (id) { $('tab-' + id).hidden = r.tabs.indexOf(id) === -1; });
   $('tabList').hidden = r.tabs.length < 2;
@@ -450,8 +455,10 @@ function enterRoom(room) {
   if (location.hash !== '#' + room) history.replaceState(null, '', '#' + room);
   showIntro(false);
   selectTab(r.tabs[0], false);
-  var focusEl = room === 'analyze' ? document.querySelector('#panel-analyze textarea') : $('sourceText');
+  var focusEl = room === 'analyze' ? document.querySelector('#panel-analyze textarea')
+    : room === 'note' ? (noteHasText() ? $('ntModeSelect') : $('ntText')) : $('sourceText');
   if (focusEl) focusEl.focus();
+  if (room === 'note') noteOnShow();
 }
 
 function roomFromHash() {
@@ -465,7 +472,9 @@ function initIntro() {
     btn.addEventListener('click', function () { enterRoom(btn.getAttribute('data-room')); });
   });
   $('introOpen').addEventListener('click', function () { showIntro(true); });
-  $('roomSwitch').addEventListener('click', function () { enterRoom(ROOMS[currentRoom].other); });
+  document.querySelectorAll('#roomSwitch [data-switch]').forEach(function (b) {
+    b.addEventListener('click', function () { enterRoom(b.getAttribute('data-switch')); });
+  });
   window.addEventListener('hashchange', function () { var r = roomFromHash(); if (r && r !== currentRoom) enterRoom(r); });
 
   var saved = null;
@@ -475,7 +484,7 @@ function initIntro() {
 }
 
 /* ---------- 탭 ---------- */
-var TAB_IDS = ['convert', 'practice', 'listen', 'analyze'];
+var TAB_IDS = ['convert', 'practice', 'listen', 'analyze', 'note'];
 
 function selectTab(name, focus) {
   stopListening();
@@ -2144,6 +2153,7 @@ function initAnalyze() {
 /* ---------- 시작 ---------- */
 async function init() {
   initTabs();
+  initNote();
   initIntro(); // 탭 준비가 끝난 뒤 첫 페이지 또는 방을 열어요
   initTooltip();
   initAnalyze();
@@ -2202,6 +2212,7 @@ async function init() {
     renderResult();
   }
   updateCharCount();
+  applyLinkParams(); // 다른 서비스에서 ?text=… 로 대본을 보내왔으면 입력칸에 채워요
 
   // 서버 상태 확인 (키 안내) + 지역 목록
   api('/api/health').then(function (h) {
@@ -2223,6 +2234,902 @@ async function init() {
     $('regionSelect').innerHTML = '';
     $('regionSelect').appendChild(el('option', null, '지역을 불러오지 못했어요'));
   }
+}
+
+/* =====================================================================
+   연기 노트 (📝)  ─ 대본에 형광펜·메모·쉼 표시·그림을 더하는 서비스
+   ===================================================================== */
+
+/* === NOTE-PURE-START ================================================
+   화면(DOM)과 상관없는 "순수 함수"들이에요. 입력이 같으면 결과도 같아서 테스트하기 쉬워요.
+   (note_test.js 가 이 구간만 잘라서 검사해요. 이 구간 안에서는 document/window를 쓰지 않아요.)
+   ===================================================================== */
+var NT_COLORS = ['yellow', 'pink', 'sky', 'green'];   // 형광펜 색 이름
+var NT_TYPES = ['hl', 'ul', 'em', 'pause', 'memo'];   // 표시 종류
+var NT_MAX_LOOKUP = 30;                               // 사전·이미지로 찾는 말의 최대 길이
+
+// 대본 글을 줄 목록으로 나눠요 (윈도우 줄바꿈도 같이 처리)
+function ntSplitLines(text) {
+  return String(text == null ? '' : text).replace(/\r\n?/g, '\n').split('\n');
+}
+
+// 한 줄의 글(lineText)과 그 줄의 표시들(marks)로 "그릴 조각 목록"을 만들어요.
+// 겹치는 표시는 경계에서 잘라서, 조각마다 어떤 표시가 켜져 있는지 계산해요.
+// 결과: [{kind:'text', text, start, end, hl, ul, em, memo}, {kind:'pause'}, {kind:'bubble', memos:[표시,...]}]
+function ntBuildItems(lineText, marks) {
+  var len = lineText.length;
+  function clamp(n) { return Math.max(0, Math.min(len, n | 0)); }
+  var ranges = [], pauses = [], memos = [];
+  (marks || []).forEach(function (m) {
+    var s = clamp(m.start), e = clamp(m.end);
+    if (m.type === 'pause') { pauses.push({ at: s }); return; }
+    if (e <= s) return;
+    var r = { type: m.type, color: m.color, s: s, e: e, ref: m };
+    ranges.push(r);
+    if (m.type === 'memo') memos.push(r);
+  });
+  var cuts = {}; cuts[0] = 1; cuts[len] = 1;
+  ranges.forEach(function (r) { cuts[r.s] = 1; cuts[r.e] = 1; });
+  pauses.forEach(function (p) { cuts[p.at] = 1; });
+  var pts = Object.keys(cuts).map(Number).sort(function (a, b) { return a - b; });
+  var items = [];
+  for (var i = 0; i < pts.length; i++) {
+    var a = pts[i], b = pts[i + 1];
+    // 이 위치에서 끝나는 메모의 말풍선 → 쉼 표시 순서로 먼저 넣어요 (글자 조각보다 앞 = 앞 조각 바로 뒤)
+    var ending = memos.filter(function (r) { return r.e === a; }).map(function (r) { return r.ref; });
+    if (ending.length) items.push({ kind: 'bubble', memos: ending });
+    pauses.forEach(function (p) { if (p.at === a) items.push({ kind: 'pause' }); });
+    if (b === undefined || b <= a) continue;
+    var seg = { kind: 'text', text: lineText.slice(a, b), start: a, end: b, hl: null, ul: false, em: false, memo: false };
+    ranges.forEach(function (r) {
+      if (r.s <= a && r.e >= b) {
+        if (r.type === 'hl') seg.hl = r.color;      // 겹치면 나중에 칠한 색이 이겨요
+        else if (r.type === 'ul') seg.ul = true;
+        else if (r.type === 'em') seg.em = true;
+        else if (r.type === 'memo') seg.memo = true;
+      }
+    });
+    items.push(seg);
+  }
+  return items;
+}
+
+// 단어에 어떤 글자가 들어 있는지 보고 언어를 알아내요: 'ko' | 'zh' | 'en' | null
+function ntDetectLang(word) {
+  var w = String(word || '');
+  if (/[\u1100-\u11ff\u3130-\u318f\uac00-\ud7af]/.test(w)) return 'ko';   // 한글이 있으면 한국어
+  if (/[\u3400-\u4dbf\u4e00-\u9fff\uf900-\ufaff]/.test(w)) return 'zh';   // 한글 없이 한자만 있으면 중국어
+  if (/[A-Za-z]/.test(w)) return 'en';
+  return null;
+}
+
+// 찾을 말을 다듬어요: 앞뒤 공백 제거, 연속 공백 하나로, 최대 30자
+function ntCleanWord(s) {
+  return String(s || '').replace(/\s+/g, ' ').trim().slice(0, NT_MAX_LOOKUP).trim();
+}
+
+// 사전 링크 만들기 (새 탭에서 열 주소들)
+function ntDictLinks(word) {
+  var w = ntCleanWord(word);
+  if (!w) return [];
+  var q = encodeURIComponent(w);
+  var lang = ntDetectLang(w);
+  if (lang === 'ko') return [
+    { label: '표준국어대사전', url: 'https://stdict.korean.go.kr/search/searchResult.do?pageSize=10&searchKeyword=' + q },
+    { label: '네이버 국어사전', url: 'https://ko.dict.naver.com/#/search?query=' + q }
+  ];
+  if (lang === 'zh') return [
+    { label: 'MDBG 중국어 사전', url: 'https://www.mdbg.net/chinese/dictionary?wdqb=' + q },
+    { label: '네이버 중국어사전', url: 'https://zh.dict.naver.com/#/search?query=' + q }
+  ];
+  if (lang === 'en') return [
+    { label: 'Cambridge Dictionary', url: 'https://dictionary.cambridge.org/dictionary/english/' + q },
+    { label: 'Merriam-Webster', url: 'https://www.merriam-webster.com/dictionary/' + q }
+  ];
+  return [];
+}
+
+// 이미지 링크 만들기
+function ntImageLinks(word) {
+  var w = ntCleanWord(word);
+  if (!w) return [];
+  var q = encodeURIComponent(w);
+  return [
+    { label: '위키미디어 공용', url: 'https://commons.wikimedia.org/w/index.php?search=' + q + '&title=Special:MediaSearch&type=image' },
+    { label: '구글 이미지', url: 'https://www.google.com/search?tbm=isch&q=' + q }
+  ];
+}
+
+// 그림 점 좌표를 "종이 가로 길이 = 1" 기준으로 바꿔요. (화면 크기가 바뀌어도 그림이 같은 자리에 있어요)
+// 세로도 가로 길이로 나눠서 가로세로 비율이 유지돼요.
+function ntNormPoint(x, y, pageW, pressure) {
+  var r = function (n) { return Math.round(n * 10000) / 10000; };
+  return [r(x / pageW), r(y / pageW), Math.round((pressure == null ? 0.5 : pressure) * 100) / 100];
+}
+function ntDenormPoint(pt, pageW) { return { x: pt[0] * pageW, y: pt[1] * pageW, p: pt[2] }; }
+
+// 저장된 표시들을 믿지 않고 한 번 걸러요 (망가진 저장값이 앱을 멈추지 않게)
+function ntSanitizeMarks(arr, lines) {
+  var out = [];
+  (Array.isArray(arr) ? arr : []).forEach(function (m) {
+    if (!m || NT_TYPES.indexOf(m.type) === -1) return;
+    var line = m.line | 0;
+    if (line < 0 || line >= lines.length) return;
+    var len = lines[line].length;
+    var s = Math.max(0, Math.min(len, m.start | 0)), e = Math.max(0, Math.min(len, m.end | 0));
+    if (m.type === 'pause') e = s;
+    else if (e <= s) return;
+    var o = { line: line, start: s, end: e, type: m.type };
+    if (m.type === 'hl') { if (NT_COLORS.indexOf(m.color) === -1) return; o.color = m.color; }
+    if (m.type === 'memo') { o.text = String(m.text || '').slice(0, 500); if (!o.text) return; }
+    out.push(o);
+  });
+  return out;
+}
+function ntSanitizeStrokes(arr) {
+  var out = [];
+  (Array.isArray(arr) ? arr : []).slice(0, 3000).forEach(function (s) {
+    if (!s || !Array.isArray(s.pts) || !s.pts.length) return;
+    var pts = [];
+    s.pts.forEach(function (p) {
+      if (Array.isArray(p) && isFinite(p[0]) && isFinite(p[1])) pts.push([+p[0], +p[1], isFinite(p[2]) ? +p[2] : 0.5]);
+    });
+    if (!pts.length) return;
+    var w = isFinite(s.w) ? Math.max(1, Math.min(30, +s.w)) : 4;
+    var c = /^#[0-9a-f]{6}$/i.test(s.c) ? s.c : '#222222';
+    out.push({ c: c, w: w, e: !!s.e, pts: pts });
+  });
+  return out;
+}
+/* === NOTE-PURE-END ================================================== */
+
+/* ---------- 연기 노트: 기억하는 값과 저장 ---------- */
+var NOTE_KEY = 'dialectCoach.note.v1';
+var note = { text: '', marks: [], strokes: [], sketchStrokes: [], stageGuide: false };
+var ntLines = [];            // 대본 글을 줄로 나눈 것
+var ntHistory = [];          // 되돌리기 목록: { kind: 'marks'|'removed'|'stroke'|'sketch', items: [...] }
+var ntTool = { mode: 'select', pen: '#222222', width: 4, eraser: false };
+var ntSel = null;            // 가장 최근에 고른 글 { parts:[{line,start,end}], text, caret, rect }
+var ntSaveTimer = null;
+var ntEditing = null;        // 지금 고치는 메모
+var ntPendingMemo = null;    // 새로 만드는 메모의 자리
+var ntForceLight = false;    // 인쇄할 때는 밝은 색으로 그려요
+var ntScript = null, ntSketch = null; // 그림 그리기 도구 두 개 (대본 위 / 스케치 페이지)
+
+function noteHasText() { return !!(note.text && note.text.trim()); }
+
+function noteSaveNow() {
+  try {
+    localStorage.setItem(NOTE_KEY, JSON.stringify(note));
+  } catch (e) {
+    ntStatus('저장 공간이 부족하거나 막혀 있어서 이번 변경은 저장되지 않았어요.');
+  }
+}
+function noteSaveSoon() {
+  clearTimeout(ntSaveTimer);
+  ntSaveTimer = setTimeout(noteSaveNow, 400);   // 자꾸 저장하지 않도록 잠깐 모아서 저장해요
+}
+function noteLoad() {
+  try {
+    var raw = localStorage.getItem(NOTE_KEY);
+    if (!raw) return;
+    var d = JSON.parse(raw);
+    note.text = typeof d.text === 'string' ? d.text.slice(0, 20000) : '';
+    ntLines = ntSplitLines(note.text);
+    note.marks = ntSanitizeMarks(d.marks, ntLines);
+    note.strokes = ntSanitizeStrokes(d.strokes);
+    note.sketchStrokes = ntSanitizeStrokes(d.sketchStrokes);
+    note.stageGuide = !!d.stageGuide;
+  } catch (e) { /* 저장값이 망가졌으면 빈 노트로 시작해요 */ }
+}
+
+function ntStatus(msg) { var s = $('ntStatus'); if (s) s.textContent = msg; }
+
+/* ---------- 연기 노트: 종이(대본) 그리기 ---------- */
+// 한 줄을 조각(span)으로 나눠 그려요. 사용자 글은 항상 textContent로만 넣어요.
+function ntRenderPaper() {
+  var paper = $('ntPaper');
+  paper.textContent = '';
+  var memoOrder = ntMemoSorted();
+  ntLines.forEach(function (text, i) {
+    var lineMarks = note.marks.filter(function (m) { return m.line === i; });
+    var row = el('div', 'nt-line');
+    row.setAttribute('data-line', String(i));
+    var no = el('span', 'nt-lineno nt-skip', String(i + 1));
+    no.setAttribute('aria-hidden', 'true');
+    row.appendChild(no);
+    ntBuildItems(text, lineMarks).forEach(function (it) {
+      if (it.kind === 'text') {
+        var cls = 'nt-seg nt-span' + (it.hl ? ' hl-' + it.hl : '') + (it.ul ? ' ul' : '') + (it.em ? ' em' : '') + (it.memo ? ' memo-on' : '');
+        var sp = el('span', cls, it.text);
+        sp.setAttribute('data-start', String(it.start));
+        row.appendChild(sp);
+      } else if (it.kind === 'pause') {
+        var p = el('span', 'nt-pause nt-skip', '‖');
+        p.setAttribute('aria-label', '쉼');
+        row.appendChild(p);
+      } else if (it.kind === 'bubble') {
+        it.memos.forEach(function (m) {
+          var b = el('button', 'nt-bubble nt-skip', String(memoOrder.indexOf(m) + 1));
+          b.type = 'button';
+          b.setAttribute('aria-label', (memoOrder.indexOf(m) + 1) + '번 메모 열기');
+          b.addEventListener('click', function () { ntOpenMemoDialog(m); });
+          row.appendChild(b);
+        });
+      }
+    });
+    paper.appendChild(row);
+  });
+  ntRenderMemoList();
+  ntResizeCanvases();
+}
+
+// 메모를 줄 → 위치 순서로 정렬 (번호가 이 순서로 붙어요)
+function ntMemoSorted() {
+  return note.marks.filter(function (m) { return m.type === 'memo'; })
+    .sort(function (a, b) { return a.line - b.line || a.start - b.start; });
+}
+
+function ntRenderMemoList() {
+  var list = $('ntMemoList');
+  list.textContent = '';
+  var memos = ntMemoSorted();
+  $('ntMemoEmpty').hidden = memos.length > 0;
+  memos.forEach(function (m) {
+    var quote = ntLines[m.line].slice(m.start, m.end);
+    if (quote.length > 40) quote = quote.slice(0, 40) + '…';
+    var li = el('li');
+    var go = el('button', 'nt-memo-btn', (m.line + 1) + '행: ' + quote + ' — ' + m.text);
+    go.type = 'button';
+    go.setAttribute('aria-label', (m.line + 1) + '행으로 이동: ' + m.text);
+    go.addEventListener('click', function () { ntFlashLine(m.line); });
+    var ed = el('button', 'btn btn-sm nt-memo-edit', '고치기');
+    ed.type = 'button';
+    ed.addEventListener('click', function () { ntOpenMemoDialog(m); });
+    li.appendChild(go); li.appendChild(ed);
+    list.appendChild(li);
+  });
+}
+
+function ntFlashLine(line) {
+  var row = $('ntPaper').querySelector('[data-line="' + line + '"]');
+  if (!row) return;
+  row.scrollIntoView({ block: 'center', behavior: 'smooth' });
+  row.classList.remove('flash');
+  void row.offsetWidth;            // 애니메이션을 다시 시작시키는 꼼수
+  row.classList.add('flash');
+}
+
+/* ---------- 연기 노트: 글 고르기(선택) → 표시 ---------- */
+// 화면에서 고른 지점(node, offset)이 "그 줄의 몇 번째 글자"인지 알아내요.
+// 줄 번호·쉼 표시·메모 말풍선(.nt-skip)은 글자 수에서 빼요.
+function ntOffsetIn(row, node, offset) {
+  var r = document.createRange();
+  r.setStart(row, 0);
+  try { r.setEnd(node, offset); } catch (e) { return 0; }
+  var frag = r.cloneContents();
+  frag.querySelectorAll('.nt-skip').forEach(function (n) { n.remove(); });
+  return frag.textContent.length;
+}
+function ntRowOf(node) {
+  var n = node && node.nodeType === 1 ? node : node && node.parentElement;
+  return n ? n.closest('.nt-line') : null;
+}
+
+// 지금 화면의 선택을 읽어요 (버튼을 눌러도 선택이 풀려 있을 수 있어서 ntSel에 기억해 둬요)
+function ntReadSelection() {
+  var sel = window.getSelection();
+  if (!sel || !sel.rangeCount) return null;
+  var range = sel.getRangeAt(0);
+  var paper = $('ntPaper');
+  if (!paper.contains(range.startContainer) || !paper.contains(range.endContainer)) return null;
+  var r1 = ntRowOf(range.startContainer), r2 = ntRowOf(range.endContainer);
+  if (!r1 || !r2) return null;
+  var l1 = +r1.getAttribute('data-line'), l2 = +r2.getAttribute('data-line');
+  var o1 = ntOffsetIn(r1, range.startContainer, range.startOffset);
+  var o2 = ntOffsetIn(r2, range.endContainer, range.endOffset);
+  var rb = range.getBoundingClientRect();
+  var rect = { left: rb.left + window.pageXOffset, right: rb.right + window.pageXOffset, top: rb.top + window.pageYOffset, bottom: rb.bottom + window.pageYOffset };
+  if (range.collapsed) return { parts: [], text: '', caret: { line: l1, offset: o1 }, rect: rect };
+  var parts = [], texts = [];
+  for (var l = l1; l <= l2; l++) {
+    var s = l === l1 ? o1 : 0, e = l === l2 ? o2 : ntLines[l].length;
+    if (e > s) { parts.push({ line: l, start: s, end: e }); texts.push(ntLines[l].slice(s, e)); }
+  }
+  return { parts: parts, text: texts.join(' '), caret: { line: l2, offset: o2 }, rect: rect };
+}
+
+function ntNeedSelection() {
+  if (ntSel && ntSel.parts.length) return ntSel;
+  ntStatus('먼저 대본에서 글을 드래그해서 골라 주세요.');
+  return null;
+}
+
+// 형광펜·밑줄·강조 넣기 (고른 글이 여러 줄이면 줄마다 하나씩)
+function ntApplyMark(type, color) {
+  var sel = ntNeedSelection();
+  if (!sel) return;
+  var added = sel.parts.map(function (p) {
+    var m = { line: p.line, start: p.start, end: p.end, type: type };
+    if (type === 'hl') m.color = color;
+    return m;
+  });
+  added.forEach(function (m) { note.marks.push(m); });
+  ntHistory.push({ kind: 'marks', items: added });
+  ntAfterEdit('표시했어요.');
+}
+
+// 쉼 표시 ‖ : 고른 글의 끝(또는 깜빡이는 커서 자리)에 넣어요
+function ntApplyPause() {
+  var pos = null;
+  if (ntSel && ntSel.parts.length) { var last = ntSel.parts[ntSel.parts.length - 1]; pos = { line: last.line, offset: last.end }; }
+  else if (ntSel && ntSel.caret) pos = ntSel.caret;
+  if (!pos) { ntStatus('쉼을 넣을 자리를 대본에서 한 번 눌러 주세요.'); return; }
+  var m = { line: pos.line, start: pos.offset, end: pos.offset, type: 'pause' };
+  note.marks.push(m);
+  ntHistory.push({ kind: 'marks', items: [m] });
+  ntAfterEdit('쉼 ‖ 표시를 넣었어요.');
+}
+
+// 고른 부분의 형광펜·밑줄·강조·쉼을 지워요 (메모는 메모 목록에서 지워요)
+function ntClearMarks() {
+  var sel = ntNeedSelection();
+  if (!sel) return;
+  var removed = [];
+  note.marks = note.marks.filter(function (m) {
+    if (m.type === 'memo') return true;
+    var hit = sel.parts.some(function (p) {
+      return p.line === m.line && (m.type === 'pause' ? (m.start >= p.start && m.start <= p.end) : (m.start < p.end && m.end > p.start));
+    });
+    if (hit) removed.push(m);
+    return !hit;
+  });
+  if (!removed.length) { ntStatus('지울 표시가 없어요.'); return; }
+  ntHistory.push({ kind: 'removed', items: removed });
+  ntAfterEdit('표시를 지웠어요. (↶ 되돌리기로 살릴 수 있어요)');
+}
+
+function ntAfterEdit(msg) {
+  ntRenderPaper();
+  noteSaveSoon();
+  ntHideMini();
+  var s = window.getSelection(); if (s) s.removeAllRanges();
+  ntSel = null;
+  if (msg) ntStatus(msg);
+}
+
+/* ---------- 연기 노트: 메모 ---------- */
+function ntOpenMemoDialog(memo) {
+  ntEditing = memo || null;
+  ntPendingMemo = null;
+  var dlg = $('ntMemoDlg');
+  var quote = '';
+  if (memo) {
+    quote = ntLines[memo.line].slice(memo.start, memo.end);
+  } else {
+    // 새 메모: 고른 글의 첫 줄에 달아요. 글을 안 골랐지만 커서가 있으면 그 줄 전체에 달아요.
+    if (ntSel && ntSel.parts.length) { ntPendingMemo = { line: ntSel.parts[0].line, start: ntSel.parts[0].start, end: ntSel.parts[0].end }; quote = ntSel.text; }
+    else if (ntSel && ntSel.caret && ntLines[ntSel.caret.line].length) { var ln = ntSel.caret.line; ntPendingMemo = { line: ln, start: 0, end: ntLines[ln].length }; quote = ntLines[ln]; }
+    else { ntStatus('메모를 달 글을 먼저 골라 주세요.'); return; }
+  }
+  $('ntMemoQuote').textContent = '"' + (quote.length > 60 ? quote.slice(0, 60) + '…' : quote) + '"';
+  $('ntMemoInput').value = memo ? memo.text : '';
+  $('ntMemoDel').hidden = !memo;
+  if (typeof dlg.showModal === 'function') { dlg.showModal(); }
+  else {
+    // 오래된 브라우저: 간단한 입력창으로 대신해요
+    var t = window.prompt('메모 내용', $('ntMemoInput').value);
+    if (t !== null) ntSaveMemo(t);
+    return;
+  }
+  $('ntMemoInput').focus();
+}
+
+function ntSaveMemo(text) {
+  text = String(text || '').trim();
+  if (!text) { ntStatus('메모 내용이 비어 있어요.'); return false; }
+  if (ntEditing) {
+    ntEditing.text = text.slice(0, 500);
+  } else if (ntPendingMemo) {
+    var m = { line: ntPendingMemo.line, start: ntPendingMemo.start, end: ntPendingMemo.end, type: 'memo', text: text.slice(0, 500) };
+    note.marks.push(m);
+    ntHistory.push({ kind: 'marks', items: [m] });
+  }
+  ntEditing = null; ntPendingMemo = null;
+  ntAfterEdit('메모를 저장했어요.');
+  return true;
+}
+
+function ntDeleteMemo() {
+  if (!ntEditing) return;
+  var i = note.marks.indexOf(ntEditing);
+  if (i >= 0) note.marks.splice(i, 1);
+  ntEditing = null;
+  ntAfterEdit('메모를 지웠어요.');
+}
+
+/* ---------- 연기 노트: 사전·이미지 찾기 ---------- */
+function ntLookup(kind, anchorEl) {
+  var sel = ntNeedSelection();
+  if (!sel) return;
+  var word = ntCleanWord(sel.text);
+  if (!word) { ntStatus('찾을 말을 먼저 골라 주세요.'); return; }
+  var links = kind === 'image' ? ntImageLinks(word) : ntDictLinks(word);
+  var pop = $('ntPop');
+  $('ntPopTitle').textContent = (kind === 'image' ? '🖼 이미지로 찾기' : '📖 사전에서 찾기') + ' — "' + word + '"';
+  var box = $('ntPopLinks');
+  box.textContent = '';
+  if (!links.length) {
+    box.appendChild(el('p', 'small muted', '글자·한자·한글이 들어 있는 말만 사전에서 찾을 수 있어요.'));
+  }
+  links.forEach(function (l) {
+    var a = el('a', null, l.label + ' ↗');
+    a.href = l.url; a.target = '_blank'; a.rel = 'noopener noreferrer';
+    box.appendChild(a);
+  });
+  pop.hidden = false;
+  // 고른 글 바로 아래에 띄워요
+  var top = sel.rect.bottom + 8, left = sel.rect.left;
+  var maxLeft = document.documentElement.clientWidth - pop.offsetWidth - 8;
+  pop.style.left = Math.max(8, Math.min(left, maxLeft)) + 'px';
+  pop.style.top = top + 'px';
+  ntHideMini();
+  var first = box.querySelector('a') || $('ntPopClose');
+  first.focus();
+}
+function ntHidePop() { $('ntPop').hidden = true; }
+
+/* ---------- 연기 노트: 선택하면 뜨는 작은 메뉴 ---------- */
+function ntHideMini() { var m = $('ntMini'); if (m) m.hidden = true; }
+function ntUpdateMini() {
+  var mini = $('ntMini');
+  if (ntTool.mode !== 'select' || $('ntView').hidden) { mini.hidden = true; return; }
+  if (mini.contains(document.activeElement)) return;      // 메뉴를 쓰는 중이면 그대로 둬요
+  if (ntSel && ntSel.parts.length) {
+    mini.hidden = false;
+    var w = mini.offsetWidth;
+    var left = Math.max(8, Math.min(ntSel.rect.left, document.documentElement.clientWidth - w - 8));
+    var top = ntSel.rect.top - mini.offsetHeight - 8;
+    if (top < window.pageYOffset + 4) top = ntSel.rect.bottom + 8;   // 위가 모자라면 아래에 띄워요
+    mini.style.left = left + 'px';
+    mini.style.top = top + 'px';
+  } else mini.hidden = true;
+}
+
+/* ---------- 연기 노트: 그림 그리기 도구 ---------- */
+// 획(stroke)은 점들의 목록으로 저장해요 (그림 파일이 아니라 "선 정보"라서 크기가 바뀌어도 선명해요).
+//   { c: 색, w: 굵기, e: 지우개 여부, pts: [[x, y, 필압], ...] }  (x·y는 종이 가로 길이를 1로 본 값)
+var NT_BASE_W = 700;   // 굵기는 종이 가로 700px 기준 값이에요
+
+// 한 획을 그려요. 점과 점 사이는 "중간점을 지나는 부드러운 곡선"으로 이어서 각지지 않게 해요.
+function ntDrawStroke(ctx, st, pageW, color) {
+  var scale = pageW / NT_BASE_W;
+  var base = st.w * (st.e ? 3 : 1) * scale;
+  var pts = st.pts.map(function (p) { return ntDenormPoint(p, pageW); });
+  ctx.save();
+  ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+  ctx.strokeStyle = st.e ? '#000' : color;
+  ctx.fillStyle = ctx.strokeStyle;
+  ctx.globalCompositeOperation = st.e ? 'destination-out' : 'source-over';
+  function lw(p) { return Math.max(0.5, base * (0.5 + p.p)); }  // 필압 0.5(마우스)면 보통 굵기
+  if (pts.length === 1) {
+    ctx.beginPath(); ctx.arc(pts[0].x, pts[0].y, lw(pts[0]) / 2, 0, Math.PI * 2); ctx.fill();
+  } else {
+    var prev = pts[0];
+    for (var i = 1; i < pts.length; i++) {
+      var cur = pts[i];
+      var mid = i === pts.length - 1 ? cur : { x: (cur.x + pts[i + 1].x) / 2, y: (cur.y + pts[i + 1].y) / 2 };
+      ctx.beginPath();
+      ctx.moveTo(prev.x, prev.y);
+      ctx.quadraticCurveTo(cur.x, cur.y, mid.x, mid.y);
+      ctx.lineWidth = lw(cur);
+      ctx.stroke();
+      prev = mid;
+    }
+  }
+  ctx.restore();
+}
+
+// 검정 펜은 어두운 모드에서 안 보이니까 "종이 글자색"으로 바꿔서 그려요
+function ntInkColor(c) {
+  if (c.toLowerCase() === '#222222' && !ntForceLight) {
+    var v = getComputedStyle(document.documentElement).getPropertyValue('--paper-text').trim();
+    return v || c;
+  }
+  return c;
+}
+
+// 캔버스 하나에 그림 그리기 기능을 붙여요.
+//  canvas: 그릴 캔버스, getStrokes(): 획 목록(배열) 돌려주는 함수, onDone(stroke): 한 획이 끝났을 때 부르는 함수,
+//  canDraw(): 지금 그려도 되는지, guide(ctx, w, h): (선택) 배경 안내선 그리기
+function ntMakeDrawer(canvas, getStrokes, onDone, canDraw, guide) {
+  var ctx = canvas.getContext('2d');
+  var layer = document.createElement('canvas');       // 획만 그리는 투명한 판 (지우개가 안내선을 지우지 않게)
+  var lctx = layer.getContext('2d');
+  var cur = null, raf = 0, W = 0, H = 0, dpr = 1;
+  var d = {};
+
+  d.resize = function () {
+    var r = canvas.getBoundingClientRect();
+    if (!r.width || !r.height) return;
+    dpr = window.devicePixelRatio || 1;
+    W = r.width; H = r.height;
+    canvas.width = Math.round(W * dpr); canvas.height = Math.round(H * dpr);
+    layer.width = canvas.width; layer.height = canvas.height;
+    d.redraw();
+  };
+  d.redraw = function () {
+    if (!W) return;
+    lctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    lctx.clearRect(0, 0, W, H);
+    getStrokes().concat(cur ? [cur] : []).forEach(function (st) { ntDrawStroke(lctx, st, W, ntInkColor(st.c)); });
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    if (guide) { ctx.setTransform(dpr, 0, 0, dpr, 0, 0); guide(ctx, W, H); ctx.setTransform(1, 0, 0, 1, 0, 0); }
+    ctx.drawImage(layer, 0, 0);
+  };
+  function later() { if (!raf) raf = requestAnimationFrame(function () { raf = 0; d.redraw(); }); }
+
+  function pointOf(e) {
+    var r = canvas.getBoundingClientRect();
+    var p = e.pointerType === 'pen' && e.pressure > 0 ? e.pressure : 0.5;   // 펜이면 누르는 힘을 써요
+    return ntNormPoint(e.clientX - r.left, e.clientY - r.top, r.width, p);
+  }
+  canvas.addEventListener('pointerdown', function (e) {
+    if (!canDraw() || (e.pointerType === 'mouse' && e.button !== 0)) return;
+    e.preventDefault();
+    try { canvas.setPointerCapture(e.pointerId); } catch (err) { /* 무시 */ }
+    cur = { c: ntTool.pen, w: ntTool.width, e: ntTool.eraser, pts: [pointOf(e)] };
+    later();
+  });
+  canvas.addEventListener('pointermove', function (e) {
+    if (!cur) return;
+    var evs = e.getCoalescedEvents ? e.getCoalescedEvents() : [];
+    (evs.length ? evs : [e]).forEach(function (ev) { cur.pts.push(pointOf(ev)); });
+    later();
+  });
+  function end() {
+    if (!cur) return;
+    var st = cur; cur = null;
+    onDone(st);
+    d.redraw();
+  }
+  canvas.addEventListener('pointerup', end);
+  canvas.addEventListener('pointercancel', end);
+  return d;
+}
+
+// 스케치 페이지의 "무대 그림 틀": 위에서 내려다본 무대 + 객석/무대 안쪽 글자
+function ntStageGuide(ctx, w, h) {
+  var cs = getComputedStyle(document.documentElement);
+  var color = cs.getPropertyValue('--muted').trim() || '#888';
+  var mx = w * 0.06, top = h * 0.12, bottom = h * 0.88;
+  ctx.save();
+  ctx.globalAlpha = 0.55;
+  ctx.strokeStyle = color; ctx.fillStyle = color; ctx.lineWidth = 2;
+  ctx.setLineDash([8, 6]);
+  ctx.strokeRect(mx, top, w - mx * 2, bottom - top);
+  ctx.setLineDash([2, 8]);
+  ctx.beginPath(); ctx.moveTo(w / 2, top); ctx.lineTo(w / 2, bottom); ctx.moveTo(mx, (top + bottom) / 2); ctx.lineTo(w - mx, (top + bottom) / 2); ctx.stroke();
+  ctx.setLineDash([]);
+  ctx.font = Math.max(12, Math.round(w * 0.028)) + 'px ' + (cs.getPropertyValue('--font-ui') || 'sans-serif');
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'top'; ctx.fillText('무대 안쪽 (upstage)', w / 2, top * 0.25);
+  ctx.textBaseline = 'bottom'; ctx.fillText('객석 쪽 (downstage)', w / 2, h - (h - bottom) * 0.25);
+  ctx.restore();
+}
+
+function ntResizeCanvases() {
+  if (ntScript) ntScript.resize();
+  if (ntSketch) ntSketch.resize();
+}
+
+// 되돌리기: 가장 마지막 동작 하나를 취소해요 (표시·획·스케치 획 모두)
+function ntUndo() {
+  var h = ntHistory.pop();
+  if (!h) { ntStatus('되돌릴 게 없어요. (이 창을 연 뒤의 작업만 되돌릴 수 있어요)'); return; }
+  if (h.kind === 'marks') {
+    h.items.forEach(function (m) { var i = note.marks.indexOf(m); if (i >= 0) note.marks.splice(i, 1); });
+    ntRenderPaper();
+  } else if (h.kind === 'removed') {
+    h.items.forEach(function (m) { note.marks.push(m); });
+    ntRenderPaper();
+  } else {
+    var arr = h.kind === 'stroke' ? note.strokes : note.sketchStrokes;
+    var j = arr.indexOf(h.items[0]); if (j >= 0) arr.splice(j, 1);
+    (h.kind === 'stroke' ? ntScript : ntSketch).redraw();
+  }
+  noteSaveSoon();
+  ntStatus('되돌렸어요.');
+}
+
+/* ---------- 연기 노트: PNG로 저장 ---------- */
+// 화면에 보이는 대본을 글자 하나하나의 위치를 재서 새 캔버스에 다시 그려요 (밝은 종이 색으로).
+var NT_LIGHT_HL = { yellow: '#fff176', pink: '#f8bbd0', sky: '#81d4fa', green: '#c5e1a5' };
+
+function ntExportPng() {
+  var paper = $('ntPaper');
+  var pr = paper.getBoundingClientRect();
+  if (!pr.width) { ntStatus('노트가 보일 때 저장할 수 있어요.'); return; }
+  var s = Math.min(2, 2400 / pr.width);          // 선명하게 2배 (너무 크면 줄여요)
+  var cv = document.createElement('canvas');
+  cv.width = Math.round(pr.width * s); cv.height = Math.round(pr.height * s);
+  var ctx = cv.getContext('2d');
+  ctx.fillStyle = '#fffefa'; ctx.fillRect(0, 0, cv.width, cv.height);
+  ctx.scale(s, s);
+  var cs = getComputedStyle(paper);
+  var size = parseFloat(cs.fontSize), family = cs.fontFamily;
+  var accent = '#8c2f39';
+  ctx.textBaseline = 'middle';
+
+  paper.querySelectorAll('.nt-line').forEach(function (row) {
+    // 줄 번호
+    var no = row.querySelector('.nt-lineno');
+    if (no) {
+      var nr = no.getBoundingClientRect();
+      ctx.font = '12px sans-serif'; ctx.fillStyle = '#777'; ctx.textAlign = 'right';
+      ctx.fillText(no.textContent, nr.right - pr.left, nr.top - pr.top + 20);
+    }
+    ctx.textAlign = 'left';
+    row.querySelectorAll('.nt-seg').forEach(function (seg) {
+      var node = seg.firstChild;
+      if (!node || node.nodeType !== 3) return;
+      var hl = null;
+      NT_COLORS.forEach(function (c) { if (seg.classList.contains('hl-' + c)) hl = NT_LIGHT_HL[c]; });
+      var ul = seg.classList.contains('ul'), em = seg.classList.contains('em');
+      ctx.font = (em ? '800 ' : '') + size + 'px ' + family;
+      var rg = document.createRange();
+      for (var i = 0; i < node.length; i++) {
+        rg.setStart(node, i); rg.setEnd(node, i + 1);
+        var rc = rg.getClientRects()[0];
+        if (!rc) continue;
+        var x = rc.left - pr.left, y = rc.top - pr.top;
+        if (hl) { ctx.fillStyle = hl; ctx.fillRect(x - 0.3, y, rc.width + 0.6, rc.height); }
+        ctx.fillStyle = em ? '#c62828' : '#1f1b16';
+        ctx.fillText(node.data.charAt(i), x, y + rc.height / 2);
+        if (ul) { ctx.fillRect(x, y + rc.height - 2, rc.width, 2); }
+      }
+    });
+    // 쉼 표시 ‖ 와 메모 번호 말풍선
+    row.querySelectorAll('.nt-pause').forEach(function (p) {
+      var r = p.getBoundingClientRect();
+      ctx.font = '800 ' + size + 'px sans-serif'; ctx.fillStyle = accent;
+      ctx.fillText('‖', r.left - pr.left, r.top - pr.top + r.height / 2);
+    });
+    row.querySelectorAll('.nt-bubble').forEach(function (b) {
+      var r = b.getBoundingClientRect();
+      var cx = r.left - pr.left + r.width / 2, cy = r.top - pr.top + r.height / 2;
+      ctx.fillStyle = accent; ctx.beginPath(); ctx.arc(cx, cy, 11, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = '#fff'; ctx.font = '700 12px sans-serif'; ctx.textAlign = 'center';
+      ctx.fillText(b.textContent, cx, cy + 1); ctx.textAlign = 'left';
+    });
+  });
+  // 손그림 (밝은 색으로, 지우개는 그림만 지우도록 따로 그린 뒤 합쳐요)
+  var layer = document.createElement('canvas');
+  layer.width = cv.width; layer.height = cv.height;
+  var lc = layer.getContext('2d');
+  lc.scale(s, s);
+  note.strokes.forEach(function (st) { ntDrawStroke(lc, st, pr.width, st.c); });
+  ctx.setTransform(1, 0, 0, 1, 0, 0);
+  ctx.drawImage(layer, 0, 0);
+
+  cv.toBlob(function (blob) {
+    if (!blob) { ntStatus('PNG를 만들지 못했어요.'); return; }
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url; a.download = '연기노트.png';
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(function () { URL.revokeObjectURL(url); }, 2000);
+    ntStatus('연기노트.png 로 저장했어요. (손그림은 대본 위 그림만 들어가요. 스케치 페이지는 따로예요.)');
+  }, 'image/png');
+}
+
+/* ---------- 연기 노트: 화면 전환과 버튼 연결 ---------- */
+function ntShowView(on) {
+  show($('ntView'), on);
+  show($('ntStart'), !on);
+  if (!on) { ntHideMini(); ntHidePop(); }
+}
+
+// 노트 방에 들어올 때마다 부르는 함수: 저장된 노트가 있으면 보여줘요
+function noteOnShow() {
+  if (noteHasText()) {
+    ntShowView(true);
+    ntRenderPaper();
+    $('ntStageGuide').checked = note.stageGuide;
+  } else {
+    ntShowView(false);
+  }
+}
+
+function ntSetMode(mode) {
+  ntTool.mode = mode;
+  $('panel-note').classList.toggle('nt-draw-mode', mode === 'draw');
+  $('ntModeSelect').setAttribute('aria-pressed', mode === 'select' ? 'true' : 'false');
+  $('ntModeDraw').setAttribute('aria-pressed', mode === 'draw' ? 'true' : 'false');
+  if (mode === 'draw') { ntHideMini(); ntHidePop(); ntStatus('그리기 모드: 대본 위나 스케치 페이지에 손가락·마우스·펜으로 그려요.'); }
+  else ntStatus('선택 모드: 글을 드래그해서 고른 뒤 형광펜·밑줄·메모를 눌러 보세요.');
+}
+
+function ntSetPressed(selector, matchFn) {
+  document.querySelectorAll(selector).forEach(function (b) { b.setAttribute('aria-pressed', matchFn(b) ? 'true' : 'false'); });
+}
+
+// 도구 모음과 작은 메뉴의 버튼 하나를 눌렀을 때
+function ntOnToolClick(btn) {
+  if (btn.hasAttribute('data-hl')) return ntApplyMark('hl', btn.getAttribute('data-hl'));
+  if (btn.hasAttribute('data-mark')) {
+    var k = btn.getAttribute('data-mark');
+    if (k === 'pause') return ntApplyPause();
+    if (k === 'memo') return ntOpenMemoDialog(null);
+    if (k === 'clear') return ntClearMarks();
+    return ntApplyMark(k);
+  }
+  if (btn.hasAttribute('data-lookup')) return ntLookup(btn.getAttribute('data-lookup'), btn);
+}
+
+function initNote() {
+  noteLoad();
+  ntLines = ntSplitLines(note.text);
+
+  // 시작 화면
+  $('ntMake').addEventListener('click', function () {
+    var t = $('ntText').value.replace(/\r\n?/g, '\n');
+    if (!t.trim()) { $('ntStartMsg').textContent = '대본을 먼저 붙여넣어 주세요.'; $('ntText').focus(); return; }
+    note = { text: t, marks: [], strokes: [], sketchStrokes: [], stageGuide: note.stageGuide };
+    ntLines = ntSplitLines(t);
+    ntHistory = [];
+    noteSaveNow();
+    $('ntStartMsg').textContent = '';
+    ntShowView(true); ntRenderPaper();
+    $('ntStageGuide').checked = note.stageGuide;
+    ntScript.redraw(); ntSketch.redraw();
+    window.scrollTo(0, 0);
+  });
+  $('ntFromDialect').addEventListener('click', function () {
+    var c = state.conversion;
+    if (c && c.converted) { $('ntText').value = c.converted; $('ntStartMsg').textContent = '사투리 코치 결과를 가져왔어요. "노트로 만들기"를 눌러 주세요.'; }
+    else $('ntStartMsg').textContent = '가져올 사투리 코치 결과가 아직 없어요. 사투리 코치에서 먼저 변환해 주세요.';
+  });
+  $('ntFromAnalyze').addEventListener('click', function () {
+    var v = $('anText').value;
+    if (v && v.trim()) { $('ntText').value = v; $('ntStartMsg').textContent = '대본 분석의 대본을 가져왔어요. "노트로 만들기"를 눌러 주세요.'; }
+    else $('ntStartMsg').textContent = '대본 분석에 붙여넣은 대본이 아직 없어요.';
+  });
+
+  // 그림 도구 두 개: 대본 위 / 스케치 페이지
+  ntScript = ntMakeDrawer($('ntCanvas'), function () { return note.strokes; },
+    function (st) { note.strokes.push(st); ntHistory.push({ kind: 'stroke', items: [st] }); noteSaveSoon(); },
+    function () { return ntTool.mode === 'draw'; });
+  ntSketch = ntMakeDrawer($('ntSketchCanvas'), function () { return note.sketchStrokes; },
+    function (st) { note.sketchStrokes.push(st); ntHistory.push({ kind: 'sketch', items: [st] }); noteSaveSoon(); },
+    function () { return true; },
+    function (ctx, w, h) { if (note.stageGuide) ntStageGuide(ctx, w, h); });
+  if (window.ResizeObserver) {
+    var ro = new ResizeObserver(function () { ntResizeCanvases(); });
+    ro.observe($('ntPaperWrap')); ro.observe($('ntSketchWrap'));
+  }
+  window.addEventListener('resize', ntResizeCanvases);
+  // 인쇄할 때는 밝은 색으로 다시 그려요
+  window.addEventListener('beforeprint', function () { ntForceLight = true; ntResizeCanvases(); });
+  window.addEventListener('afterprint', function () { ntForceLight = false; ntResizeCanvases(); });
+
+  // 도구 모음 + 작은 메뉴
+  ['ntToolbar', 'ntMini'].forEach(function (id) {
+    var box = $(id);
+    // 버튼을 눌러도 글 선택이 풀리지 않게 해요
+    box.addEventListener('mousedown', function (e) { if (e.target.closest('button')) e.preventDefault(); });
+    box.addEventListener('click', function (e) {
+      var b = e.target.closest('button');
+      if (b && (b.hasAttribute('data-hl') || b.hasAttribute('data-mark') || b.hasAttribute('data-lookup'))) ntOnToolClick(b);
+    });
+  });
+  $('ntModeSelect').addEventListener('click', function () { ntSetMode('select'); });
+  $('ntModeDraw').addEventListener('click', function () { ntSetMode('draw'); });
+  document.querySelectorAll('.nt-pen').forEach(function (b) {
+    b.addEventListener('click', function () {
+      ntTool.pen = b.getAttribute('data-pen'); ntTool.eraser = false;
+      ntSetPressed('.nt-pen', function (x) { return x === b; }); $('ntEraser').setAttribute('aria-pressed', 'false');
+      if (ntTool.mode !== 'draw') ntSetMode('draw');
+    });
+  });
+  document.querySelectorAll('.nt-width').forEach(function (b) {
+    b.addEventListener('click', function () {
+      ntTool.width = +b.getAttribute('data-width');
+      ntSetPressed('.nt-width', function (x) { return x === b; });
+      if (ntTool.mode !== 'draw') ntSetMode('draw');
+    });
+  });
+  $('ntEraser').addEventListener('click', function () {
+    ntTool.eraser = !ntTool.eraser;
+    $('ntEraser').setAttribute('aria-pressed', ntTool.eraser ? 'true' : 'false');
+    if (ntTool.eraser) ntSetPressed('.nt-pen', function () { return false; });
+    else ntSetPressed('.nt-pen', function (x) { return x.getAttribute('data-pen') === ntTool.pen; });
+    if (ntTool.mode !== 'draw') ntSetMode('draw');
+  });
+  $('ntUndo').addEventListener('click', ntUndo);
+  $('ntSketchUndo').addEventListener('click', function () {
+    // 스케치 페이지의 마지막 획만 지워요
+    for (var i = ntHistory.length - 1; i >= 0; i--) {
+      if (ntHistory[i].kind === 'sketch') { var h = ntHistory.splice(i, 1)[0]; var j = note.sketchStrokes.indexOf(h.items[0]); if (j >= 0) note.sketchStrokes.splice(j, 1); ntSketch.redraw(); noteSaveSoon(); return; }
+    }
+    if (note.sketchStrokes.length) { note.sketchStrokes.pop(); ntSketch.redraw(); noteSaveSoon(); }
+  });
+  $('ntClear').addEventListener('click', function () {
+    if (!window.confirm('표시·메모·그림(스케치 포함)을 모두 지울까요?\n대본 글은 그대로 남아요. 되돌릴 수 없어요.')) return;
+    note.marks = []; note.strokes = []; note.sketchStrokes = []; ntHistory = [];
+    ntRenderPaper(); ntScript.redraw(); ntSketch.redraw(); noteSaveSoon();
+    ntStatus('모두 지웠어요.');
+  });
+  $('ntNew').addEventListener('click', function () {
+    if (!window.confirm('새 노트를 시작할까요?\n지금 노트(표시·메모·그림)는 사라지고 되돌릴 수 없어요.')) return;
+    note = { text: '', marks: [], strokes: [], sketchStrokes: [], stageGuide: note.stageGuide };
+    ntLines = []; ntHistory = [];
+    noteSaveNow();
+    $('ntText').value = '';
+    ntShowView(false);
+    $('ntText').focus();
+  });
+  $('ntPng').addEventListener('click', ntExportPng);
+  $('ntPrint').addEventListener('click', function () { window.print(); });
+  $('ntStageGuide').addEventListener('change', function () {
+    note.stageGuide = $('ntStageGuide').checked; ntSketch.redraw(); noteSaveSoon();
+  });
+
+  // 글 선택을 지켜봐요 → 작은 메뉴 띄우기
+  document.addEventListener('selectionchange', function () {
+    if ($('ntView').hidden) return;
+    var r = ntReadSelection();
+    if (r) ntSel = r;
+    else {
+      var a = document.activeElement;
+      var sel = window.getSelection();
+      var inUi = a && a.closest && a.closest('#ntToolbar, #ntMini, #ntPop, #ntMemoDlg');
+      if (!inUi && (!sel || sel.isCollapsed)) ntSel = null;
+    }
+    ntUpdateMini();
+  });
+  // 키보드로도 닫을 수 있게
+  document.addEventListener('keydown', function (e) {
+    if (e.key !== 'Escape') return;
+    if (!$('ntPop').hidden) { ntHidePop(); return; }
+    if (!$('ntMini').hidden) { ntHideMini(); }
+  });
+  $('ntPopClose').addEventListener('click', ntHidePop);
+  document.addEventListener('mousedown', function (e) {
+    if (!$('ntPop').hidden && !e.target.closest('#ntPop') && !e.target.closest('[data-lookup]')) ntHidePop();
+  });
+
+  // 메모 창
+  $('ntMemoForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    if (ntSaveMemo($('ntMemoInput').value)) $('ntMemoDlg').close();
+  });
+  $('ntMemoCancel').addEventListener('click', function () { ntEditing = null; ntPendingMemo = null; $('ntMemoDlg').close(); });
+  $('ntMemoDel').addEventListener('click', function () { ntDeleteMemo(); $('ntMemoDlg').close(); });
+}
+
+
+/* ---------- 다른 서비스에서 대본을 담아 열기 ----------
+   예) https://dialect-coach.vercel.app/?text=대본&role=배역#analyze
+   - #dialect → 사투리 코치 입력칸, #analyze → 대본 분석 입력칸(+배역), #note → 연기 노트 입력칸
+   - 한 번 채운 뒤에는 주소에서 ?text= 부분을 지워요 (새로고침해도 다시 덮어쓰지 않게) */
+function applyLinkParams() {
+  var params;
+  try { params = new URLSearchParams(location.search); } catch (e) { return; }
+  var text = params.get('text');
+  if (!text) return;
+  text = text.slice(0, 20000);
+  var role = (params.get('role') || '').slice(0, 40);
+  var target = { dialect: 'sourceText', analyze: 'anText', note: 'ntText' }[currentRoom] || 'sourceText';
+  if (target === 'sourceText') text = text.slice(0, MAX_CHARS);
+  var box = $(target);
+  if (box) {
+    box.value = text;
+    box.dispatchEvent(new Event('input', { bubbles: true })); // 글자 수·버튼 상태를 갱신
+  }
+  if (role && currentRoom === 'analyze' && $('anRole')) $('anRole').value = role;
+  history.replaceState(null, '', location.pathname + location.hash);
 }
 
 init();
