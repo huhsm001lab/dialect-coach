@@ -8,6 +8,7 @@ import { demoConvert } from "./demo.js";
 import { claudeConvert, MODEL, UserError } from "./claude.js";
 import { openaiConvert, openaiSpeech, OPENAI_MODEL } from "./openai.js";
 import { prosodyFor } from "./prosody.js";
+import { analyzeScript } from "./analyze.js";
 
 const PORT = Number(process.env.PORT) || 3000;
 const MAX_CHARS = 3000;
@@ -41,6 +42,7 @@ const hasTts = () => filled(process.env.OPENAI_API_KEY);
 const LIMITS = {
   convert: { perHour: Number(process.env.RATE_PER_HOUR) || 10, perDay: Number(process.env.DAILY_LIMIT) || 100, label: "변환" },
   prosody: { perHour: Number(process.env.PROSODY_PER_HOUR) || 10, perDay: Number(process.env.PROSODY_DAILY) || 100, label: "억양 표시" },
+  analyze: { perHour: Number(process.env.ANALYZE_PER_HOUR) || 5, perDay: Number(process.env.ANALYZE_DAILY) || 50, label: "대본 분석" },
   tts: { perHour: Number(process.env.TTS_PER_HOUR) || 40, perDay: Number(process.env.TTS_DAILY) || 400, label: "AI 음성 재생" },
 };
 const hits = new Map(); // "기능:ip" -> [요청 시각들]
@@ -67,7 +69,7 @@ const currentModel = () => (provider() === "openai" ? OPENAI_MODEL : MODEL);
 const app = express();
 // Vercel은 프록시 뒤에서 동작하므로, 실제 사용자 IP를 읽도록 설정합니다.
 app.set("trust proxy", true);
-app.use(express.json({ limit: "100kb" }));
+app.use(express.json({ limit: "300kb" })); // 긴 대본(최대 2만 자)도 받을 수 있게
 
 // 1) 서버 상태 확인
 app.get("/api/health", (req, res) => {
@@ -166,6 +168,28 @@ app.post("/api/tts", async (req, res) => {
     if (err instanceof UserError) return res.status(err.status).json({ error: err.message });
     console.error("[음성 오류]", err?.name, err?.message);
     res.status(500).json({ error: "AI 음성을 만드는 중 문제가 생겼습니다." });
+  }
+});
+
+// 6) 대본 흐름 분석 (v3) — 대본은 저장하지 않고 분석에만 씁니다
+const MAX_SCRIPT = 20000;
+app.post("/api/analyze", async (req, res) => {
+  try {
+    const { text, role } = req.body || {};
+    if (typeof text !== "string" || !text.trim()) return res.status(400).json({ error: "분석할 대본을 넣어 주세요." });
+    if (text.length > MAX_SCRIPT) {
+      return res.status(400).json({ error: `대본이 너무 깁니다. ${MAX_SCRIPT.toLocaleString()}자 이하로 나눠서 넣어 주세요. (현재 ${text.length.toLocaleString()}자)` });
+    }
+    const who = provider();
+    if (!who) return res.status(503).json({ error: "대본 분석은 AI 키가 있어야 쓸 수 있어요. (지금은 데모 모드)" });
+    const blocked = checkLimit(req.ip || "unknown", "analyze");
+    if (blocked) return res.status(429).json({ error: blocked });
+    const myRole = typeof role === "string" ? role.trim().slice(0, 40) : "";
+    res.json(await analyzeScript(text, myRole, who));
+  } catch (err) {
+    if (err instanceof UserError) return res.status(err.status).json({ error: err.message });
+    console.error("[분석 오류]", err?.name, err?.message);
+    res.status(500).json({ error: "대본 분석 중 문제가 생겼습니다. 잠시 후 다시 시도해 주세요." });
   }
 });
 

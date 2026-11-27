@@ -3,7 +3,7 @@
   "functions": {
     "api/index.js": {
       "includeFiles": "{web,dialects}/**",
-      "maxDuration": 60
+      "maxDuration": 300
     }
   }
 }

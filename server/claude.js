@@ -106,12 +106,12 @@ function getClient() {
 }
 
 // 시스템 지시 + 사용자 글 + JSON 모양을 받아 AI 답(JSON 객체)을 돌려주는 공통 함수
-export async function claudeJSON(systemText, userText, schema) {
+export async function claudeJSON(systemText, userText, schema, maxTokens = 8000) {
   let response;
   try {
     response = await getClient().messages.create({
       model: MODEL,
-      max_tokens: 8000,
+      max_tokens: maxTokens,
       // 규칙이 담긴 긴 시스템 프롬프트를 캐시해 두면 같은 사투리를 다시 쓸 때 빠르고 쌉니다.
       system: [
         { type: "text", text: systemText, cache_control: { type: "ephemeral" } },
