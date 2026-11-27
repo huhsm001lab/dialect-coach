@@ -592,3 +592,6 @@ body.show-intro main { display: none; }
   .nt-memos { border: 0; break-inside: avoid; }
   .nt-memo-edit { display: none; }
 }
+
+/* 서비스는 서로 독립: 사투리 안내 문구(아래 footer)는 사투리 코치에서만 보여요 */
+body:not([data-room="dialect"]) .site-footer { display: none; }

@@ -2139,14 +2139,6 @@ function initAnalyze() {
     $('anText').focus();
     $('anText').scrollIntoView({ behavior: 'smooth', block: 'center' });
   });
-  $('anImportBtn').addEventListener('click', function () {
-    var src = $('sourceText').value;
-    if (!src.trim()) { $('anReason').textContent = '① 변환 탭에 독백이 아직 없어요.'; return; }
-    $('anText').value = src.slice(0, AN_MAX);
-    anUpdateButton();
-    anSave();
-    $('anReason').textContent = '독백을 가져왔어요.';
-  });
   anUpdateButton();
 }
 
@@ -2985,11 +2977,6 @@ function initNote() {
     $('ntStageGuide').checked = note.stageGuide;
     ntScript.redraw(); ntSketch.redraw();
     window.scrollTo(0, 0);
-  });
-  $('ntFromDialect').addEventListener('click', function () {
-    var c = state.conversion;
-    if (c && c.converted) { $('ntText').value = c.converted; $('ntStartMsg').textContent = '사투리 코치 결과를 가져왔어요. "노트로 만들기"를 눌러 주세요.'; }
-    else $('ntStartMsg').textContent = '가져올 사투리 코치 결과가 아직 없어요. 사투리 코치에서 먼저 변환해 주세요.';
   });
   $('ntFromAnalyze').addEventListener('click', function () {
     var v = $('anText').value;
