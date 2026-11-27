@@ -1,0 +1,167 @@
+<!doctype html>
+<!-- 다른 서비스에서 "배우의 대본 저장소"로 연결할 때 쓰는 링크·코드 모음 페이지예요.
+     주소: /connect.html  (내용은 여기서 바로 고칠 수 있어요) -->
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>연결하기 · 배우의 대본 저장소</title>
+<style>
+  :root {
+    --bg:#faf7f2; --surface:#fffdf9; --text:#1f1b16; --muted:#5c554b; --border:#d3c9b9;
+    --accent:#8c2f39; --accent-text:#fff; --accent-soft:#f3e2e0; --code-bg:#f2ebe0; --focus:#1a5fb4;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg:#16130f; --surface:#201c17; --text:#f1ebe0; --muted:#c2b9a8; --border:#4a4238;
+      --accent:#e58a92; --accent-text:#2a0f12; --accent-soft:#3a2326; --code-bg:#2a241d; --focus:#7fb3ff; }
+  }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--text);
+    font-family:"Pretendard","Malgun Gothic","Apple SD Gothic Neo","Noto Sans KR",system-ui,sans-serif; line-height:1.6; }
+  .wrap { max-width:880px; margin:0 auto; padding:24px 16px 56px; }
+  h1 { font-family:"Noto Serif KR","Batang",serif; color:var(--accent); font-size:1.8rem; margin:8px 0 4px; }
+  h2 { font-size:1.2rem; margin:36px 0 10px; }
+  p.lead { color:var(--muted); margin:0 0 8px; }
+  .card { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:16px; margin:10px 0; }
+  .row { display:flex; flex-wrap:wrap; align-items:center; gap:10px; }
+  .row .name { font-weight:700; min-width:9em; }
+  code, pre { font-family: ui-monospace, Consolas, monospace; font-size:.92rem; }
+  .url { background:var(--code-bg); padding:6px 10px; border-radius:8px; word-break:break-all; flex:1 1 280px; }
+  pre { background:var(--code-bg); padding:12px; border-radius:8px; overflow-x:auto; white-space:pre-wrap; word-break:break-all; margin:8px 0; }
+  .btn { min-height:44px; padding:6px 16px; border-radius:10px; border:2px solid var(--accent); background:var(--surface);
+    color:var(--accent); font:inherit; font-weight:700; cursor:pointer; text-decoration:none; display:inline-flex; align-items:center; }
+  .btn.primary { background:var(--accent); color:var(--accent-text); }
+  .btn:focus-visible, a:focus-visible { outline:3px solid var(--focus); outline-offset:2px; }
+  .note { color:var(--muted); font-size:.95rem; }
+  .warn { background:var(--accent-soft); border-left:5px solid var(--accent); padding:10px 14px; border-radius:8px; }
+  label { font-weight:700; display:block; margin:10px 0 4px; }
+  textarea, input, select { width:100%; font:inherit; padding:8px 10px; border-radius:8px; border:1px solid var(--border); background:var(--bg); color:var(--text); }
+  textarea { min-height:90px; }
+  .toast { position:fixed; left:50%; bottom:24px; transform:translateX(-50%); background:var(--text); color:var(--bg);
+    padding:8px 16px; border-radius:999px; opacity:0; transition:opacity .2s; pointer-events:none; }
+  .toast.on { opacity:1; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="note"><a href="./" style="color:var(--accent)">← 배우의 대본 저장소로</a></p>
+  <h1>🔗 다른 서비스에서 연결하기</h1>
+  <p class="lead">내가 만든 다른 서비스에 아래 링크나 코드를 넣으면, 버튼을 누를 때 이 서비스가 열려요.
+    <strong>새 탭으로 따로 열리는 방식(①)</strong>을 추천해요.</p>
+
+  <h2>1. 서비스별 바로가기 주소</h2>
+  <p class="note">주소 끝의 <code>#…</code>가 어느 서비스를 열지 정해요. 바로가기로 들어오면 첫 소개 페이지를 건너뛰고 그 서비스가 바로 열려요.</p>
+  <div id="links"></div>
+
+  <h2>2. 붙여넣을 코드</h2>
+  <div class="card">
+    <label for="pick">연결할 서비스</label>
+    <select id="pick">
+      <option value="">첫 페이지 (서비스 고르기)</option>
+      <option value="dialect">🎭 사투리 코치</option>
+      <option value="analyze">📖 대본 분석 스튜디오</option>
+      <option value="note">📝 연기 노트</option>
+    </select>
+
+    <h3>① 새 탭으로 열기 (추천)</h3>
+    <p class="note">버튼을 누르면 새 탭에서 열려요. 마이크·음성 기능도 모두 그대로 동작해요.</p>
+    <pre id="codeLink"></pre>
+    <button class="btn" type="button" data-copy="codeLink">코드 복사</button>
+
+    <h3>② 내 화면 안에 넣기 (iframe)</h3>
+    <p class="note">내 서비스 화면 속 작은 창으로 보여 줘요. 마이크를 쓰려면 <code>allow="microphone"</code>이 꼭 있어야 하고, 브라우저에 따라 막힐 수 있어요.</p>
+    <pre id="codeFrame"></pre>
+    <button class="btn" type="button" data-copy="codeFrame">코드 복사</button>
+  </div>
+
+  <h2>3. 대본을 함께 보내기 (선택)</h2>
+  <p class="note">내 서비스에서 대본을 담아서 열면, 해당 서비스의 입력칸에 미리 채워져요. 주소에 담기 때문에 <strong>짧은 대본(약 1,500자 이하)</strong>에 알맞아요.</p>
+  <div class="card">
+    <label for="sample">보낼 대본 (예시)</label>
+    <textarea id="sample">민수: 됐어요, 엄마. 서울에도 다 팔아요.
+순자: 파는 거랑 같나. 니 좋아하는 멸치볶음이다.</textarea>
+    <label for="role">내 배역 이름 (대본 분석에서만 써요, 선택)</label>
+    <input id="role" value="민수">
+    <p class="note">만들어진 주소</p>
+    <div class="row"><span id="textUrl" class="url"></span>
+      <button class="btn" type="button" data-copy="textUrl">복사</button>
+      <a id="textOpen" class="btn primary" target="_blank" rel="noopener">열어 보기</a></div>
+    <p class="note">내 서비스 코드에서 만들 때 (자바스크립트):</p>
+    <pre>const url = "https://dialect-coach.vercel.app/?text="
+  + encodeURIComponent(대본) + "&amp;role=" + encodeURIComponent(배역) + "#analyze";
+window.open(url, "_blank", "noopener");</pre>
+  </div>
+
+  <h2>알아 두세요</h2>
+  <div class="warn">
+    <ul style="margin:0;padding-left:20px">
+      <li>지금은 각자의 브라우저에만 저장돼요. 다른 서비스와 <strong>로그인·기록이 공유되지는 않아요</strong> (보관함 기능 준비 중).</li>
+      <li>주소에 담은 대본은 브라우저 기록에 남을 수 있어요. 개인정보나 비공개 대본은 넣지 마세요.</li>
+      <li>서비스 이름이나 주소가 바뀌면 이 페이지의 링크도 함께 바뀌어요.</li>
+    </ul>
+  </div>
+</div>
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+<script>
+// 지금 이 페이지가 열린 주소를 기준으로 링크를 만들어요 (로컬에서도, 배포 사이트에서도 맞게).
+var BASE = location.origin + '/';
+var SERVICES = [
+  { id: '', icon: '🏠', name: '첫 페이지 (서비스 고르기)' },
+  { id: 'dialect', icon: '🎭', name: '사투리 코치' },
+  { id: 'analyze', icon: '📖', name: '대본 분석 스튜디오' },
+  { id: 'note', icon: '📝', name: '연기 노트' }
+];
+function urlFor(id) { return BASE + (id ? '#' + id : ''); }
+
+// 1. 바로가기 주소 목록
+var box = document.getElementById('links');
+SERVICES.forEach(function (s) {
+  var card = document.createElement('div'); card.className = 'card row';
+  var name = document.createElement('span'); name.className = 'name'; name.textContent = s.icon + ' ' + s.name;
+  var u = document.createElement('span'); u.className = 'url'; u.id = 'u-' + (s.id || 'home'); u.textContent = urlFor(s.id);
+  var copy = document.createElement('button'); copy.className = 'btn'; copy.type = 'button'; copy.textContent = '복사'; copy.setAttribute('data-copy', u.id);
+  var open = document.createElement('a'); open.className = 'btn primary'; open.textContent = '열기'; open.href = urlFor(s.id); open.target = '_blank'; open.rel = 'noopener';
+  card.append(name, u, copy, open); box.appendChild(card);
+});
+
+// 2. 붙여넣을 코드
+function esc(s) { return s.replace(/&/g, '&amp;').replace(/"/g, '&quot;'); }
+function renderCode() {
+  var id = document.getElementById('pick').value;
+  var s = SERVICES.filter(function (x) { return x.id === id; })[0];
+  var u = esc(urlFor(id));
+  document.getElementById('codeLink').textContent =
+    '<a href="' + u + '" target="_blank" rel="noopener">' + s.icon + ' ' + (id ? s.name : '배우의 대본 저장소') + ' 열기</a>';
+  document.getElementById('codeFrame').textContent =
+    '<iframe src="' + u + '" allow="microphone; clipboard-write" style="width:100%;height:800px;border:0" title="배우의 대본 저장소"></iframe>';
+}
+document.getElementById('pick').addEventListener('change', renderCode);
+renderCode();
+
+// 3. 대본 함께 보내기 주소
+function renderTextUrl() {
+  var t = document.getElementById('sample').value;
+  var r = document.getElementById('role').value.trim();
+  var u = BASE + '?text=' + encodeURIComponent(t) + (r ? '&role=' + encodeURIComponent(r) : '') + '#analyze';
+  document.getElementById('textUrl').textContent = u;
+  document.getElementById('textOpen').href = u;
+}
+document.getElementById('sample').addEventListener('input', renderTextUrl);
+document.getElementById('role').addEventListener('input', renderTextUrl);
+renderTextUrl();
+
+// 복사 버튼
+var toast = document.getElementById('toast'), toastTimer = 0;
+function say(msg) { toast.textContent = msg; toast.classList.add('on'); clearTimeout(toastTimer); toastTimer = setTimeout(function () { toast.classList.remove('on'); }, 1600); }
+document.addEventListener('click', function (e) {
+  var b = e.target.closest('[data-copy]'); if (!b) return;
+  var text = document.getElementById(b.getAttribute('data-copy')).textContent;
+  (navigator.clipboard ? navigator.clipboard.writeText(text) : Promise.reject())
+    .then(function () { say('복사했어요'); })
+    .catch(function () { say('복사가 막혔어요. 직접 선택해서 복사해 주세요'); });
+});
+</script>
+</body>
+</html>
