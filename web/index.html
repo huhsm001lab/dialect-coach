@@ -26,7 +26,7 @@
       <div class="tabs" role="tablist" aria-label="사투리 코치 단계">
         <button class="tab" role="tab" id="tab-convert" aria-controls="panel-convert" aria-selected="true" tabindex="0">① 변환</button>
         <button class="tab" role="tab" id="tab-practice" aria-controls="panel-practice" aria-selected="false" tabindex="-1">② 연습</button>
-        <button class="tab" role="tab" id="tab-listen" aria-controls="panel-listen" aria-selected="false" tabindex="-1">③ 듣고 따라하기 <span class="beta">(베타)</span></button>
+        <button class="tab" role="tab" id="tab-listen" aria-controls="panel-listen" aria-selected="false" tabindex="-1">③ 듣고 따라하기</button>
       </div>
     </div>
   </header>
@@ -167,10 +167,22 @@
       </div>
 
       <div id="listenBody" hidden>
-        <p class="notice notice-info">브라우저 음성은 <strong>표준 발음</strong>으로 읽어 줘서 진짜 사투리 소리와는 달라요. 영어 지역 음성(영국·호주·아일랜드)은 내 컴퓨터에 설치돼 있을 때만 나와요.</p>
+        <!-- 브라우저 기본 음성을 고른 경우에만 보이는 안내 -->
+        <p id="browserNote" class="notice notice-info">브라우저 음성은 <strong>표준 발음</strong>으로 읽어 줘서 진짜 사투리 소리와는 달라요. 영어 지역 음성(영국·호주·아일랜드)은 내 컴퓨터에 설치돼 있을 때만 나와요.</p>
         <p id="ttsUnsupported" class="notice notice-error" role="alert" hidden>이 브라우저는 소리 읽기를 지원하지 않아요. <strong>Chrome</strong> 브라우저에서 열어 주세요.</p>
 
         <div class="card">
+          <!-- 음성 종류: AI 음성은 서버에 ChatGPT 키가 있을 때만 켜져요 (app.js가 /api/health 로 확인) -->
+          <div class="row wrap-row">
+            <fieldset class="speed engine">
+              <legend>음성</legend>
+              <label class="chip"><input type="radio" name="engine" value="ai" disabled> <span>AI 음성 (사투리 억양 흉내) <span class="beta">(베타)</span></span></label>
+              <label class="chip"><input type="radio" name="engine" value="browser" checked> <span>브라우저 기본 음성</span></label>
+            </fieldset>
+          </div>
+          <p id="engineReason" class="small muted" role="status" aria-live="polite">AI 음성을 쓸 수 있는지 확인하는 중이에요…</p>
+          <p class="notice notice-warn small" id="aiNotice">AI가 흉내 낸 억양이라 실제 현지 말투와 다를 수 있어요. 가능하면 지역 출신자의 실제 목소리로 확인하세요.</p>
+
           <div class="row wrap-row">
             <fieldset class="speed">
               <legend>속도</legend>
@@ -181,6 +193,37 @@
             <button id="stopBtn" class="btn" type="button" aria-label="재생 멈추기">■ 멈추기</button>
           </div>
           <p id="voiceInfo" class="small muted" role="status" aria-live="polite"></p>
+          <p id="aiMsg" class="notice notice-error" role="alert" hidden></p>
+          <p class="hint">🎤 <strong>따라 말하기</strong>: 문장마다 있는 버튼을 눌러 따라 말한 뒤 다시 누르면(최대 15초) 내 억양 그래프가 나와요. 마이크는 https 주소나 localhost 에서만 써져요.</p>
+        </div>
+
+        <!-- (A) 억양 악보 - AI 추정 -->
+        <div class="card" id="prosodyCard">
+          <h2>억양 악보 <span class="beta">(베타)</span></h2>
+          <div class="row wrap-row">
+            <button id="prosodyBtn" class="btn" type="button">억양 표시 보기 (AI 추정)</button>
+          </div>
+          <p id="prosodyStatus" class="small muted" role="status" aria-live="polite"></p>
+          <p id="prosodyError" class="notice notice-error" role="alert" hidden></p>
+
+          <div id="prosodyBox" hidden>
+            <p class="pros-badge"><span class="badge badge-medium">AI 추정 · 현지인 확인 필요</span></p>
+            <!-- 범례: 악보를 읽는 법 -->
+            <div class="pros-legend small" aria-label="악보 읽는 법">
+              <span class="lg"><span class="lg-box pitch-H">높음</span> 위쪽 = 높게</span>
+              <span class="lg"><span class="lg-box pitch-M">중간</span> 가운데</span>
+              <span class="lg"><span class="lg-box pitch-L">낮음</span> 아래쪽 = 낮게</span>
+              <span class="lg"><span class="lg-box stress">강조</span> 굵은 붉은 글씨 + 점선</span>
+              <span class="lg"><b class="lg-pause">‖</b> 쉼</span>
+              <span class="lg"><b class="pros-arrow">↗ ↘ →</b> 끝 흐름 (올림 / 내림 / 평평)</span>
+            </div>
+            <div id="prosodyNotesWrap" hidden>
+              <h3>참고</h3>
+              <ul id="prosodyNotes" class="plain-list small"></ul>
+            </div>
+            <p id="prosodyWhere" class="small muted"></p>
+            <div id="prosodyList"></div>
+          </div>
         </div>
 
         <ol id="listenList" class="listen-list"></ol>

@@ -120,6 +120,248 @@ function findHighlights(converted, changes) {
   return ranges;
 }
 
+/* =====================================================================
+ * 억양(음높이) 계산용 순수 함수 모음
+ *  - 화면(DOM)과 상관없는 계산만 모아 둬서 node로 따로 테스트할 수 있어요.
+ *  - 흐름: 녹음 소리 -> detectPitchCurve(Hz 목록) -> medianFilter(들쭉날쭉 제거)
+ *          -> toSemitones(말하는 사람의 중앙값 기준 반음 단위) -> trimCurve -> resampleCurve(100칸)
+ *          -> feedbackLines(한 줄 피드백)
+ * ===================================================================== */
+
+var PITCH_MIN_HZ = 70;    // 사람 목소리 최저 범위
+var PITCH_MAX_HZ = 500;   // 사람 목소리 최고 범위
+var MIN_VOICED_FRAMES = 15; // 목소리가 있는 구간이 이보다 짧으면(약 0.15초) "너무 짧아요"
+var END_CHANGE_ST = 1.5;  // 문장 끝 20%에서 이 반음 이상 오르내리면 "올림/내림"으로 봐요
+
+// 소리 알갱이(샘플)를 약 16kHz로 줄이기 (계산량을 줄이려는 거예요). 몇 개씩 평균을 내요.
+function downsampleSamples(samples, sampleRate, targetRate) {
+  var f = Math.max(1, Math.floor(sampleRate / (targetRate || 16000)));
+  if (f === 1) return { samples: samples, sampleRate: sampleRate };
+  var n = Math.floor(samples.length / f);
+  var out = new Float32Array(n);
+  for (var i = 0; i < n; i++) {
+    var s = 0;
+    for (var k = 0; k < f; k++) s += samples[i * f + k];
+    out[i] = s / f;
+  }
+  return { samples: out, sampleRate: sampleRate / f };
+}
+
+// 한 조각(프레임)의 음높이를 YIN 방식으로 찾기. 못 찾으면 null.
+// x: 소리, s: 시작 위치, W: 조각 길이, work: 임시 배열(재사용)
+function yinFrame(x, s, W, minLag, maxLag, sampleRate, thresh, work) {
+  var d = work;
+  var tau, j, diff, sum;
+  // 1) 자기 자신을 tau만큼 밀어서 뺀 차이의 제곱합
+  for (tau = 1; tau <= maxLag; tau++) {
+    sum = 0;
+    for (j = 0; j < W; j++) { diff = x[s + j] - x[s + j + tau]; sum += diff * diff; }
+    d[tau] = sum;
+  }
+  // 2) 누적 평균으로 정규화 (YIN의 핵심)
+  var run = 0;
+  d[0] = 1;
+  for (tau = 1; tau <= maxLag; tau++) {
+    run += d[tau];
+    d[tau] = run > 0 ? d[tau] * tau / run : 1;
+  }
+  // 3) 기준값 아래로 처음 내려가는 골짜기 찾기
+  var best = -1;
+  for (tau = minLag; tau < maxLag; tau++) {
+    if (d[tau] < thresh) {
+      while (tau + 1 < maxLag && d[tau + 1] < d[tau]) tau++;
+      best = tau;
+      break;
+    }
+  }
+  if (best < 0) return null;
+  // 4) 정수 사이 값을 포물선으로 보정
+  var shift = 0;
+  if (best > 1 && best < maxLag) {
+    var a = d[best - 1], b = d[best], c = d[best + 1];
+    var den = a - 2 * b + c;
+    if (den !== 0) shift = Math.max(-1, Math.min(1, 0.5 * (a - c) / den));
+  }
+  var hz = sampleRate / (best + shift);
+  return (hz >= PITCH_MIN_HZ && hz <= PITCH_MAX_HZ) ? hz : null;
+}
+
+// 소리 전체의 음높이 곡선: 10ms마다 한 값(Hz). 조용하거나 못 찾은 곳은 null.
+function detectPitchCurve(samples, sampleRate, opts) {
+  opts = opts || {};
+  var minHz = opts.minHz || PITCH_MIN_HZ, maxHz = opts.maxHz || PITCH_MAX_HZ;
+  var thresh = opts.threshold || 0.2;
+  var ds = downsampleSamples(samples, sampleRate, opts.targetRate || 16000);
+  var x = ds.samples, sr = ds.sampleRate;
+  var frame = Math.round(sr * 0.04);   // 조각 길이 약 40ms
+  var hop = Math.round(sr * 0.01);     // 10ms씩 이동
+  var minLag = Math.max(2, Math.floor(sr / maxHz));
+  var maxLag = Math.ceil(sr / minHz);
+  var need = frame + maxLag;
+  var starts = [], rmsList = [], maxRms = 0, s, j;
+  for (s = 0; s + need <= x.length; s += hop) {
+    var e = 0;
+    for (j = 0; j < frame; j++) e += x[s + j] * x[s + j];
+    var rms = Math.sqrt(e / frame);
+    starts.push(s); rmsList.push(rms);
+    if (rms > maxRms) maxRms = rms;
+  }
+  // 조용함 기준: 절대값 0.01 과 "가장 큰 소리의 10%" 중 큰 쪽
+  var silence = Math.max(opts.minRms || 0.01, 0.1 * maxRms);
+  var work = new Float32Array(maxLag + 1);
+  var curve = [];
+  for (var i = 0; i < starts.length; i++) {
+    curve.push(rmsList[i] < silence ? null : yinFrame(x, starts[i], frame, minLag, maxLag, sr, thresh, work));
+  }
+  return curve;
+}
+
+function medianOf(values) {
+  var a = values.slice().sort(function (p, q) { return p - q; });
+  var n = a.length;
+  if (!n) return null;
+  return n % 2 ? a[(n - 1) / 2] : (a[n / 2 - 1] + a[n / 2]) / 2;
+}
+
+// 가벼운 평탄화: 앞뒤 size칸의 중앙값. 원래 null인 칸은 null 그대로.
+function medianFilter(curve, size) {
+  size = size || 5;
+  var half = Math.floor(size / 2);
+  return curve.map(function (v, i) {
+    if (v == null) return null;
+    var win = [];
+    for (var k = i - half; k <= i + half; k++) if (k >= 0 && k < curve.length && curve[k] != null) win.push(curve[k]);
+    return medianOf(win);
+  });
+}
+
+// Hz -> "그 사람 중앙값보다 몇 반음 높은가" (남녀 목소리를 같은 눈금에서 비교하려고)
+function toSemitones(curveHz) {
+  var voiced = curveHz.filter(function (v) { return v != null && v > 0; });
+  var med = medianOf(voiced);
+  return curveHz.map(function (v) {
+    return (v == null || v <= 0 || med == null) ? null : 12 * Math.log(v / med) / Math.LN2;
+  });
+}
+
+// 앞뒤의 null(무음)을 잘라내기
+function trimCurve(curve) {
+  var a = 0, b = curve.length - 1;
+  while (a <= b && curve[a] == null) a++;
+  while (b >= a && curve[b] == null) b--;
+  return curve.slice(a, b + 1);
+}
+
+function countVoiced(curve) {
+  return curve.filter(function (v) { return v != null; }).length;
+}
+
+// 길이가 다른 곡선을 같은 칸 수(n)로 맞추기 (시간을 0~100%로 정규화). 이웃 둘 다 값이 있을 때만 이어 줘요.
+function resampleCurve(curve, n) {
+  n = n || 100;
+  var out = [];
+  var len = curve.length;
+  if (!len) { for (var z = 0; z < n; z++) out.push(null); return out; }
+  for (var i = 0; i < n; i++) {
+    var p = n === 1 ? 0 : i / (n - 1) * (len - 1);
+    var lo = Math.floor(p), hi = Math.min(len - 1, Math.ceil(p));
+    var a = curve[lo], b = curve[hi];
+    if (a != null && b != null) out.push(a + (b - a) * (p - lo));
+    else if (a != null && p - lo < 0.5) out.push(a);
+    else if (b != null && hi - p < 0.5) out.push(b);
+    else out.push(null);
+  }
+  return out;
+}
+
+// 소리 -> 다듬어진 반음 곡선 한 번에 (녹음/기준 음성 모두 이 함수를 써요)
+function buildPitchContour(samples, sampleRate) {
+  var hz = detectPitchCurve(samples, sampleRate);
+  var semis = trimCurve(toSemitones(medianFilter(hz, 5)));
+  return { semis: semis, voicedFrames: countVoiced(semis), totalFrames: hz.length };
+}
+
+// 곡선의 마지막 20% 구간에서 반음이 얼마나 변했나 (최소제곱 직선의 기울기 x 구간 길이). 값이 모자라면 null.
+function endChange(curve) {
+  var n = curve.length;
+  var from = Math.floor(n * 0.8);
+  var xs = [], ys = [];
+  for (var i = from; i < n; i++) if (curve[i] != null) { xs.push(i); ys.push(curve[i]); }
+  if (xs.length < 4) return null;
+  var mx = 0, my = 0, k;
+  for (k = 0; k < xs.length; k++) { mx += xs[k]; my += ys[k]; }
+  mx /= xs.length; my /= xs.length;
+  var num = 0, den = 0;
+  for (k = 0; k < xs.length; k++) { num += (xs[k] - mx) * (ys[k] - my); den += (xs[k] - mx) * (xs[k] - mx); }
+  if (den === 0) return null;
+  return num / den * (xs[xs.length - 1] - xs[0]);
+}
+
+function classifyEnd(change) {
+  if (change == null) return null;
+  if (change > END_CHANGE_ST) return 'rise';
+  if (change < -END_CHANGE_ST) return 'fall';
+  return 'level';
+}
+
+// 높낮이 폭: 10% ~ 90% 구간의 반음 차이
+function rangeOfCurve(curve) {
+  var v = curve.filter(function (x) { return x != null; }).sort(function (a, b) { return a - b; });
+  if (v.length < 4) return null;
+  var lo = v[Math.floor((v.length - 1) * 0.1)], hi = v[Math.ceil((v.length - 1) * 0.9)];
+  return hi - lo;
+}
+
+var END_WORD = { rise: '올려요', fall: '내려요', level: '평평하게 끝내요' };
+var END_MINE = { rise: '끝을 올렸어요', fall: '끝을 내렸어요', level: '끝을 평평하게 말했어요' };
+
+// 한국어 피드백 문장 만들기. user/ref는 resampleCurve 결과(반음). ref가 없으면 내 곡선 설명만.
+function feedbackLines(user, ref) {
+  var lines = [];
+  var ue = classifyEnd(endChange(user));
+  var re = ref ? classifyEnd(endChange(ref)) : null;
+  var ur = rangeOfCurve(user), rr = ref ? rangeOfCurve(ref) : null;
+
+  if (ue) {
+    if (re && re !== ue) lines.push(END_MINE[ue] + ' — 기준은 ' + END_WORD[re]);
+    else if (re) lines.push('문장 끝 흐름이 기준과 비슷해요 (' + END_MINE[ue] + ')');
+    else lines.push(END_MINE[ue]);
+  } else {
+    lines.push('문장 끝 부분의 소리가 짧아서 끝 흐름은 판단하지 못했어요.');
+  }
+
+  if (ur != null && rr != null) {
+    var both = ' (내 폭 ' + ur.toFixed(1) + '반음, 기준 ' + rr.toFixed(1) + '반음)';
+    if (ur < rr * 0.7) lines.push('기준보다 높낮이 폭이 좁아요' + both);
+    else if (ur > rr * 1.4) lines.push('기준보다 높낮이 폭이 넓어요' + both);
+    else lines.push('높낮이 폭이 기준과 비슷해요' + both);
+  } else if (ur != null) {
+    lines.push('내 높낮이 폭은 약 ' + ur.toFixed(1) + '반음이에요.');
+  }
+  return lines;
+}
+
+// 서버가 준 억양 악보 데이터를 화면에 쓰기 안전한 모양으로 정리 (이상한 값은 기본값으로)
+function normalizeProsody(data) {
+  var out = { sentences: [], notes: [] };
+  if (!data || typeof data !== 'object') return out;
+  if (Array.isArray(data.notes)) out.notes = data.notes.filter(function (n) { return typeof n === 'string' && n; });
+  var ENDS = ['rise', 'fall', 'level', 'rise-fall'];
+  (Array.isArray(data.sentences) ? data.sentences : []).forEach(function (s) {
+    if (!s || typeof s !== 'object') return;
+    var units = (Array.isArray(s.units) ? s.units : []).filter(function (u) { return u && typeof u.t === 'string' && u.t; }).map(function (u) {
+      return { t: u.t, pitch: (u.pitch === 'H' || u.pitch === 'L') ? u.pitch : 'M', stress: !!u.stress, pause_after: !!u.pause_after };
+    });
+    out.sentences.push({
+      text: typeof s.text === 'string' ? s.text : units.map(function (u) { return u.t; }).join(' '),
+      units: units,
+      ending: ENDS.indexOf(s.ending) >= 0 ? s.ending : null,
+      tip: typeof s.tip === 'string' ? s.tip : ''
+    });
+  });
+  return out;
+}
+
 // ==== DOM 시작 ====  (이 줄 아래는 화면 코드예요. 테스트할 때는 위쪽만 사용해요.)
 
 /* =====================================================================
@@ -134,7 +376,9 @@ var SERVER_OFF_MSG = '서버가 꺼져 있어요. README-run.md를 보고 npm st
 var state = {
   dialects: [],        // 서버가 알려준 지역 목록
   conversion: null,    // 가장 최근 변환 결과 (+ 원본 글)
-  sentences: []        // 변환된 대본을 문장으로 자른 것
+  sentences: [],       // 변환된 대본을 문장으로 자른 것
+  health: null,        // /api/health 결과 (AI 음성 사용 가능 여부 등)
+  prosody: null        // AI 억양 악보 결과 { code, converted, data } (변환이 바뀌면 버려요)
 };
 
 function $(id) { return document.getElementById(id); }
@@ -173,6 +417,7 @@ var TAB_IDS = ['convert', 'practice', 'listen'];
 function selectTab(name, focus) {
   stopListening();
   stopSpeaking();
+  cancelRecording();
   TAB_IDS.forEach(function (id) {
     var on = id === name;
     var tab = $('tab-' + id);
@@ -369,6 +614,7 @@ function renderResult() {
   // 변환 결과가 바뀌면 연습/듣기용 문장 목록도 새로 만들어요
   state.sentences = splitSentences(c.converted);
   practiceIndex = -1;
+  invalidateProsodyIfStale(); // 대본이 바뀌었으면 예전 억양 악보/그래프를 버려요
   show($('result'), true);
   show($('demoBanner'), c.demo);
   show($('resultLowWarn'), c.confidence === 'low');
@@ -618,11 +864,20 @@ function renderScore() {
   $('scoreBox').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
 
-/* ---------- ③ 듣고 따라하기: 소리 읽기 ---------- */
+/* ---------- ③ 듣고 따라하기 ---------- */
 var synth = window.speechSynthesis || null;
 var voices = [];
 var playingIndex = -1;
 var playToken = 0; // 반복 재생을 멈출 때 쓰는 번호표
+
+var aiAudio = null;            // 지금 재생 중인 AI 음성 (HTMLAudioElement)
+var ttsCache = new Map();      // "코드|문장" -> { blob, url }  (같은 문장은 다시 요청하지 않아요: 요청마다 돈이 들어요)
+var ttsPending = new Map();    // 지금 만드는 중인 요청 (같은 문장을 동시에 두 번 요청하지 않게)
+var listenRefs = [];           // 문장 줄마다 버튼/자리 모음
+var graphResults = {};         // 문장 번호 -> { user, ref, refNote } (억양 그래프 결과)
+var engineChosen = false;      // 사용자가 직접 음성 종류를 골랐는지
+var PROSODY_KEY = 'dialectCoach.prosody.v1';
+var REC_MAX_SEC = 15;
 
 function loadVoices() {
   if (!synth) return;
@@ -645,35 +900,96 @@ function currentSpeed() {
   return r ? parseFloat(r.value) : 1;
 }
 
+function currentEngine() {
+  var r = document.querySelector('input[name="engine"]:checked');
+  return r ? r.value : 'browser';
+}
+
+/* --- 음성 종류(AI / 브라우저) 선택 --- */
+// 서버 /api/health 결과에 따라 AI 음성 선택 가능 여부를 정해요
+function applyHealth(h) {
+  state.health = h || null;
+  var ai = document.querySelector('input[name="engine"][value="ai"]');
+  var br = document.querySelector('input[name="engine"][value="browser"]');
+  var ok = !!(h && h.tts);
+  ai.disabled = !ok;
+  var reason = $('engineReason');
+  if (ok) reason.textContent = 'AI 음성은 처음 만들 때 몇 초 걸리고, 한 번 만든 문장은 다시 만들지 않아요.';
+  else if (!h) reason.textContent = '서버에 연결하지 못해서 AI 음성을 쓸 수 없어요.';
+  else if (!h.hasKey) reason.textContent = 'AI 음성은 데모 모드(키 없음)에서는 쓸 수 없어요.';
+  else reason.textContent = 'ChatGPT 키가 있어야 해요. (지금 연결된 AI로는 AI 음성을 만들 수 없어요.)';
+  if (ok && !engineChosen) ai.checked = true;
+  if (!ok) br.checked = true;
+  updateEngineUi();
+}
+
+function updateEngineUi() {
+  var eng = currentEngine();
+  show($('ttsUnsupported'), !synth && eng === 'browser');
+  show($('browserNote'), eng === 'browser');
+  var info = $('voiceInfo');
+  var c = state.conversion;
+  if (eng !== 'browser' || !c || !synth) { info.textContent = ''; return; }
+  var lang = speechLangFor(c.code, c.language);
+  var pv = pickVoice(lang);
+  if (pv.exact) info.textContent = '사용할 목소리: ' + pv.voice.name + ' (' + pv.voice.lang + ')';
+  else if (pv.voice) info.textContent = '"' + lang + '" 목소리가 설치돼 있지 않아 "' + pv.voice.name + ' (' + pv.voice.lang + ')" 목소리로 대신 읽어요.';
+  else info.textContent = '이 컴퓨터에서 쓸 수 있는 목소리를 찾지 못했어요. 목소리 목록이 늦게 올 수 있으니 잠시 뒤 다시 눌러 보세요.';
+}
+
+function showAiMsg(msg) {
+  var box = $('aiMsg');
+  box.textContent = msg || '';
+  show(box, !!msg);
+}
+
+/* --- 문장 목록 그리기 --- */
 function renderListen() {
   var c = state.conversion;
   show($('listenEmpty'), !c);
   show($('listenBody'), !!c);
   if (!c) return;
-  show($('ttsUnsupported'), !synth);
   loadVoices();
-
-  var lang = speechLangFor(c.code, c.language);
-  var pv = pickVoice(lang);
-  var info = $('voiceInfo');
-  if (!synth) info.textContent = '';
-  else if (pv.exact) info.textContent = '사용할 목소리: ' + pv.voice.name + ' (' + pv.voice.lang + ')';
-  else if (pv.voice) info.textContent = '"' + lang + '" 목소리가 설치돼 있지 않아 "' + pv.voice.name + ' (' + pv.voice.lang + ')" 목소리로 대신 읽어요.';
-  else info.textContent = '이 컴퓨터에서 쓸 수 있는 목소리를 찾지 못했어요. 목소리 목록이 늦게 올 수 있으니 잠시 뒤 다시 눌러 보세요.';
+  updateEngineUi();
+  showAiMsg('');
 
   var ol = $('listenList');
   ol.innerHTML = '';
+  listenRefs = [];
   state.sentences.forEach(function (s, i) {
     var li = el('li', 'listen-item');
     li.id = 'listen-item-' + i;
+
+    var row = el('div', 'listen-row');
     var b = el('button', 'btn btn-primary play-btn', '▶');
     b.type = 'button';
     b.setAttribute('aria-label', (i + 1) + '번 문장 재생');
-    b.addEventListener('click', function () { speakSentence(i); });
-    li.appendChild(b);
-    li.appendChild(el('div', 'script-text', s));
+    b.addEventListener('click', function () { playSentence(i); });
+    row.appendChild(b);
+
+    var r = el('button', 'btn rec-btn', '🎤 따라 말하기');
+    r.type = 'button';
+    r.setAttribute('aria-label', (i + 1) + '번 문장 따라 말하기 (녹음 시작)');
+    r.addEventListener('click', function () { toggleRecord(i); });
+    row.appendChild(r);
+
+    row.appendChild(el('div', 'script-text', s));
+    li.appendChild(row);
+
+    var pros = el('div', 'pros-slot');
+    var status = el('p', 'rec-status small muted');
+    status.setAttribute('role', 'status');
+    status.setAttribute('aria-live', 'polite');
+    var graph = el('div', 'graph-slot');
+    li.appendChild(pros);
+    li.appendChild(status);
+    li.appendChild(graph);
     ol.appendChild(li);
+    listenRefs[i] = { li: li, play: b, rec: r, pros: pros, status: status, graph: graph };
+    if (graphResults[i]) renderGraph(i);
   });
+  updateProsodyView();
+  refreshProsodyBtn();
 }
 
 function markPlaying(idx) {
@@ -683,9 +999,21 @@ function markPlaying(idx) {
   });
 }
 
+// ▶ 버튼: 고른 음성 종류로 재생
+function playSentence(i) {
+  if (!state.conversion || recState.active) return;
+  showAiMsg('');
+  if (currentEngine() === 'ai') playAiSentence(i);
+  else {
+    if (!synth) { showAiMsg('이 브라우저는 소리 읽기를 지원하지 않아요. Chrome 브라우저에서 열어 주세요.'); return; }
+    speakSentence(i);
+  }
+}
+
+/* --- 브라우저 기본 음성 --- */
 function speakSentence(i) {
   if (!synth || !state.conversion) return;
-  synth.cancel();
+  stopSpeaking();
   var token = ++playToken;
   var lang = speechLangFor(state.conversion.code, state.conversion.language);
   var text = state.sentences[i];
@@ -708,10 +1036,528 @@ function speakSentence(i) {
   once();
 }
 
+/* --- AI 음성 --- */
+function ttsKey(code, text) { return code + '|' + text; }
+
+// 한 문장의 AI 음성 파일(Blob)을 가져와요. 이미 만든 건 저장해 둔 걸 그대로 돌려줘요.
+async function getAiClip(text) {
+  var c = state.conversion;
+  var key = ttsKey(c.code, text);
+  if (ttsCache.has(key)) return ttsCache.get(key);
+  if (ttsPending.has(key)) return ttsPending.get(key);
+  if (text.length > 600) throw new Error('문장이 너무 길어서(600자 넘음) AI 음성을 만들 수 없어요.');
+
+  var p = (async function () {
+    var tips = ((c.tips && c.tips.intonation) || []).filter(function (t) { return typeof t === 'string'; }).slice(0, 8);
+    var res;
+    try {
+      res = await fetch('/api/tts', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text: text, code: c.code, tips: tips })
+      });
+    } catch (e) {
+      throw new Error(SERVER_OFF_MSG);
+    }
+    if (!res.ok) {
+      var data = null;
+      try { data = await res.json(); } catch (e) { /* JSON이 아닐 수 있어요 */ }
+      throw new Error((data && data.error) || 'AI 음성을 만들지 못했어요. (오류 번호 ' + res.status + ') 잠시 뒤 다시 시도해 주세요.');
+    }
+    var blob = await res.blob();
+    var entry = { blob: blob, url: URL.createObjectURL(blob) };
+    ttsCache.set(key, entry);
+    return entry;
+  })();
+  ttsPending.set(key, p);
+  try { return await p; } finally { ttsPending.delete(key); }
+}
+
+// 버튼에 "만드는 중" 표시
+function setPlayLoading(i, on) {
+  var r = listenRefs[i];
+  if (!r) return;
+  r.play.disabled = on;
+  r.play.classList.toggle('loading', on);
+  r.play.textContent = on ? '…' : '▶';
+  if (on) r.play.setAttribute('aria-busy', 'true'); else r.play.removeAttribute('aria-busy');
+  r.status.textContent = on ? 'AI 음성을 만드는 중이에요… (몇 초 걸려요)' : '';
+}
+
+async function playAiSentence(i) {
+  stopSpeaking();
+  var token = ++playToken;
+  var text = state.sentences[i];
+  markPlaying(i);
+  setPlayLoading(i, true);
+  var clip;
+  try {
+    clip = await getAiClip(text);
+  } catch (e) {
+    setPlayLoading(i, false);
+    if (token === playToken) { markPlaying(-1); showAiMsg(e.message); }
+    return;
+  }
+  setPlayLoading(i, false);
+  if (token !== playToken) return; // 기다리는 동안 멈춤/다른 문장을 눌렀어요
+
+  function once() {
+    var a = new Audio(clip.url);
+    // 느리게 들어도 목소리 높이가 변하지 않게
+    a.preservesPitch = true; a.mozPreservesPitch = true; a.webkitPreservesPitch = true;
+    a.defaultPlaybackRate = currentSpeed();
+    a.playbackRate = currentSpeed();
+    a.onended = function () {
+      if (token !== playToken) return;
+      if ($('repeatToggle').checked) setTimeout(function () { if (token === playToken) once(); }, 400);
+      else { aiAudio = null; markPlaying(-1); }
+    };
+    a.onerror = function () {
+      if (token !== playToken) return;
+      markPlaying(-1);
+      showAiMsg('AI 음성을 재생하지 못했어요. 다시 눌러 주세요.');
+    };
+    aiAudio = a;
+    var pr = a.play();
+    if (pr && pr.catch) pr.catch(function () {
+      if (token !== playToken) return;
+      markPlaying(-1);
+      showAiMsg('브라우저가 소리 재생을 막았어요. ▶ 버튼을 한 번 더 눌러 주세요.');
+    });
+  }
+  once();
+}
+
+// 멈춤 버튼: 브라우저 음성, AI 음성 둘 다 멈춰요
 function stopSpeaking() {
   playToken++;
   if (synth) synth.cancel();
+  if (aiAudio) {
+    try { aiAudio.pause(); } catch (e) { /* 이미 멈춘 경우 */ }
+    aiAudio = null;
+  }
   markPlaying(-1);
+}
+
+/* =====================================================================
+ * (A) 억양 악보 - AI 추정
+ * ===================================================================== */
+var END_ARROW = {
+  'rise': ['↗', '끝을 올려요'],
+  'fall': ['↘', '끝을 내려요'],
+  'level': ['→', '평평하게 끝내요'],
+  'rise-fall': ['↗↘', '올렸다가 내려요']
+};
+var PITCH_LABEL = { H: '높음', M: '중간', L: '낮음' };
+var prosodyBusy = false;
+var prosodyVisible = false;
+
+function loadProsodySaved() {
+  try {
+    var raw = localStorage.getItem(PROSODY_KEY);
+    var p = raw ? JSON.parse(raw) : null;
+    if (p && typeof p.code === 'string' && typeof p.converted === 'string' && p.data) return p;
+  } catch (e) { /* 저장된 게 없거나 막힌 경우 */ }
+  return null;
+}
+
+function saveProsody() {
+  try {
+    if (state.prosody) localStorage.setItem(PROSODY_KEY, JSON.stringify(state.prosody));
+    else localStorage.removeItem(PROSODY_KEY);
+  } catch (e) { /* 저장이 안 돼도 괜찮아요 */ }
+}
+
+// 변환 결과가 바뀌면 예전 억양 악보와 그래프는 버려요
+function invalidateProsodyIfStale() {
+  var c = state.conversion;
+  if (state.prosody && (!c || state.prosody.code !== c.code || state.prosody.converted !== c.converted)) {
+    state.prosody = null;
+    saveProsody();
+  }
+  prosodyVisible = false;
+  graphResults = {};
+}
+
+function refreshProsodyBtn() {
+  var b = $('prosodyBtn');
+  if (!b) return;
+  b.disabled = prosodyBusy;
+  b.textContent = prosodyBusy ? '억양 분석 중…' : (prosodyVisible ? '억양 표시 숨기기' : '억양 표시 보기 (AI 추정)');
+  if (prosodyBusy) b.setAttribute('aria-busy', 'true'); else b.removeAttribute('aria-busy');
+}
+
+async function onProsodyClick() {
+  if (prosodyBusy || !state.conversion) return;
+  var err = $('prosodyError');
+  show(err, false);
+  if (prosodyVisible) { prosodyVisible = false; updateProsodyView(); refreshProsodyBtn(); return; }
+  if (state.prosody) { prosodyVisible = true; updateProsodyView(); refreshProsodyBtn(); return; }
+
+  var c = state.conversion;
+  prosodyBusy = true;
+  refreshProsodyBtn();
+  $('prosodyStatus').textContent = 'AI가 억양을 분석하는 중이에요… (최대 30초 걸려요)';
+  try {
+    var data = await api('/api/prosody', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ text: c.converted, code: c.code })
+    });
+    var norm = normalizeProsody(data);
+    if (!norm.sentences.length) throw new Error('AI가 억양 정보를 주지 못했어요. 잠시 뒤 다시 시도해 주세요.');
+    // 분석하는 동안 대본이 바뀌었으면 결과를 버려요
+    if (state.conversion !== c) return;
+    state.prosody = { code: c.code, converted: c.converted, data: norm };
+    saveProsody();
+    prosodyVisible = true;
+  } catch (e) {
+    err.textContent = e.message;
+    show(err, true);
+  } finally {
+    prosodyBusy = false;
+    $('prosodyStatus').textContent = '';
+    updateProsodyView();
+    refreshProsodyBtn();
+  }
+}
+
+var SVG_NS = 'http://www.w3.org/2000/svg';
+
+// 문장 하나의 악보 만들기
+function buildProsodyBlock(s) {
+  var wrap = el('div', 'pros-sentence');
+  var line = el('div', 'pros-line');
+  line.setAttribute('role', 'group');
+  line.setAttribute('aria-label', '억양 악보: ' + s.text);
+  var svg = document.createElementNS(SVG_NS, 'svg');
+  svg.setAttribute('class', 'pros-svg');
+  svg.setAttribute('aria-hidden', 'true');
+  line.appendChild(svg);
+
+  s.units.forEach(function (u) {
+    var box = el('span', 'pros-unit pitch-' + u.pitch + (u.stress ? ' stress' : ''));
+    box.appendChild(el('span', 'pros-t', u.t));
+    if (u.pause_after) box.appendChild(el('span', 'pros-pause', '‖'));
+    box.setAttribute('aria-label', u.t + ', 음 ' + PITCH_LABEL[u.pitch] + (u.stress ? ', 강조' : '') + (u.pause_after ? ', 뒤에 쉼' : ''));
+    box.title = PITCH_LABEL[u.pitch] + (u.stress ? ' · 강조' : '') + (u.pause_after ? ' · 쉼' : '');
+    box.dataset.pitch = u.pitch;
+    line.appendChild(box);
+  });
+  if (!s.units.length) line.appendChild(el('span', 'muted small', s.text));
+  wrap.appendChild(line);
+
+  if (s.ending && END_ARROW[s.ending]) {
+    var end = el('p', 'pros-end');
+    var arrow = el('span', 'pros-arrow', END_ARROW[s.ending][0]);
+    arrow.setAttribute('aria-hidden', 'true');
+    end.appendChild(arrow);
+    end.appendChild(document.createTextNode(' 끝 흐름: ' + END_ARROW[s.ending][1]));
+    wrap.appendChild(end);
+  }
+  if (s.tip) wrap.appendChild(el('p', 'pros-tip small muted', s.tip));
+  return wrap;
+}
+
+// 유닛 상자들을 이어 주는 선(SVG)을 그려요. 줄이 바뀌면 줄마다 따로 이어요.
+function drawProsodyLine(line) {
+  var svg = line.querySelector('.pros-svg');
+  if (!svg || !line.isConnected) return;
+  var lr = line.getBoundingClientRect();
+  if (!lr.width) return;
+  svg.setAttribute('width', lr.width);
+  svg.setAttribute('height', lr.height);
+  svg.setAttribute('viewBox', '0 0 ' + lr.width + ' ' + lr.height);
+  while (svg.firstChild) svg.removeChild(svg.firstChild);
+  var rows = {};
+  line.querySelectorAll('.pros-unit').forEach(function (u) {
+    var r = u.getBoundingClientRect();
+    var margin = parseFloat(getComputedStyle(u).marginTop) || 0;
+    var rowKey = Math.round(r.top - margin - lr.top); // 같은 줄이면 같은 값
+    (rows[rowKey] = rows[rowKey] || []).push((r.left + r.width / 2 - lr.left).toFixed(1) + ',' + (r.top + r.height / 2 - lr.top).toFixed(1));
+  });
+  Object.keys(rows).forEach(function (k) {
+    if (rows[k].length < 2) return;
+    var pl = document.createElementNS(SVG_NS, 'polyline');
+    pl.setAttribute('points', rows[k].join(' '));
+    svg.appendChild(pl);
+  });
+}
+
+function redrawAllProsodyLines() {
+  document.querySelectorAll('.pros-line').forEach(drawProsodyLine);
+}
+
+// 억양 악보 영역 전체를 현재 상태에 맞게 다시 채우기
+function updateProsodyView() {
+  var box = $('prosodyBox');
+  if (!box) return;
+  var p = state.prosody;
+  var on = prosodyVisible && !!p;
+  show(box, on);
+  listenRefs.forEach(function (r) { r.pros.innerHTML = ''; });
+  var list = $('prosodyList');
+  list.innerHTML = '';
+  if (!on) return;
+
+  var data = p.data;
+  fillList($('prosodyNotes'), data.notes, '');
+  show($('prosodyNotesWrap'), data.notes.length > 0);
+
+  var matched = data.sentences.length === state.sentences.length && listenRefs.length === state.sentences.length;
+  $('prosodyWhere').textContent = matched
+    ? '각 문장의 ▶ 줄 바로 아래에 악보가 있어요.'
+    : 'AI가 문장을 나눈 방식이 달라서, 악보를 아래에 따로 모아 보여 드려요.';
+  data.sentences.forEach(function (s, i) {
+    var blk = buildProsodyBlock(s);
+    if (matched) listenRefs[i].pros.appendChild(blk);
+    else {
+      var item = el('div', 'pros-item');
+      item.appendChild(el('p', 'pros-num small muted', (i + 1) + '번'));
+      item.appendChild(blk);
+      list.appendChild(item);
+    }
+  });
+  requestAnimationFrame(redrawAllProsodyLines);
+}
+
+/* =====================================================================
+ * (B) 억양 그래프 - 실제 측정 (내 목소리 녹음 -> 음높이 곡선)
+ * ===================================================================== */
+var recState = { active: false, busy: false, index: -1, stream: null, recorder: null, chunks: [], timer: null, tick: null, cancelled: false, t0: 0 };
+var audioCtx = null;
+
+function getAudioCtx() {
+  if (audioCtx) return audioCtx;
+  var AC = window.AudioContext || window.webkitAudioContext;
+  if (!AC) return null;
+  audioCtx = new AC();
+  return audioCtx;
+}
+
+function decodeBlob(blob) {
+  return blob.arrayBuffer().then(function (ab) {
+    var ctx = getAudioCtx();
+    if (!ctx) throw new Error('이 브라우저는 소리 분석을 지원하지 않아요. Chrome 브라우저에서 열어 주세요.');
+    return new Promise(function (resolve, reject) { ctx.decodeAudioData(ab, resolve, reject); });
+  });
+}
+
+function setRecUi(i, on) {
+  listenRefs.forEach(function (r, idx) {
+    var mine = idx === i;
+    r.rec.classList.toggle('recording', on && mine);
+    r.rec.textContent = (on && mine) ? '■ 녹음 중… 다시 누르면 끝' : '🎤 따라 말하기';
+    r.rec.setAttribute('aria-label', (idx + 1) + '번 문장 ' + ((on && mine) ? '녹음 끝내기' : '따라 말하기 (녹음 시작)'));
+    r.rec.disabled = on ? !mine : recState.busy;
+    r.play.disabled = on || recState.busy;
+  });
+}
+
+async function toggleRecord(i) {
+  if (recState.busy) return;
+  if (recState.active) {
+    if (recState.index === i) stopRecording();
+    return;
+  }
+  var r = listenRefs[i];
+  showAiMsg('');
+  if (!window.isSecureContext || !navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+    r.status.textContent = '이 주소에서는 마이크를 쓸 수 없어요. 마이크는 https 주소나 localhost 에서만 동작해요.';
+    return;
+  }
+  if (typeof MediaRecorder === 'undefined') {
+    r.status.textContent = '이 브라우저는 녹음을 지원하지 않아요. Chrome 브라우저에서 열어 주세요.';
+    return;
+  }
+  stopSpeaking();
+  stopListening(); // 음성인식(② 연습)과 동시에 쓰지 않아요
+  var stream;
+  try {
+    stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+  } catch (e) {
+    var n = e && e.name;
+    if (n === 'NotAllowedError' || n === 'SecurityError') r.status.textContent = '마이크 사용이 막혀 있어요. 주소창 왼쪽 자물쇠 아이콘을 눌러 마이크를 "허용"으로 바꾼 뒤 다시 시도해 주세요.';
+    else if (n === 'NotFoundError' || n === 'OverconstrainedError') r.status.textContent = '마이크를 찾지 못했어요. 마이크가 연결돼 있는지 확인해 주세요.';
+    else r.status.textContent = '마이크를 켜지 못했어요. 다른 프로그램이 마이크를 쓰고 있는지 확인해 주세요.';
+    return;
+  }
+  var recorder;
+  try { recorder = new MediaRecorder(stream); } catch (e) {
+    stream.getTracks().forEach(function (t) { t.stop(); });
+    r.status.textContent = '녹음을 시작하지 못했어요. 다른 브라우저로 시도해 주세요.';
+    return;
+  }
+  recState.active = true; recState.index = i; recState.stream = stream; recState.recorder = recorder;
+  recState.chunks = []; recState.cancelled = false; recState.t0 = Date.now();
+  recorder.ondataavailable = function (ev) { if (ev.data && ev.data.size) recState.chunks.push(ev.data); };
+  recorder.onstop = function () {
+    stream.getTracks().forEach(function (t) { t.stop(); });
+    clearTimeout(recState.timer); clearInterval(recState.tick);
+    var idx = recState.index;
+    var blob = new Blob(recState.chunks, { type: recorder.mimeType || 'audio/webm' });
+    recState.active = false; recState.recorder = null; recState.stream = null;
+    if (recState.cancelled) { recState.busy = false; setRecUi(-1, false); if (listenRefs[idx]) listenRefs[idx].status.textContent = ''; return; }
+    analyzeRecording(idx, blob);
+  };
+  recorder.start();
+  setRecUi(i, true);
+  function tick() {
+    var sec = Math.floor((Date.now() - recState.t0) / 1000);
+    r.status.textContent = '녹음 중… 다시 누르면 끝 (' + sec + '초 / ' + REC_MAX_SEC + '초)';
+  }
+  tick();
+  recState.tick = setInterval(tick, 1000);
+  recState.timer = setTimeout(stopRecording, REC_MAX_SEC * 1000); // 15초가 되면 자동으로 끝내요
+  r.rec.focus();
+}
+
+function stopRecording() {
+  if (recState.recorder && recState.recorder.state !== 'inactive') {
+    try { recState.recorder.stop(); } catch (e) { /* 이미 멈춘 경우 */ }
+  }
+}
+
+// 탭을 옮기거나 새 대본이 오면 녹음을 버리고 끝내요
+function cancelRecording() {
+  recState.cancelled = true;
+  if (recState.recorder && recState.recorder.state !== 'inactive') stopRecording();
+  else {
+    clearTimeout(recState.timer); clearInterval(recState.tick);
+    recState.active = false;
+  }
+}
+
+async function analyzeRecording(i, blob) {
+  var r = listenRefs[i];
+  var c = state.conversion;
+  var text = state.sentences[i];
+  recState.busy = true;
+  setRecUi(-1, false);
+  if (r) r.status.textContent = '내 목소리의 높낮이를 분석하는 중이에요…';
+  try {
+    var buf = await decodeBlob(blob);
+    var user = buildPitchContour(buf.getChannelData(0), buf.sampleRate);
+    if (user.voicedFrames < MIN_VOICED_FRAMES) {
+      if (listenRefs[i]) listenRefs[i].status.textContent = '녹음이 너무 짧거나 소리가 작아서 높낮이를 읽지 못했어요. 마이크 가까이에서 문장을 끝까지 말해 보세요.';
+      return;
+    }
+    // 기준 곡선: AI 음성을 쓸 수 있을 때만 (같은 문장은 저장해 둔 음성 재사용)
+    var ref = null, refNote = '';
+    if (state.health && state.health.tts) {
+      if (listenRefs[i]) listenRefs[i].status.textContent = '기준이 될 AI 음성을 준비하는 중이에요…';
+      try {
+        var clip = await getAiClip(text);
+        var rb = await decodeBlob(clip.blob);
+        var rc = buildPitchContour(rb.getChannelData(0), rb.sampleRate);
+        if (rc.voicedFrames >= MIN_VOICED_FRAMES) ref = resampleCurve(rc.semis, 100);
+        else refNote = 'AI 음성에서 높낮이를 읽지 못해 내 곡선만 보여 드려요.';
+      } catch (e) {
+        refNote = 'AI 기준 음성을 가져오지 못해 내 곡선만 보여 드려요. (' + e.message + ')';
+      }
+    } else {
+      refNote = 'AI 음성을 쓸 수 없는 상태라 내 곡선만 보여 드려요.';
+    }
+    if (state.conversion !== c) return; // 분석 중에 대본이 바뀜
+    graphResults[i] = { user: resampleCurve(user.semis, 100), ref: ref, refNote: refNote };
+    renderGraph(i);
+    if (listenRefs[i]) listenRefs[i].status.textContent = '분석이 끝났어요. 아래 그래프를 확인하세요.';
+  } catch (e) {
+    if (listenRefs[i]) listenRefs[i].status.textContent = '녹음을 분석하지 못했어요. ' + (e && e.message && e.message.indexOf('지원') >= 0 ? e.message : '다시 녹음해 주세요.');
+  } finally {
+    recState.busy = false;
+    setRecUi(-1, false);
+  }
+}
+
+// 그래프 색은 style.css 의 변수에서 읽어요 (다크 모드 자동)
+function cssVar(name) {
+  return getComputedStyle(document.documentElement).getPropertyValue(name).trim() || '#888';
+}
+
+function drawCurves(canvas, user, ref) {
+  var box = canvas.parentNode;
+  var w = Math.max(240, Math.floor(box.clientWidth || 300));
+  var h = 200;
+  var dpr = window.devicePixelRatio || 1;
+  canvas.width = Math.round(w * dpr);
+  canvas.height = Math.round(h * dpr);
+  canvas.style.width = w + 'px';
+  canvas.style.height = h + 'px';
+  var ctx = canvas.getContext('2d');
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  ctx.clearRect(0, 0, w, h);
+
+  var padL = 8, padR = 8, padT = 10, padB = 22;
+  var all = user.concat(ref || []).filter(function (v) { return v != null; });
+  var lo = Math.min.apply(null, all.concat([-2])) - 1;
+  var hi = Math.max.apply(null, all.concat([2])) + 1;
+  if (hi - lo < 6) { var mid = (hi + lo) / 2; lo = mid - 3; hi = mid + 3; }
+  function X(k) { return padL + k / 99 * (w - padL - padR); }
+  function Y(v) { return padT + (hi - v) / (hi - lo) * (h - padT - padB); }
+
+  ctx.font = '12px sans-serif';
+  ctx.textBaseline = 'alphabetic';
+  var muted = cssVar('--muted');
+  // 가운데(0반음 = 내 평소 높이) 점선
+  ctx.strokeStyle = cssVar('--border'); ctx.lineWidth = 1; ctx.setLineDash([4, 4]);
+  ctx.beginPath(); ctx.moveTo(padL, Y(0)); ctx.lineTo(w - padR, Y(0)); ctx.stroke();
+  ctx.setLineDash([]);
+  ctx.strokeRect(padL + 0.5, padT + 0.5, w - padL - padR - 1, h - padT - padB - 1);
+  ctx.fillStyle = muted;
+  ctx.textAlign = 'left'; ctx.fillText('0%', padL, h - 6);
+  ctx.textAlign = 'center'; ctx.fillText('문장 진행 (시간)', w / 2, h - 6);
+  ctx.textAlign = 'right'; ctx.fillText('100%', w - padR, h - 6);
+  ctx.textAlign = 'left'; ctx.fillText('높음', padL + 4, padT + 13);
+  ctx.fillText('낮음', padL + 4, h - padB - 5);
+
+  function line(curve, color, dash, width) {
+    ctx.strokeStyle = color; ctx.lineWidth = width; ctx.setLineDash(dash); ctx.lineJoin = 'round'; ctx.lineCap = 'round';
+    ctx.beginPath();
+    var pen = false;
+    for (var k = 0; k < curve.length; k++) {
+      if (curve[k] == null) { pen = false; continue; }
+      if (!pen) { ctx.moveTo(X(k), Y(curve[k])); pen = true; } else ctx.lineTo(X(k), Y(curve[k]));
+    }
+    ctx.stroke();
+    ctx.setLineDash([]);
+  }
+  if (ref) line(ref, cssVar('--line-ref'), [7, 5], 2.5);   // 기준: 파란 점선
+  line(user, cssVar('--line-user'), [], 3);                // 내 목소리: 붉은 실선
+}
+
+function renderGraph(i) {
+  var r = listenRefs[i], g = graphResults[i];
+  if (!r || !g) return;
+  var box = r.graph;
+  box.innerHTML = '';
+  box.appendChild(el('h3', 'graph-title', '억양 그래프 (베타) · 실제 측정'));
+
+  var legend = el('p', 'graph-legend small');
+  if (g.ref) {
+    var s1 = el('span', 'sw sw-ref', '┅ 기준(AI 음성)');
+    legend.appendChild(s1);
+  }
+  legend.appendChild(el('span', 'sw sw-user', '━ 내 목소리'));
+  box.appendChild(legend);
+
+  var canvas = el('canvas', 'graph-canvas');
+  canvas.setAttribute('role', 'img');
+  var fb = feedbackLines(g.user, g.ref);
+  canvas.setAttribute('aria-label', '억양 그래프. ' + fb.join(' '));
+  box.appendChild(canvas);
+
+  var ul = el('ul', 'graph-feedback');
+  fb.forEach(function (t) { ul.appendChild(el('li', null, t)); });
+  box.appendChild(ul);
+  if (g.refNote) box.appendChild(el('p', 'small muted', g.refNote));
+  box.appendChild(el('p', 'small muted', '기준이 AI 음성이면 AI 억양과 비교하는 거예요. 지역 출신자 녹음과 비교하는 게 가장 정확해요.'));
+  canvas._draw = function () { drawCurves(canvas, g.user, g.ref); };
+  canvas._draw();
+}
+
+function redrawAllGraphs() {
+  document.querySelectorAll('.graph-canvas').forEach(function (cv) { if (cv._draw) cv._draw(); });
 }
 
 /* ---------- 시작 ---------- */
@@ -727,6 +1573,11 @@ async function init() {
     sc.notes = Array.isArray(sc.notes) ? sc.notes : [];
     sc.tips = sc.tips || { intonation: [], pronunciation: [] };
     state.conversion = sc;
+    var sp = loadProsodySaved();
+    if (sp && sp.code === sc.code && sp.converted === sc.converted) {
+      sp.data = normalizeProsody(sp.data);
+      if (sp.data.sentences.length) state.prosody = sp;
+    }
   }
 
   $('sourceText').addEventListener('input', updateCharCount);
@@ -737,6 +1588,24 @@ async function init() {
   $('toPracticeBtn').addEventListener('click', function () { selectTab('practice', true); });
   $('micBtn').addEventListener('click', function () { if (listening) stopListening(); else startListening(); });
   $('stopBtn').addEventListener('click', stopSpeaking);
+  $('prosodyBtn').addEventListener('click', onProsodyClick);
+  document.querySelectorAll('input[name="engine"]').forEach(function (r) {
+    r.addEventListener('change', function () { engineChosen = true; stopSpeaking(); showAiMsg(''); updateEngineUi(); });
+  });
+  // 속도를 바꾸면 재생 중인 AI 음성에도 바로 적용
+  document.querySelectorAll('input[name="speed"]').forEach(function (r) {
+    r.addEventListener('change', function () { if (aiAudio) aiAudio.playbackRate = currentSpeed(); });
+  });
+  // 화면 크기/다크 모드가 바뀌면 그래프와 악보 선을 다시 그려요
+  var resizeTimer = null;
+  window.addEventListener('resize', function () {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(function () { redrawAllGraphs(); redrawAllProsodyLines(); }, 150);
+  });
+  if (window.matchMedia) {
+    var mq = window.matchMedia('(prefers-color-scheme: dark)');
+    if (mq.addEventListener) mq.addEventListener('change', redrawAllGraphs);
+  }
   if (synth) {
     loadVoices();
     synth.addEventListener('voiceschanged', function () {
@@ -754,7 +1623,8 @@ async function init() {
   // 서버 상태 확인 (키 안내) + 지역 목록
   api('/api/health').then(function (h) {
     show($('keyNotice'), h && h.hasKey === false);
-  }).catch(function () { /* 아래 지역 목록 실패 때 안내해요 */ });
+    applyHealth(h);
+  }).catch(function () { applyHealth(null); /* 지역 목록 실패 때도 안내해요 */ });
 
   try {
     var list = await api('/api/dialects');

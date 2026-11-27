@@ -6,7 +6,8 @@ import { fileURLToPath } from "node:url";
 import { loadDialects, getDialect, listDialects } from "./dialects.js";
 import { demoConvert } from "./demo.js";
 import { claudeConvert, MODEL, UserError } from "./claude.js";
-import { openaiConvert, OPENAI_MODEL } from "./openai.js";
+import { openaiConvert, openaiSpeech, OPENAI_MODEL } from "./openai.js";
+import { prosodyFor } from "./prosody.js";
 
 const PORT = Number(process.env.PORT) || 3000;
 const MAX_CHARS = 3000;
@@ -28,29 +29,37 @@ function provider() {
   return null;
 }
 const hasKey = () => provider() !== null;
+// AI 음성은 ChatGPT(OpenAI) 키가 있을 때만 쓸 수 있습니다.
+const hasTts = () => filled(process.env.OPENAI_API_KEY);
 
 // ── 사용량 제한 ─────────────────────────────────────────────
 // 한 사람(IP)당 1시간에 RATE_PER_HOUR번, 서버 전체로 하루 DAILY_LIMIT번까지만 AI를 부릅니다.
 // 숫자는 .env(또는 Vercel 환경변수)에서 바꿀 수 있습니다.
 // 주의: Vercel에서는 서버가 여러 개로 나뉘어 켜질 수 있어 "대략적인" 제한입니다.
 //       확실한 상한은 OpenAI/Anthropic 사이트에서 월 사용 한도(Usage limit)를 꼭 걸어 두세요.
-const RATE_PER_HOUR = Number(process.env.RATE_PER_HOUR) || 10;
-const DAILY_LIMIT = Number(process.env.DAILY_LIMIT) || 100;
-const hits = new Map(); // ip -> [요청 시각들]
+// 기능마다 따로 셉니다: 변환 / 억양 표시 / AI 음성
+const LIMITS = {
+  convert: { perHour: Number(process.env.RATE_PER_HOUR) || 10, perDay: Number(process.env.DAILY_LIMIT) || 100, label: "변환" },
+  prosody: { perHour: Number(process.env.PROSODY_PER_HOUR) || 10, perDay: Number(process.env.PROSODY_DAILY) || 100, label: "억양 표시" },
+  tts: { perHour: Number(process.env.TTS_PER_HOUR) || 40, perDay: Number(process.env.TTS_DAILY) || 400, label: "AI 음성 재생" },
+};
+const hits = new Map(); // "기능:ip" -> [요청 시각들]
+const dayCounts = {}; // 기능 -> 오늘 횟수
 let day = new Date().toDateString();
-let dayCount = 0;
-function checkLimit(ip) {
+function checkLimit(ip, kind = "convert") {
+  const lim = LIMITS[kind];
   const now = Date.now();
   if (new Date().toDateString() !== day) {
     day = new Date().toDateString();
-    dayCount = 0;
+    for (const k in dayCounts) dayCounts[k] = 0;
   }
-  if (dayCount >= DAILY_LIMIT) return "오늘 사용 가능한 변환 횟수를 모두 썼어요. 내일 다시 시도해 주세요.";
-  const recent = (hits.get(ip) || []).filter((t) => now - t < 60 * 60 * 1000);
-  if (recent.length >= RATE_PER_HOUR) return `1시간에 ${RATE_PER_HOUR}번까지 변환할 수 있어요. 잠시 후 다시 시도해 주세요.`;
+  if ((dayCounts[kind] || 0) >= lim.perDay) return `오늘 사용 가능한 ${lim.label} 횟수를 모두 썼어요. 내일 다시 시도해 주세요.`;
+  const key = kind + ":" + ip;
+  const recent = (hits.get(key) || []).filter((t) => now - t < 60 * 60 * 1000);
+  if (recent.length >= lim.perHour) return `${lim.label}은(는) 1시간에 ${lim.perHour}번까지 할 수 있어요. 잠시 후 다시 시도해 주세요.`;
   recent.push(now);
-  hits.set(ip, recent);
-  dayCount++;
+  hits.set(key, recent);
+  dayCounts[kind] = (dayCounts[kind] || 0) + 1;
   return null;
 }
 const currentModel = () => (provider() === "openai" ? OPENAI_MODEL : MODEL);
@@ -62,7 +71,7 @@ app.use(express.json({ limit: "100kb" }));
 
 // 1) 서버 상태 확인
 app.get("/api/health", (req, res) => {
-  res.json({ ok: true, hasKey: hasKey(), provider: provider(), model: currentModel() });
+  res.json({ ok: true, hasKey: hasKey(), provider: provider(), model: currentModel(), tts: hasTts() });
 });
 
 // 2) 사투리 목록
@@ -111,6 +120,48 @@ app.post("/api/convert", async (req, res) => {
     // 스택 트레이스나 키가 화면에 나가지 않도록 서버 콘솔에만 이름/메시지를 남깁니다.
     console.error("[변환 오류]", err?.name, err?.message);
     res.status(500).json({ error: "서버에서 문제가 생겼습니다. 잠시 후 다시 시도해 주세요." });
+  }
+});
+
+// 4) 억양 악보 (A) — 사투리 대본의 높낮이·강조·쉼을 AI가 추정
+app.post("/api/prosody", async (req, res) => {
+  try {
+    const { text, code } = req.body || {};
+    if (typeof text !== "string" || !text.trim()) return res.status(400).json({ error: "억양을 표시할 대본이 없어요." });
+    if (text.length > MAX_CHARS) return res.status(400).json({ error: `대본이 너무 깁니다. ${MAX_CHARS}자 이하로 줄여 주세요.` });
+    const dialect = typeof code === "string" ? getDialect(code) : undefined;
+    if (!dialect) return res.status(400).json({ error: "알 수 없는 사투리 코드입니다." });
+    const who = provider();
+    if (!who) return res.status(503).json({ error: "억양 표시는 AI 키가 있어야 쓸 수 있어요. (지금은 데모 모드)" });
+    const blocked = checkLimit(req.ip || "unknown", "prosody");
+    if (blocked) return res.status(429).json({ error: blocked });
+    res.json(await prosodyFor(text, dialect, who));
+  } catch (err) {
+    if (err instanceof UserError) return res.status(err.status).json({ error: err.message });
+    console.error("[억양 오류]", err?.name, err?.message);
+    res.status(500).json({ error: "억양 표시 중 문제가 생겼습니다. 잠시 후 다시 시도해 주세요." });
+  }
+});
+
+// 5) AI 음성 — 문장 하나를 사투리 억양으로 읽은 mp3를 돌려줌 (OpenAI 키 필요)
+app.post("/api/tts", async (req, res) => {
+  try {
+    const { text, code, tips } = req.body || {};
+    if (typeof text !== "string" || !text.trim()) return res.status(400).json({ error: "읽을 문장이 없어요." });
+    if (text.length > 600) return res.status(400).json({ error: "AI 음성은 한 번에 600자까지만 읽을 수 있어요. 문장 단위로 들어 주세요." });
+    const dialect = typeof code === "string" ? getDialect(code) : undefined;
+    if (!dialect) return res.status(400).json({ error: "알 수 없는 사투리 코드입니다." });
+    if (!hasTts()) return res.status(503).json({ error: "AI 음성은 ChatGPT(OpenAI) 키가 있어야 쓸 수 있어요." });
+    const blocked = checkLimit(req.ip || "unknown", "tts");
+    if (blocked) return res.status(429).json({ error: blocked });
+    const audio = await openaiSpeech(text, dialect, tips);
+    res.set("Content-Type", "audio/mpeg");
+    res.set("Cache-Control", "no-store");
+    res.send(audio);
+  } catch (err) {
+    if (err instanceof UserError) return res.status(err.status).json({ error: err.message });
+    console.error("[음성 오류]", err?.name, err?.message);
+    res.status(500).json({ error: "AI 음성을 만드는 중 문제가 생겼습니다." });
   }
 });
 

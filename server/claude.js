@@ -86,7 +86,8 @@ function getClient() {
   return client;
 }
 
-export async function claudeConvert(text, dialect) {
+// 시스템 지시 + 사용자 글 + JSON 모양을 받아 AI 답(JSON 객체)을 돌려주는 공통 함수
+export async function claudeJSON(systemText, userText, schema) {
   let response;
   try {
     response = await getClient().messages.create({
@@ -94,12 +95,12 @@ export async function claudeConvert(text, dialect) {
       max_tokens: 8000,
       // 규칙이 담긴 긴 시스템 프롬프트를 캐시해 두면 같은 사투리를 다시 쓸 때 빠르고 쌉니다.
       system: [
-        { type: "text", text: buildSystemPrompt(dialect), cache_control: { type: "ephemeral" } },
+        { type: "text", text: systemText, cache_control: { type: "ephemeral" } },
       ],
-      messages: [{ role: "user", content: "Convert this monologue:\n\n" + text }],
+      messages: [{ role: "user", content: userText }],
       output_config: {
         effort: "medium",
-        format: { type: "json_schema", schema: OUTPUT_SCHEMA },
+        format: { type: "json_schema", schema },
       },
     });
   } catch (err) {
@@ -141,10 +142,20 @@ export async function claudeConvert(text, dialect) {
   } catch {
     throw new UserError(502, "AI 답변을 읽지 못했습니다. 다시 한 번 시도해 주세요.");
   }
+  return data;
+}
+
+// 사투리 변환 (Claude)
+export async function claudeConvert(text, dialect) {
+  const data = await claudeJSON(buildSystemPrompt(dialect), "Convert this monologue:\n\n" + text, OUTPUT_SCHEMA);
+  return normalizeConversion(data);
+}
+
+// AI 답을 화면이 쓰는 모양으로 정리 (Claude·ChatGPT 공통)
+export function normalizeConversion(data) {
   if (!data || typeof data.converted !== "string") {
     throw new UserError(502, "AI 답변 형식이 올바르지 않습니다. 다시 한 번 시도해 주세요.");
   }
-
   const arr = (x) => (Array.isArray(x) ? x.map(String) : []);
   return {
     converted: data.converted,

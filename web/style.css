@@ -22,6 +22,8 @@
   --err-bg: #fde8e6;
   --err-border: #d98a84;
   --focus: #1a5fb4;
+  --line-ref: #1a5fb4;     /* 억양 그래프: 기준(AI 음성) 선 */
+  --line-user: #b3261e;    /* 억양 그래프: 내 목소리 선 */
   --font-ui: "Pretendard", "Malgun Gothic", "Apple SD Gothic Neo", "Noto Sans KR", system-ui, sans-serif;
   --font-script: "Noto Serif KR", "Batang", "Nanum Myeongjo", "AppleMyungjo", serif;
 }
@@ -47,6 +49,8 @@
     --err-bg: #3d1d1b;
     --err-border: #9c4a44;
     --focus: #7fb3ff;
+    --line-ref: #7fb3ff;
+    --line-user: #ff9a92;
   }
 }
 
@@ -233,13 +237,63 @@ summary { cursor: pointer; font-weight: 700; min-height: 44px; display: flex; al
 .chip:has(input:focus-visible) { outline: 3px solid var(--focus); outline-offset: 2px; }
 
 .listen-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px; }
+/* 한 문장 줄: 위쪽 .listen-row(버튼+글), 아래쪽에 악보/그래프가 붙어요 */
 .listen-item {
-  display: flex; gap: 12px; align-items: center; background: var(--surface);
+  background: var(--surface);
   border: 2px solid var(--border); border-radius: 12px; padding: 12px;
 }
 .listen-item.playing { border-color: var(--accent); background: var(--accent-soft); }
-.listen-item .script-text { flex: 1; line-height: 1.7; }
+.listen-row { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+.listen-item .script-text { flex: 1 1 220px; line-height: 1.7; }
 .play-btn { flex: none; width: 56px; height: 56px; border-radius: 50%; padding: 0; font-size: 1.3rem; }
+
+.chip:has(input:disabled) { opacity: .55; cursor: not-allowed; }
+.engine { flex: 1 1 100%; }
+.rec-btn { flex: none; min-height: 48px; padding: 8px 14px; }
+.play-btn.loading { font-size: 1.1rem; opacity: .8; }
+.rec-status { margin: 6px 0 0; min-height: 0; }
+.rec-status:empty { display: none; }
+
+/* ---------- 억양 악보 (AI 추정) ---------- */
+.pros-legend { display: flex; flex-wrap: wrap; gap: 8px 16px; margin: 8px 0; align-items: center; }
+.pros-legend .lg { display: inline-flex; align-items: center; gap: 6px; }
+.lg-box, .pros-unit {
+  display: inline-block; padding: 2px 8px; border-radius: 8px; border: 2px solid var(--border);
+  background: var(--surface); font-family: var(--font-script); line-height: 1.5;
+}
+.lg-box { font-family: var(--font-ui); font-size: 0.85rem; }
+.lg-box.pitch-H, .pros-unit.pitch-H { border-color: #c06a2b; }
+.lg-box.pitch-M, .pros-unit.pitch-M { border-color: #7a8a3a; }
+.lg-box.pitch-L, .pros-unit.pitch-L { border-color: #3a6fa8; }
+.lg-pause { color: var(--muted); }
+
+.pros-sentence { margin: 10px 0 4px; }
+/* 줄 전체: 유닛 상자를 가로로 늘어놓고, 높음/중간/낮음은 위쪽 여백(margin-top)으로 높낮이를 표현해요 */
+.pros-line { position: relative; display: flex; flex-wrap: wrap; align-items: flex-start; gap: 6px 8px; padding: 2px 0 6px; }
+.pros-svg { position: absolute; left: 0; top: 0; pointer-events: none; z-index: 0; }
+.pros-svg polyline { fill: none; stroke: var(--accent); stroke-width: 2; stroke-linejoin: round; opacity: .55; }
+.pros-unit { position: relative; z-index: 1; font-size: 1.15rem; }
+.pros-unit.pitch-H { margin-top: 0; }
+.pros-unit.pitch-M { margin-top: 22px; }
+.pros-unit.pitch-L { margin-top: 44px; }
+.pros-unit.stress, .lg-box.stress { font-weight: 800; color: var(--accent); }
+.pros-unit.stress .pros-t { border-bottom: 3px dotted var(--accent); }
+.pros-pause { margin-left: 6px; color: var(--muted); font-weight: 700; }
+.pros-end { margin: 2px 0 0; font-size: 0.95rem; font-weight: 600; }
+.pros-arrow { color: var(--accent); font-weight: 800; font-size: 1.2rem; }
+.pros-tip { margin: 2px 0 0; }
+.pros-item { border-top: 1px solid var(--border); padding-top: 8px; margin-top: 8px; }
+.pros-num { margin: 0; }
+.pros-slot:not(:empty) { margin-top: 8px; padding-top: 8px; border-top: 1px dashed var(--border); }
+
+/* ---------- 억양 그래프 (실제 측정) ---------- */
+.graph-slot:not(:empty) { margin-top: 10px; padding-top: 8px; border-top: 1px dashed var(--border); }
+.graph-title { margin: 0 0 4px; }
+.graph-legend { display: flex; gap: 16px; flex-wrap: wrap; margin: 0 0 4px; font-weight: 700; }
+.sw-ref { color: var(--line-ref); }
+.sw-user { color: var(--line-user); }
+.graph-canvas { display: block; width: 100%; background: var(--bg); border-radius: 8px; }
+.graph-feedback { margin: 8px 0 4px; padding-left: 20px; font-weight: 600; }
 
 /* ---------- 작은 화면 (휴대폰) ---------- */
 @media (max-width: 760px) {
@@ -247,4 +301,7 @@ summary { cursor: pointer; font-weight: 700; min-height: 44px; display: flex; al
   .script-text { font-size: 1.25rem; }
   .script-big { font-size: 1.45rem; }
   .btn-lg { width: 100%; }
+  .pros-unit { font-size: 1.05rem; padding: 2px 6px; }
+  .pros-unit.pitch-M { margin-top: 18px; }
+  .pros-unit.pitch-L { margin-top: 36px; }
 }
