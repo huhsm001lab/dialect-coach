@@ -444,16 +444,20 @@ var authChecked = false;  // 로그인 상태 확인이 끝났는지 (확인 전
 function needGate() { return authChecked && !!authClient && !authUser; }
 
 function showGate(room) {
-  gateRoom = ROOMS[room] ? room : 'dialect';
+  gateRoom = ROOMS[room] ? room : null; // null 이면 로그인 뒤 "서비스 고르기"(첫 페이지)로 가요
   document.body.classList.remove('show-intro');
   $('intro').hidden = true;
   document.body.classList.add('show-gate');
   $('loginGate').hidden = false;
-  $('gateRoomName').textContent = ROOMS[gateRoom].name;
+  $('gateLead').textContent = gateRoom
+    ? '로그인하면 ' + ROOMS[gateRoom].name + '가 바로 열리고, 내 기록이 내 계정에 남아요.'
+    : '로그인하면 쓸 서비스를 고를 수 있고, 내 기록이 내 계정에 남아요.';
   $('gateMsg').textContent = '';
   $('gateMsg').classList.remove('is-error');
+  show($('gateBack'), !!gateRoom); // 첫 화면(로그인)에서는 돌아갈 곳이 없어서 숨겨요
   $('gateSend').disabled = false;
-  if (location.hash !== '#' + gateRoom) history.replaceState(null, '', '#' + gateRoom);
+  var wantHash = gateRoom ? '#' + gateRoom : '';
+  if (location.hash !== wantHash) history.replaceState(null, '', location.pathname + location.search + wantHash);
   window.scrollTo(0, 0);
   $('gateEmail').focus({ preventScroll: true });
 }
@@ -479,7 +483,7 @@ async function sendGateLink(e) {
   try {
     var r = await authClient.auth.signInWithOtp({
       email: email,
-      options: { emailRedirectTo: location.origin + location.pathname + '#' + (gateRoom || 'dialect') }
+      options: { emailRedirectTo: location.origin + location.pathname + (gateRoom ? '#' + gateRoom : '') }
     });
     if (r.error) throw r.error;
     msg.textContent = '📬 메일을 보냈어요! 메일함에서 로그인 링크를 눌러 주세요.';
@@ -491,6 +495,7 @@ async function sendGateLink(e) {
 }
 
 function showIntro(on) {
+  if (on && needGate()) { showGate(null); return; } // 로그인 먼저, 그다음 서비스 고르기
   if (on) hideGate();
   document.body.classList.toggle('show-intro', on);
   $('intro').hidden = !on;
@@ -3357,7 +3362,7 @@ async function initAuth() {
   $('loginForm').addEventListener('submit', sendLoginLink);
   $('logoutBtn').addEventListener('click', doLogout);
   $('gateForm').addEventListener('submit', sendGateLink);
-  $('gateBack').addEventListener('click', function () { showIntro(true); });
+  $('gateBack').addEventListener('click', function () { showGate(null); });
 
   var cfg = null;
   try { cfg = await api('/api/config'); } catch (e) { cfg = null; }
@@ -3383,7 +3388,10 @@ async function initAuth() {
         authRender();
         if (ev === 'SIGNED_IN' && authUser && $('loginDlg').open) { $('loginDlg').close(); showToast('로그인했어요'); }
         // 로그인 화면에서 기다리던 중이면, 고른 서비스로 바로 들어가요
-        if (authUser && !$('loginGate').hidden) { enterRoom(gateRoom || currentRoom); showToast('로그인했어요'); }
+        if (authUser && !$('loginGate').hidden) {
+          if (gateRoom) enterRoom(gateRoom); else showIntro(true);
+          showToast('로그인했어요');
+        }
       }, 0);
     });
     var r = await authClient.auth.getSession(); // 로그인 링크로 돌아온 경우 여기서 처리돼요
@@ -3396,7 +3404,7 @@ async function initAuth() {
   authChecked = true;
   authRender();
   // 로그인하지 않았는데 이미 서비스 화면(#note 등)이 열려 있으면 로그인 화면으로 바꿔요
-  if (needGate() && !document.body.classList.contains('show-intro')) showGate(currentRoom);
+  if (needGate()) showGate(document.body.classList.contains('show-intro') ? null : currentRoom);
 }
 
 /* ---------- 내 보관함: 저장할 내용 만들기 / 불러오기 ---------- */
