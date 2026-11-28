@@ -2,111 +2,222 @@
   "code": "en-us-ny",
   "name": "New York City English",
   "language": "en",
-  "summary": "New York City English is an urban accent with several distinctive vowels and a historically non-rhotic (r-dropping) pronunciation that is now much less consistent. The most recognisable features are the three-way split of Mary / marry / merry, a split short-a system, a raised and glided vowel in 'talk' and 'thought', and, in working-class speech, 'th' pronounced as t and d. Grammar evidence in the sources is thin, so this file contains almost no grammar rules; do not add grammar features for NYC without a source. Features like coil-curl merger and r-dropping are documented as declining, especially among younger and middle-class speakers. Evidence comes from the Wikipedia article on New York City English and related pages. Primary sources (Labov's work on New York City) were not opened and should be checked before the file is finalised.",
-  "grammar": [],
+  "summary": "New York City English is an urban accent with a distinctive vowel system (a split short-a, a high gliding THOUGHT vowel, no cot-caught merger, three-way Mary/marry/merry), traditional r-dropping except before vowels (now declining and variable), and in working-class speech dental or stopped t, d, th. Round 2 improved the evidence: the short-a conditions now come from a Wikipedia summary of Labov, Ash and Boberg (2006) and Labov (2007), the 'on line' and indirect-question points were re-read, and a Yale Grammatical Diversity Project page was checked for embedded-question inversion. HONEST LIMIT: reliable NYC-specific grammar is very thin in everything opened (only 'on line' is solid), so this file has only 2 grammar items instead of 8-15; do not invent more (youse, 'he don't', 'Fuhgeddaboudit' are not supported by sources opened here). Intonation is also thin: the opened sources describe conversational style (cooperative overlap), not pitch contours. Primary works (Labov 1966/2006; Labov, Ash and Boberg 2006; Newman 2014) were NOT opened directly.",
+  "grammar": [
+    {
+      "standard": "stand in line",
+      "dialect": "stand on line",
+      "condition": "Metro New Yorkers say 'on line' where most Americans say 'in line' (Doll 2012 via source 1). The one NYC-specific grammar/preposition item that is solid and widely recognised.",
+      "example_standard": "Are you waiting in line for the tickets?",
+      "example_dialect": "Are you waiting on line for the tickets?",
+      "source_ids": [
+        1
+      ]
+    },
+    {
+      "standard": "(indirect question) She asked if she could go.",
+      "dialect": "She asked could she go. (inversion in an embedded question)",
+      "condition": "LOW confidence for NYC. YGDP lists 'Northeast U.S. English' (not New York City specifically) among dialects with subject-auxiliary inversion in embedded questions, usually with 'ask'; cannot be combined with 'if/whether'. Source 1 mentions a 'lack of inversion in indirect questions' as a contact feature (Labov 1972), which is ambiguous, because standard English also has no inversion there. Treat as optional colour, and use on one line at most.",
+      "example_standard": "I asked her if she was coming.",
+      "example_dialect": "I asked her was she coming.",
+      "source_ids": [
+        5,
+        1
+      ],
+      "constructed": true
+    }
+  ],
   "vocabulary": [
-    {
-      "standard": "in line (queue)",
-      "dialect": "on line",
-      "note": "The source says New Yorkers tend to say 'on line' where others say 'in line'.",
-      "source_ids": [1]
-    },
-    {
-      "standard": "long sandwich (submarine / sub)",
-      "dialect": "hero",
-      "note": "Listed in the source as a New York term for a long sandwich.",
-      "source_ids": [1]
-    },
     {
       "standard": "small neighbourhood convenience store",
       "dialect": "bodega",
-      "note": "Spanish-origin term from New York neighbourhoods. Source describes it as a small neighbourhood convenience store.",
-      "source_ids": [1]
+      "note": "Spanish-origin; neighbourhood shop (Wang 2017 via source 1). Everyday NYC word.",
+      "source_ids": [
+        1
+      ]
     },
     {
-      "standard": "chocolate or vanilla soda with milk",
+      "standard": "long sandwich (sub)",
+      "dialect": "hero",
+      "note": "Listed in DARE (Cassidy et al. 2002) via source 1.",
+      "source_ids": [
+        1
+      ]
+    },
+    {
+      "standard": "chocolate/vanilla syrup, milk and seltzer drink",
       "dialect": "egg cream",
-      "note": "Source describes it as cold milk, chocolate or vanilla syrup and seltzer, with no egg. Use only for a specific food reference.",
-      "source_ids": [1]
+      "note": "DARE via source 1; contains no egg. Mostly an older, nostalgic food reference.",
+      "source_ids": [
+        1
+      ]
     },
     {
       "standard": "street baseball",
       "dialect": "stickball / punchball",
-      "note": "Listed in the source as street baseball variants.",
-      "source_ids": [1]
+      "note": "DARE via source 1. Nostalgic, older reference; younger characters rarely.",
+      "source_ids": [
+        1
+      ]
     },
     {
-      "standard": "fool / idiot",
-      "dialect": "schmuck",
-      "note": "Yiddish-origin word. Source lists it among New York slang. Use sparingly; it can be offensive.",
-      "source_ids": [1]
+      "standard": "play catch",
+      "dialect": "have a catch",
+      "note": "DARE via source 1.",
+      "source_ids": [
+        1
+      ]
     },
     {
-      "standard": "nothing / trivial amount",
+      "standard": "jeans (old term)",
+      "dialect": "dungarees",
+      "note": "DARE via source 1; older-generation term.",
+      "source_ids": [
+        1
+      ]
+    },
+    {
+      "standard": "worthless person; jerk",
+      "dialect": "schmuck (schmuck)",
+      "note": "Yiddish-origin, Newman (2014) via source 1. Rude; use sparingly.",
+      "source_ids": [
+        1
+      ]
+    },
+    {
+      "standard": "nothing, very little",
       "dialect": "bubkes",
-      "note": "Yiddish-origin word listed in the source as New York slang.",
-      "source_ids": [1]
+      "note": "Yiddish-origin, Newman (2014) via source 1; pronounced /ˈbʌpkəs/.",
+      "source_ids": [
+        1
+      ]
+    },
+    {
+      "standard": "vagrant or small-time criminal",
+      "dialect": "skel / skell",
+      "note": "Newman (2014) via source 1. Street, rougher register.",
+      "source_ids": [
+        1
+      ]
+    },
+    {
+      "standard": "weak or contemptible person",
+      "dialect": "punk",
+      "note": "Spears (1998) via source 1.",
+      "source_ids": [
+        1
+      ]
+    },
+    {
+      "standard": "night before Halloween",
+      "dialect": "Mischief Night",
+      "note": "Listed in source 1 with no citation (and shared with nearby areas). Low confidence for NYC-only use.",
+      "source_ids": [
+        1
+      ]
     }
   ],
   "pronunciation": [
     {
-      "rule": "Traditional non-rhoticity: /r/ is dropped before consonants and at the end of words (it is still pronounced before vowels). Current New York speech is often rhotic or variably rhotic, so treat this as a feature of older or working-class speakers.",
-      "ipa": "/r/ -> silent before consonants and word-finally (traditional)",
-      "actor_tip": "For an older or working-class character, let the r fade in words like 'car', 'floor' and 'park' so they sound like 'cah', 'floh' and 'pahk'. Keep the r before vowels ('car alarm' keeps its r). For a young or middle-class character, keep the r.",
-      "example": "car, floor, park, fourth",
-      "source_ids": [1]
+      "rule": "Short-a split (tensing): in closed syllables /æ/ is tense [ɛə] (higher, longer, glided) before nasals /m n/, voiceless fricatives /f θ s ʃ/ and voiced stops /b d g/; it stays lax [æ] in open syllables and in many other contexts. Variable before /dʒ/ and /z/.",
+      "ipa": "tense [ɛə] in: man, pass, gas, bad, ask, after; lax [æ] in: cat, back, happy (examples after Labov, Ash and Boberg 2006 via source 4)",
+      "actor_tip": "Think of 'pass' / 'bad' / 'man' with a higher, longer, slightly gliding 'a' (close to 'eh-uh'), and 'cat' / 'back' with a normal short 'a'. The same-looking vowel is two sounds.",
+      "example": "gas (tense) vs gap (lax); bad vs back; man vs map",
+      "source_ids": [
+        4
+      ]
     },
     {
-      "rule": "Short-a split: the /æ/ vowel of short-a words is split into two different vowels, so some words (e.g. 'gas') and others (e.g. 'gap') do not share the same vowel.",
-      "ipa": "/æ/ split into two vowels; exact conditioning not captured in source",
-      "actor_tip": "Do not give every short-a word the same vowel. The exact rule is not verified here. Before using this in a monologue, listen to a native New York recording of the words you need and copy the vowel you hear. Mark the line as low confidence in stage notes.",
-      "example": "gas vs gap",
-      "source_ids": [1]
+      "rule": "Short-a exceptions: function words with a simple coda are usually lax ('can' verb-aux [æ] vs 'can't' [ɛə]); learned words and loanwords are usually lax (alas, carafe); short names (Cass, Babs) lax; words with a vowel-initial suffix keep the stem vowel (mannish tense like man); 'avenue' tense; 'ask' and 'after' tense but 'aspirin' and 'asterisk' lax.",
+      "ipa": "exceptions list (source 4, citing ANAE pp. 173-174)",
+      "actor_tip": "Do not tense 'can' (auxiliary) or 'and'. Tense 'can't', 'ask', 'after'. If unsure, use the plain vowel; mixing is more natural than over-tensing.",
+      "example": "can / can't, avenue, aspirin",
+      "source_ids": [
+        4
+      ]
     },
     {
-      "rule": "Raised, gliding /ɔ/ in 'talk', 'thought' and 'all': the vowel is higher and glides rather than being a flat 'aw'. This is why NYC keeps 'caught' and 'cot' distinct.",
-      "ipa": "/ɔ/ raised and gliding (exact IPA not captured from source)",
-      "actor_tip": "Say 'talk', 'thought' and 'all' with a higher, rounded 'aw' that rises slightly at the end, not a flat 'aw' like a British or Midwestern speaker. Keep 'caught' and 'cot' sounding different.",
-      "example": "talk, thought, all, caught",
-      "source_ids": [1]
+      "rule": "Raised, gliding THOUGHT: the vowel of talk, thought, all is high and gliding [ɔə], so cot and caught stay distinct (no cot-caught merger).",
+      "ipa": "/ɔ/ -> raised, glided [ɔə] in talk, thought, all (IPA approximate, via source 1)",
+      "actor_tip": "Round the lips, raise the tongue, and let the vowel rise slightly at the end ('taw-uck'). Keep 'cot' short and open to preserve the contrast.",
+      "example": "talk, thought, all, caught vs cot",
+      "source_ids": [
+        1
+      ]
     },
     {
-      "rule": "Three different vowels in Mary, marry and merry: New York keeps the three words distinct (no merger).",
-      "ipa": "Mary /ˈmɛəri/ or /ˈmeɹi/; marry /ˈmæɹi/; merry /ˈmɛɹi/ (as given in source)",
-      "actor_tip": "Keep three different vowels: Mary (close to 'MAIR-ee'), marry (a short 'a' as in 'cat' plus 'ree'), merry ('MEH-ree'). Do not merge them, even when speaking quickly.",
+      "rule": "Mary / marry / merry: three different vowels; no merger (unlike most of the US).",
+      "ipa": "Mary [ˈmɛəɹi]/[ˈmeɹi]; marry [ˈmæɹi]; merry [ˈmɛɹi] (source 1, 3)",
+      "actor_tip": "Keep three vowels: 'MAIR-ee', 'MA(r)-ee' (as in 'cat'), 'MEH-ree'.",
       "example": "Mary / marry / merry",
-      "source_ids": [1, 3]
+      "source_ids": [
+        1,
+        3
+      ]
     },
     {
-      "rule": "Th-stopping in working-class speech: θ (as in 'think') becomes t and ð (as in 'this') becomes d. Documented for working-class New York City speakers.",
-      "ipa": "θ -> [t]; ð -> [d]",
-      "actor_tip": "Touch the tongue to the back of the upper front teeth and release quickly, as if saying t or d. 'Three' sounds like 'tree', 'this' sounds like 'dis'. Use only for working-class or older characters.",
-      "example": "three -> tree; this -> dis; think -> tink",
-      "source_ids": [2, 1]
+      "rule": "Traditional r-dropping: /r/ is dropped except before vowels (older, working-class). Today's New York speech is variably rhotic, and middle-class and younger speakers mostly keep r.",
+      "ipa": "/r/ -> zero in coda; kept before vowels",
+      "actor_tip": "Only for older / working-class characters: 'cah', 'foah'. Keep r in 'car alarm'. Young/middle-class: keep r.",
+      "example": "car, floor, park",
+      "source_ids": [
+        1
+      ]
+    },
+    {
+      "rule": "Th-stopping and dental t, d: th pronounced as t/d (stopped), plus dentalised t and d; Newman (2014) suggests contact with immigrant languages. Working-class and older speakers.",
+      "ipa": "θ -> [t̪]; ð -> [d̪]; t, d dental",
+      "actor_tip": "Put the tongue tip on the back of the upper teeth and release quickly: 'three' like 'tree', 'this' like 'dis'. Only for working-class or older characters, and not on every th word.",
+      "example": "three, this, think",
+      "source_ids": [
+        2,
+        1
+      ]
+    },
+    {
+      "rule": "Coil-curl merger: almost extinct and strongly stigmatised (Labov et al. 2006 p. 260), so do not use the old 'toity-toid' stereotype for modern characters.",
+      "ipa": "(avoid) coil = curl",
+      "actor_tip": "Keep 'oil'/'boil' and 'earl'/'girl' as distinct standard sounds.",
+      "example": "coil, curl",
+      "source_ids": [
+        1
+      ]
     }
   ],
-  "intonation": [],
+  "intonation": [
+    {
+      "rule": "Conversation style rather than pitch: Metro New Yorkers 'stand closer, talk louder, and leave shorter pauses between exchanges' (Tannen via source 1); overlap is cooperative, signalling engagement rather than rudeness. The same source says linguists know of no single 'normal New York conversation'.",
+      "source_ids": [
+        1
+      ],
+      "actor_tip": "In a two-hander, start your line a beat early (overlap the end of the other line) and keep volume up for banter or arguments. Do not do this for every NYC character."
+    }
+  ],
   "common_mistakes": [
-    "Dropping the r in every word for every character. Non-rhoticity is traditional and variable, and is now less common.",
-    "Using 'coil' and 'curl' as the same word. The coil-curl merger is described in the source as largely extinct.",
-    "Turning every short-a into a flat or nasal 'a' without listening to the words first.",
-    "Using gangster or Sopranos-style slang and catchphrases to signal New York. This is a caricature and the sources do not support it as a feature of the accent.",
-    "Using th-stopping on every character. It is a working-class feature in the source, not a universal New York feature.",
-    "Adding grammar features (double negatives, 'youse', 'he don't') without a source. None were verified here."
+    "Dropping the r in every word for every character. It is traditional, variable and declining.",
+    "Using gangster or Sopranos-style catchphrases ('fuhgeddaboudit') to signal New York. Not supported by sources; caricature.",
+    "Tensing every short-a (and also 'can', 'and'). Use the nasal / voiceless fricative / b-d-g pattern; function words stay plain.",
+    "Using the 'coil/curl' (toity-toid) stereotype for modern speakers. The source calls the merger nearly extinct and stigmatised.",
+    "Using th-stopping on every character. It is a working-class/older feature.",
+    "Adding grammar not supported by sources (double negatives, 'youse', 'he don't'). Only 'on line' is solid.",
+    "Using 'needs washed' or other Midland/Scots-Irish patterns for New York. YGDP says the Northeast strongly rejects it."
   ],
   "generational_notes": [
-    "The source documents that the coil-curl merger is largely extinct, the raised 'talk' vowel is declining, and r-dropping is decreasing, especially among young speakers of middle- and upper-middle-class backgrounds.",
-    "According to the source, some young people avoid these features because of their association with working-class speech and, for some, to avoid marking ethnic identity.",
-    "Working-class and older speakers keep the most traditional features (r-dropping, th-stopping, raised 'talk' vowel)."
+    "Source 1: coil-curl merger largely extinct, raised THOUGHT vowel declining, r-dropping decreasing, especially among young middle- and upper-middle-class speakers.",
+    "Some young people avoid these features because of working-class associations or to avoid marking ethnicity (source 1).",
+    "Older and working-class speakers keep the most traditional features (r-dropping, th-stopping, raised THOUGHT).",
+    "Search-result summaries (not opened) say younger minority New Yorkers show a nasal-only short-a system and that young white speakers are losing the complex short-a conditions (Becker and Wong 2010; Haddican et al. 2021). Treat as to-verify.",
+    "Nostalgic words (egg cream, stickball, dungarees) read as older-generation memory."
   ],
   "conversion_guidelines": [
-    "Pick the speaker profile first: older/working-class speakers get the most features; young/middle-class speakers get few or none.",
-    "Apply at most two pronunciation rules per monologue: the three-way Mary/marry/merry distinction, and the raised 'talk' vowel are the safest.",
-    "Use th-stopping only for working-class or older characters, and only on 'th' words in the text.",
-    "Apply traditional r-dropping only before consonants and at word end, and keep r before vowels.",
-    "Use vocabulary only where the text naturally refers to food, streets or the neighbourhood (hero, bodega, on line, egg cream).",
-    "Do not add grammar changes. Do not add catchphrases.",
-    "In stage notes, mark the short-a split as 'to be checked with a native recording' because the exact conditioning was not verified."
+    "Natural spoken film-dialogue English first. NYC flavour comes mostly from pronunciation notes, a little vocabulary and the fast, overlapping rhythm, not from grammar.",
+    "Pick the speaker profile first: older/working-class gets the most features; young/middle-class gets few or none.",
+    "Safest two sound features per monologue: three-way Mary/marry/merry and the raised THOUGHT vowel. Add the short-a split only if comfortable.",
+    "Use 'on line' where the text has a queue. Use hero, bodega, bubkes, schmuck only where the scene has food, shops or insults; one or two at most.",
+    "Th-stopping and r-dropping only for older/working-class characters.",
+    "No eye-dialect respelling ('dese', 'dem', 'foist'). Spell words in standard English; put sounds in actor notes.",
+    "No catchphrases; no grammar beyond 'on line' (optionally one embedded-question inversion, marked low confidence).",
+    "In actor notes, state which sounds were applied, and mark short-a as 'check with a native recording'."
   ],
   "sources": [
     {
@@ -126,16 +237,189 @@
       "title": "Mary-marry-merry merger (Wikipedia)",
       "url": "https://en.wikipedia.org/wiki/Mary%E2%80%93marry%E2%80%93merry_merger",
       "type": "encyclopedia"
+    },
+    {
+      "id": 4,
+      "title": "Ae raising / short-a systems (Wikipedia; summarises Labov, Ash and Boberg 2006 and Labov 2007)",
+      "url": "https://en.wikipedia.org/wiki/%C3%86_raising",
+      "type": "encyclopedia"
+    },
+    {
+      "id": 5,
+      "title": "Inversion in embedded questions, Yale Grammatical Diversity Project",
+      "url": "https://ygdp.yale.edu/phenomena/inversion-embedded-questions",
+      "type": "academic"
+    },
+    {
+      "id": 6,
+      "title": "Needs washed, Yale Grammatical Diversity Project",
+      "url": "https://ygdp.yale.edu/phenomena/needs-washed",
+      "type": "academic"
     }
   ],
   "confidence": "medium",
   "open_questions": [
-    "Exact conditioning of the short-a split (why 'gas' and 'gap' differ) was not captured. Needs a primary phonetic source or native recordings.",
-    "The Wikipedia summary mentions a /æ/ tensing link but gave no details for 'bad'. The 'bad' vowel is not verified.",
-    "Dh-stopping (the voiced th in 'this') in New York was not verified separately from th-stopping.",
-    "Dropped r in New York is described as 'traditional and variable'; the frequency by age and class was not verified.",
-    "No NYC grammar features were verified. Common claims (double negation, 'youse', 'he don't') are not supported by the opened sources and are omitted.",
-    "'Stoop' and 'the city' were mentioned in the task list but do not appear in the source; they are omitted.",
-    "Exact IPA for the raised 'talk' vowel should be checked against a phonetic source."
-  ]
+    "Primary sources (Labov 1966/2006; Labov, Ash and Boberg 2006; Newman 2014; DARE) were not opened. Short-a conditions come from a Wikipedia summary; the actual NYC rule has more lexical exceptions.",
+    "Only 2 grammar items verified. 'Youse' in NYC, 'he don't', 'them' as demonstrative and other claims were searched but no usable source was found.",
+    "The Wikipedia note that NYC lacks inversion in indirect questions (Labov 1972) is ambiguous and conflicts in direction with YGDP, which lists Northeast English with inversion. Needs the original text.",
+    "Intonation: no pitch-contour description for NYC was found. Burdin's work on Jewish English intonation (rising pitch accents, macro-rhythm) concerns Ohio and was seen only in search results.",
+    "Younger minority speakers' nasal short-a system and the loss of complex short-a conditions are from search results (Becker and Wong 2010; Haddican et al. 2021); not opened.",
+    "Borough-level differences (Brooklyn, Bronx, Queens, Long Island) not checked.",
+    "Yiddish and Italian loanwords widespread in New York (schlep, nosh etc.) were not verified as NYC-specific, so they are left out.",
+    "'Mischief Night' has no citation in the opened source and is shared with nearby areas."
+  ],
+  "examples": [
+    {
+      "korean_idea": "줄 서 있어요? (질문)",
+      "neutral_english": "Are you waiting in line?",
+      "regional_english": "Are you waiting on line?",
+      "note": "'on line'은 뉴욕 사람들의 대표적 전치사 표현입니다(출처 1).",
+      "source_ids": [
+        1
+      ],
+      "constructed": false
+    },
+    {
+      "korean_idea": "점심으로 샌드위치 먹을래? (제안)",
+      "neutral_english": "Want to grab a sub for lunch?",
+      "regional_english": "Want to grab a hero for lunch?",
+      "note": "hero = 긴 샌드위치(DARE, 출처 1).",
+      "source_ids": [
+        1
+      ],
+      "constructed": true
+    },
+    {
+      "korean_idea": "너 멍청한 놈이야! (분노, 심한 말)",
+      "neutral_english": "You idiot!",
+      "regional_english": "You schmuck!",
+      "note": "Yiddish계 욕. 세기가 있으니 한 번만(출처 1).",
+      "source_ids": [
+        1
+      ],
+      "constructed": true
+    },
+    {
+      "korean_idea": "난 얻은 게 하나도 없어. (불만)",
+      "neutral_english": "I got nothing out of it.",
+      "regional_english": "I got bubkes out of it.",
+      "note": "bubkes = 거의 가치 없음(출처 1).",
+      "source_ids": [
+        1
+      ],
+      "constructed": true
+    },
+    {
+      "korean_idea": "모퉁이 가게에 잠깐 다녀올게. (일상)",
+      "neutral_english": "I'll run to the corner store.",
+      "regional_english": "I'll run to the bodega.",
+      "note": "bodega는 동네 가게를 가리키는 뉴욕 단어입니다(출처 1).",
+      "source_ids": [
+        1
+      ],
+      "constructed": true
+    },
+    {
+      "korean_idea": "애들은 길에서 야구 비슷한 놀이를 했지. (회상)",
+      "neutral_english": "The kids played street baseball.",
+      "regional_english": "The kids played stickball in the street.",
+      "note": "stickball은 옛 뉴욕 거리 놀이. 나이 든 화자의 회상에 어울립니다(출처 1).",
+      "source_ids": [
+        1
+      ],
+      "constructed": true
+    },
+    {
+      "korean_idea": "캐치볼 하자. (제안)",
+      "neutral_english": "Let's play catch.",
+      "regional_english": "Let's have a catch.",
+      "note": "DARE 기록의 표현 (출처 1). 약간 옛스러운 느낌.",
+      "source_ids": [
+        1
+      ],
+      "constructed": true
+    },
+    {
+      "korean_idea": "꺼져, 이 부랑자야! (분노)",
+      "neutral_english": "Get out of here, you bum!",
+      "regional_english": "Get out of here, you skel!",
+      "note": "skel = 부랑자/좀도둑. 거친 거리 말투(출처 1).",
+      "source_ids": [
+        1
+      ],
+      "constructed": true
+    },
+    {
+      "korean_idea": "그녀는 가도 되냐고 물었어. (간접 질문)",
+      "neutral_english": "She asked if she could go.",
+      "regional_english": "She asked could she go.",
+      "note": "낮은 확신. 북동부 영어에 도치가 보고된 YGDP 기준이며 뉴욕 시 자체는 확인 못 함(출처 5).",
+      "source_ids": [
+        5
+      ],
+      "constructed": true
+    },
+    {
+      "korean_idea": "우리는 밤새도록 이야기했다. (발음 지시용)",
+      "neutral_english": "We talked all night.",
+      "regional_english": "We talked all night.",
+      "note": "텍스트는 그대로, 연기 노트: talk, all의 모음을 높고 둥글게 미끄러지듯(출처 1). 철자는 바꾸지 마세요.",
+      "source_ids": [
+        1
+      ],
+      "constructed": true
+    },
+    {
+      "korean_idea": "Mary가 결혼한대. 나 진짜 기뻐. (발음 지시용)",
+      "neutral_english": "Mary is getting married and I'm so merry about it.",
+      "regional_english": "Mary is getting married and I'm so merry about it.",
+      "note": "Mary, married(marry), merry의 세 모음을 구분(출처 1, 3). 철자는 그대로.",
+      "source_ids": [
+        1,
+        3
+      ],
+      "constructed": true
+    },
+    {
+      "korean_idea": "그거 정말 별로였어, 이봐. 그 유리잔 좀 건네줘. (발음 지시용)",
+      "neutral_english": "That was bad, man. Pass me that glass.",
+      "regional_english": "That was bad, man. Pass me that glass.",
+      "note": "bad, man, pass, glass의 a를 높고 길게 [ɛə] 방향으로(출처 4). can/and는 평범한 a로. 글자는 그대로 두고 연기 노트에만 표시.",
+      "source_ids": [
+        4
+      ],
+      "constructed": true
+    }
+  ],
+  "sub_regions": [
+    {
+      "name": "노동계층·고령 vs 중산층·젊은층",
+      "note": "r 탈락, th-stopping, 높은 THOUGHT 모음은 노동계층·고령 화자에게 강하고 중산층·젊은 화자는 피하는 경향(출처 1).",
+      "source_ids": [
+        1
+      ]
+    },
+    {
+      "name": "뉴욕 short-a 체계의 확산",
+      "note": "같은 체계가 북부 뉴저지, 올버니, 신시내티, 뉴올리언스로 퍼졌다고 합니다(Labov 2007 via source 4). 북부 뉴저지에서는 동사 can이 tense가 되는 사례도 있음.",
+      "source_ids": [
+        4
+      ]
+    },
+    {
+      "name": "뉴욕 방언의 기원과 접촉",
+      "note": "d, t의 치음화와 th-stopping은 이민 언어(이탈리아어, 이디시어) 접촉에서 왔을 가능성이 제시됨(Newman 2014 via source 1). 문법적 영향은 논쟁 중이며 이번에 검증하지 못함.",
+      "source_ids": [
+        1
+      ]
+    },
+    {
+      "name": "자치구(브루클린, 퀸스, 브롱크스 등) 차이",
+      "note": "이번 조사에서 확인하지 못했습니다(open_questions).",
+      "source_ids": [
+        1
+      ]
+    }
+  ],
+  "confidence_detail": "medium for pronunciation (short-a conditions from a summary of the Atlas); low for grammar (only 'on line' is solid) and for intonation; medium-low for vocabulary (DARE entries seen through Wikipedia)."
 }

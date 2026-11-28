@@ -2,74 +2,783 @@
   "code": "zh-sichuan",
   "name": "四川话 (Sichuanese; 成都 and 重庆 varieties)",
   "language": "zh",
-  "summary": "Sichuanese is a Southwestern Mandarin group. The Chengdu and Chongqing varieties are usually grouped together, but this matters here: the one source I could open gives different tone values for each city, and says Chongqing's grammar differs little from Chengdu's while vocabulary and pronunciation differ more. Only one usable source was found, and it mostly covers tones and sound inventory. Sentence-final particles and grammar were not verified, so those arrays are empty. Any user-facing output should name which city variety it targets.",
-  "grammar": [],
-  "vocabulary": [
+  "summary": "Sichuanese is Southwestern Mandarin. Chengdu and Chongqing speech are grouped together but differ in tone values, n/l merger, some vocabulary and the particle system, so name one city per piece. Round 2 added a full-text academic paper on Chongqing sentence-final particles (Tang & Hsu 2024), three Chinese Wikipedia phonology pages (used as pointers, with the cited textbooks named), and about 24 Wiktionary entries that carry Sichuanese labels and Chengdu pinyin. Particle and grammar data come mostly from Chongqing; Chengdu particles (噻, 嘛, 哦, 撒, 嗦) could not be verified and are NOT included. All 'examples' combine verified words or rules unless marked constructed:false.",
+  "romanization_note": "The 'romanization' fields are toneless pinyin readings, or Sichuan pinyin with tone numbers (1 阴平, 2 阳平, 3 上声, 4 去声) for words taken straight from Wiktionary. They are a reading aid, not a tone-accurate transcription.",
+  "grammar": [
     {
-      "standard": "好 (good)",
-      "dialect": "巴适",
-      "romanization": "bā shì",
-      "note": "Chengdu-area word for 'good'. Source gives the meaning as 好. It is a strong regional marker, so use it once in a monologue at most.",
-      "source_ids": [1]
+      "standard": "什么 (what)",
+      "dialect": "啥子",
+      "condition": "Question word 'what'. Wiktionary lists 啥子 for Southwestern Mandarin (Chengdu, Chongqing, Zigong, Dazhou); Central Plains varieties use 啥 alone. Attested in the film Let the Bullets Fly (2010). Example below is constructed.",
+      "example_standard": "你在做什么？",
+      "example_dialect": "你在做啥子？",
+      "romanization": "ni zai zuo sa zi",
+      "source_ids": [
+        6
+      ]
     },
     {
-      "standard": "加油 (cheer on / go for it)",
-      "dialect": "雄起",
-      "romanization": "xióng qǐ",
-      "note": "Source describes it as a newer urban word used to cheer on. Check whether it sounds natural to a current Chengdu speaker.",
-      "source_ids": [1]
+      "standard": "怎么 (how / why)",
+      "dialect": "咋个 (Chengdu) / 啷个 (Chongqing)",
+      "condition": "How/why question word. The Wiktionary dialect table lists 咋/咋個 for Chengdu and 啷個 for Chongqing. Pick one city and keep it consistent. Example is constructed.",
+      "example_standard": "这件事怎么办？",
+      "example_dialect": "这件事咋个办？(重庆：这件事啷个办？)",
+      "romanization": "zhe jian shi za go ban / zhe jian shi nang go ban",
+      "source_ids": [
+        7,
+        8
+      ]
     },
     {
-      "standard": "妻管严 (a husband who is afraid of his wife)",
-      "dialect": "耙耳朵",
-      "romanization": "pá ěr duo",
-      "note": "Describes a husband who obeys his wife. Source gives the standard equivalent 妻管严.",
-      "source_ids": [1]
+      "standard": "谁 (who)",
+      "dialect": "哪个",
+      "condition": "Wiktionary's dialect table lists 哪個 (and 啥子人) for 'who' in Chengdu. Ordinary 'which' also exists, so context decides. Example is constructed.",
+      "example_standard": "谁来了？",
+      "example_dialect": "哪个来了？",
+      "romanization": "na go lai le",
+      "source_ids": [
+        17
+      ]
+    },
+    {
+      "standard": "没有 (not have)",
+      "dialect": "莫得 / 没得",
+      "condition": "Chengdu lists 沒得, 莫得 and 沒有 as equivalent forms. Verb meaning 'not have'; Chengdu mo2 de2. Example is constructed.",
+      "example_standard": "我没有钱。",
+      "example_dialect": "我莫得钱。",
+      "romanization": "wo mo de qian",
+      "source_ids": [
+        26,
+        29
+      ]
+    },
+    {
+      "standard": "不要 / 别 (do not, imperative)",
+      "dialect": "莫 (+ verb)",
+      "condition": "Wiktionary lists 莫 for 'do not' in Chengdu alongside 不要 and 嫑. Short imperative. Example is constructed.",
+      "example_standard": "别哭了。",
+      "example_dialect": "莫哭了。",
+      "romanization": "mo ku le",
+      "source_ids": [
+        25
+      ]
+    },
+    {
+      "standard": "好 / 行 / 可以 (OK, fine)",
+      "dialect": "要得",
+      "condition": "Adjective or reply meaning 'good, OK, not bad'. Wiktionary labels it dialectal (Southwestern Mandarin, Gan, Xiang); Chengdu yao4 de2. Example is constructed as a reply.",
+      "example_standard": "好的，行。",
+      "example_dialect": "要得！",
+      "romanization": "yao de",
+      "source_ids": [
+        9
+      ]
+    },
+    {
+      "standard": "知道 (know)",
+      "dialect": "晓得",
+      "condition": "Colloquial verb 'know / understand'. Wiktionary gives Chengdu xiao3 de2. Source 5 uses it in a Chongqing example: 他曉得那個消息lao.",
+      "example_standard": "我不知道。",
+      "example_dialect": "我不晓得。",
+      "romanization": "wo bu xiao de",
+      "source_ids": [
+        10,
+        5
+      ]
+    },
+    {
+      "standard": "了 (sentence-final: change of state, 'now')",
+      "dialect": "lao (Chongqing particle; the paper gives no character)",
+      "condition": "Tang & Hsu 2024: Chongqing 'lao' corresponds to sentence-final 了 and sits closest to the clause, before other final particles (lao mai, lao ha, lao suo; never mai lao). The paper writes it in romanization only, so do not guess a character in the script.",
+      "example_standard": "他知道那个消息了。",
+      "example_dialect": "他晓得那个消息 lao。(paper example)",
+      "romanization": "ta xiao de na ge xiao xi lao",
+      "source_ids": [
+        5
+      ]
+    },
+    {
+      "standard": "吃了饭 (completed action, after the verb)",
+      "dialect": "verb + lao",
+      "condition": "The same 'lao' also marks a completed action right after the verb. Paper example has both uses in one sentence.",
+      "example_standard": "他吃了饭了。",
+      "example_dialect": "他吃 lao 饭 lao。(paper example)",
+      "romanization": "ta chi lao fan lao",
+      "source_ids": [
+        5
+      ]
+    },
+    {
+      "standard": "吗 (yes/no question, speaker only seeks confirmation)",
+      "dialect": "mai (sentence-final question particle)",
+      "condition": "Tang & Hsu: 'mai' only asks the hearer to confirm the speaker's own assumption. It cannot be added to wh-questions or A-not-A questions. Paper example: 你讀高中lao mai?",
+      "example_standard": "你念高中了吗？",
+      "example_dialect": "你读高中 lao mai？(paper example)",
+      "romanization": "ni du gao zhong lao mai",
+      "source_ids": [
+        5
+      ]
+    },
+    {
+      "standard": "吗 (yes/no question, proposition clashes with expectation)",
+      "dialect": "suo (sentence-final question particle)",
+      "condition": "Tang & Hsu: 'suo' signals that the proposition CONFLICTS with the speaker's presupposition (surprise, doubt). Same ban on wh-questions. The paper gives the frame 他去旅行 lao suo.",
+      "example_standard": "他去旅行了吗？",
+      "example_dialect": "他去旅行 lao suo？(frame from the paper)",
+      "romanization": "ta qu lu xing lao suo",
+      "source_ids": [
+        5
+      ]
+    },
+    {
+      "standard": "吧 / 吗 (yes/no question, proposition fits expectation)",
+      "dialect": "ha (question particle)",
+      "condition": "Tang & Hsu: question 'ha' signals that the proposition AGREES with the speaker's presupposition (like 'right?'). Different from the softener 'ha' below: it cannot follow wh-questions or imperatives.",
+      "example_standard": "他去旅行了，对吧？",
+      "example_dialect": "他去旅行 lao ha？(frame from the paper)",
+      "romanization": "ta qu lu xing lao ha",
+      "source_ids": [
+        5
+      ]
+    },
+    {
+      "standard": "(softener at the end of a question or command)",
+      "dialect": "ha (softening particle, 'ha PRAG')",
+      "condition": "Tang & Hsu: a different 'ha' that only softens the tone and can be deleted without changing the sentence type. Works after wh-questions and commands. Their examples: 你看你想吃啥子 ha？/ 你從樹上給我下來 ha！(parent angry but afraid of scaring a child) / 滾開 ha！(warning at a door).",
+      "example_standard": "你从树上给我下来！",
+      "example_dialect": "你从树上给我下来 ha！(paper example)",
+      "romanization": "ni cong shu shang gei wo xia lai ha",
+      "source_ids": [
+        5
+      ]
+    },
+    {
+      "standard": "确实 / 肯定 (speaker is sure)",
+      "dialect": "sa (confirmation particle)",
+      "condition": "Tang & Hsu: 'sa' shows the speaker is certain (epistemic stance). It does not combine with uncertainty words like 大概, 估计, and cannot be used when the speaker sees direct evidence. Examples: 重慶夏天很熱 sa. / 小王肯定沒吃飯 sa. / 李四 sa！",
+      "example_standard": "重庆的夏天(确实)很热。",
+      "example_dialect": "重庆夏天很热 sa。(paper example)",
+      "romanization": "chong qing xia tian hen re sa",
+      "source_ids": [
+        5
+      ]
+    },
+    {
+      "standard": "(reminder of shared background, 'as we both know')",
+      "dialect": "dema (particle)",
+      "condition": "Tang & Hsu: 'dema' reminds the hearer of background both share, usually something the hearer overlooked. Not allowed in questions. Paper example: 對啊，他上周說他要去北京出差 dema.",
+      "example_standard": "对啊，他上周说他要去北京出差嘛。",
+      "example_dialect": "对啊，他上周说他要去北京出差 dema。(paper example)",
+      "romanization": "dui a ta shang zhou shuo ta yao qu bei jing chu chai dema",
+      "source_ids": [
+        5
+      ]
+    },
+    {
+      "standard": "verb suffix 倒 (and noun suffix 头)",
+      "dialect": "V + 倒 ; 看头, 吃头",
+      "condition": "zh.wikipedia 四川话 lists 倒 as a verb suffix (examples 估倒, 马倒) and 头 as a suffix (看头, 吃头). The page names them affixes; I did not read their exact function. Treating 倒 as roughly 着 is common knowledge and needs a native check.",
+      "example_standard": "(not exemplified)",
+      "example_dialect": "(not exemplified)",
+      "romanization": "",
+      "source_ids": [
+        2
+      ]
+    },
+    {
+      "standard": "V得 / V不得 (can / cannot), V起XY",
+      "dialect": "special patterns named in the source",
+      "condition": "zh.wikipedia 四川话 names these special sentence patterns without full examples. Do not generate sentences with them until a native checks.",
+      "example_standard": "(not exemplified)",
+      "example_dialect": "(not exemplified)",
+      "romanization": "",
+      "source_ids": [
+        2
+      ]
+    },
+    {
+      "standard": "noun reduplication",
+      "dialect": "nouns can be reduplicated; verbs mostly are not",
+      "condition": "zh.wikipedia 成都话: nouns can reduplicate, verbs generally do not, unlike Mandarin. Specific forms (e.g. 坝坝) were not verified.",
+      "example_standard": "(not exemplified)",
+      "example_dialect": "(not exemplified)",
+      "romanization": "",
+      "source_ids": [
+        3
+      ]
     }
   ],
-  "particles": [],
-  "pronunciation": [
+  "vocabulary": [
     {
-      "rule": "The retroflex initials zh-, ch-, sh- and r- are not present in the Chengdu sound system described by the source.",
-      "actor_tip": "Do not curl the tongue for zh, ch, sh or r. Say them with a flat tongue position. The source does not name the replacement sound, so have a native speaker confirm the exact sound before performance.",
-      "example": "No example given in the source.",
-      "source_ids": [1]
+      "standard": "什么",
+      "dialect": "啥子",
+      "romanization": "sa4 zi3 (Sichuan pinyin)",
+      "note": "Basic question word; Southwestern Mandarin including Chengdu and Chongqing.",
+      "source_ids": [
+        6
+      ]
     },
     {
-      "rule": "Entering-tone (short, checked) syllables merge into the 2nd tone in this Chengdu-Chongqing group.",
-      "actor_tip": "Words that end in a short, clipped sound in Standard Mandarin (for example 白, 图, 合 in older readings) should be said as a 2nd-tone rising sound, not as a short clipped syllable.",
-      "example": "Source states the rule for the group but gives no example words.",
-      "source_ids": [1]
+      "standard": "怎么 / 为什么",
+      "dialect": "咋个 (Chengdu) / 啷个 (Chongqing)",
+      "romanization": "za2 go4 / nang3 go4",
+      "note": "Wiktionary table: 咋/咋個 for Chengdu, 啷個 for Chongqing. Pick one per piece.",
+      "source_ids": [
+        7,
+        8
+      ]
+    },
+    {
+      "standard": "谁",
+      "dialect": "哪个",
+      "romanization": "na3 go4 (Chengdu)",
+      "note": "Chengdu dictionary table gives 哪個 for 'who'; also 啥子人.",
+      "source_ids": [
+        17
+      ]
+    },
+    {
+      "standard": "知道",
+      "dialect": "晓得",
+      "romanization": "xiao3 de2",
+      "note": "Colloquial 'know / understand'.",
+      "source_ids": [
+        10
+      ]
+    },
+    {
+      "standard": "没有",
+      "dialect": "莫得 / 没得",
+      "romanization": "mo2 de2",
+      "note": "Chengdu lists 沒得, 莫得, 沒有 as equivalents. A strong Sichuanese marker; use sparingly.",
+      "source_ids": [
+        26,
+        29
+      ]
+    },
+    {
+      "standard": "别 / 不要",
+      "dialect": "莫",
+      "romanization": "mo2",
+      "note": "Imperative 'do not' (Chengdu: 莫, 不要, 嫑).",
+      "source_ids": [
+        25
+      ]
+    },
+    {
+      "standard": "好 / 行",
+      "dialect": "要得",
+      "romanization": "yao4 de2",
+      "note": "Reply 'OK / fine / not bad'. Very recognizable in film dialogue.",
+      "source_ids": [
+        9
+      ]
+    },
+    {
+      "standard": "好 / 舒服 / 到位",
+      "dialect": "巴适 (粑实)",
+      "romanization": "ba1 si4 or ba1 si2",
+      "note": "Wiktionary senses: good, suitable, pretty, comfortable, properly done, careful, excellent; also verb 'be close/intimate' and 'to flatter'. Written 巴适 / 巴實 / 粑實.",
+      "source_ids": [
+        11
+      ]
+    },
+    {
+      "standard": "舒服 / 轻松",
+      "dialect": "安逸",
+      "romanization": "ngan1 yi2",
+      "note": "Standard sense: easy, comfortable. Sichuanese senses listed: healthy, pretty, tasty, satisfied, and also 'awful' (the opposite). Context decides, so avoid it in ambiguous lines.",
+      "source_ids": [
+        12
+      ]
+    },
+    {
+      "standard": "聊天",
+      "dialect": "摆龙门阵",
+      "romanization": "bai3 nong2 men2 zen4",
+      "note": "Chat, gossip, spin a yarn. Wiktionary labels it Southwestern Mandarin: Chengdu, Chongqing, Guiyang, Kunming. 龍門陣 itself = idle talk.",
+      "source_ids": [
+        14,
+        15
+      ]
+    },
+    {
+      "standard": "聊天 / 吹牛",
+      "dialect": "冲壳子",
+      "romanization": "cong4 ko2 zi3",
+      "note": "Verb: chat. Listed for Chengdu, Guiyang, Kunming and others.",
+      "source_ids": [
+        16
+      ]
+    },
+    {
+      "standard": "头 / 脑子",
+      "dialect": "脑壳",
+      "romanization": "nao3 ko2",
+      "note": "Sichuan senses: head, brain/mind, and hair (剪脑壳 = get a haircut). Common, warm everyday word.",
+      "source_ids": [
+        23
+      ]
+    },
+    {
+      "standard": "伤脑筋 / 头疼 / 难办",
+      "dialect": "打脑壳",
+      "romanization": "da3 nao3 ko2",
+      "note": "Rack one's brain; troublesome; annoying (makes one dizzy). Sichuan sense per Wiktionary.",
+      "source_ids": [
+        20
+      ]
+    },
+    {
+      "standard": "妻管严的男人",
+      "dialect": "耙耳朵",
+      "romanization": "pa2 er3 do1",
+      "note": "A man meekly subservient to his wife. Teasing, often affectionate; can sting if said to a stranger.",
+      "source_ids": [
+        18
+      ]
+    },
+    {
+      "standard": "加油 / 冲啊",
+      "dialect": "雄起",
+      "romanization": "xiong2 qi3",
+      "note": "Sichuan interjection 'come on! go!'. WARNING: Wiktionary also lists a vulgar sexual sense (erection). Use only in cheering and only if the scene suits a sports-fan feel.",
+      "source_ids": [
+        19
+      ]
+    },
+    {
+      "standard": "小孩",
+      "dialect": "娃儿",
+      "romanization": "wa2 er2-1",
+      "note": "Child, diminutive. Listed for Chengdu, Guiyang, Nanjing. Often affectionate.",
+      "source_ids": [
+        21
+      ]
+    },
+    {
+      "standard": "爸爸",
+      "dialect": "老汉儿",
+      "romanization": "nao3 hanr2",
+      "note": "Sichuan: father. In Jin (Taiyuan) the same word means husband, so do not cross-use.",
+      "source_ids": [
+        22
+      ]
+    },
+    {
+      "standard": "老婆 / 女人 (belittling)",
+      "dialect": "婆娘",
+      "romanization": "po2 nyiang1",
+      "note": "Chengdu: woman or wife. Wiktionary marks it as belittling. Only for a rough-affectionate husband voice.",
+      "source_ids": [
+        24
+      ]
+    },
+    {
+      "standard": "漂亮 / 乖",
+      "dialect": "乖",
+      "romanization": "guai1",
+      "note": "Wiktionary lists 'beautiful' as a Sichuanese/Xiang sense besides 'clever' and 'well-behaved' (children). Do not read it as 'pretty' by default in Mandarin-like lines.",
+      "source_ids": [
+        27
+      ]
+    },
+    {
+      "standard": "可怜",
+      "dialect": "造孽",
+      "romanization": "zao4 nie2",
+      "note": "Sichuan adjective: pitiful, poor thing. The standard Buddhist sense 'to sin' also exists.",
+      "source_ids": [
+        28
+      ]
+    },
+    {
+      "standard": "傻瓜 / 宝贝 (affectionate)",
+      "dialect": "瓜娃子",
+      "romanization": "gua1 wa2 zi3",
+      "note": "INSULT for a foolish person; also an affectionate nickname for a lover or child. Tone and relationship decide. Flag in angry lines.",
+      "source_ids": [
+        13
+      ]
+    }
+  ],
+  "particles": [
+    {
+      "particle": "lao",
+      "function": "Chongqing sentence-final marker of current relevance, equal to Mandarin sentence-final 了 (change of state, correcting a wrong assumption, progress, closing a statement). Also a verb suffix for completion. The paper writes it as 'lao' only.",
+      "example": "他曉得那個消息 lao (he knows that news now)",
+      "source_ids": [
+        5
+      ]
+    },
+    {
+      "particle": "mai",
+      "function": "Question particle: asks the hearer to confirm the speaker's own assumption. Not used after wh-words or A-not-A.",
+      "example": "你讀高中 lao mai？",
+      "source_ids": [
+        5
+      ]
+    },
+    {
+      "particle": "suo",
+      "function": "Question particle: the proposition clashes with what the speaker presupposed (surprise, doubt).",
+      "example": "他去旅行 lao suo？ (frame)",
+      "source_ids": [
+        5
+      ]
+    },
+    {
+      "particle": "ha (question)",
+      "function": "Question particle: the proposition fits what the speaker presupposed ('right?'). Different from the softener ha.",
+      "example": "他去旅行 lao ha？ (frame)",
+      "source_ids": [
+        5
+      ]
+    },
+    {
+      "particle": "ha (softener)",
+      "function": "Softens questions and commands; deletable. Used when the speaker is angry or worried but does not want to sound too harsh.",
+      "example": "滾開 ha！ / 你從樹上給我下來 ha！",
+      "source_ids": [
+        5
+      ]
+    },
+    {
+      "particle": "sa",
+      "function": "Speaker confirms the proposition is true (certain stance). Cannot go with uncertainty words (大概, 我猜) or direct visible evidence.",
+      "example": "重慶夏天很熱 sa。 / 李四 sa！",
+      "source_ids": [
+        5
+      ]
+    },
+    {
+      "particle": "dema",
+      "function": "Reminds hearer of shared background information; not used in questions.",
+      "example": "對啊，他上周說他要去北京出差 dema。",
+      "source_ids": [
+        5
+      ]
+    }
+  ],
+  "pronunciation": [
+    {
+      "rule": "Retroflex initials are absent: zh/ch/sh become z/c/s (字 = 制). zh.wikipedia 成都话 also says the r initial changes to z. zh.wikipedia 四川话: in the great majority of Sichuan varieties there is no zh/ch/sh set.",
+      "actor_tip": "Keep the tongue tip flat behind the teeth for zh/ch/sh (say 'zi', 'ci', 'si'). For r- words the source describes z, but this is the least reliable part: have a native confirm before using it on words like 人, 热.",
+      "example": "字 = 制 (same sound); 祖 = 主; 愁 = 绸",
+      "source_ids": [
+        2,
+        3
+      ]
+    },
+    {
+      "rule": "n and l merge. Chengdu: before open (洪) vowels they merge (納 = 辣, 南 = 藍), before i/ü they stay apart (連 ≠ 年; 力/泥, 吕/女). Chongqing: no separate n-like initial, merging before both kinds of vowels (the page's phrase 洪混细也混).",
+      "actor_tip": "For Chongqing use an 'l' for most n-words (and l-ish for 年, 女). For Chengdu merge only before a/o/u-type vowels (南, 纳) and keep n before i/ü. Do not apply it to the whole script.",
+      "example": "南 = 蓝 (Chengdu); 研 lian, 宜 li (Chongqing, source examples)",
+      "source_ids": [
+        3,
+        4
+      ]
+    },
+    {
+      "rule": "Chengdu keeps an ng- initial in many words: 我 ŋo, 硬 ŋən (historical 疑/影 initials).",
+      "actor_tip": "Start 我 with a nasal 'ng' (ngo) instead of a bare 'wo'. Keep it light.",
+      "example": "我 ngo; 硬 ngen",
+      "source_ids": [
+        3
+      ]
+    },
+    {
+      "rule": "Entering-tone syllables (short, clipped in older Chinese) merge into tone 2 (阳平), e.g. 七 = 齐. No yin/yang split in the departing tone (士 = 四 = 事).",
+      "actor_tip": "Words like 七, 不, 吃, 一 are said as 2nd-tone words (low, value 21), not clipped.",
+      "example": "七 = 齐; 士 = 四 = 事",
+      "source_ids": [
+        2,
+        3
+      ]
+    },
+    {
+      "rule": "No distinction between 尖 and 团 sounds: 绝 = 决 in Chengdu.",
+      "actor_tip": "Nothing to add: say both as the same j-type sound.",
+      "example": "绝 = 决",
+      "source_ids": [
+        3
+      ]
+    },
+    {
+      "rule": "Some words keep a hard g/k/h initial where Mandarin has j/q/x: 街 gai1, 鞋 hai2, 螃蟹 kai4, 巷子 hang4 (listed on the Chongqing page in its own spelling).",
+      "actor_tip": "Say 街 as 'gai' and 鞋 as 'hai'. Use in everyday words only, not formal or abstract speech.",
+      "example": "街 gai; 鞋子 hai zi",
+      "source_ids": [
+        4
+      ]
+    },
+    {
+      "rule": "Chongqing vs Chengdu rhyme difference: Chengdu 欲 yo, 俗 xyo; Chongqing 欲 yu, 俗 xyu. The Chongqing page counts it as one of only two main phonological differences apart from exceptional words.",
+      "actor_tip": "For a Chongqing setting, say 欲 and 俗 with a clear 'yu'.",
+      "example": "欲 yo (Chengdu) / yu (Chongqing)",
+      "source_ids": [
+        4
+      ]
+    },
+    {
+      "rule": "Erhua exists in Chengdu but lighter than in Beijing or the Northeast; examples on the page: 凉粉儿, 饭碗儿, 抽签儿, 公园儿.",
+      "actor_tip": "Add a soft r-ending only on small nouns like those; do not r-ify every noun.",
+      "example": "凉粉儿, 公园儿",
+      "source_ids": [
+        3
+      ]
     }
   ],
   "tones_intonation": [
     {
-      "rule": "Chengdu tone values per the source: 1st tone 55 or 45, 3rd tone 53, 4th tone 213. Chongqing tone values per the source: 1st tone 55, 3rd tone 42, 4th tone 214.",
-      "source_ids": [1]
+      "rule": "Chengdu (zh.wikipedia 四川话): 阴平 45, 阳平 21, 上声 42, 去声 213. zh.wikipedia 成都话 gives 去声 as 24 in a 1941 survey and 13 in the main text, so check the fourth tone with a native speaker.",
+      "source_ids": [
+        2,
+        3
+      ]
     },
     {
-      "rule": "Tone sandhi (tone change when syllables combine) exists in this group. The source says there are four types but does not list the rules in the portion I read. Do not apply sandhi rules until they are verified.",
-      "source_ids": [1]
+      "rule": "Chongqing: 阴平 55, 阳平 21, 上声 42, 去声 214. So Chongqing 1st tone is high level; Chengdu 1st tone rises slightly (45).",
+      "source_ids": [
+        2,
+        4
+      ]
+    },
+    {
+      "rule": "All old entering-tone syllables join 阳平 (tone 2) in both cities. There are four tones and no short clipped syllables.",
+      "source_ids": [
+        2,
+        3,
+        4
+      ]
+    },
+    {
+      "rule": "Tone change in Chengdu (zh.wikipedia 成都话): a 阴平 before another 阴平 becomes 55; a 阳平 before any syllable becomes 22; a 上声 before any syllable becomes 44. Treat as a guide only; the page does not say how audible this is.",
+      "source_ids": [
+        3
+      ]
+    },
+    {
+      "rule": "Chongqing final particles carry the attitude: a softening 'ha' in anger (warning a child), 'sa' to confirm, 'dema' to remind. Keep them short, at the end of the phrase, and do not stack more than one per sentence.",
+      "source_ids": [
+        5
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "korean_idea": "지금 뭐 하고 있어?",
+      "putonghua": "你在做什么？",
+      "regional": "你在做啥子？",
+      "romanization": "ni zai zuo sa zi",
+      "note": "啥子는 쓰촨·충칭 공통의 '무엇'. 규칙을 조합한 문장이라 원어민 확인 필요.",
+      "source_ids": [
+        6
+      ],
+      "constructed": true
+    },
+    {
+      "korean_idea": "이 일 어떻게 하지?",
+      "putonghua": "这件事怎么办？",
+      "regional": "这件事咋个办？(重庆: 啷个办？)",
+      "romanization": "zhe jian shi za go ban / nang go ban",
+      "note": "청두는 咋个, 충칭은 啷个. 한 작품 안에서는 하나만 쓴다.",
+      "source_ids": [
+        7,
+        8
+      ],
+      "constructed": true
+    },
+    {
+      "korean_idea": "나는 몰라.",
+      "putonghua": "我不知道。",
+      "regional": "我不晓得。",
+      "romanization": "wo bu xiao de",
+      "note": "晓得는 일상 구어. 부정은 표준어 不를 그대로 쓴 조합.",
+      "source_ids": [
+        10
+      ],
+      "constructed": true
+    },
+    {
+      "korean_idea": "돈이 없어.",
+      "putonghua": "我没有钱。",
+      "regional": "我莫得钱。",
+      "romanization": "wo mo de qian",
+      "note": "莫得 = 没有. 쓰촨 색이 강하니 한 대사에 한 번만.",
+      "source_ids": [
+        26,
+        29
+      ],
+      "constructed": true
+    },
+    {
+      "korean_idea": "좋아, 그러자.",
+      "putonghua": "好的。",
+      "regional": "要得！",
+      "romanization": "yao de",
+      "note": "짧은 대답. 밝고 가볍게.",
+      "source_ids": [
+        9
+      ],
+      "constructed": true
+    },
+    {
+      "korean_idea": "울지 마.(위로)",
+      "putonghua": "别哭了。",
+      "regional": "莫哭了。",
+      "romanization": "mo ku le",
+      "note": "莫 = 不要. 위로할 때는 낮고 부드럽게.",
+      "source_ids": [
+        25
+      ],
+      "constructed": true
+    },
+    {
+      "korean_idea": "누가 왔어?",
+      "putonghua": "谁来了？",
+      "regional": "哪个来了？",
+      "romanization": "na go lai le",
+      "note": "청두 표에서 哪个가 '누구'. 문맥으로 '어느'와 구분.",
+      "source_ids": [
+        17
+      ],
+      "constructed": true
+    },
+    {
+      "korean_idea": "수다나 떨자.",
+      "putonghua": "我们聊聊天吧。",
+      "regional": "走，去摆龙门阵。",
+      "romanization": "zou qu bai long men zhen",
+      "note": "摆龙门阵 = 한가한 잡담. 청두·충칭 대표 표현.",
+      "source_ids": [
+        14,
+        15
+      ],
+      "constructed": true
+    },
+    {
+      "korean_idea": "저 사람은 아내한테 꼼짝 못 해.(놀림)",
+      "putonghua": "他是个妻管严。",
+      "regional": "他是个耙耳朵。",
+      "romanization": "ta shi ge pa er duo",
+      "note": "耙耳朵 = 공처가. 놀림이지만 애정 섞인 경우가 많다.",
+      "source_ids": [
+        18
+      ],
+      "constructed": true
+    },
+    {
+      "korean_idea": "이거 정말 골치 아프다.",
+      "putonghua": "这件事太头疼了。",
+      "regional": "这件事好打脑壳。",
+      "romanization": "zhe jian shi hao da nao ke",
+      "note": "打脑壳 = 골치 아프다. '好'(아주)는 표준어에서 가져온 조합.",
+      "source_ids": [
+        20
+      ],
+      "constructed": true
+    },
+    {
+      "korean_idea": "당장 나무에서 내려와!(화나지만 겁주기 싫을 때)",
+      "putonghua": "你给我从树上下来！",
+      "regional": "你从树上给我下来 ha！",
+      "romanization": "ni cong shu shang gei wo xia lai ha",
+      "note": "끝의 ha는 명령을 부드럽게 하는 충칭 표지(논문 예문). 화난 어조는 유지.",
+      "source_ids": [
+        5
+      ],
+      "constructed": false
+    },
+    {
+      "korean_idea": "그는 이제 그 소식을 알아.(변화)",
+      "putonghua": "他知道那个消息了。",
+      "regional": "他晓得那个消息 lao。",
+      "romanization": "ta xiao de na ge xiao xi lao",
+      "note": "lao = 了. 논문 예문. 논문에 한자 표기가 없어 로마자로 둔다.",
+      "source_ids": [
+        5,
+        10
+      ],
+      "constructed": false
+    },
+    {
+      "korean_idea": "꺼져!(경고 톤)",
+      "putonghua": "滚开！",
+      "regional": "滚开 ha！",
+      "romanization": "gun kai ha",
+      "note": "논문 예문(집 앞 침입자에게 경고). 수위가 높으니 장면이 허락할 때만.",
+      "source_ids": [
+        5
+      ],
+      "constructed": false
+    },
+    {
+      "korean_idea": "이 바보야!(친한 사이 장난)",
+      "putonghua": "你这个傻瓜！",
+      "regional": "你这个瓜娃子！",
+      "romanization": "ni zhe ge gua wa zi",
+      "note": "瓜娃子는 욕도, 애칭도 된다. 관계에 맞는 억양 선택.",
+      "source_ids": [
+        13
+      ],
+      "constructed": true
+    }
+  ],
+  "sub_regions": [
+    {
+      "region": "成都 (Chengdu)",
+      "features": "Tones 45/21/42/213 per the tone table; n/l merge before open vowels but not before i/ü; yo rhyme (欲 yo); 咋个 for 'how/why'; ng- initial for 我, 硬; light erhua.",
+      "source_ids": [
+        2,
+        3,
+        4,
+        7
+      ]
+    },
+    {
+      "region": "重庆 (Chongqing)",
+      "features": "Tones 55/21/42/214; n/l merge before all vowels; yu rhyme (欲 yu); 啷个 for 'how/why'; rich final-particle system (lao, mai, suo, ha, sa, dema). zh.wikipedia 重庆话 says that apart from some exceptional words there are only two main phonological differences from Chengdu, even though listeners hear them as quite different.",
+      "source_ids": [
+        2,
+        4,
+        5,
+        8
+      ]
+    },
+    {
+      "region": "Unclear",
+      "features": "Wiktionary marks 巴适, 安逸, 要得, 晓得, 莫得 as Southwestern Mandarin or Chengdu words. Whether each is used identically in Chongqing was not verified. Use with care.",
+      "source_ids": [
+        9,
+        10,
+        11,
+        12
+      ]
     }
   ],
   "common_mistakes": [
-    "Mixing Chengdu and Chongqing words and tones in the same monologue. State which city the performance targets.",
-    "Using 巴适 or 雄起 in every line. One marker per monologue is enough.",
-    "Exaggerating the flattened zh/ch/sh sounds until the words become hard to understand.",
-    "Adding 龙门阵, 啥子 or 龟儿子 for flavor. Their meanings and usage were not verified in the source, so do not use them without a native check.",
-    "Applying the n/l distinction from general knowledge. The source says the Chengdu sound system has no [l], which conflicts with common descriptions of Sichuanese n/l merger. Resolve this with a native speaker before relying on either claim."
+    "Mixing Chengdu and Chongqing markers in one script (e.g. 咋个 and 啷个, or applying Chongqing's full n/l merger to a Chengdu character).",
+    "Putting 巴适, 安逸, 要得, 莫得, 啥子 in every line. Use 1 to 3 per paragraph in casual speech only.",
+    "Reading 安逸 or 乖 as plain 'comfortable / pretty': the Sichuanese senses (安逸 can mean 'awful'; 乖 can mean 'beautiful') change the meaning.",
+    "Using 雄起 outside cheering: Wiktionary lists a vulgar sexual sense too.",
+    "Using 瓜娃子 or 婆娘 as casual flavor. 瓜娃子 can be an insult or a pet name; 婆娘 is belittling. 龟儿子 was not verified at all, so it is excluded.",
+    "Curling the tongue for zh/ch/sh/r. These sounds are absent in Chengdu and most Sichuanese.",
+    "Making up particles. Only Chongqing lao, mai, suo, ha, sa, dema are verified, and the paper gives them in romanization only.",
+    "Copying the Mandarin tone shapes. Sichuan has four tones with no entering tone, and its tone values differ from Beijing."
   ],
   "generational_notes": [
-    "The source describes 雄起 as a newer urban word, which suggests it is more typical of younger urban speakers. No verified source on older versus younger vocabulary was found.",
-    "Chongqing speech may sound more clipped or rapid to outsiders, but this was not verified in the sources reviewed."
+    "Tang & Hsu 2024 do not report age differences. No verified source on older vs younger Sichuanese vocabulary was found.",
+    "The English Wikipedia (source 1, round 1) calls 雄起 a newer urban word; Wiktionary lists it as a cheering interjection. Whether it sounds natural to a current Chengdu speaker is still unverified.",
+    "zh.wikipedia 四川话 mentions that younger speakers lose some initials (nʲ, ŋ). Details are in the source and were not verified for acting use."
   ],
   "conversion_guidelines": [
-    "First ask the user (or the production brief) to pick Chengdu or Chongqing. Do not silently mix them.",
-    "Keep Standard Mandarin grammar and word order. No verified Sichuanese grammar was found, so do not add grammatical changes.",
-    "Use at most one verified lexical marker (巴适, 雄起 or 耙耳朵) per monologue, and only in casual speech.",
-    "Apply the entering-tone change only to words whose Standard Mandarin reading is a checked-tone syllable, and mark each change for native review.",
-    "Do not change tone values in performance by ear. Use the source's Chengdu or Chongqing tone values as a guide for the actor's practice.",
-    "Mark every low-confidence item for review by a Chengdu or Chongqing native speaker before performance."
+    "Step 1: pick Chengdu or Chongqing from the brief. If unspecified, default to Chengdu and say so in the note.",
+    "Write natural film-dialogue Mandarin first, then replace only verified items: 什么→啥子, 怎么→咋个 (Chengdu) / 啷个 (Chongqing), 谁→哪个, 知道→晓得, 没有→莫得, 别→莫, 好的→要得, 聊天→摆龙门阵, 头→脑壳.",
+    "Keep Mandarin word order. Sichuanese grammar beyond the items in 'grammar' was not verified, so do not invent constructions.",
+    "Final particles: for Chongqing you may add 'lao' (=了), 'ha' (softener), 'sa' (certainty) or 'dema' (reminder) as in the paper, written in romanization or marked for native review since the paper gives no characters. For Chengdu add none until verified.",
+    "Use at most 1 to 3 regional words per paragraph. Do not use 瓜娃子, 婆娘 or 雄起 unless the character, relationship and scene clearly allow it, and flag them.",
+    "Give actors tone notes from the tone table (Chengdu 45/21/42/213; Chongqing 55/21/42/214) and the 'no zh/ch/sh/r' tip, not invented intonation.",
+    "Mark constructed lines as constructed and ask a Chengdu or Chongqing native to check them before performance."
   ],
   "sources": [
     {
@@ -77,16 +786,186 @@
       "title": "Sichuanese dialects - Wikipedia (English)",
       "url": "https://en.wikipedia.org/wiki/Sichuanese_dialects",
       "type": "encyclopedia"
+    },
+    {
+      "id": 2,
+      "title": "四川话 - 中文维基百科 (opened; used as pointer: tone table, affixes, vocabulary examples)",
+      "url": "https://zh.wikipedia.org/wiki/四川话",
+      "type": "encyclopedia"
+    },
+    {
+      "id": 3,
+      "title": "成都话 - 中文维基百科 (phonology; cites 张绍诚《巴蜀方言浅说》, 周及徐 2001, 夏中易 2002)",
+      "url": "https://zh.wikipedia.org/wiki/成都话",
+      "type": "encyclopedia"
+    },
+    {
+      "id": 4,
+      "title": "重庆话 - 中文维基百科 (phonology and Chengdu comparison; cites 杨载武《重庆方言词解》)",
+      "url": "https://zh.wikipedia.org/wiki/重庆话",
+      "type": "encyclopedia"
+    },
+    {
+      "id": 5,
+      "title": "汤丽、许又尹 (Li Tang, Yu-Yin Hsu) 2024, 重慶方言句末語氣詞的意義功能及結構, Language and Linguistics 25(3):535-575, doi:10.1075/lali.00157.hsu (CC BY 4.0; full text read)",
+      "url": "https://ira.lib.polyu.edu.hk/bitstream/10397/107779/1/lali.00157.hsu.pdf",
+      "type": "academic"
+    },
+    {
+      "id": 6,
+      "title": "Wiktionary: 啥子",
+      "url": "https://en.wiktionary.org/wiki/啥子",
+      "type": "dictionary"
+    },
+    {
+      "id": 7,
+      "title": "Wiktionary: 咋個",
+      "url": "https://en.wiktionary.org/wiki/咋個",
+      "type": "dictionary"
+    },
+    {
+      "id": 8,
+      "title": "Wiktionary: 啷個",
+      "url": "https://en.wiktionary.org/wiki/啷個",
+      "type": "dictionary"
+    },
+    {
+      "id": 9,
+      "title": "Wiktionary: 要得",
+      "url": "https://en.wiktionary.org/wiki/要得",
+      "type": "dictionary"
+    },
+    {
+      "id": 10,
+      "title": "Wiktionary: 曉得",
+      "url": "https://en.wiktionary.org/wiki/曉得",
+      "type": "dictionary"
+    },
+    {
+      "id": 11,
+      "title": "Wiktionary: 粑實 (巴适)",
+      "url": "https://en.wiktionary.org/wiki/粑實",
+      "type": "dictionary"
+    },
+    {
+      "id": 12,
+      "title": "Wiktionary: 安逸",
+      "url": "https://en.wiktionary.org/wiki/安逸",
+      "type": "dictionary"
+    },
+    {
+      "id": 13,
+      "title": "Wiktionary: 瓜娃子",
+      "url": "https://en.wiktionary.org/wiki/瓜娃子",
+      "type": "dictionary"
+    },
+    {
+      "id": 14,
+      "title": "Wiktionary: 龍門陣",
+      "url": "https://en.wiktionary.org/wiki/龍門陣",
+      "type": "dictionary"
+    },
+    {
+      "id": 15,
+      "title": "Wiktionary: 擺龍門陣",
+      "url": "https://en.wiktionary.org/wiki/擺龍門陣",
+      "type": "dictionary"
+    },
+    {
+      "id": 16,
+      "title": "Wiktionary: 衝殼子",
+      "url": "https://en.wiktionary.org/wiki/衝殼子",
+      "type": "dictionary"
+    },
+    {
+      "id": 17,
+      "title": "Wiktionary: 哪個",
+      "url": "https://en.wiktionary.org/wiki/哪個",
+      "type": "dictionary"
+    },
+    {
+      "id": 18,
+      "title": "Wiktionary: 耙耳朵",
+      "url": "https://en.wiktionary.org/wiki/耙耳朵",
+      "type": "dictionary"
+    },
+    {
+      "id": 19,
+      "title": "Wiktionary: 雄起",
+      "url": "https://en.wiktionary.org/wiki/雄起",
+      "type": "dictionary"
+    },
+    {
+      "id": 20,
+      "title": "Wiktionary: 打腦殼",
+      "url": "https://en.wiktionary.org/wiki/打腦殼",
+      "type": "dictionary"
+    },
+    {
+      "id": 21,
+      "title": "Wiktionary: 娃兒",
+      "url": "https://en.wiktionary.org/wiki/娃兒",
+      "type": "dictionary"
+    },
+    {
+      "id": 22,
+      "title": "Wiktionary: 老漢兒",
+      "url": "https://en.wiktionary.org/wiki/老漢兒",
+      "type": "dictionary"
+    },
+    {
+      "id": 23,
+      "title": "Wiktionary: 腦殼",
+      "url": "https://en.wiktionary.org/wiki/腦殼",
+      "type": "dictionary"
+    },
+    {
+      "id": 24,
+      "title": "Wiktionary: 婆娘",
+      "url": "https://en.wiktionary.org/wiki/婆娘",
+      "type": "dictionary"
+    },
+    {
+      "id": 25,
+      "title": "Wiktionary: 莫",
+      "url": "https://en.wiktionary.org/wiki/莫",
+      "type": "dictionary"
+    },
+    {
+      "id": 26,
+      "title": "Wiktionary: 沒得",
+      "url": "https://en.wiktionary.org/wiki/沒得",
+      "type": "dictionary"
+    },
+    {
+      "id": 27,
+      "title": "Wiktionary: 乖",
+      "url": "https://en.wiktionary.org/wiki/乖",
+      "type": "dictionary"
+    },
+    {
+      "id": 28,
+      "title": "Wiktionary: 造孽",
+      "url": "https://en.wiktionary.org/wiki/造孽",
+      "type": "dictionary"
+    },
+    {
+      "id": 29,
+      "title": "Wiktionary: 莫得",
+      "url": "https://en.wiktionary.org/wiki/莫得",
+      "type": "dictionary"
     }
   ],
   "confidence": "low",
   "open_questions": [
-    "No verified sentence-final particle data was found. A search result suggested 嘛 appears in questions and 啥 can act as a conditional marker in sentence-final position, but I did not open those sources, so they are not used here. Check CNKI for 四川话 or 成都话 语气词 studies.",
-    "Verify grammar features such as noun reduplication (抽抽, 坝坝) and 'V起来' constructions. A search snippet suggested them, but the source was not opened.",
-    "Confirm whether the Chengdu sound system has n/l merger, since the source says no [l] exists. This conflicts with common descriptions.",
-    "Find the correct replacement sound for zh/ch/sh/r in Chengdu and Chongqing speech.",
-    "Verify tone sandhi rules for the four types the source mentions.",
-    "Confirm meanings and usage of 龙门阵, 啥子, 龟儿子, 要得 and 摆龙门阵. The source does not define them.",
-    "Chongqing vocabulary and grammar need their own source. The one source reviewed covers Chengdu in detail and Chongqing only in the tone table."
-  ]
+    "Chengdu sentence-final particles (噻, 嘛, 哦, 撒, 嗦, 喃) were not verified. Search results pointed to theses (陈振宁 2018 Zhejiang U., 林凌 2007 Jilin U., 赵媛媛 2006 Sichuan U.) said to cover Chengdu particles; their content was not opened. Check CNKI.",
+    "Tang & Hsu use romanization (lao, mai, suo, ha, sa, dema) and give no characters. Ask Chongqing speakers which characters they write (e.g. 咯, 嘛, 嗦, 撒, 嘚嘛).",
+    "Chengdu 4th tone value: zh.wikipedia 成都话 gives 24 (1941 survey) and 13 (main text) while zh.wikipedia 四川话 gives 213. Needs a phonetic source.",
+    "Whether Chengdu r- is really z-like (zh.wikipedia 成都话 says ʐ becomes z) and which words are affected.",
+    "龟儿子 was not looked up. For 瓜娃子 only Wiktionary's one-line register label was found.",
+    "硬是, 恼火, 撇脱, 好耍, 板扎: looked up but Wiktionary gave no Sichuanese label or the page was missing, so not used.",
+    "Chongqing vs Chengdu usage of 巴适, 安逸, 晓得, 莫得 not separately verified.",
+    "Ask a native to check at least these constructed lines: 莫得钱, 莫哭了, 哪个来了, 这件事好打脑壳."
+  ],
+  "confidence_note": "low-to-medium (Chongqing particles: medium, one peer-reviewed paper; Chengdu vocabulary: medium, dictionary entries; Chengdu particles: none verified)"
 }

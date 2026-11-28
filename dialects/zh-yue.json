@@ -2,322 +2,1022 @@
   "code": "zh-yue",
   "name": "粤语 (Cantonese; Hong Kong written and spoken)",
   "language": "zh",
-  "summary": "Cantonese is a separate Chinese language, not a Mandarin dialect. This file targets Hong Kong Cantonese, written in Traditional characters with Jyutping romanization (Jyutping tone numbers 1 to 6 are shown after each syllable). Several Cantonese-specific characters (佢, 嘅, 唔, 咗, 喺, 哋, 啲, 嚟, 冇) are documented in the sources below. Yale romanization in the CUHK page was converted to Jyutping by hand, so check those conversions. Written Cantonese is a set of characters used to record speech, so the characters are not standardized. Most grammar examples come from the CUHK Cantonese Grammar site and the Cantonese grammar reference. Sentence-final particles beyond the ones listed were not verified.",
+  "summary": "Cantonese is a separate Chinese language, not a Mandarin dialect. This file targets Hong Kong Cantonese in written-Cantonese Traditional characters with Jyutping (tone numbers 1 to 6). Round 2 verified Jyutping on all entries against words.hk 粵典 (the Hong Kong dictionary that gives Jyutping and examples) and Wiktionary, fixed 七仔 (cat1 zai2, not chat1 jai2), and added sentence-final particles with functions (啦, 喇, 喎, 囉, 嘛, 㗎, 嘅, 啩, 咋, 咩), spoken vocabulary (嘢, 咁, 點解, 邊個, 乜嘢, 唔該 vs 多謝, 攰, 癐), and sentence patterns (A-not-A, 咗/過/緊, 畀, comparison, passive). Cantonese is the best-sourced file of the four. Examples marked constructed:false come straight from dictionary example sentences.",
   "grammar": [
     {
-      "standard": "他 / 她 / 它 (he, she, it)",
-      "dialect": "佢",
-      "condition": "Third-person pronoun for one person or thing. Use 佢 for he or she in Hong Kong Cantonese speech.",
+      "standard": "他 / 她 / 它; 他们",
+      "dialect": "佢 (keoi5); 佢哋 (keoi5 dei6)",
+      "condition": "Third person pronoun, no gender. 佢哋 = plural. CUHK example: 我同佢拍緊拖.",
       "example_standard": "我和他在谈恋爱。",
       "example_dialect": "我同佢拍緊拖。",
       "romanization": "ngo5 tung4 keoi5 paak3 gan2 to1",
-      "source_ids": [1, 2]
+      "source_ids": [
+        1,
+        2
+      ]
     },
     {
-      "standard": "他们 (they)",
-      "dialect": "佢哋",
-      "condition": "Plural form made by adding 哋 to 佢. The source notes that 佢哋 replaces 他們 in Cantonese.",
-      "example_standard": "他们",
-      "example_dialect": "佢哋",
-      "romanization": "keoi5 dei6",
-      "source_ids": [2]
-    },
-    {
-      "standard": "的 (possessive; ~'s)",
-      "dialect": "嘅",
-      "condition": "Possessive or modifying marker. Also used as a sentence-final particle for emphasis.",
+      "standard": "的 (possessive or modifier)",
+      "dialect": "嘅 (ge3)",
+      "condition": "Joins a possessor or a modifying phrase to a noun. words.hk example: 係我嘅 'it is mine'; 佢係呢度最靚嘅女仔 'the prettiest girl here'.",
       "example_standard": "那是他的。",
-      "example_dialect": "係佢嘅呀！",
-      "romanization": "hai6 keoi5 ge3 aa3",
-      "source_ids": [2, 3]
+      "example_dialect": "係佢嘅。",
+      "romanization": "hai6 keoi5 ge3",
+      "source_ids": [
+        12,
+        2
+      ]
     },
     {
-      "standard": "不是 (is not)",
-      "dialect": "唔係",
-      "condition": "Negation of 係 (to be). Use 唔 (not) plus 係 (be).",
+      "standard": "不是 / 不",
+      "dialect": "唔 (m4); 唔係 (m4 hai6)",
+      "condition": "General negative before a verb or adjective, e.g. CUHK: 我唔係好熟佢. 唔 is a syllabic nasal 'm'.",
       "example_standard": "我不太熟悉他。",
       "example_dialect": "我唔係好熟佢。",
       "romanization": "ngo5 m4 hai6 hou2 suk6 keoi5",
-      "source_ids": [1]
+      "source_ids": [
+        1,
+        3
+      ]
     },
     {
-      "standard": "没有 (do not have)",
-      "dialect": "冇",
-      "condition": "Colloquial negative for possession or existence. Source calls 冇 the colloquial form of 無.",
+      "standard": "没有 (not have) / 还没 (not yet)",
+      "dialect": "冇 (mou5); 未 (mei6)",
+      "condition": "冇 = 'do not have / did not' (negates 有 and past events, no 唔). words.hk: 佢冇食晚飯, 我冇事. 未 'not yet' (also a sentence-final question: 你去過德國未？).",
       "example_standard": "没有钱。",
       "example_dialect": "冇錢。",
       "romanization": "mou5 cin2",
-      "source_ids": [2]
+      "source_ids": [
+        16,
+        3
+      ]
     },
     {
-      "standard": "了 (completed action)",
-      "dialect": "咗",
-      "condition": "Marks a completed action whose result still matters now. Use after the verb.",
-      "example_standard": "我在香港住了一年（至今仍住）。",
-      "example_dialect": "我喺香港住咗一年。",
-      "romanization": "ngo5 hai2 hoeng1 gong2 zyu6 zo2 jat1 nin4",
-      "source_ids": [3]
+      "standard": "了 (completed, result relevant now)",
+      "dialect": "咗 (zo2)",
+      "condition": "Verb suffix for completed action; also after an adjective for a changed state. words.hk: 食咗飯未呀？/ 你瘦咗又靚咗喎！",
+      "example_standard": "你吃饭了吗？",
+      "example_dialect": "你食咗飯未呀？",
+      "romanization": "nei5 sik6 zo2 faan6 mei6 aa3",
+      "source_ids": [
+        30
+      ]
     },
     {
-      "standard": "过 (experience marker: did it before, not now)",
-      "dialect": "過",
-      "condition": "Marks a past experience that no longer applies now. Contrast with 咗.",
-      "example_standard": "我在香港住过一年（现在已经不住了）。",
+      "standard": "过 (have done it before)",
+      "dialect": "過 (gwo3)",
+      "condition": "Experience marker; the situation no longer holds, in contrast to 咗. English Wikipedia: 我喺香港住過一年 (no longer living there).",
+      "example_standard": "我在香港住过一年。",
       "example_dialect": "我喺香港住過一年。",
       "romanization": "ngo5 hai2 hoeng1 gong2 zyu6 gwo3 jat1 nin4",
-      "source_ids": [3]
+      "source_ids": [
+        3
+      ]
     },
     {
       "standard": "正在 (in progress)",
-      "dialect": "緊",
-      "condition": "Marks an ongoing action. Placed between the verb and the object or after the verb.",
-      "example_standard": "我正在谈恋爱。",
-      "example_dialect": "我拍緊拖。",
-      "romanization": "ngo5 paak3 gan2 to1",
-      "source_ids": [3]
+      "dialect": "緊 (gan2)",
+      "condition": "Progressive marker after the verb. words.hk: 我食緊飯, 你而家做緊咩呀？",
+      "example_standard": "你现在在做什么？",
+      "example_dialect": "你而家做緊咩呀？",
+      "romanization": "nei5 ji4 gaa1 zou6 gan2 me1 aa3",
+      "source_ids": [
+        31
+      ]
     },
     {
-      "standard": "在 (at, in, on)",
-      "dialect": "喺",
-      "condition": "Preposition for place. Used in written and spoken Cantonese.",
-      "example_standard": "我在香港。",
-      "example_dialect": "我喺香港。",
-      "romanization": "ngo5 hai2 hoeng1 gong2",
-      "source_ids": [2, 3]
+      "standard": "在 (at)",
+      "dialect": "喺 (hai2)",
+      "condition": "Place preposition and 'to be at'. words.hk: 我屋企喺灣仔.",
+      "example_standard": "我家在湾仔。",
+      "example_dialect": "我屋企喺灣仔。",
+      "romanization": "ngo5 uk1 kei2 hai2 waan1 zai2",
+      "source_ids": [
+        20,
+        3
+      ]
     },
     {
       "standard": "和 / 跟 (with)",
-      "dialect": "同",
-      "condition": "Preposition meaning with. Use before the second person or thing.",
+      "dialect": "同 (tung4)",
+      "condition": "Preposition 'with / and'. CUHK: 我同佢拍緊拖.",
       "example_standard": "我和他",
       "example_dialect": "我同佢",
       "romanization": "ngo5 tung4 keoi5",
-      "source_ids": [1]
+      "source_ids": [
+        1
+      ]
     },
     {
       "standard": "来 (come)",
-      "dialect": "嚟",
-      "condition": "Colloquial form of 來 in spoken Cantonese. The source says the choice of character is disputed.",
-      "example_standard": "来",
-      "example_dialect": "嚟",
-      "romanization": "lei4",
-      "source_ids": [2]
+      "dialect": "嚟 (lei4, also lai4)",
+      "condition": "Spoken form of 來. words.hk gives lai4/lei4, e.g. 你幾點嚟啊？ Written 來 versus 嚟 is disputed in Wikipedia's Written Cantonese article; use 嚟 for spoken lines.",
+      "example_standard": "你几点来？",
+      "example_dialect": "你幾點嚟啊？",
+      "romanization": "nei5 gei2 dim2 lei4 aa3",
+      "source_ids": [
+        44,
+        2
+      ]
     },
     {
-      "standard": "一些 (some)",
-      "dialect": "啲",
-      "condition": "Plural or quantity word for some or many. Source says 啲 means some or a little.",
-      "example_standard": "一些朋友",
-      "example_dialect": "啲朋友",
-      "romanization": "di1 pang4 jau5",
-      "source_ids": [2]
+      "standard": "一些 / 较 (a bit more; plural)",
+      "dialect": "啲 (di1)",
+      "condition": "Plural/some before a noun, and 'a bit more' after an adjective. words.hk: 好啲喇 'better now', 呢隻薯片好味啲 'this one tastes better'.",
+      "example_standard": "这个好吃一点。",
+      "example_dialect": "呢隻好味啲。",
+      "romanization": "ni1 zek3 hou2 mei6 di1",
+      "source_ids": [
+        29
+      ]
+    },
+    {
+      "standard": "V不V 疑问 (A-not-A question)",
+      "dialect": "V + 唔 + V",
+      "condition": "Yes/no questions repeat the verb with 唔. CUHK-type example from English Wikipedia: 你識唔識講廣東話？ Two-syllable verbs repeat only the first syllable: 鍾唔鍾意.",
+      "example_standard": "你会说广东话吗？",
+      "example_dialect": "你識唔識講廣東話？",
+      "romanization": "nei5 sik1 m4 sik1 gong2 gwong2 dung1 waa2",
+      "source_ids": [
+        3,
+        17
+      ]
+    },
+    {
+      "standard": "是不是 (is it...?)",
+      "dialect": "係唔係 (hai6 m4 hai6)",
+      "condition": "Tag or question with 係唔係; words.hk: 佢係唔係做錯咗？— 係㗎。",
+      "example_standard": "他是不是做错了？",
+      "example_dialect": "佢係唔係做錯咗？",
+      "romanization": "keoi5 hai6 m4 hai6 zou6 co3 zo2",
+      "source_ids": [
+        43
+      ]
+    },
+    {
+      "standard": "别 (do not)",
+      "dialect": "咪 (mai5); 唔好 (m4 hou2)",
+      "condition": "Prohibition. words.hk: 咪郁！舉高雙手！ (mai5 juk1! 'Don't move!'). Note 咪 mai6 'then' is a different word.",
+      "example_standard": "别动！",
+      "example_dialect": "咪郁！",
+      "romanization": "mai5 juk1",
+      "source_ids": [
+        38,
+        3
+      ]
+    },
+    {
+      "standard": "给 (give: direct object first)",
+      "dialect": "畀 (bei2) + thing + person",
+      "condition": "Ditransitive order: the thing comes before the person. English Wikipedia: 畀嗰本書我.",
+      "example_standard": "把那本书给我。",
+      "example_dialect": "畀嗰本書我。",
+      "romanization": "bei2 go2 bun2 syu1 ngo5",
+      "source_ids": [
+        3
+      ]
+    },
+    {
+      "standard": "比 (comparison)",
+      "dialect": "adj + 過 (gwo3); adj + 啲",
+      "condition": "Comparison after the adjective: 佢高過我. Without a standard: 佢高啲.",
+      "example_standard": "他比我高。",
+      "example_dialect": "佢高過我。",
+      "romanization": "keoi5 gou1 gwo3 ngo5",
+      "source_ids": [
+        3,
+        29
+      ]
+    },
+    {
+      "standard": "被 (passive: agent required)",
+      "dialect": "畀人 + verb",
+      "condition": "Passive needs an agent; if unknown use 人. English Wikipedia: 筷子畀人用咗.",
+      "example_standard": "筷子被人用过了。",
+      "example_dialect": "筷子畀人用咗。",
+      "romanization": "faai3 zi2 bei2 jan4 jung6 zo2",
+      "source_ids": [
+        3
+      ]
+    },
+    {
+      "standard": "疑问词 (question words keep the statement word order)",
+      "dialect": "邊個 / 乜嘢 (咩) / 邊度 / 幾時 / 點解 / 點樣",
+      "condition": "Question words stay in the same place as the answer. Examples: 你係邊個？ / 你去咗邊度啊？ / 你而家做緊咩呀？ / 點解嘅？",
+      "example_standard": "你去哪儿了？",
+      "example_dialect": "你去咗邊度啊？",
+      "romanization": "nei5 heoi3 zo2 bin1 dou6 aa3",
+      "source_ids": [
+        3,
+        32,
+        54,
+        55,
+        53
+      ]
+    },
+    {
+      "standard": "太…… (degree) / 那么",
+      "dialect": "咁 (gam3)",
+      "condition": "咁 'so, that (much)' before an adjective. Wiktionary example: 做咩你咁冇腦㗎？ Do not confuse with gam2 噉 'in that way'.",
+      "example_standard": "你怎么这么没脑子？",
+      "example_dialect": "做咩你咁冇腦㗎？",
+      "romanization": "zou6 me1 nei5 gam3 mou5 nou5 gaa3",
+      "source_ids": [
+        52
+      ]
     }
   ],
   "vocabulary": [
     {
-      "standard": "他",
-      "dialect": "佢",
-      "romanization": "keoi5",
-      "note": "Core pronoun. Source notes it is the Cantonese form of 他/她/它.",
-      "source_ids": [1, 2]
+      "standard": "东西 / 事情",
+      "dialect": "嘢",
+      "romanization": "je5",
+      "note": "Everyday 'thing, stuff'. Derogatory when used for people: 衰嘢 / 死嘢 are insults ('rotter'). Euphemism for sex or ghosts in certain phrases: avoid in innocent lines (搞嘢).",
+      "source_ids": [
+        7,
+        51
+      ]
     },
     {
-      "standard": "他们",
-      "dialect": "佢哋",
-      "romanization": "keoi5 dei6",
-      "note": "Plural pronoun.",
-      "source_ids": [2]
+      "standard": "那么",
+      "dialect": "咁",
+      "romanization": "gam3",
+      "note": "'so, that much'. Not 噉 gam2.",
+      "source_ids": [
+        52
+      ]
     },
     {
-      "standard": "的",
-      "dialect": "嘅",
-      "romanization": "ge3",
-      "note": "Possessive marker.",
-      "source_ids": [2]
+      "standard": "为什么",
+      "dialect": "點解",
+      "romanization": "dim2 gaai2",
+      "note": "Why. Also 做咩 / 做乜 / 為乜.",
+      "source_ids": [
+        53
+      ]
     },
     {
-      "standard": "不",
-      "dialect": "唔",
-      "romanization": "m4",
-      "note": "General negation.",
-      "source_ids": [2]
+      "standard": "怎么 / 怎么样",
+      "dialect": "點樣",
+      "romanization": "dim2 joeng2",
+      "note": "How. Also: 你呢排點樣呀？ 'how have you been recently?'",
+      "source_ids": [
+        41
+      ]
     },
     {
-      "standard": "没有",
-      "dialect": "冇",
-      "romanization": "mou5",
-      "note": "Colloquial negative existence.",
-      "source_ids": [2]
+      "standard": "谁",
+      "dialect": "邊個",
+      "romanization": "bin1 go3",
+      "note": "Who / which one.",
+      "source_ids": [
+        54
+      ]
     },
     {
-      "standard": "了",
-      "dialect": "咗",
-      "romanization": "zo2",
-      "note": "Completed-action marker.",
-      "source_ids": [2]
+      "standard": "什么",
+      "dialect": "乜嘢 / 咩",
+      "romanization": "mat1 je5 / me1",
+      "note": "What. 咩 is the short form; as a sentence-final particle me1 means surprised doubt.",
+      "source_ids": [
+        55,
+        14
+      ]
     },
     {
-      "standard": "在",
-      "dialect": "喺",
-      "romanization": "hai2",
-      "note": "Place preposition.",
-      "source_ids": [2]
+      "standard": "哪里",
+      "dialect": "邊度",
+      "romanization": "bin1 dou6",
+      "note": "Where; 'anywhere' in negative sentences; ironic 'how could'.",
+      "source_ids": [
+        32
+      ]
     },
     {
-      "standard": "来",
-      "dialect": "嚟",
-      "romanization": "lei4",
-      "note": "Spoken form. The written choice (來 vs 嚟) is disputed in the source.",
-      "source_ids": [2]
+      "standard": "谢谢 / 麻烦你 / 不好意思",
+      "dialect": "唔該",
+      "romanization": "m4 goi1",
+      "note": "Used for 'thanks' for small favours or services, 'excuse me' to get attention, and 'please' when requesting. Said with irritation it means 'shut up / get lost'. For gifts or large kindness use 多謝.",
+      "source_ids": [
+        27,
+        49,
+        50
+      ]
     },
     {
-      "standard": "一些",
-      "dialect": "啲",
-      "romanization": "di1",
-      "note": "Some or a few.",
-      "source_ids": [2]
+      "standard": "谢谢 (gift or great favour)",
+      "dialect": "多謝",
+      "romanization": "do1 ze6",
+      "note": "Thanks for gifts and big favours; 唔該 is for services and small help.",
+      "source_ids": [
+        50
+      ]
     },
     {
-      "standard": "谈恋爱",
-      "dialect": "拍拖",
-      "romanization": "paak3 to1",
-      "note": "Dating or in a relationship. Source gives it as 拍緊拖 in an example sentence, so the meaning is inferred from that example.",
-      "source_ids": [1]
+      "standard": "对不起",
+      "dialect": "對唔住",
+      "romanization": "deoi3 m4 zyu6",
+      "note": "Sorry. Also 'let someone down'.",
+      "source_ids": [
+        40
+      ]
     },
     {
-      "standard": "不是",
-      "dialect": "唔係",
-      "romanization": "m4 hai6",
-      "note": "Negative of 是.",
-      "source_ids": [1]
+      "standard": "累",
+      "dialect": "攰 / 癐",
+      "romanization": "gui6",
+      "note": "Tired. Both characters read gui6. words.hk: 你個樣好攰喎。",
+      "source_ids": [
+        15
+      ]
     },
     {
-      "standard": "公共汽车 (bus)",
-      "dialect": "巴士",
-      "romanization": "baa1 si2",
-      "note": "Hong Kong word for bus, borrowed from English. Source says it differs from standard Chinese.",
-      "source_ids": [4]
+      "standard": "生气",
+      "dialect": "嬲",
+      "romanization": "nau1",
+      "note": "Angry, upset. words.hk: 你仲未嬲完我呀？",
+      "source_ids": [
+        24
+      ]
+    },
+    {
+      "standard": "漂亮 / 好",
+      "dialect": "靚",
+      "romanization": "leng3",
+      "note": "Good-looking, also good in quality or feeling.",
+      "source_ids": [
+        25
+      ]
+    },
+    {
+      "standard": "幸好",
+      "dialect": "好彩",
+      "romanization": "hou2 coi2",
+      "note": "Luckily; also 'lucky'.",
+      "source_ids": [
+        26
+      ]
+    },
+    {
+      "standard": "找 / 赚钱",
+      "dialect": "搵",
+      "romanization": "wan2",
+      "note": "Look for; contact; earn.",
+      "source_ids": [
+        18
+      ]
+    },
+    {
+      "standard": "睡",
+      "dialect": "瞓",
+      "romanization": "fan3",
+      "note": "Sleep or lie down.",
+      "source_ids": [
+        19
+      ]
+    },
+    {
+      "standard": "家",
+      "dialect": "屋企",
+      "romanization": "uk1 kei2",
+      "note": "Home; also family. Not 家 gaa1.",
+      "source_ids": [
+        20
+      ]
+    },
+    {
+      "standard": "不用",
+      "dialect": "唔使",
+      "romanization": "m4 sai2",
+      "note": "No need to.",
+      "source_ids": [
+        21
+      ]
+    },
+    {
+      "standard": "有空",
+      "dialect": "得閒",
+      "romanization": "dak1 haan4",
+      "note": "Free, not busy. 你聽日得唔得閒呀？",
+      "source_ids": [
+        22
+      ]
+    },
+    {
+      "standard": "搞定 / 完成",
+      "dialect": "搞掂",
+      "romanization": "gaau2 dim6",
+      "note": "Settle, finish, handle.",
+      "source_ids": [
+        23
+      ]
+    },
+    {
+      "standard": "对 / 合适",
+      "dialect": "啱",
+      "romanization": "ngaam1 (also aam1)",
+      "note": "Correct; fits; coincidentally (咁啱). Shows the ng- drop in some speakers.",
+      "source_ids": [
+        37
+      ]
+    },
+    {
+      "standard": "浪费",
+      "dialect": "嘥",
+      "romanization": "saai1",
+      "note": "Waste. 好嘥囉 'such a waste'.",
+      "source_ids": [
+        39
+      ]
+    },
+    {
+      "standard": "活该 / 太有趣",
+      "dialect": "抵死",
+      "romanization": "dai2 sei2",
+      "note": "Two senses: 'serves you right' (harsh, teasing) and 'witty, hilarious'. Tone decides.",
+      "source_ids": [
+        28
+      ]
     },
     {
       "standard": "喜欢",
       "dialect": "鍾意",
       "romanization": "zung1 ji3",
-      "note": "Like or to be fond of. Common in everyday speech.",
-      "source_ids": [4]
+      "note": "Like. 你鍾唔鍾意佢呀？",
+      "source_ids": [
+        17
+      ]
+    },
+    {
+      "standard": "怕 / 担心",
+      "dialect": "驚",
+      "romanization": "geng1",
+      "note": "Afraid, worry. 佢好驚老婆㗎。",
+      "source_ids": [
+        42
+      ]
+    },
+    {
+      "standard": "那么 (then / precisely)",
+      "dialect": "咪 (mai6)",
+      "romanization": "mai6",
+      "note": "Adverb 'then, so' often with 囉: 你鍾意咪攞去囉。Different from 咪 mai5 'don't'.",
+      "source_ids": [
+        38
+      ]
+    },
+    {
+      "standard": "谈恋爱",
+      "dialect": "拍拖",
+      "romanization": "paak3 to1",
+      "note": "Date, go out together.",
+      "source_ids": [
+        35
+      ]
+    },
+    {
+      "standard": "家庭主妇 / 大妈",
+      "dialect": "師奶",
+      "romanization": "si1 naai1",
+      "note": "Middle-aged married woman. Mildly derogatory, so do not use it as a direct address.",
+      "source_ids": [
+        34
+      ]
+    },
+    {
+      "standard": "7-Eleven",
+      "dialect": "七仔",
+      "romanization": "cat1 zai2",
+      "note": "Hong Kong nickname of the convenience store. Round 1 had 'chat1 jai2', which was wrong; words.hk gives cat1 zai2.",
+      "source_ids": [
+        33
+      ]
+    },
+    {
+      "standard": "公共汽车",
+      "dialect": "巴士",
+      "romanization": "baa1 si2",
+      "note": "English loan for bus; measure word 架 or 部.",
+      "source_ids": [
+        36
+      ]
+    },
+    {
+      "standard": "出租车",
+      "dialect": "的士 (colloquial 老的)",
+      "romanization": "dik1 si2",
+      "note": "Wiktionary: Hong Kong 的士, colloquial 老的; Taiwan 計程車. Jyutping of 的士 not checked on a Cantonese dictionary.",
+      "source_ids": [
+        56
+      ]
     },
     {
       "standard": "不知道",
       "dialect": "唔知",
       "romanization": "m4 zi1",
-      "note": "Do not know. Source says 唔知 is also used as a pun on '5G' in writing.",
-      "source_ids": [4]
-    },
-    {
-      "standard": "家庭主妇 / 太太",
-      "dialect": "師奶",
-      "romanization": "si1 naai1",
-      "note": "Housewife, often used with a slightly teasing tone. Source gives the meaning.",
-      "source_ids": [4]
-    },
-    {
-      "standard": "7-Eleven",
-      "dialect": "七仔",
-      "romanization": "chat1 jai2",
-      "note": "Common nickname for the convenience store chain. Source lists it as a Hong Kong expression.",
-      "source_ids": [4]
+      "note": "Do not know. words.hk 呀 aa3 example: 唔知啊 (m4 zi1 aa3).",
+      "source_ids": [
+        13
+      ]
     }
   ],
   "particles": [
     {
-      "particle": "呀",
-      "function": "Sentence-final particle for a positive statement or emphasis. Source gives aa3 for affirmative statements and aa4 for questions that expect a yes answer.",
-      "example": "係佢嘅呀！ (hai6 keoi5 ge3 aa3)",
-      "source_ids": [3]
+      "particle": "呀 / 啊 aa3",
+      "function": "Basic sentence-final softener. Ends a general question (咩事啊？), an answer with a personal stance (唔知啊), lists (咖啡呀，奶茶呀) or, drawn out, conveys irritation.",
+      "example": "而家幾點啊？ (ji4 gaa1 gei2 dim2 aa3)",
+      "source_ids": [
+        13
+      ]
     },
     {
-      "particle": "咩",
-      "function": "Question particle for surprise or checking an unexpected fact (similar to 'really?' or 'no way?'). Source gives me1.",
-      "example": "你唔知嘅咩？ (nei5 m4 zi1 ge3 me1)",
-      "source_ids": [3]
+      "particle": "呀 aa4",
+      "function": "Confirmation or echo question: turns a statement into a question; with 都 'cannot be helped'.",
+      "example": "你食緊飯呀？ (nei5 sik6 gan2 faan6 aa4)",
+      "source_ids": [
+        13
+      ]
     },
     {
-      "particle": "吓",
-      "function": "Used for surprise or repeating a question back. Source uses haa5 for a question and a surprised reply.",
-      "example": "吓？你下個禮拜放假呀？ (haa5 ... )",
-      "source_ids": [3]
+      "particle": "咓 / 呀 aa5",
+      "function": "'Oh, so...?': voices a just-realized fact for confirmation; also 'surely not...?' with negatives.",
+      "example": "你唔會冇帶到銀包咓？ (nei5 m4 wui5 mou5 daai3 dou3 ngan4 baau1 aa5)",
+      "source_ids": [
+        13,
+        10
+      ]
     },
     {
-      "particle": "喇",
-      "function": "Sentence-final particle. Source shows it in an example without giving a function, so treat its nuance as unverified.",
-      "example": "去嘅喇 (heoi3 ge3 laa3)",
-      "source_ids": [1]
+      "particle": "呀嘛 aa6 maa5 / 嘛 maa5",
+      "function": "Corrects the hearer with a doubting tone ('shouldn't it be... ?', 'are you kidding?'). words.hk example: 冇嘢嘛 mou5 je5 maa5 'are you really OK?!'",
+      "example": "唔係呀嘛？你講真㗎？ (m4 hai6 aa6 maa5? nei5 gong2 zan1 gaa4?)",
+      "source_ids": [
+        10
+      ]
     },
     {
-      "particle": "嘞",
-      "function": "Sentence-final particle. Source shows it in an example without giving a function, so treat its nuance as unverified. Low confidence.",
+      "particle": "啦 laa1",
+      "function": "Requests, suggestions, and decisions made now (好啦！我自己做啦！); lists; 'of course' (梗係賣晒啦！); hesitant agreement when drawn out (好啦⋯⋯); ironic taunt (你開心啦？).",
+      "example": "唔好等喇，走啦！ (m4 hou2 dang2 laa3, zau2 laa1)",
+      "source_ids": [
+        11,
+        57
+      ]
+    },
+    {
+      "particle": "喇 laa3",
+      "function": "Marks a new situation or change of state: 'now it is...' (夠鐘喇, 好喇, 我好飽喇). The exact function range was not stated in the sources, only shown in examples.",
+      "example": "唔使幫我喇。 (m4 sai2 bong1 ngo5 laa3)",
+      "source_ids": [
+        8,
+        21,
+        9
+      ]
+    },
+    {
+      "particle": "嘞 laak3",
+      "function": "Sentence-final particle appearing in CUHK examples: 佢就會嘞; 就噉嘅，... 已經打好咗嘞. Nuance not explained there.",
       "example": "佢就會嘞 (keoi5 zau6 wui5 laak3)",
-      "source_ids": [1]
+      "source_ids": [
+        1,
+        12
+      ]
     },
     {
-      "particle": "㗎",
-      "function": "Contraction of 嘅 and 呀 in speech, according to the source. Low confidence: no example was verified.",
+      "particle": "喎 wo3",
+      "function": "'I've just noticed / by the way / you know': a newly noticed fact, or a reminder of something the hearer forgot.",
+      "example": "佢遲到喎！ (keoi5 ci4 dou3 wo3)",
+      "source_ids": [
+        8
+      ]
+    },
+    {
+      "particle": "喎 wo5",
+      "function": "Quotes someone else's words with no responsibility, or ironically stresses the opposite ('...apparently').",
+      "example": "媽咪話唔好飲汽水喎！ (maa1 mi4 waa6 m4 hou2 jam2 hei3 seoi2 wo5)",
+      "source_ids": [
+        8
+      ]
+    },
+    {
+      "particle": "喎 wo4",
+      "function": "Surprise or disapproval at something unexpected.",
+      "example": "佢扮唔識我啝！ (keoi5 baan6 m4 sik1 ngo5 wo4)",
+      "source_ids": [
+        8
+      ]
+    },
+    {
+      "particle": "囉 lo1",
+      "function": "Points out something obvious ('of course', often with 咪); explains the reason; closes a list ('and so on'); strong opinion; resignation ('no choice then').",
+      "example": "係囉！ (hai6 lo1)  /  上頭叫到，唯有做囉。(soeng6 tau4 giu3 dou3, wai4 jau5 zou6 lo1)",
+      "source_ids": [
+        9
+      ]
+    },
+    {
+      "particle": "囉 lo3",
+      "function": "Judgement on a change (好囉, 弊囉); decision ('走囉'); gentle suggestion ('落街行下囉？').",
+      "example": "走囉，再唔走就冇車喇。 (zau2 lo3, zoi3 m4 zau2 zau6 mou5 ce1 laa3)",
+      "source_ids": [
+        9
+      ]
+    },
+    {
+      "particle": "囉 lo4",
+      "function": "Firm statement of fact or suggestion: 'let's...'.",
+      "example": "不如食M記囉。 (bat1 jyu4 sik6 Mem1 gei3 lo4)",
+      "source_ids": [
+        9
+      ]
+    },
+    {
+      "particle": "㗎 gaa3",
+      "function": "Emphasis or insistence (contraction of 嘅 + 呀 according to round 1 source); also gaa4 = challenge-question, gaa2 = doubt or reservation.",
+      "example": "呢啲係好嘢嚟㗎！ (ni1 di1 hai6 hou2 je5 lai4 gaa3)",
+      "source_ids": [
+        45,
+        7,
+        3
+      ]
+    },
+    {
+      "particle": "嘅 ge2",
+      "function": "Sentence-final particle with several functions: 'why?' (點解嘅？), exclamation, hedging ('seems so'), downplaying ('no big deal').",
+      "example": "點解嘅？ (dim2 gaai2 ge2)",
+      "source_ids": [
+        12
+      ]
+    },
+    {
+      "particle": "啩 gwaa3",
+      "function": "Speaker is not sure ('I guess').",
+      "example": "我返屋企食麵啩。 (ngo5 faan1 uk1 kei2 sik6 min6 gwaa3)",
+      "source_ids": [
+        46
+      ]
+    },
+    {
+      "particle": "咋 zaa3",
+      "function": "'Only, just'; zaa4 asks 'only that?'.",
+      "example": "仲有三個咋。 (zung6 jau5 saam1 go3 zaa3)",
+      "source_ids": [
+        47
+      ]
+    },
+    {
+      "particle": "咩 me1",
+      "function": "Question particle showing doubt or surprise; also pronoun 'what'.",
+      "example": "你當我傻嘅咩？ (nei5 dong3 ngo5 so4 ge3 me1)",
+      "source_ids": [
+        14
+      ]
+    },
+    {
+      "particle": "吓 haa5",
+      "function": "Surprise 'huh?' or a repeating question; also verb suffix 'for a bit' (著吓).",
+      "example": "你食咗啦吓？ (nei5 sik6 zo2 laa3 haa5)",
+      "source_ids": [
+        3
+      ]
+    },
+    {
+      "particle": "噃 bo3",
+      "function": "Asserts something or expresses strong appreciation/praise (Wiktionary). No sentence examples were given.",
       "example": "",
-      "source_ids": [3]
+      "source_ids": [
+        48
+      ]
+    },
+    {
+      "particle": "啫 ze1",
+      "function": "Downplays: 'just, only a little'. Seen in a words.hk example 擦損咗少少啫 'just scratched a bit'. Function inferred from that example.",
+      "example": "擦損咗少少啫，冇咩嘅。 (caat3 syun2 zo2 siu2 siu2 ze1, mou5 me1 ge2)",
+      "source_ids": [
+        12
+      ]
     }
   ],
   "pronunciation": [
     {
-      "rule": "In casual Hong Kong speech, the initial n- is often pronounced as l-. This is called 懶音 (lazy sound) in the source.",
-      "actor_tip": "In casual lines, say 你 as 'lei5' with a light l sound. Avoid this in formal speeches, news-style lines or characters who speak very formally.",
-      "example": "你 nei5 → lei5",
-      "source_ids": [4]
+      "rule": "'Lazy sounds' (懶音) among younger Hong Kong speakers: n- → l- (你 nei → lei), ng- → zero (我 ngo → o), gw- → g-, kw- → k-. English Wikipedia calls them non-standard but increasingly common.",
+      "actor_tip": "For a young, casual Hong Kong character use lei5 for 你 and o for 我, but not in formal, news-style, or older-person lines. Keep ng- and gw-/kw- for educated or older speech.",
+      "example": "你 nei5 → lei5; 我 ngo5 → o5; 國 gwok3 → gok3",
+      "source_ids": [
+        5,
+        4
+      ]
     },
     {
-      "rule": "Educated Hong Kong speakers avoid some sound mergers, but some older speakers still keep the distinction.",
-      "actor_tip": "For formal or educated characters, keep the original sound (for example n in 你). For older characters, keep the distinction clear.",
-      "example": "唔 m4 (source notes older speakers may keep this distinction)",
-      "source_ids": [4]
+      "rule": "Hong Kong Cantonese has six contrastive tones on open or nasal syllables plus three short tones on syllables ending in p, t, k. Guangzhou has seven (it keeps high falling and high level apart).",
+      "actor_tip": "Use the Jyutping number on every syllable as the pitch target: 1 high level, 2 mid rising, 3 mid level, 4 low falling, 5 low rising, 6 low level.",
+      "example": "詩 si1, 史 si2, 試 si3, 時 si4, 市 si5, 是 si6",
+      "source_ids": [
+        5,
+        6
+      ]
     },
     {
-      "rule": "Jyutping numbers 1 to 6 mark the pitch of each syllable.",
-      "actor_tip": "Each syllable ends in a number. The same syllable with a different number is a different word. For example 嘅 ge3 and 咗 zo2 differ in tone. Practice each line with the tone numbers beside it.",
-      "example": "嘅 ge3 vs 咗 zo2",
-      "source_ids": [3]
+      "rule": "唔 is a syllabic nasal m4 (no vowel). 好 hou2, 係 hai6 etc. each take one tone. Minimal pairs: gam3 咁 'so' vs gam2 噉 'in that way'.",
+      "actor_tip": "Hum the 'm' for 唔 with closed lips for a beat, low-falling. Do not say 'um' or 'wu'.",
+      "example": "唔 m4; 咁 gam3 vs 噉 gam2",
+      "source_ids": [
+        27,
+        52
+      ]
+    },
+    {
+      "rule": "Jyutping letters with unusual values: z = unaspirated ts, c = aspirated ts, j = English y, oe = rounded 'eu/œ' as in French deux, eo = rounded short 'ö/ɵ', yu = French u.",
+      "actor_tip": "Do not read z as English z, or j as English j: 嘢 je5 starts with y.",
+      "example": "嘢 je5 (y-); 書 syu1; 咗 zo2 (ts-)",
+      "source_ids": [
+        6
+      ]
+    },
+    {
+      "rule": "Sentence-final particles change meaning by tone: aa3 / aa4 / aa5 / aa6 maa5; lo1 / lo3 / lo4; wo3 / wo5 / wo4; gaa3 / gaa4 / gaa2; ge3 / ge2.",
+      "actor_tip": "Always speak the particle with the Jyutping number. A wrong tone changes the attitude: 囉 lo1 = 'of course', lo3 = 'let's / okay', lo4 = firm.",
+      "example": "係囉 hai6 lo1 vs 走囉 zau2 lo3",
+      "source_ids": [
+        9,
+        8,
+        13,
+        45,
+        12
+      ]
+    },
+    {
+      "rule": "Some speakers drop the ng- in a few words: 啱 can be aam1 or ngaam1 (words.hk).",
+      "actor_tip": "Do not think of 'ng' loss as a mistake. For a young character 啱 sounds like aam1.",
+      "example": "啱 ngaam1 / aam1",
+      "source_ids": [
+        37
+      ]
     }
   ],
   "tones_intonation": [
     {
-      "rule": "A question can be made by raising the pitch at the end of a statement, without any question particle.",
-      "source_ids": [3]
+      "rule": "A question can be formed by raising the pitch at the end of a statement, without a question particle. (English Wikipedia)",
+      "source_ids": [
+        3
+      ]
     },
     {
-      "rule": "In loanwords that have two syllables, the second syllable is said with a rising 2nd tone. Source gives 巴士 baa1 si2 as an example, but this is a low-confidence generalization from one article.",
-      "source_ids": [4]
+      "rule": "Hong Kong six tones, by shape: 1 high level (or high falling), 2 mid rising, 3 mid level, 4 low falling, 5 low rising, 6 low level; the three short tones end in -p, -t, -k and sound clipped.",
+      "source_ids": [
+        5
+      ]
+    },
+    {
+      "rule": "Same particle, different attitude by tone: 呀 aa3 softener; aa4 echo question; aa5 'oh so...?'; lo1 obvious; lo3 'let's go'; lo4 firm. words.hk gives these as separate entries with separate examples.",
+      "source_ids": [
+        13,
+        9
+      ]
+    },
+    {
+      "rule": "啦 laa1 stretched out (好啦⋯⋯) signals hesitant agreement; 呀 aa3 stretched out (你呀，同我做晒啲嘢呀～) signals irritation. (words.hk)",
+      "source_ids": [
+        11,
+        13
+      ]
+    },
+    {
+      "rule": "唔該 said in an irritated tone means 'shut up / stop it' (words.hk), so the same word can be polite or rude depending on tone and context.",
+      "source_ids": [
+        27
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "korean_idea": "밥 먹었어?",
+      "putonghua": "你吃饭了吗？",
+      "regional": "你食咗飯未呀？",
+      "romanization": "nei5 sik6 zo2 faan6 mei6 aa3",
+      "note": "咗(완료)+未(아직)의 일상 인사. words.hk 咗 항목의 예문 구조.",
+      "source_ids": [
+        30,
+        3
+      ],
+      "constructed": true
+    },
+    {
+      "korean_idea": "나는 몰라.",
+      "putonghua": "我不知道。",
+      "regional": "我唔知。",
+      "romanization": "ngo5 m4 zi1",
+      "note": "짧고 건조하게. 唔知 = 모르다.",
+      "source_ids": [
+        1,
+        4
+      ],
+      "constructed": true
+    },
+    {
+      "korean_idea": "지금 뭐 하고 있어?",
+      "putonghua": "你现在在做什么？",
+      "regional": "你而家做緊咩呀？",
+      "romanization": "nei5 ji4 gaa1 zou6 gan2 me1 aa3",
+      "note": "words.hk 緊 항목의 예문. 緊 = 진행.",
+      "source_ids": [
+        31
+      ],
+      "constructed": false
+    },
+    {
+      "korean_idea": "왜?(놀라며 되묻기)",
+      "putonghua": "为什么？",
+      "regional": "點解嘅？",
+      "romanization": "dim2 gaai2 ge2",
+      "note": "words.hk 嘅 ge2 항목의 예문. 끝을 올려 '왜 그러는데?'.",
+      "source_ids": [
+        12,
+        53
+      ],
+      "constructed": false
+    },
+    {
+      "korean_idea": "실례합니다, 피크는 어떻게 가요?",
+      "putonghua": "请问，你知道怎么去山顶吗？",
+      "regional": "唔該，你知唔知點去山頂啊？",
+      "romanization": "m4 goi1, nei5 zi1 m4 zi1 dim2 heoi3 saan1 deng2 aa3",
+      "note": "words.hk 唔該 예문. 말을 걸 때의 唔該.",
+      "source_ids": [
+        27
+      ],
+      "constructed": false
+    },
+    {
+      "korean_idea": "정말 고마워요!(작은 도움)",
+      "putonghua": "太谢谢你了！",
+      "regional": "唔該晒你啊！",
+      "romanization": "m4 goi1 saai3 nei5 aa3",
+      "note": "words.hk 예문. 큰 선물에는 多謝.",
+      "source_ids": [
+        27,
+        50
+      ],
+      "constructed": false
+    },
+    {
+      "korean_idea": "미안해요, 정말.",
+      "putonghua": "真的对不起！",
+      "regional": "真係對唔住！",
+      "romanization": "zan1 hai6 deoi3 m4 zyu6",
+      "note": "words.hk 예문. 진심으로 사과.",
+      "source_ids": [
+        40
+      ],
+      "constructed": false
+    },
+    {
+      "korean_idea": "너무 피곤해.",
+      "putonghua": "我好累。",
+      "regional": "我好攰。",
+      "romanization": "ngo5 hou2 gui6",
+      "note": "攰 = 피곤. words.hk 예문 구조.",
+      "source_ids": [
+        15
+      ],
+      "constructed": true
+    },
+    {
+      "korean_idea": "아직도 나한테 화나 있어?(화해 시도)",
+      "putonghua": "你还没生我的气完吗？",
+      "regional": "你仲未嬲完我呀？",
+      "romanization": "nei5 zung6 mei6 nau1 jyun4 ngo5 aa4",
+      "note": "words.hk 嬲 예문. 呀 aa4로 확인하듯 묻는 어조.",
+      "source_ids": [
+        24,
+        13
+      ],
+      "constructed": false
+    },
+    {
+      "korean_idea": "됐어, 안 먹을래. 배불러.(거절)",
+      "putonghua": "不要了，我很饱了。",
+      "regional": "唔要囉，我好飽喇。",
+      "romanization": "m4 jiu3 lo3, ngo5 hou2 baau2 laa3",
+      "note": "words.hk 囉 lo3 예문. 囉(결정)+喇(상태 변화).",
+      "source_ids": [
+        9
+      ],
+      "constructed": false
+    },
+    {
+      "korean_idea": "괜찮아, 무서워하지 마.(위로)",
+      "putonghua": "没事的，别怕。",
+      "regional": "冇事嘅，唔使驚。",
+      "romanization": "mou5 si6 ge3, m4 sai2 geng1",
+      "note": "冇事嘅(괜찮을 거야)는 words.hk 嘅 항목 예문, 唔使驚은 두 단어를 조합.",
+      "source_ids": [
+        12,
+        21,
+        42
+      ],
+      "constructed": true
+    },
+    {
+      "korean_idea": "내일 시간 있어?",
+      "putonghua": "你明天有空吗？",
+      "regional": "你聽日得唔得閒呀？",
+      "romanization": "nei5 ting1 jat6 dak1 m4 dak1 haan4 aa3",
+      "note": "words.hk 得閒 예문. V唔V 의문문.",
+      "source_ids": [
+        22
+      ],
+      "constructed": false
+    },
+    {
+      "korean_idea": "그 사람이 잘못한 거야?",
+      "putonghua": "他是不是做错了？",
+      "regional": "佢係唔係做錯咗？",
+      "romanization": "keoi5 hai6 m4 hai6 zou6 co3 zo2",
+      "note": "words.hk 係 예문. 대답은 係㗎.",
+      "source_ids": [
+        43
+      ],
+      "constructed": false
+    },
+    {
+      "korean_idea": "자업자득이야, 그렇게 까불더니.(장난 섞인 놀림)",
+      "putonghua": "活该，谁叫你这么调皮！",
+      "regional": "抵你死啦，你咁曳！",
+      "romanization": "dai2 nei5 sei2 laa1, nei5 gam3 jai1",
+      "note": "words.hk 抵死 예문. 抵死는 친구 사이 장난, 진짜 화낼 때는 모욕이 될 수 있다.",
+      "source_ids": [
+        28
+      ],
+      "constructed": false
+    },
+    {
+      "korean_idea": "(화난 듯) 정말 한심하다, 어이가 없네.",
+      "putonghua": "你怎么这么没脑子？",
+      "regional": "做咩你咁冇腦㗎？",
+      "romanization": "zou6 me1 nei5 gam3 mou5 nou5 gaa3",
+      "note": "Wiktionary 咁 예문. 모욕적인 뉘앙스가 있어 갈등 장면 전용.",
+      "source_ids": [
+        52
+      ],
+      "constructed": false
+    }
+  ],
+  "sub_regions": [
+    {
+      "region": "香港 (Hong Kong)",
+      "features": "Six tones (high level and high falling merged into tone 1). 'Lazy sounds' n→l, ng→zero, gw→g, kw→k are spreading among younger speakers. Uses 的士 (colloquial 老的) for taxi, 巴士 for bus, 七仔 for 7-Eleven. Written Cantonese in Traditional characters.",
+      "source_ids": [
+        5,
+        4,
+        56,
+        36,
+        33
+      ]
+    },
+    {
+      "region": "广州 (Guangzhou)",
+      "features": "Seven contrastive tones: high falling and high level are still distinct, although the high-falling tone is said to be disappearing (English Wikipedia). Vocabulary differences for everyday words were not verified in an opened source.",
+      "source_ids": [
+        5
+      ]
+    },
+    {
+      "region": "Spoken vs written",
+      "features": "Written Cantonese uses non-standard characters to record speech (佢, 嘅, 唔, 咗, 喺, 冇, 嚟, 啲). The choice between 來 and 嚟 is disputed in the source; this file uses 嚟 for speech.",
+      "source_ids": [
+        2
+      ]
     }
   ],
   "common_mistakes": [
-    "Putting 嘅, 咗, 唔, 佢 and 喺 into every line. Use them in dialogue, not in every sentence.",
-    "Mixing Standard Chinese words (他們, 在, 不) with Cantonese particles in the same line.",
-    "Over-using English loanwords (巴士, 七仔) to sound local. Use one per scene at most.",
-    "Imitating the l-for-n change in formal lines or in narration.",
-    "Using 咩 or 吓 in every question. They signal surprise and are not neutral question markers."
+    "Putting 嘅, 咗, 唔, 佢, 喺 into every line. Use them in dialogue, not in narration or formal speech.",
+    "Mixing Mandarin words (他們, 在, 不, 沒有, 什麼) with Cantonese particles in one line.",
+    "Using one particle for every emotion. Tone matters: 囉 lo1 / lo3 / lo4 and 呀 aa3 / aa4 / aa5 differ in meaning.",
+    "Using 咩 or 吓 as a neutral question marker. They signal doubt or surprise.",
+    "Using 嘢, 衰嘢, 死嘢, 抵死, 師奶 without noticing their insulting or euphemistic senses.",
+    "Reading Jyutping letters as English: z, c, j, oe, eo, yu.",
+    "Using lazy sounds (lei5, o5) in formal or older-character lines.",
+    "Using Mandarin-style 咗 as a past-tense marker everywhere: 過 marks experience, 緊 marks progress, 咗 marks completion."
   ],
   "generational_notes": [
-    "Younger Hong Kong speakers use more English loanwords, abbreviations and puns, according to the source. Older speakers more often keep the original sound distinctions.",
-    "The 5G pun for 唔知 shows how writing play works in online speech. It is not a spoken form."
+    "Younger Hong Kong speakers show lazy sounds (n→l, ng→zero, gw→g, kw→k), per English Wikipedia; older or educated speakers keep the original distinctions.",
+    "Younger speakers use more English loans, abbreviations and puns, per the Hong Kong Cantonese article (source 4 from round 1).",
+    "The 5G pun for 唔知 mentioned in round 1 is written play, not a spoken form."
   ],
   "conversion_guidelines": [
-    "Default to Hong Kong Traditional characters with Jyutping after each line, so the actor can check tones.",
-    "In dialogue, change 他/她 to 佢, 他们 to 佢哋, 的 to 嘅, 不 to 唔, 没有 to 冇, 了 to 咗, 在 to 喺. Keep narration in standard written Chinese, or in a clearly labeled formal register.",
-    "Use only one or two sentence-final particles per character, chosen by emotion: 呀 (statement), 咩 (surprised question), 吓 (question back).",
-    "Keep English loanwords to a minimum, for example one per scene.",
-    "Do not apply the n-to-l change to formal or narrated lines. Apply it only in casual dialogue, and mark it for native review.",
-    "Check every Jyutping tone against a Cantonese dictionary before performance. The Yale-to-Jyutping conversions were done by hand."
+    "Write in Hong Kong written-Cantonese Traditional characters with Jyutping beneath each line, so the actor can check tones.",
+    "In dialogue convert: 他/她→佢, 他们→佢哋, 的→嘅, 不→唔, 没有→冇, 了→咗, 在→喺, 和→同, 什么→乜嘢/咩, 为什么→點解, 谁→邊個, 哪里→邊度, 来→嚟, 一些→啲, 喜欢→鍾意, 知道→知 / 唔知, 累→攰, 家→屋企.",
+    "Use the tone-coded particles by emotion: 啦 (suggestion or decision), 囉 (obvious or resigned), 喎 (newly noticed), 㗎 (emphasis), 啩 (guess), 咋 (only), 咩 (doubtful surprise).",
+    "Use 唔該 for services, 'excuse me', 'please', and small favours, and 多謝 for gifts and big kindnesses.",
+    "Keep narration in standard written Chinese or label it as formal. Keep English loans to about one per scene.",
+    "Apply lazy sounds only in casual lines of a young character, and note them for native review.",
+    "Insults and edgy words (抵死, 衰嘢, 死嘢, 師奶) must be marked for director approval."
   ],
   "sources": [
     {
       "id": 1,
-      "title": "CUHK Cantonese Grammar, section 3 (Chinese University of Hong Kong)",
+      "title": "CUHK Cantonese Grammar, ch. 3 (Chinese University of Hong Kong)",
       "url": "https://www.cuhk.edu.hk/lin/cbrc/CantoneseGrammar/multimedia/03.htm",
       "type": "academic"
     },
@@ -329,7 +1029,7 @@
     },
     {
       "id": 3,
-      "title": "Cantonese grammar - Wikipedia (English)",
+      "title": "Cantonese grammar - Wikipedia (English) (re-read in round 2: negation, questions, aspect, comparison, passive, particles)",
       "url": "https://en.wikipedia.org/wiki/Cantonese_grammar",
       "type": "encyclopedia"
     },
@@ -338,16 +1038,334 @@
       "title": "Hong Kong Cantonese - Wikipedia (English)",
       "url": "https://en.wikipedia.org/wiki/Hong_Kong_Cantonese",
       "type": "encyclopedia"
+    },
+    {
+      "id": 5,
+      "title": "Cantonese phonology - Wikipedia (English) (tones, lazy sounds, Hong Kong vs Guangzhou tone count)",
+      "url": "https://en.wikipedia.org/wiki/Cantonese_phonology",
+      "type": "encyclopedia"
+    },
+    {
+      "id": 6,
+      "title": "Jyutping - Wikipedia (English) (initials and finals; Linguistic Society of Hong Kong scheme)",
+      "url": "https://en.wikipedia.org/wiki/Jyutping",
+      "type": "encyclopedia"
+    },
+    {
+      "id": 7,
+      "title": "words.hk 粵典: 嘢",
+      "url": "https://words.hk/zidin/%E5%98%A2",
+      "type": "dictionary"
+    },
+    {
+      "id": 8,
+      "title": "words.hk 粵典: 喎",
+      "url": "https://words.hk/zidin/%E5%96%8E",
+      "type": "dictionary"
+    },
+    {
+      "id": 9,
+      "title": "words.hk 粵典: 囉",
+      "url": "https://words.hk/zidin/%E5%9B%89",
+      "type": "dictionary"
+    },
+    {
+      "id": 10,
+      "title": "words.hk 粵典: 嘛",
+      "url": "https://words.hk/zidin/%E5%98%9B",
+      "type": "dictionary"
+    },
+    {
+      "id": 11,
+      "title": "words.hk 粵典: 啦",
+      "url": "https://words.hk/zidin/%E5%95%A6",
+      "type": "dictionary"
+    },
+    {
+      "id": 12,
+      "title": "words.hk 粵典: 嘅",
+      "url": "https://words.hk/zidin/%E5%98%85",
+      "type": "dictionary"
+    },
+    {
+      "id": 13,
+      "title": "words.hk 粵典: 呀",
+      "url": "https://words.hk/zidin/%E5%91%80",
+      "type": "dictionary"
+    },
+    {
+      "id": 14,
+      "title": "words.hk 粵典: 咩",
+      "url": "https://words.hk/zidin/%E5%92%A9",
+      "type": "dictionary"
+    },
+    {
+      "id": 15,
+      "title": "words.hk 粵典: 攰",
+      "url": "https://words.hk/zidin/%E6%94%B0",
+      "type": "dictionary"
+    },
+    {
+      "id": 16,
+      "title": "words.hk 粵典: 冇",
+      "url": "https://words.hk/zidin/%E5%86%87",
+      "type": "dictionary"
+    },
+    {
+      "id": 17,
+      "title": "words.hk 粵典: 鍾意",
+      "url": "https://words.hk/zidin/%E9%8D%BE%E6%84%8F",
+      "type": "dictionary"
+    },
+    {
+      "id": 18,
+      "title": "words.hk 粵典: 搵",
+      "url": "https://words.hk/zidin/%E6%90%B5",
+      "type": "dictionary"
+    },
+    {
+      "id": 19,
+      "title": "words.hk 粵典: 瞓",
+      "url": "https://words.hk/zidin/%E7%9E%93",
+      "type": "dictionary"
+    },
+    {
+      "id": 20,
+      "title": "words.hk 粵典: 屋企",
+      "url": "https://words.hk/zidin/%E5%B1%8B%E4%BC%81",
+      "type": "dictionary"
+    },
+    {
+      "id": 21,
+      "title": "words.hk 粵典: 唔使",
+      "url": "https://words.hk/zidin/%E5%94%94%E4%BD%BF",
+      "type": "dictionary"
+    },
+    {
+      "id": 22,
+      "title": "words.hk 粵典: 得閒",
+      "url": "https://words.hk/zidin/%E5%BE%97%E9%96%92",
+      "type": "dictionary"
+    },
+    {
+      "id": 23,
+      "title": "words.hk 粵典: 搞掂",
+      "url": "https://words.hk/zidin/%E6%90%9E%E6%8E%82",
+      "type": "dictionary"
+    },
+    {
+      "id": 24,
+      "title": "words.hk 粵典: 嬲",
+      "url": "https://words.hk/zidin/%E5%AC%B2",
+      "type": "dictionary"
+    },
+    {
+      "id": 25,
+      "title": "words.hk 粵典: 靚",
+      "url": "https://words.hk/zidin/%E9%9D%9A",
+      "type": "dictionary"
+    },
+    {
+      "id": 26,
+      "title": "words.hk 粵典: 好彩",
+      "url": "https://words.hk/zidin/%E5%A5%BD%E5%BD%A9",
+      "type": "dictionary"
+    },
+    {
+      "id": 27,
+      "title": "words.hk 粵典: 唔該",
+      "url": "https://words.hk/zidin/%E5%94%94%E8%A9%B2",
+      "type": "dictionary"
+    },
+    {
+      "id": 28,
+      "title": "words.hk 粵典: 抵死",
+      "url": "https://words.hk/zidin/%E6%8A%B5%E6%AD%BB",
+      "type": "dictionary"
+    },
+    {
+      "id": 29,
+      "title": "words.hk 粵典: 啲",
+      "url": "https://words.hk/zidin/%E5%95%B2",
+      "type": "dictionary"
+    },
+    {
+      "id": 30,
+      "title": "words.hk 粵典: 咗",
+      "url": "https://words.hk/zidin/%E5%92%97",
+      "type": "dictionary"
+    },
+    {
+      "id": 31,
+      "title": "words.hk 粵典: 緊",
+      "url": "https://words.hk/zidin/%E7%B7%8A",
+      "type": "dictionary"
+    },
+    {
+      "id": 32,
+      "title": "words.hk 粵典: 邊度",
+      "url": "https://words.hk/zidin/%E9%82%8A%E5%BA%A6",
+      "type": "dictionary"
+    },
+    {
+      "id": 33,
+      "title": "words.hk 粵典: 七仔",
+      "url": "https://words.hk/zidin/%E4%B8%83%E4%BB%94",
+      "type": "dictionary"
+    },
+    {
+      "id": 34,
+      "title": "words.hk 粵典: 師奶",
+      "url": "https://words.hk/zidin/%E5%B8%AB%E5%A5%B6",
+      "type": "dictionary"
+    },
+    {
+      "id": 35,
+      "title": "words.hk 粵典: 拍拖",
+      "url": "https://words.hk/zidin/%E6%8B%8D%E6%8B%96",
+      "type": "dictionary"
+    },
+    {
+      "id": 36,
+      "title": "words.hk 粵典: 巴士",
+      "url": "https://words.hk/zidin/%E5%B7%B4%E5%A3%AB",
+      "type": "dictionary"
+    },
+    {
+      "id": 37,
+      "title": "words.hk 粵典: 啱",
+      "url": "https://words.hk/zidin/%E5%95%B1",
+      "type": "dictionary"
+    },
+    {
+      "id": 38,
+      "title": "words.hk 粵典: 咪",
+      "url": "https://words.hk/zidin/%E5%92%AA",
+      "type": "dictionary"
+    },
+    {
+      "id": 39,
+      "title": "words.hk 粵典: 嘥",
+      "url": "https://words.hk/zidin/%E5%98%A5",
+      "type": "dictionary"
+    },
+    {
+      "id": 40,
+      "title": "words.hk 粵典: 對唔住",
+      "url": "https://words.hk/zidin/%E5%B0%8D%E5%94%94%E4%BD%8F",
+      "type": "dictionary"
+    },
+    {
+      "id": 41,
+      "title": "words.hk 粵典: 點樣",
+      "url": "https://words.hk/zidin/%E9%BB%9E%E6%A8%A3",
+      "type": "dictionary"
+    },
+    {
+      "id": 42,
+      "title": "words.hk 粵典: 驚",
+      "url": "https://words.hk/zidin/%E9%A9%9A",
+      "type": "dictionary"
+    },
+    {
+      "id": 43,
+      "title": "words.hk 粵典: 係",
+      "url": "https://words.hk/zidin/%E4%BF%82",
+      "type": "dictionary"
+    },
+    {
+      "id": 44,
+      "title": "words.hk 粵典: 嚟",
+      "url": "https://words.hk/zidin/%E5%9A%9F",
+      "type": "dictionary"
+    },
+    {
+      "id": 45,
+      "title": "Wiktionary: 㗎",
+      "url": "https://en.wiktionary.org/wiki/%E3%97%8E",
+      "type": "dictionary"
+    },
+    {
+      "id": 46,
+      "title": "Wiktionary: 啩",
+      "url": "https://en.wiktionary.org/wiki/啩",
+      "type": "dictionary"
+    },
+    {
+      "id": 47,
+      "title": "Wiktionary: 咋 (Cantonese particle zaa3)",
+      "url": "https://en.wiktionary.org/wiki/咋",
+      "type": "dictionary"
+    },
+    {
+      "id": 48,
+      "title": "Wiktionary: 噃",
+      "url": "https://en.wiktionary.org/wiki/噃",
+      "type": "dictionary"
+    },
+    {
+      "id": 49,
+      "title": "Wiktionary: 唔該",
+      "url": "https://en.wiktionary.org/wiki/唔該",
+      "type": "dictionary"
+    },
+    {
+      "id": 50,
+      "title": "Wiktionary: 多謝",
+      "url": "https://en.wiktionary.org/wiki/多謝",
+      "type": "dictionary"
+    },
+    {
+      "id": 51,
+      "title": "Wiktionary: 嘢",
+      "url": "https://en.wiktionary.org/wiki/嘢",
+      "type": "dictionary"
+    },
+    {
+      "id": 52,
+      "title": "Wiktionary: 咁",
+      "url": "https://en.wiktionary.org/wiki/咁",
+      "type": "dictionary"
+    },
+    {
+      "id": 53,
+      "title": "Wiktionary: 點解",
+      "url": "https://en.wiktionary.org/wiki/點解",
+      "type": "dictionary"
+    },
+    {
+      "id": 54,
+      "title": "Wiktionary: 邊個",
+      "url": "https://en.wiktionary.org/wiki/邊個",
+      "type": "dictionary"
+    },
+    {
+      "id": 55,
+      "title": "Wiktionary: 乜嘢",
+      "url": "https://en.wiktionary.org/wiki/乜嘢",
+      "type": "dictionary"
+    },
+    {
+      "id": 56,
+      "title": "Wiktionary: 計程車 (Hong Kong 的士)",
+      "url": "https://en.wiktionary.org/wiki/計程車",
+      "type": "dictionary"
+    },
+    {
+      "id": 57,
+      "title": "Wiktionary: 啦 (Cantonese laa1)",
+      "url": "https://en.wiktionary.org/wiki/啦",
+      "type": "dictionary"
     }
   ],
   "confidence": "medium",
   "open_questions": [
-    "Verify all Jyutping tones against words.hk or CantoDict. The words.hk page I tried returned 404, so no dictionary entry was confirmed.",
-    "Sentence-final particles 啦, 喎, 嘛, 囉, 嗱, 啩 and 掛 were listed in the source without functions. Verify with Matthews and Yip, Cantonese: A Comprehensive Grammar, or a native speaker.",
-    "The source's examples for 呀, 喇 and 嘞 were not clearly explained. Check their functions.",
-    "Whether 咗 and 了 always match in meaning is not settled in the sources reviewed. Check with a native speaker.",
-    "Spoken versus written register differences were only partly covered. The source describes written Cantonese as recording spoken forms, but did not compare sentence-level usage in detail.",
-    "Source claims about 2nd-tone rising in loanword syllables come from one article and should be checked before use.",
-    "Choice between 來 and 嚟 is disputed in the source. Decide which form to use with a native speaker or the Hong Kong Government's Cantonese guidance."
-  ]
+    "Written 嚟 vs 來 and 噉 vs 咁: choose a house style with a Hong Kong native or a dictionary guideline.",
+    "喇 laa3 and 嘞 laak3: examples exist, but no opened source states their function range precisely.",
+    "Jyutping of 的士 (dik1 si2) was not checked on words.hk.",
+    "Hong Kong vs Guangzhou vocabulary differences were not verified apart from tone count and 的士.",
+    "The generalization that second syllables of two-syllable loanwords rise (round 1 claim from one article) was removed because it was not verifiable.",
+    "Ask a Hong Kong native to review the constructed lines: 冇事嘅，唔使驚。 / 我好攰。 / 我唔知。 / 你食咗飯未呀？"
+  ],
+  "confidence_note": "medium-to-high for grammar, particles and Jyutping (dictionary-backed); medium for sub-region and style claims"
 }

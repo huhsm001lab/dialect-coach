@@ -2,197 +2,667 @@
   "code": "zh-dongbei",
   "name": "东北话 (Northeastern Mandarin)",
   "language": "zh",
-  "summary": "东北官话 is the Mandarin variety of China's Northeast. The sources I could open confirm only a few pronunciation traits (r- sound often absent, -ian/-üan more open, more erhua, entering-tone syllables spread across other tones) and a small set of lexical items. Verified grammar and sentence-final particles were NOT found, so grammar and particle arrays are empty on purpose. Most vocabulary comes from a Chinese Wikipedia page that itself marks much of its lexicon as unsourced, so treat all vocabulary as low confidence until checked against a dialect dictionary or a native speaker.",
+  "summary": "东北官话 is the Mandarin variety of Heilongjiang, Jilin and most of Liaoning. Round 2 dropped rare or dated items (老蒯, 马胡陆, 卜留克, 便所, 味素, 冰果, 列巴, 抠搜) and rebuilt vocabulary from Wiktionary entries and a 2015 feature article with example sentences (The World of Chinese), plus the Chinese Wikipedia phonology section used as a pointer (it still has many uncited statements). No verified Northeastern final-particle system was found, so the particle list is short and honest. Confidence is better for words and set phrases than for grammar or sound details.",
   "grammar": [
     {
-      "standard": "做 / 办 (general verb meaning do/handle)",
-      "dialect": "整 (general verb) in question forms like 咋整",
-      "condition": "Used as a catch-all verb in casual speech. The example sentence is a constructed illustration of the pattern 咋整 given in the source, not a quoted sentence. Native check needed.",
-      "example_standard": "这事儿怎么办？",
-      "example_dialect": "这事儿咋整？",
-      "romanization": "zhè shìr zǎ zhěng?",
-      "source_ids": [2]
+      "standard": "做 / 弄 / 办 (all-purpose verb)",
+      "dialect": "整",
+      "condition": "整 stands in for do, get, make, fix, handle. Wiktionary lists the sense with example 這可咋整啊 (Northeastern) and 整幾個小菜 (to fix a few side dishes). The World of Chinese says its range is 'almost indefinable' and gives 给我整两瓶啤酒.",
+      "example_standard": "给我拿两瓶啤酒。",
+      "example_dialect": "给我整两瓶啤酒。(from source 3)",
+      "romanization": "gěi wǒ zhěng liǎng píng píjiǔ",
+      "source_ids": [
+        3,
+        4
+      ]
     },
     {
-      "standard": "很 / 非常 (very)",
-      "dialect": "贼 + adjective",
-      "condition": "Intensifier placed before an adjective, used in casual speech. Source gives the pattern but no example sentence. Overuse sounds like a caricature.",
-      "example_standard": "很好",
-      "example_dialect": "贼好",
-      "romanization": "zéi hǎo",
-      "source_ids": [2]
+      "standard": "怎么办 (what do I do?)",
+      "dialect": "咋整 / 这可咋整啊",
+      "condition": "咋 'how/why' + 整. Source examples: 空调坏了，咋整？ and 這可咋整啊？",
+      "example_standard": "空调坏了，怎么办？",
+      "example_dialect": "空调坏了，咋整？(from source 3)",
+      "romanization": "kōngtiáo huài le, zǎ zhěng?",
+      "source_ids": [
+        3,
+        4
+      ]
+    },
+    {
+      "standard": "怎么了 / 什么事 (what is going on?)",
+      "dialect": "咋地 (咋的)",
+      "condition": "zh.wikipedia lists 咋地 as 'how come / what's the matter' within the 咋 group. The page has no citation for it. Also used as the retort in 瞅你咋地 (source 3).",
+      "example_standard": "你怎么了？",
+      "example_dialect": "你咋地了？",
+      "romanization": "nǐ zǎ dì le?",
+      "source_ids": [
+        2,
+        3
+      ]
+    },
+    {
+      "standard": "什么 (what)",
+      "dialect": "啥 (shá)",
+      "condition": "Question word in Northeastern Mandarin (Harbin, Shenyang, Qiqihar listed by Wiktionary), also in Jilu and Central Plains Mandarin, so it is not uniquely Northeastern. zh.wikipedia lists 啥前儿 (when).",
+      "example_standard": "你看什么？",
+      "example_dialect": "你瞅啥？",
+      "romanization": "nǐ chǒu shá?",
+      "source_ids": [
+        2,
+        16
+      ]
+    },
+    {
+      "standard": "干什么 (what are you doing / where are you off to?)",
+      "dialect": "嘎哈 (also written 干哈 / 噶哈)",
+      "condition": "Source 3 uses 嘎哈 as '干啥' in the greeting 你嘎哈去？ and says to stretch the 'há' and open the vowel. zh.wikipedia writes 噶哈呢 and says it comes from 干啥呢. Written forms vary: choose one and keep it.",
+      "example_standard": "你去干什么？",
+      "example_dialect": "你嘎哈去？(from source 3)",
+      "romanization": "nǐ gà há qù?",
+      "source_ids": [
+        2,
+        3
+      ]
+    },
+    {
+      "standard": "很 / 特别 (intensifier before an adjective)",
+      "dialect": "贼 + adj ; 贼啦 + adj",
+      "condition": "Wiktionary lists 贼 'very' as originally dialectal, including Northeastern Mandarin, now increasingly colloquial. Source 3 gives 这馆子贼啦好吃. Heavy use sounds like a caricature.",
+      "example_standard": "这家店特别好吃。",
+      "example_dialect": "这馆子贼啦好吃。(from source 3)",
+      "romanization": "zhè guǎnzi zéi la hǎochī",
+      "source_ids": [
+        3,
+        5
+      ]
+    },
+    {
+      "standard": "很 / 特别 ... 了 (emotional intensifier)",
+      "dialect": "老 + adj + 了",
+      "condition": "Rui et al. 2023 compare 老 and 超 as degree adverbs and say both express strong subjective attitude and emotion. The pattern 老A了 is also named in search snippets I did not open. Treat this example as constructed.",
+      "example_standard": "这个菜特别好吃。",
+      "example_dialect": "这个菜老好吃了。",
+      "romanization": "zhè ge cài lǎo hǎochī le",
+      "source_ids": [
+        18
+      ]
+    },
+    {
+      "standard": "你看什么？ (confrontation set phrase)",
+      "dialect": "你瞅啥 / 瞅你咋地",
+      "condition": "Source 3: 你瞅啥 is a challenge that assumes the other person's look was provocative; replying 瞅你咋地 escalates. Use only for tension scenes.",
+      "example_standard": "你看什么看？",
+      "example_dialect": "你瞅啥？ / 瞅你咋地？",
+      "romanization": "nǐ chǒu shá? / chǒu nǐ zǎ dì?",
+      "source_ids": [
+        3,
+        10
+      ]
+    },
+    {
+      "standard": "verb reduplication for a casual chat invitation",
+      "dialect": "咱俩唠唠",
+      "condition": "Source 3 gives 咱俩唠唠 ('let's have a word') and says it can be the opening of a fight. Verb reduplication 唠唠 softens the verb in Mandarin too. 咱 = inclusive 'we'.",
+      "example_standard": "我们两个谈谈。",
+      "example_dialect": "咱俩唠唠。(from source 3)",
+      "romanization": "zán liǎ láo lao",
+      "source_ids": [
+        3
+      ]
+    },
+    {
+      "standard": "你傻啊 (calling someone foolish)",
+      "dialect": "你彪啊！ / 你虎啊！",
+      "condition": "Source 3: 彪 (biāo) and 虎 (hǔ) mean foolish, reckless. Example: 坐火车忘了带身份证？你彪啊！ A mild insult among friends, rude in anger.",
+      "example_standard": "你傻啊！",
+      "example_dialect": "你彪啊！(from source 3)",
+      "romanization": "nǐ biāo a!",
+      "source_ids": [
+        3
+      ]
     }
   ],
   "vocabulary": [
     {
-      "standard": "做什么 / 干什么",
-      "dialect": "嘎哈 (source writes 噶哈呢)",
-      "romanization": "gǎ hā ne",
-      "note": "Source says it is a mispronunciation-based form of 干啥呢. Written form varies between sources, so verify. Low confidence: source marks this entry as unsourced.",
-      "source_ids": [2]
-    },
-    {
-      "standard": "怎么样 / 怎么了",
-      "dialect": "咋地",
-      "romanization": "zǎ dì",
-      "note": "Asks what is going on. Low confidence: source marks as unsourced.",
-      "source_ids": [2]
+      "standard": "什么",
+      "dialect": "啥",
+      "romanization": "shá",
+      "note": "Common across Northern Mandarin; in the Northeast it is the everyday 'what'.",
+      "source_ids": [
+        16
+      ]
     },
     {
       "standard": "怎么 / 为什么",
       "dialect": "咋",
       "romanization": "zǎ",
-      "note": "Common question word. Used in 咋整 and 咋地.",
-      "source_ids": [2]
+      "note": "How/why. Wiktionary page does not label it Northeastern, but zh.wikipedia and source 3 use 咋整 / 咋地.",
+      "source_ids": [
+        2,
+        3,
+        17
+      ]
     },
     {
-      "standard": "聊天 / 闲聊",
+      "standard": "怎么办",
+      "dialect": "咋整",
+      "romanization": "zǎ zhěng",
+      "note": "Set phrase 'what do we do'. Very recognizable.",
+      "source_ids": [
+        3,
+        4
+      ]
+    },
+    {
+      "standard": "干什么",
+      "dialect": "嘎哈",
+      "romanization": "gà há",
+      "note": "Greeting or question 'doing what'. Varied spelling: 嘎哈 / 干哈 / 噶哈.",
+      "source_ids": [
+        2,
+        3
+      ]
+    },
+    {
+      "standard": "做 / 弄",
+      "dialect": "整",
+      "romanization": "zhěng",
+      "note": "All-purpose verb, see grammar.",
+      "source_ids": [
+        3,
+        4
+      ]
+    },
+    {
+      "standard": "很 / 非常",
+      "dialect": "贼",
+      "romanization": "zéi",
+      "note": "Intensifier. Originally 'thief'. Write 贼啦 only for emphasis.",
+      "source_ids": [
+        3,
+        5
+      ]
+    },
+    {
+      "standard": "很 / 非常 (Harbin)",
+      "dialect": "嘎嘎",
+      "romanization": "gā gā",
+      "note": "Wiktionary's synonym table lists 嘎嘎 for 'very' in Harbin; usage today (e.g. 嘎嘎新) is slangy and young.",
+      "source_ids": [
+        5
+      ]
+    },
+    {
+      "standard": "脏",
+      "dialect": "埋汰",
+      "romanization": "máitai",
+      "note": "Dirty, grubby. Also a verb 'mock, speak ill of'. Wiktionary lists it for Harbin.",
+      "source_ids": [
+        6
+      ]
+    },
+    {
+      "standard": "丑 / 寒酸",
+      "dialect": "磕碜 (砢碜)",
+      "romanization": "kēchen",
+      "note": "Ugly or shabby; mainly Northeastern colloquial. Source 3: 你写的字太磕碜了吧.",
+      "source_ids": [
+        2,
+        3,
+        7
+      ]
+    },
+    {
+      "standard": "聊天",
       "dialect": "唠嗑儿",
-      "romanization": "làor kēr",
-      "note": "Chatting or gossiping. Source calls it 'characteristic vocabulary' but marks it unsourced.",
-      "source_ids": [2]
+      "romanization": "làokēr",
+      "note": "Chat. Wiktionary lists the erhua form 嘮嗑兒 for Northeastern cities (Shenyang, Changchun, Harbin).",
+      "source_ids": [
+        2,
+        8
+      ]
     },
     {
-      "standard": "炫耀 (negative sense)",
-      "dialect": "得瑟",
-      "romanization": "dé se",
-      "note": "To show off in a negative way. Low confidence: unsourced in the source.",
-      "source_ids": [2]
+      "standard": "炫耀 / 乱花钱",
+      "dialect": "嘚瑟 (得瑟)",
+      "romanization": "dèse",
+      "note": "Show off, swagger, and also squander money. Source 3 example about spending a whole paycheck. Teasing tone.",
+      "source_ids": [
+        3,
+        9
+      ]
     },
     {
-      "standard": "吹牛 / 胡扯",
+      "standard": "看",
+      "dialect": "瞅",
+      "romanization": "chǒu",
+      "note": "Colloquial 'look'. 你瞅啥 is a famous challenge.",
+      "source_ids": [
+        3,
+        10
+      ]
+    },
+    {
+      "standard": "骗 / 哄",
+      "dialect": "忽悠",
+      "romanization": "hūyou",
+      "note": "Colloquial 'trick, sweet-talk'. Originally Northeastern; spread nationally through Zhao Benshan sketches (so it no longer marks region). 大忽悠 = con man.",
+      "source_ids": [
+        3,
+        11
+      ]
+    },
+    {
+      "standard": "喜欢 / 在乎",
+      "dialect": "稀罕",
+      "romanization": "xīhan",
+      "note": "Wiktionary: 'be fond of' in northern colloquial speech; also 'to care about' (usually negative). Not Northeast-only.",
+      "source_ids": [
+        12
+      ]
+    },
+    {
+      "standard": "恶心 / 别扭",
+      "dialect": "膈应",
+      "romanization": "gèying",
+      "note": "Annoy, nauseate, feel disgusted. Mainly northern dialect. Variants 硌硬, 咯应.",
+      "source_ids": [
+        13
+      ]
+    },
+    {
+      "standard": "胡说",
       "dialect": "扯犊子",
       "romanization": "chě dúzi",
-      "note": "Bragging or talking nonsense. Low confidence: unsourced in the source. Strong slang, use sparingly.",
-      "source_ids": [2]
+      "note": "Talk nonsense. Wiktionary lists it for Harbin and does not mark it vulgar, but it is rude in tone. Use among friends or in conflict.",
+      "source_ids": [
+        14
+      ]
     },
     {
-      "standard": "非常新 (very new)",
-      "dialect": "嘎嘎新 (嘎儿嘎儿 as intensifier)",
-      "romanization": "gā gā xīn",
-      "note": "嘎儿嘎儿 is an intensifier meaning 'very'. Low confidence: unsourced in the source.",
-      "source_ids": [2]
+      "standard": "角落 / 地方",
+      "dialect": "旮旯 (zh.wikipedia: 旮瘩)",
+      "romanization": "gālá",
+      "note": "Corner or remote place; 犄角旮旯 = every nook. Wiktionary calls it dialectal. 这旮旯 (this place) was not found on that page.",
+      "source_ids": [
+        2,
+        15
+      ]
+    },
+    {
+      "standard": "傻 / 莽撞",
+      "dialect": "彪 / 虎",
+      "romanization": "biāo / hǔ",
+      "note": "Foolish or reckless. Insult among friends, hostile in anger.",
+      "source_ids": [
+        3
+      ]
+    },
+    {
+      "standard": "吹牛 / 说谎",
+      "dialect": "白话",
+      "romanization": "bái huo",
+      "note": "zh.wikipedia: to lie, or to talk endlessly. Uncited.",
+      "source_ids": [
+        2
+      ]
+    },
+    {
+      "standard": "什么时候",
+      "dialect": "啥前儿",
+      "romanization": "shá qiánr",
+      "note": "zh.wikipedia lists it as an example of 啥. Uncited and uncertain: have a native confirm.",
+      "source_ids": [
+        2
+      ]
     },
     {
       "standard": "玉米",
       "dialect": "苞米",
-      "romanization": "bāo mi",
-      "note": "Corn. Low confidence: unsourced in the source, but a common regional word to verify.",
-      "source_ids": [2]
-    },
-    {
-      "standard": "老婆 (said by a husband to his wife)",
-      "dialect": "老蒯",
-      "romanization": "lǎo kuài",
-      "note": "Source says a man uses this to address his wife. Low confidence: unsourced in the source.",
-      "source_ids": [2]
-    },
-    {
-      "standard": "吝啬的 / 小气的",
-      "dialect": "抠搜",
-      "romanization": "kōu sou",
-      "note": "Stingy. Source says Manchu loanword. Cited reference not opened.",
-      "source_ids": [2]
-    },
-    {
-      "standard": "面包 (Russian-style bread)",
-      "dialect": "列巴",
-      "romanization": "liè bā",
-      "note": "Russian loanword as described by the source. The source's cited book was not opened.",
-      "source_ids": [2]
-    },
-    {
-      "standard": "萝卜 / 芜菁 (turnip)",
-      "dialect": "卜留克",
-      "romanization": "bǔ liú kè",
-      "note": "Russian loanword as described by the source. Cited book not opened.",
-      "source_ids": [2]
-    },
-    {
-      "standard": "厕所",
-      "dialect": "便所",
-      "romanization": "biàn suǒ",
-      "note": "Source lists it as a Japanese-origin word used in the Northeast. Check whether it is still common in current speech before using.",
-      "source_ids": [2]
-    },
-    {
-      "standard": "下水道井盖 (manhole)",
-      "dialect": "马胡陆",
-      "romanization": "mǎ hú lù",
-      "note": "Japanese-origin word as described by the source.",
-      "source_ids": [2]
-    },
-    {
-      "standard": "味精 (MSG)",
-      "dialect": "味素",
-      "romanization": "wèi sù",
-      "note": "Japanese-origin word as described by the source.",
-      "source_ids": [2]
-    },
-    {
-      "standard": "冰淇淋",
-      "dialect": "冰果",
-      "romanization": "bīng guǒ",
-      "note": "Source says it comes from Japanese 氷菓. Low confidence on current usage.",
-      "source_ids": [2]
+      "romanization": "bāomi",
+      "note": "Corn. Wiktionary has 苞米 as a variant of 包米 with no dialect label; zh.wikipedia lists it uncited. Widely known as a Northeastern word, but only weakly verified here.",
+      "source_ids": [
+        20
+      ]
     }
   ],
-  "particles": [],
+  "particles": [
+    {
+      "particle": "啊 (a)",
+      "function": "Softens an exclamation or insult. Example from source 3: 你彪啊！ Same particle as Mandarin 啊.",
+      "example": "你彪啊！",
+      "source_ids": [
+        3
+      ]
+    },
+    {
+      "particle": "吧 (ba)",
+      "function": "Suggestion or mild doubt, as in Mandarin. Source 3: 你写的字太磕碜了吧.",
+      "example": "你写的字太磕碜了吧。",
+      "source_ids": [
+        3
+      ]
+    },
+    {
+      "particle": "呢 (ne)",
+      "function": "Progressive or question tag. zh.wikipedia lists 噶哈呢 (from 干啥呢) 'what are you doing'.",
+      "example": "嘎哈呢？",
+      "source_ids": [
+        2
+      ]
+    }
+  ],
   "pronunciation": [
     {
-      "rule": "The retroflex r- initial (ʐ, as in 人, 肉) is mostly absent. It is replaced by a y- sound in many words, and by l in some areas.",
-      "actor_tip": "For 人, 肉, 日 and similar words, do not curl the tongue for r. Start the word with a soft y sound instead. Keep it light, not exaggerated.",
+      "rule": "The r- initial is largely lost. zh.wikipedia lists 肉 yòu, 柔 yóu, 人 yín, 软 yuǎn (zero or y- initial), and in a few words l-: 如 lú, 瑞 luì. English Wikipedia says r- is 'generally elided'. The Chinese page says older speakers in eastern Jilin pronounce r as y, but younger speakers drift towards Standard Mandarin. These statements carry no citation.",
+      "actor_tip": "For 人, 肉, 日, 软 use a light y- start (or no consonant). Use it on a few high-frequency words, not on every r. A younger character should use it less.",
       "example": "肉 ròu → yòu; 人 rén → yín",
-      "source_ids": [1, 2]
+      "source_ids": [
+        1,
+        2
+      ]
     },
     {
-      "rule": "The -ian and -üan rhymes are pronounced with a more open vowel, close to [æ], than in Beijing Mandarin.",
-      "actor_tip": "Open the mouth wider on the vowel in words like 先, 天, 元. It should sound like a slightly flatter, wider 'yen' sound.",
-      "example": "先 xiān (more open vowel)",
-      "source_ids": [1]
+      "rule": "-ian and -üan have a more open vowel, [æ] rather than [ɛ] or [e] (cited to Li Wen-Chao 2004 on the Chinese page).",
+      "actor_tip": "Open the jaw on 天, 先, 点, 元: sounds like 'tæn' with a wide 'a'.",
+      "example": "先 xiān with [æ]",
+      "source_ids": [
+        1,
+        2
+      ]
     },
     {
-      "rule": "The w- initial is kept. It does not shift to v- as in neighboring Hebei dialects.",
-      "actor_tip": "Keep the lip-rounded w sound at the start of words like 我, 为, 王. Do not change it to a v sound.",
-      "example": "No example given in the source.",
-      "source_ids": [1]
+      "rule": "After b/p/m/f the vowel o is read as [ɤ] (like Korean 어), cited to 中国语言地图集.",
+      "actor_tip": "Say bo, po, mo, fo as 'buh, puh, muh, fuh' with 어-like vowel.",
+      "example": "摸 mō → mē-like [mɤ]",
+      "source_ids": [
+        2
+      ]
     },
     {
-      "rule": "After b, p, m, f, the vowel o is pronounced closer to [ɤ] (like the vowel in Korean ㅓ).",
-      "actor_tip": "For bo, po, mo, fo, use a 'uh' sound closer to Korean 어 rather than 오. Medium-low confidence: the source cites a Chinese dialect atlas that was not opened.",
-      "example": "摸 mō pronounced with an ɤ-like vowel",
-      "source_ids": [2]
+      "rule": "w- is kept as w (not v as in some Hebei speech). English Wikipedia.",
+      "actor_tip": "Keep a clean w on 我, 为, 王.",
+      "example": "我 wǒ",
+      "source_ids": [
+        1
+      ]
     },
     {
-      "rule": "Erhua (adding a curled-tongue -r ending to words) is more frequent and more prominent than in Beijing Mandarin.",
-      "actor_tip": "Add a light r ending by curling the tongue at the end of certain nouns, for example 超市儿. Use sparingly. Source is a WeChat article, so weak evidence.",
+      "rule": "zh/ch/sh and z/c/s mix depending on sub-area (uncited on zh.wikipedia): Meixi sub-group reads them all flat, 肇扶 sub-group all retroflex, 蛟宁 sub-group varies freely.",
+      "actor_tip": "Do not make a Northeastern character say all-flat zh/ch/sh unless the setting is Shenyang-Fushun-type speech. Standard retroflex sounds are safe for most Harbin-type speakers.",
+      "example": "知道 zhīdào (flat or retroflex by area)",
+      "source_ids": [
+        2
+      ]
+    },
+    {
+      "rule": "Zero-initial syllables get an n- start in the Ha-Fu group (Harbin, Fuxin, Changchun area), e.g. 摁 nèn, 矮 nǎi, 鹅 né (uncited).",
+      "actor_tip": "Optional colour for a Harbin or Changchun character: add a light n- before 阿, 爱, 安, 鹅 words. Skip it for Shenyang.",
+      "example": "矮 ǎi → nǎi; 鹅 é → né",
+      "source_ids": [
+        2
+      ]
+    },
+    {
+      "rule": "Erhua is more frequent than in Beijing; the page's example is 超市 → 超市儿 in the Shenyang area. The citation is a WeChat article, so evidence is weak.",
+      "actor_tip": "Add a light -r to small nouns and set phrases (唠嗑儿, 一会儿). Do not r-ify every noun.",
       "example": "超市 → 超市儿 chāoshìr",
-      "source_ids": [2]
+      "source_ids": [
+        2
+      ]
+    },
+    {
+      "rule": "No -m final (原文 无-m尾韵), cited to 汉语方言学基础教程 p.125. The Northeast has no final -m, but Standard Mandarin has none either, so this changes nothing for a Mandarin-based script.",
+      "actor_tip": "No action.",
+      "example": "",
+      "source_ids": [
+        2
+      ]
     }
   ],
   "tones_intonation": [
     {
-      "rule": "Old entering-tone (short, checked) syllables are spread across the 1st, 2nd, 3rd and 4th tones rather than all going to one tone. Source cites a Chinese dialectology textbook that was not opened. Low confidence on specific tone assignments.",
-      "source_ids": [2]
+      "rule": "Old entering-tone (clipped) syllables spread over all four tones (1, 2, 3, 4), with rules that are not very regular, much like Beijing. A higher share of voiceless-initial entering syllables go to tone 3 than in Beijing (cited to 汉语方言学基础教程 p.140).",
+      "source_ids": [
+        2
+      ]
+    },
+    {
+      "rule": "Yin-ping (tone 1) is slightly lower than Beijing's 55: 44 or 33 (zh.wikipedia, uncited).",
+      "source_ids": [
+        2
+      ]
+    },
+    {
+      "rule": "Distance from Beijing speech: Harbin is closer than Jilin and Changchun, and these are closer than Shenyang (English Wikipedia). So Harbin-style speech is the safest 'neutral Dongbei' base.",
+      "source_ids": [
+        1
+      ]
+    },
+    {
+      "rule": "Source 3's practical advice: stretch 'há' in 嘎哈 and open the vowel wider than in Standard Mandarin. In confrontation lines like 你瞅啥 the delivery is a challenge, not a question.",
+      "source_ids": [
+        3
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "korean_idea": "뭐 하러 가?",
+      "putonghua": "你去干什么？",
+      "regional": "你嘎哈去？",
+      "romanization": "nǐ gà há qù?",
+      "note": "원문 예문. há를 길게 끌고 입을 크게 벌리는 느낌으로.",
+      "source_ids": [
+        3
+      ],
+      "constructed": false
+    },
+    {
+      "korean_idea": "에어컨 고장 났는데 어떡하지?",
+      "putonghua": "空调坏了，怎么办？",
+      "regional": "空调坏了，咋整？",
+      "romanization": "kōngtiáo huài le, zǎ zhěng?",
+      "note": "원문 예문. 咋整 = 어떡하지.",
+      "source_ids": [
+        3,
+        4
+      ],
+      "constructed": false
+    },
+    {
+      "korean_idea": "맥주 두 병 갖다 줘.",
+      "putonghua": "给我拿两瓶啤酒。",
+      "regional": "给我整两瓶啤酒。",
+      "romanization": "gěi wǒ zhěng liǎng píng píjiǔ",
+      "note": "원문 예문. 整는 '가져오다/만들다'까지 두루 쓰는 만능 동사.",
+      "source_ids": [
+        3
+      ],
+      "constructed": false
+    },
+    {
+      "korean_idea": "이 식당 진짜 맛있다.",
+      "putonghua": "这家店特别好吃。",
+      "regional": "这馆子贼啦好吃。",
+      "romanization": "zhè guǎnzi zéi la hǎochī",
+      "note": "원문 예문. 贼啦는 강조. 대사 한 줄에 한 번만.",
+      "source_ids": [
+        3,
+        5
+      ],
+      "constructed": false
+    },
+    {
+      "korean_idea": "뭘 쳐다봐?(시비)",
+      "putonghua": "你看什么看？",
+      "regional": "你瞅啥？",
+      "romanization": "nǐ chǒu shá?",
+      "note": "시비를 거는 대표 문장. 질문이 아니라 도전하는 억양.",
+      "source_ids": [
+        3,
+        10
+      ],
+      "constructed": false
+    },
+    {
+      "korean_idea": "쳐다보면 어쩔 건데?(받아치기)",
+      "putonghua": "看你又怎么样？",
+      "regional": "瞅你咋地？",
+      "romanization": "chǒu nǐ zǎ dì?",
+      "note": "원문이 싸움으로 번질 수 있다고 경고한 문장. 갈등 장면 전용.",
+      "source_ids": [
+        3
+      ],
+      "constructed": false
+    },
+    {
+      "korean_idea": "기차 타는데 신분증을 안 가져와? 너 바보냐!",
+      "putonghua": "坐火车忘了带身份证？你傻啊！",
+      "regional": "坐火车忘了带身份证？你彪啊！",
+      "romanization": "zuò huǒchē wàng le dài shēnfènzhèng? nǐ biāo a!",
+      "note": "원문 예문. 彪 = 바보 같다. 친구 사이의 가벼운 욕.",
+      "source_ids": [
+        3
+      ],
+      "constructed": false
+    },
+    {
+      "korean_idea": "우리 얘기 좀 하자.",
+      "putonghua": "我们谈谈。",
+      "regional": "咱俩唠唠。",
+      "romanization": "zán liǎ láo lao",
+      "note": "원문에서 시비의 신호로도 쓰인다고 한 표현. 장면에 따라 다정할 수도, 위협일 수도.",
+      "source_ids": [
+        3
+      ],
+      "constructed": false
+    },
+    {
+      "korean_idea": "저 방 진짜 더러워.",
+      "putonghua": "这间屋子真脏。",
+      "regional": "这屋子真埋汰。",
+      "romanization": "zhè wūzi zhēn máitai",
+      "note": "원문 예문. 埋汰 = 더럽다.",
+      "source_ids": [
+        3,
+        6
+      ],
+      "constructed": false
+    },
+    {
+      "korean_idea": "네 글씨 너무 못났다.",
+      "putonghua": "你写的字太难看了吧。",
+      "regional": "你写的字太磕碜了吧。",
+      "romanization": "nǐ xiě de zì tài kēchen le ba",
+      "note": "원문 예문. 磕碜 = 보기 흉하다.",
+      "source_ids": [
+        3,
+        7
+      ],
+      "constructed": false
+    },
+    {
+      "korean_idea": "월급 받은 지 이틀 만에 다 써 버렸네.(놀림)",
+      "putonghua": "刚发的工资，没两天就被你花光了。",
+      "regional": "刚发的工资，没两天就被你嘚瑟光了。",
+      "romanization": "gāng fā de gōngzī, méi liǎng tiān jiù bèi nǐ dèse guāng le",
+      "note": "원문 예문. 嘚瑟 = 으스대며 돈 쓰다.",
+      "source_ids": [
+        3,
+        9
+      ],
+      "constructed": false
+    },
+    {
+      "korean_idea": "이 일 진짜 어떡하지, 걱정돼.(위로가 필요한 사람에게)",
+      "putonghua": "这可怎么办啊？",
+      "regional": "这可咋整啊？",
+      "romanization": "zhè kě zǎ zhěng a?",
+      "note": "Wiktionary 예문(동북 표시). 위로 장면에서 상대의 걱정을 받아 주는 대사로 쓸 수 있음.",
+      "source_ids": [
+        4
+      ],
+      "constructed": false
+    },
+    {
+      "korean_idea": "이 요리 정말 맛있다.(감정 강조)",
+      "putonghua": "这个菜特别好吃。",
+      "regional": "这个菜老好吃了。",
+      "romanization": "zhè ge cài lǎo hǎochī le",
+      "note": "老A了는 주관적 감정을 강하게 표현한다는 연구 요약에 근거한 조합. 원어민 확인 필요.",
+      "source_ids": [
+        18
+      ],
+      "constructed": true
+    },
+    {
+      "korean_idea": "쓸데없는 소리 하지 마.",
+      "putonghua": "别胡说八道。",
+      "regional": "别扯犊子。",
+      "romanization": "bié chě dúzi",
+      "note": "扯犊子 = 헛소리. 거친 톤이라 친구 사이나 싸움에서만.",
+      "source_ids": [
+        14
+      ],
+      "constructed": true
+    }
+  ],
+  "sub_regions": [
+    {
+      "region": "吉沈片 (Jishen; Shenyang, Fushun, Benxi, Anshan; Jilin, Yanbian)",
+      "features": "Zero-initial syllables stay zero-initial (52 counties/cities per zh.wikipedia). Meixi sub-group reads zh/ch/sh flat. Further from Beijing speech than Harbin or Changchun (English Wikipedia).",
+      "source_ids": [
+        1,
+        2
+      ]
+    },
+    {
+      "region": "哈阜片 (Ha-Fu; Harbin, Changchun, Songyuan, Fuxin, Jinzhou)",
+      "features": "Zero-initial syllables get n- (67 counties/cities); Zhaofu sub-group reads zh/ch/sh retroflex. Harbin speech is the closest to Beijing Mandarin. A safe default for a generic 'Dongbei' character.",
+      "source_ids": [
+        1,
+        2
+      ]
+    },
+    {
+      "region": "黑松片 (Heisong; Qiqihar, Heihe, Daqing, Yichun, Jiamusi)",
+      "features": "Zero-initial syllables are mixed: some zero, some ng-/n- (the zh.wikipedia statement carries 'needs explanation'). Northern Heilongjiang and Inner Mongolia border.",
+      "source_ids": [
+        1,
+        2
+      ]
+    },
+    {
+      "region": "Province-level differences (黑 / 吉 / 辽)",
+      "features": "No source I opened compares Heilongjiang, Jilin and Liaoning speech at the province level. The sub-group names above are the only verified split, and they cut across provinces.",
+      "source_ids": [
+        2
+      ]
     }
   ],
   "common_mistakes": [
-    "Packing many dialect words (嘎哈, 整, 贼, 唠嗑儿, 扯犊子) into every line. This is the classic caricature and should be limited to roughly one per paragraph in casual speech.",
-    "Turning every r sound into y. The change applies to certain r words (人, 肉), not to all syllables.",
-    "Using dialect words in formal speech, narration or announcements.",
-    "Making up particles such as 呗 or 哩 without evidence. The sources reviewed did not confirm them."
+    "Packing 嘎哈, 整, 贼, 唠嗑儿, 扯犊子 into every line. This is the classic caricature. Roughly one regional item per sentence at most, in casual speech only.",
+    "Turning every r into y. It is a few words (人, 肉, 软), weaker in younger speakers.",
+    "Using 你瞅啥 and 瞅你咋地 as everyday talk. They are fighting words.",
+    "Writing 老蒯, 马胡陆, 卜留克 or other dated or rare words. They are removed on purpose.",
+    "Treating 稀罕, 膈应, 忽悠 or 啥 as only Northeastern. They are used in much of northern China, and 忽悠 became national slang.",
+    "Using Dongbei words in formal speech, narration or announcements.",
+    "Inventing final particles (呗, 昂, 嗷, 哈). No opened source confirmed them."
   ],
   "generational_notes": [
-    "No verified source on which words older or younger Northeasterners use. The source notes are based on older textbooks and general observation.",
-    "Younger speakers may use the same words in online or comedic contexts. Actors should confirm this with a native speaker before deciding how strong to make the dialect."
+    "zh.wikipedia says older speakers in eastern Jilin pronounce r as y, and younger speakers are moving towards Standard Mandarin (uncited).",
+    "忽悠 spread nationally via Zhao Benshan sketches (Wiktionary, source 3), so younger people may not hear it as Northeastern.",
+    "嘎嘎 as an intensifier (Harbin per Wiktionary) is slangy; its age profile was not verified."
   ],
   "conversion_guidelines": [
-    "Keep the standard Mandarin sentence structure and word order. No verified grammar changes were found, so do not invent new grammar.",
-    "Replace at most one or two lexical items per paragraph (for example 整, 咋, 贼, 唠嗑儿). Use them in casual dialogue only, never in narration.",
-    "Apply the r-to-y change only to words where it is documented (人, 肉), not to all words with r.",
-    "Do not add sentence-final particles (呗, 哩, 嘛) until they are verified. Leave the standard particles unchanged.",
-    "Mark each converted word in a glossary so the actor can check the source and confidence.",
-    "Flag every low-confidence item for native-speaker review before performance."
+    "Write natural spoken Mandarin first, in film-dialogue register. Then add at most 1 or 2 regional items per sentence from the verified list: 啥, 咋, 咋整, 嘎哈, 整, 贼, 埋汰, 磕碜, 唠嗑儿, 嘚瑟, 瞅, 忽悠, 扯犊子, 旮旯.",
+    "Keep Mandarin sentence structure. The only verified structures are 整 as a general verb, 咋 + verb questions, 贼/老 + adjective, 你嘎哈去, and 咱俩唠唠. Do not invent others.",
+    "Add erhua lightly, on small nouns, not everywhere. Use 咱 for inclusive 'we' when the characters are friends.",
+    "Do not add the final particles 呗, 昂, 嗷, 哈 until a source is found.",
+    "For a neutral Dongbei character use Harbin-type speech (closest to Beijing). Add Jishen or Heisong details only when the setting is named.",
+    "Make insults and fighting lines (你彪啊, 扯犊子, 你瞅啥) clearly flagged for director approval.",
+    "Mark each constructed line as constructed and ask a Northeastern native to rate how natural it sounds before performance."
   ],
   "sources": [
     {
@@ -203,18 +673,129 @@
     },
     {
       "id": 2,
-      "title": "东北官话 - Wikipedia (中文)",
+      "title": "东北官话 - 中文维基百科 (opened; used as a pointer. Phonology: vowel facts cite 中国语言地图集 and Li 2004; initials and many lexical items carry no citation; whole page flagged 'needs more sources')",
       "url": "https://zh.wikipedia.org/wiki/東北官話",
       "type": "encyclopedia"
+    },
+    {
+      "id": 3,
+      "title": "Ginger Huang, Dongbei Survival Guide, The World of Chinese, 7 June 2015",
+      "url": "https://www.theworldofchinese.com/2015/06/dongbei-survival-guide",
+      "type": "journalism"
+    },
+    {
+      "id": 4,
+      "title": "Wiktionary: 整 (sense 'to do', example labelled Northeastern Mandarin)",
+      "url": "https://en.wiktionary.org/wiki/整",
+      "type": "dictionary"
+    },
+    {
+      "id": 5,
+      "title": "Wiktionary: 賊 (sense 'very', Northeastern Mandarin)",
+      "url": "https://en.wiktionary.org/wiki/賊",
+      "type": "dictionary"
+    },
+    {
+      "id": 6,
+      "title": "Wiktionary: 埋汰",
+      "url": "https://en.wiktionary.org/wiki/埋汰",
+      "type": "dictionary"
+    },
+    {
+      "id": 7,
+      "title": "Wiktionary: 磕磣",
+      "url": "https://en.wiktionary.org/wiki/磕磣",
+      "type": "dictionary"
+    },
+    {
+      "id": 8,
+      "title": "Wiktionary: 嘮嗑",
+      "url": "https://en.wiktionary.org/wiki/嘮嗑",
+      "type": "dictionary"
+    },
+    {
+      "id": 9,
+      "title": "Wiktionary: 得瑟 (variant 嘚瑟)",
+      "url": "https://en.wiktionary.org/wiki/得瑟",
+      "type": "dictionary"
+    },
+    {
+      "id": 10,
+      "title": "Wiktionary: 瞅",
+      "url": "https://en.wiktionary.org/wiki/瞅",
+      "type": "dictionary"
+    },
+    {
+      "id": 11,
+      "title": "Wiktionary: 忽悠",
+      "url": "https://en.wiktionary.org/wiki/忽悠",
+      "type": "dictionary"
+    },
+    {
+      "id": 12,
+      "title": "Wiktionary: 稀罕",
+      "url": "https://en.wiktionary.org/wiki/稀罕",
+      "type": "dictionary"
+    },
+    {
+      "id": 13,
+      "title": "Wiktionary: 膈應",
+      "url": "https://en.wiktionary.org/wiki/膈應",
+      "type": "dictionary"
+    },
+    {
+      "id": 14,
+      "title": "Wiktionary: 扯犢子",
+      "url": "https://en.wiktionary.org/wiki/扯犢子",
+      "type": "dictionary"
+    },
+    {
+      "id": 15,
+      "title": "Wiktionary: 旮旯",
+      "url": "https://en.wiktionary.org/wiki/旮旯",
+      "type": "dictionary"
+    },
+    {
+      "id": 16,
+      "title": "Wiktionary: 啥 (Northeastern Mandarin listed: Harbin, Shenyang, Qiqihar)",
+      "url": "https://en.wiktionary.org/wiki/啥",
+      "type": "dictionary"
+    },
+    {
+      "id": 17,
+      "title": "Wiktionary: 咋 (how/why; Northeastern label NOT shown on that page)",
+      "url": "https://en.wiktionary.org/wiki/咋",
+      "type": "dictionary"
+    },
+    {
+      "id": 18,
+      "title": "Rui Jingying, Hong Jia Fei, Song Jie 2023, Taking Comparison Between the Degree Adverbs in Northeast Dialect and Taiwanese Mandarin from Three Perspectives: Taking Lao and Chao as Examples, CLSW 2022, LNAI 13495, pp. 490-505, doi:10.1007/978-3-031-28953-8_36 (abstract read)",
+      "url": "https://scholar.lib.ntnu.edu.tw/en/publications/taking-comparison-between-the-degree-adverbs-in-northeast-dialect/",
+      "type": "academic"
+    },
+    {
+      "id": 19,
+      "title": "Wiktionary: 得勁 (labelled Central Plains / Jilu, not Northeastern)",
+      "url": "https://en.wiktionary.org/wiki/得勁",
+      "type": "dictionary"
+    },
+    {
+      "id": 20,
+      "title": "Wiktionary: 苞米 (variant of 包米 'corn')",
+      "url": "https://en.wiktionary.org/wiki/苞米",
+      "type": "dictionary"
     }
   ],
   "confidence": "low",
   "open_questions": [
-    "No verified grammar or sentence-final particle data was found. Need a Northeastern dialect dictionary (东北方言词典 or 东北方言大词典) or CNKI articles on 东北官话 语气词.",
-    "Verify 老鼻子, 忒, 呗, 哩, 嘛, 得, 给, 把 and 处置 usage. The sources reviewed do not cover them.",
-    "The source's cited academic works (Li 1989, 中国语言地图集, 汉语方言学基础教程) were not opened. Check them directly.",
-    "Confirm the correct written form (嘎哈 vs 噶哈呢) and current usage frequency.",
-    "The 'ian -> æ' and 'w kept' rules come from an English encyclopedia summary. Check with a Northeastern native speaker or phonetic study before relying on them.",
-    "Ask a native speaker to rate which words sound natural now versus dated."
-  ]
+    "Verified Northeastern final particles (呗, 昂, 嗷, 嚎, 哈, 哩) are still missing. Source needed: 东北方言词典 / 东北方言概念词典, or CNKI papers on 东北官话 语气词. A Shanghai International Studies University paper on 嚎 was found but its page was behind a captcha.",
+    "老 + adjective + 了: confirmed only as 'degree adverb with strong subjective emotion' by a 2023 abstract. The example sentences come from my combination, not from an opened source.",
+    "得劲: Wiktionary labels it Central Plains / Jilu, not Northeastern, so it was not added as a Dongbei word.",
+    "苞米: widely known as Northeastern but the opened Wiktionary page gives no dialect label.",
+    "啥前儿 and 白话: only on the uncited vocabulary section of zh.wikipedia 东北官话.",
+    "r- → y or l or zero by sub-region and age: the statements are uncited. Check 中国语言地图集 or a phonetic study.",
+    "No opened source compares Heilongjiang, Jilin and Liaoning at the province level.",
+    "Whether Dalian and Dandong belong to Jiaoliao Mandarin: the claim came from a search snippet only."
+  ],
+  "confidence_note": "low-to-medium (vocabulary and set phrases: medium; grammar: low; phonology: low-to-medium, many source statements are uncited)"
 }

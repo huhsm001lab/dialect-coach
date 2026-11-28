@@ -2,195 +2,484 @@
   "code": "en-us-south",
   "name": "Southern US English",
   "language": "en",
-  "summary": "Southern US English is a family of accents spoken across the American South. Its most audible features are vowel changes: a monophthongised PRICE vowel (the 'I' sound in 'ride' or 'my' is said as one open vowel), a weakened glide, fronted back vowels, and a 'drawl' in which stressed short vowels are stretched into two parts. Grammar differences are few and mostly limited to y'all, double modals (might could) and fixin' to. Most of the difference is in sound, so spelling changes should stay minimal. Several features are documented as declining, especially among younger and urban speakers. Evidence here comes from Wikipedia summaries (checked against the Yale Grammatical Diversity Project for modals). Primary academic sources (Labov, Ash and Boberg, Atlas of North American English; the Dictionary of American Regional English) were not opened in this pass and should be checked before the file is treated as final.",
+  "summary": "Southern US English is a family of accents and dialects. Sound is where it differs most: the PRICE vowel loses its glide (stage 1 of the Southern Vowel Shift, complete in most Southern dialects), the FACE/DRESS and KIT/FLEECE vowels move in later stages, short front vowels can 'break' into two parts (the drawl), pin and pen merge before nasals, and cot and caught stay distinct. Grammar is where an actor can add real flavour with few words: fixin' to, y'all, double modals (might could), liketa, perfective done, personal datives (I love me some...), and, in Appalachian/Ozark speech, a-prefixing. Round 2 added the Yale Grammatical Diversity Project (YGDP) pages for each grammar item and a Wikipedia page on the Southern Vowel Shift that summarises Labov, Ash and Boberg (2006) and Thomas (2004). Those two primary works were NOT opened directly. Many features are declining among younger and urban speakers; 'Southern' is not one accent (see sub_regions).",
   "grammar": [
     {
       "standard": "you (plural, addressing a group)",
       "dialect": "y'all",
-      "condition": "Only when addressing two or more people. Do not use for one person.",
+      "condition": "Only for two or more people. Possessive is y'all's. Widespread and not heavily stigmatized (source 1).",
       "example_standard": "Are you coming to dinner tonight?",
       "example_dialect": "Are y'all coming to dinner tonight?",
-      "source_ids": [1]
+      "source_ids": [
+        1
+      ]
     },
     {
-      "standard": "you (plural, addressing several separate groups)",
+      "standard": "you (plural, several separate groups)",
       "dialect": "all y'all",
-      "condition": "Addressing several groups that are separate from each other. Rare; use at most once in a monologue, and only if the scene calls for it.",
+      "condition": "Used when addressing several distinct groups. Rare; once at most per monologue.",
       "example_standard": "I know all of you.",
       "example_dialect": "I know all y'all.",
-      "source_ids": [1]
-    },
-    {
-      "standard": "might be able to / could possibly",
-      "dialect": "might could",
-      "condition": "Double modal (two modal verbs in a row). Most common in South Midland and Southern speech. The Yale project reports it is generally not stigmatized but usage frequency varies a lot between speakers.",
-      "example_standard": "I might be able to help you.",
-      "example_dialect": "I might could help you.",
-      "source_ids": [1, 4]
+      "source_ids": [
+        1
+      ]
     },
     {
       "standard": "be about to / be going to (near future)",
-      "dialect": "fixin' to",
-      "condition": "Near future for an action that is about to happen. Informal.",
-      "example_standard": "He is about to eat.",
-      "example_dialect": "He's fixin' to eat.",
-      "source_ids": [1]
+      "dialect": "fixin' to (also finna in African American English)",
+      "condition": "YGDP: near future, most common in the present tense; can take non-human subjects ('It's fixin' to rain'). Speaker needs good grounds, so 'maybe' sounds odd. NEGATIVE 'not fixin' to' carries a strong 'I'm never going to' refusal. Not possible in the future tense (*will be fixin' to).",
+      "example_standard": "I'm about to wash the dishes.",
+      "example_dialect": "I'm fixin' to wash the dishes.",
+      "source_ids": [
+        5
+      ]
+    },
+    {
+      "standard": "might be able to",
+      "dialect": "might could (also might can, might should, might would, may could)",
+      "condition": "YGDP: double modals are widespread in the South, usually start with might or may, are not stigmatized, but frequency varies a lot by speaker. Attested in Texas, the Carolinas, Alabama, Tennessee.",
+      "example_standard": "I thought you might be able to help me.",
+      "example_dialect": "I thought you might could help me.",
+      "source_ids": [
+        4
+      ]
+    },
+    {
+      "standard": "almost / nearly (a near miss)",
+      "dialect": "liketa",
+      "condition": "YGDP: only in affirmative or negative statements, not questions; comes before a past-event verb and not before 'be'. Often dramatic or dangerous situations. Appalachian, white Southern and African American English.",
+      "example_standard": "She almost killed me!",
+      "example_dialect": "She liketa killed me!",
+      "source_ids": [
+        6
+      ]
+    },
+    {
+      "standard": "have already (emphatic, often surprised or irritated)",
+      "dialect": "done + past verb (perfective done)",
+      "condition": "YGDP: found in African American English and in some white Southern speech (e.g. Alabama, Georgia, South Carolina). Usually with past-form action verbs; adds emotion or surprise. Many speakers avoid it in negatives. Not used by every Southern speaker.",
+      "example_standard": "I've already told you!",
+      "example_dialect": "I done told you!",
+      "source_ids": [
+        7
+      ]
+    },
+    {
+      "standard": "reflexive pronoun after a verb (for oneself)",
+      "dialect": "personal dative: 'I love me some...', 'caught her a catfish'",
+      "condition": "YGDP: pronoun right after the verb that refers back to the subject, usually with 'some' or 'a', for events the subject benefits from. Commoner in the South and Appalachia but YGDP says the regional pattern is weaker than for other Southern datives.",
+      "example_standard": "I love baked beans.",
+      "example_dialect": "I love me some baked beans.",
+      "source_ids": [
+        8
+      ]
+    },
+    {
+      "standard": "-ing verb without prefix",
+      "dialect": "a-prefixing: a-goin', a-huntin'",
+      "condition": "YGDP: Appalachian, Ozark and Smoky Mountain speech; only on -ing VERBS (not nouns/adjectives), usually on verbs stressed on the first syllable. Old-fashioned and rural: do NOT use as a general 'Southern' marker.",
+      "example_standard": "He kept begging and crying.",
+      "example_dialect": "He kept a-beggin' and a-cryin'.",
+      "source_ids": [
+        9
+      ]
+    },
+    {
+      "standard": "I don't eat any biscuits.",
+      "dialect": "I don't eat no biscuit.",
+      "condition": "Negative concord (double negation). YGDP lists Alabama White English, African American, Appalachian, West Texas. Stigmatized in formal settings; marks informal or rural-working-class characters. Not specific to the South.",
+      "example_standard": "I don't eat any biscuits.",
+      "example_dialect": "I don't eat no biscuit.",
+      "source_ids": [
+        10
+      ]
+    },
+    {
+      "standard": "there is (existential)",
+      "dialect": "it's (existential it)",
+      "condition": "Source 1 lists 'It's one lady who lives in town' as a Southern pattern. One-sentence source; medium-low confidence.",
+      "example_standard": "There's a lady who lives in town.",
+      "example_dialect": "It's one lady who lives in town.",
+      "source_ids": [
+        1
+      ]
+    },
+    {
+      "standard": "am not / is not / are not / have not",
+      "dialect": "ain't",
+      "condition": "Widespread non-standard, not South-specific; source 1 lists it as typical Southern vocabulary. Use sparingly.",
+      "example_standard": "He isn't home.",
+      "example_dialect": "He ain't home.",
+      "source_ids": [
+        1
+      ]
+    },
+    {
+      "standard": "regular past forms (rose, dragged, drowned)",
+      "dialect": "riz, drug, drownded, drawed",
+      "condition": "Source 1 gives 'yesterday they riz up, come outside, drawed, and drownded' and says 'drug' is traditionally both past tense and participle of drag. Rural, older flavour; keep to one at most.",
+      "example_standard": "Yesterday they rose up and drowned.",
+      "example_dialect": "Yesterday they riz up and drownded.",
+      "source_ids": [
+        1
+      ]
     }
   ],
   "vocabulary": [
     {
       "standard": "shopping cart",
       "dialect": "buggy",
-      "note": "Listed as a Southern term in the source. Regional; many Southerners also say 'cart'.",
-      "source_ids": [1]
+      "note": "Listed as Southern (source 1). Age distribution not stated in the source.",
+      "source_ids": [
+        1
+      ]
     },
     {
       "standard": "goose bumps",
       "dialect": "chill bumps",
-      "note": "Listed as a Southern term in the source.",
-      "source_ids": [1]
+      "note": "Synonym listed in source 1.",
+      "source_ids": [
+        1
+      ]
     },
     {
       "standard": "crayfish",
       "dialect": "crawfish",
-      "note": "Listed in the source. Common in Louisiana and nearby areas.",
-      "source_ids": [1]
+      "note": "Listed in source 1; strongly Louisiana/Gulf food culture.",
+      "source_ids": [
+        1
+      ]
     },
     {
-      "standard": "almost",
-      "dialect": "liketa",
-      "note": "Example from source: 'I liketa died' (I almost died). Informal.",
-      "source_ids": [1]
-    },
-    {
-      "standard": "think / suppose / guess",
+      "standard": "think / suppose",
       "dialect": "reckon",
-      "note": "Listed in the source as a Southern verb.",
-      "source_ids": [1]
+      "note": "Source 1: 'think, guess, or conclude'. Everyday for older/rural speakers; age data not in source.",
+      "source_ids": [
+        1
+      ]
     },
     {
       "standard": "potatoes",
       "dialect": "taters",
-      "note": "Informal. Use only in relaxed or rural characters.",
-      "source_ids": [1]
+      "note": "Informal and folksy (source 1). Use for relaxed or rural characters only.",
+      "source_ids": [
+        1
+      ]
     },
     {
-      "standard": "carry",
+      "standard": "carry (a thing)",
       "dialect": "tote",
-      "note": "Informal. Listed in the source.",
-      "source_ids": [1]
+      "note": "Source 1. Informal.",
+      "source_ids": [
+        1
+      ]
+    },
+    {
+      "standard": "escort or accompany someone",
+      "dialect": "carry (someone) somewhere",
+      "note": "Source 1: 'carry' additionally means escort/accompany (e.g. take someone to a place).",
+      "source_ids": [
+        1
+      ]
     },
     {
       "standard": "over there, far off",
       "dialect": "yonder",
-      "note": "Old-fashioned and rural in flavour. Listed in the source.",
-      "source_ids": [1]
+      "note": "Old-fashioned/rural flavour (round-1 coaching judgement; no age data in source 1).",
+      "source_ids": [
+        1
+      ]
     },
     {
       "standard": "bad-tempered",
       "dialect": "ornery",
-      "note": "Listed in the source.",
-      "source_ids": [1]
+      "note": "Source 1: bad-tempered or surly (derived from 'ordinary'). Good for banter or mild anger.",
+      "source_ids": [
+        1
+      ]
     },
     {
-      "standard": "pest / troublemaker",
+      "standard": "pest, undesirable person or animal",
       "dialect": "varmint",
-      "note": "Listed in the source. Also used for animal pests.",
-      "source_ids": [1]
+      "note": "Source 1. Colourful and rural; use once at most.",
+      "source_ids": [
+        1
+      ]
     },
     {
-      "standard": "covered front porch",
+      "standard": "large roofed porch",
       "dialect": "veranda",
-      "note": "Listed in the source as a Southern usage.",
-      "source_ids": [1]
+      "note": "Source 1 (Southern use of 'veranda').",
+      "source_ids": [
+        1
+      ]
     },
     {
-      "standard": "am not / is not / are not",
-      "dialect": "ain't",
-      "note": "Widespread nonstandard form, not specific to the South. Use sparingly.",
-      "source_ids": [1]
+      "standard": "diagonally across",
+      "dialect": "catty-corner",
+      "note": "Source 1: located diagonally.",
+      "source_ids": [
+        1
+      ]
     },
     {
-      "standard": "I feel sorry for you (often sarcastic)",
+      "standard": "any sweet fizzy drink",
+      "dialect": "coke",
+      "note": "Source 1: 'Coke' can mean any sweet carbonated soft drink.",
+      "source_ids": [
+        1
+      ]
+    },
+    {
+      "standard": "turn on / off / out (a light or device)",
+      "dialect": "cut on / cut off / cut out",
+      "note": "Source 1: 'cut on/off/out' for lights and electronics.",
+      "source_ids": [
+        1
+      ]
+    },
+    {
+      "standard": "frosting (on a cake)",
+      "dialect": "icing",
+      "note": "Source 1: preferred over 'frosting'.",
+      "source_ids": [
+        1
+      ]
+    },
+    {
+      "standard": "very, extremely (adverb)",
+      "dialect": "right / powerful",
+      "note": "Source 1: 'right' = very; 'powerful' = great in amount (adverb).",
+      "source_ids": [
+        1
+      ]
+    },
+    {
+      "standard": "coleslaw",
+      "dialect": "slaw",
+      "note": "Source 1.",
+      "source_ids": [
+        1
+      ]
+    },
+    {
+      "standard": "knit cap",
+      "dialect": "toboggan",
+      "note": "Source 1.",
+      "source_ids": [
+        1
+      ]
+    },
+    {
+      "standard": "tip over, fall over",
+      "dialect": "tump",
+      "note": "Source 1: southwestern (Texas, Louisiana). Intransitive.",
+      "source_ids": [
+        1
+      ]
+    },
+    {
+      "standard": "rude",
+      "dialect": "ugly",
+      "note": "Source 1: 'ugly' can mean rude.",
+      "source_ids": [
+        1
+      ]
+    },
+    {
+      "standard": "disreputable",
+      "dialect": "ordinary",
+      "note": "Source 1: 'ordinary' can mean disreputable. Easy to misread; use with context.",
+      "source_ids": [
+        1
+      ]
+    },
+    {
+      "standard": "sunshower",
+      "dialect": "the devil's beating his wife",
+      "note": "Phrase listed in source 1 for rain while the sun shines. Folk expression; may be unpleasant to hearers.",
+      "source_ids": [
+        1
+      ]
+    },
+    {
+      "standard": "toilet-papering prank",
+      "dialect": "rolling",
+      "note": "Source 1.",
+      "source_ids": [
+        1
+      ]
+    },
+    {
+      "standard": "(sympathy, often sarcastic)",
       "dialect": "bless your heart",
-      "note": "Can be sincere sympathy or a polite insult depending on tone. Strong stage effect; use once at most.",
-      "source_ids": [1]
+      "note": "Source 1: sympathy, 'now often used sarcastically'. Meaning depends on tone.",
+      "source_ids": [
+        1
+      ]
     },
     {
-      "standard": "Louisiana sandwich on French bread",
+      "standard": "long sandwich (Louisiana)",
       "dialect": "po' boy",
-      "note": "Regional food term from Louisiana. Only use if the monologue names food.",
-      "source_ids": [1]
+      "note": "Louisiana only (source 1).",
+      "source_ids": [
+        1
+      ]
+    },
+    {
+      "standard": "sidewalk (Louisiana)",
+      "dialect": "banquette",
+      "note": "South Louisiana (source 1).",
+      "source_ids": [
+        1
+      ]
+    },
+    {
+      "standard": "median (Louisiana)",
+      "dialect": "neutral ground",
+      "note": "South Louisiana (source 1).",
+      "source_ids": [
+        1
+      ]
     }
   ],
   "pronunciation": [
     {
-      "rule": "PRICE vowel is monophthongised: the 'I' vowel (as in 'ride', 'my', 'time') loses its glide and is said as one open vowel, in many or all environments.",
-      "ipa": "/aɪ/ -> [aː] (approximate; source notation)",
-      "actor_tip": "Start with an open 'ah' and hold it steady. Do not slide up toward 'ee'. Say 'my' as one clean open sound. This is the single most recognizable Southern vowel, so use it on every 'I' and 'my' but do not overdo it.",
-      "example": "my, ride, time, I",
-      "source_ids": [1]
+      "rule": "PRICE monophthong (Southern Shift stage 1): the glide of /aɪ/ weakens or disappears, so 'ride' can sound like 'rod' or 'rad' to other Americans. Inland Southern speakers (Appalachia, central Texas) may drop the glide in ALL positions; in coastal cities such as Charleston, Atlanta and Savannah it is absent or rare. Stage 1 is complete in most Southern dialects.",
+      "ipa": "/aɪ/ -> [aː]",
+      "actor_tip": "Hold one open 'ah' for 'my', 'ride', 'time', 'I'. Do not glide to 'ee'. Not every Southern character does it: for Atlanta/Charleston-type urban speakers use a normal glide.",
+      "example": "my, ride, time, I, nice white rice",
+      "source_ids": [
+        1,
+        11
+      ]
     },
     {
-      "rule": "Pin-pen merger: before the nasal consonants m, n and ng, the vowels of 'pin' and 'pen' are the same, so the two words sound identical.",
-      "ipa": "/ɪ/ = /ɛ/ before /m n ŋ/",
-      "actor_tip": "In words with m, n or ng after the vowel, use one shared vowel (a relaxed 'ih' that is close to 'eh'). 'Let's go to the pen' should sound like 'pin'. Do not apply this before other consonants: 'bet' and 'bit' stay different.",
-      "example": "pin / pen, kin / ken, him / hem, tin / ten",
-      "source_ids": [2]
+      "rule": "Southern Shift stage 2: FACE drops to [ɛɪ]; DRESS rises and breaks ('pet' close to 'pay-et'). Mainly on stressed syllables.",
+      "ipa": "FACE /eɪ/ -> [ɛɪ]; DRESS /ɛ/ -> [e(j)ə]",
+      "actor_tip": "Make 'day' start lower ('deh-ee'). For 'pet', 'bed' add a small 'uh' after the vowel. Use only on stressed words.",
+      "example": "day, pet, bed",
+      "source_ids": [
+        11
+      ]
     },
     {
-      "rule": "Mary-merry merger (partial): 'Mary' and 'merry' share the same vowel, while 'marry' may keep its own vowel. Most common in the South, especially Louisiana.",
-      "ipa": "/ˈmɛri/ for both Mary and merry; marry may keep /ˈmæri/ (approximate)",
-      "actor_tip": "Say 'Mary' and 'merry' with the same vowel, as in 'merry'. Keep 'marry' with the short 'a' of 'cat'. Use only if the monologue contains these words; it is a subtle feature, so do not force it.",
+      "rule": "Southern Shift stage 3 (common inland): KIT becomes a rising diphthong [iə]; FLEECE starts lower [ɪi].",
+      "ipa": "KIT /ɪ/ -> [iə]; FLEECE /i/ -> [ɪi]",
+      "actor_tip": "'Pit' sounds like 'pee-it'; 'see' starts with a short 'ih'. Subtle: one word per line is enough.",
+      "example": "pit, kid, see",
+      "source_ids": [
+        11
+      ]
+    },
+    {
+      "rule": "Southern drawl: stressed short front vowels (TRAP, DRESS, KIT) become two-part vowels, so one syllable can sound like two. Most prominent in speakers born before 1960 and declining (Thomas 2004 via source 11).",
+      "ipa": "/æ/ -> [æjə~ɛjə]; /ɛ/ -> [ɛjə~ejə]; /ɪ/ -> [ɪjə~ijə]",
+      "actor_tip": "Stretch ONE stressed word, e.g. 'pet' -> 'pay-et', 'pit' -> 'pee-it'. A drawl on every word is a caricature.",
+      "example": "pet, pit, bad",
+      "source_ids": [
+        11,
+        1
+      ]
+    },
+    {
+      "rule": "Pin-pen merger: /ɛ/ and /ɪ/ merge before nasals (m, n, ng); the merged vowel is mostly [ɪ]. Absent or incomplete in New Orleans, South Florida and the South Carolina/Georgia Lowcountry (Wikipedia summary of Labov, Ash and Boberg 2006).",
+      "ipa": "/ɛ/ = /ɪ/ before /m n ŋ/",
+      "actor_tip": "Say 'pen' and 'pin' identically (closer to 'pin'). Only before m, n, ng: 'bet' and 'bit' stay different.",
+      "example": "pin/pen, him/hem, tin/ten",
+      "source_ids": [
+        2,
+        11
+      ]
+    },
+    {
+      "rule": "Mary-merry merger (partial): Mary and merry share a vowel; 'marry' may keep its own. Most common in the South, especially Louisiana.",
+      "ipa": "/ˈmɛri/ for Mary and merry",
+      "actor_tip": "Subtle; use only if the text has these words.",
       "example": "Mary / merry / marry",
-      "source_ids": [3]
+      "source_ids": [
+        3
+      ]
     },
     {
-      "rule": "Back vowels are fronted: the vowels in GOAT, GOOSE, STRUT and FOOT are pronounced further forward in the mouth than in General American.",
-      "ipa": "No exact IPA in source. Fronting of /oʊ/, /uː/, /ʌ/, /ʊ/ (direction only)",
-      "actor_tip": "Keep the same vowel but move the tongue forward in the mouth. 'Go', 'you', 'cup' and 'good' should sit toward the front. Do not make them sound like different words.",
+      "rule": "Back vowels are fronted: GOAT, GOOSE, STRUT and FOOT sit further forward than in many other American accents.",
+      "ipa": "GOAT, GOOSE, STRUT, FOOT fronted (direction only)",
+      "actor_tip": "Keep the vowel but move it forward ('go', 'you', 'cup').",
       "example": "go, you, cup, good",
-      "source_ids": [1]
+      "source_ids": [
+        1
+      ]
     },
     {
-      "rule": "Drawl: stressed short vowels, especially in emphasised words, get an extra glide and become two-part vowels.",
-      "ipa": "Approximate, from source examples: /ɛ/ -> [eɪ] ('pet' as 'pay-et'); /ɪ/ -> [iɪ] ('pit' as 'pee-it')",
-      "actor_tip": "Stretch only the one word you want to emphasise, not every word in the line. Say 'pet' as 'pay-et' and 'pit' as 'pee-it'. A drawl on every word becomes a caricature.",
-      "example": "pet (pay-et), pit (pee-it)",
-      "source_ids": [1]
+      "rule": "No cot-caught merger: Southern English (like Midland) resists the merger, so 'cot' and 'caught' stay different.",
+      "ipa": "/ɑ/ vs /ɔ/ kept distinct",
+      "actor_tip": "Keep 'cot' short and unrounded and 'caught' rounder; do not use a Californian merged vowel.",
+      "example": "cot / caught",
+      "source_ids": [
+        1
+      ]
     },
     {
-      "rule": "Historic r-dropping: traditional older rural speakers, and many Black Southern speakers, drop /r/ after vowels or before consonants. Current white Southern speech has become more rhotic (pronounced r) overall.",
-      "ipa": "/r/ -> silent in coda (non-rhotic)",
-      "actor_tip": "For an older rural character, let the r in 'car', 'door' and 'floor' fade so it sounds like 'cah' and 'doe'. For a younger or urban character, keep the r. Decide per character, not per monologue.",
+      "rule": "R: most Southern accents are rhotic today. Older speakers and some African American Southern speakers may be largely non-rhotic. White Southern speech, traditionally non-rhotic, has become 'intensely rhotic'.",
+      "ipa": "/r/ pronounced (default); older/rural/AAE: coda r weak or absent",
+      "actor_tip": "Default: keep every r. Only for an older rural or Black Southern character should coda r fade ('cah', 'doh').",
       "example": "car, door, floor",
-      "source_ids": [1]
+      "source_ids": [
+        1
+      ]
+    },
+    {
+      "rule": "Front stress: first-syllable stress in words such as 'hotel' and 'guitar' (shared with African American English).",
+      "ipa": "HO-tel, GUI-tar",
+      "actor_tip": "Push the weight onto the first syllable; it is rhythm, not a vowel change.",
+      "example": "hotel, guitar",
+      "source_ids": [
+        1
+      ]
     }
   ],
-  "intonation": [],
+  "intonation": [
+    {
+      "rule": "Front stress on some multi-syllable words ('HO-tel', 'GUI-tar') gives Southern speech a different rhythm from General American (source 1, shared with AAE).",
+      "source_ids": [
+        1
+      ],
+      "actor_tip": "Shift the stress to syllable 1 for those words only."
+    },
+    {
+      "rule": "The drawl lengthens and 'breaks' stressed short vowels, especially in emphasised words; weaker or absent in younger urban speakers. Use it as emphasis on a key word, not as a constant slow tempo.",
+      "source_ids": [
+        11,
+        1
+      ],
+      "actor_tip": "One drawled word per line at most."
+    }
+  ],
   "common_mistakes": [
-    "Stretching every vowel in the line (the 'Foghorn' caricature). The drawl is for stressed words only.",
+    "Stretching every vowel in the line (the 'Foghorn' caricature). The drawl is for one stressed word.",
     "Using y'all to address one person.",
-    "Dropping every r in every word regardless of character age or region (r-dropping is documented as declining).",
-    "Piling on ain't, fixin' to, y'all and bless your heart in one speech. Choose one or two.",
-    "Spelling every word in dialect (e.g. 'gonna', 'yer'). The accent is in the sound, not the spelling. Use the sound rules instead.",
-    "Sugary 'Southern belle' delivery applied to every character. Tone and class vary widely across the South."
+    "Using a-prefixing ('a-goin'') as a general Southern marker. YGDP ties it to Appalachian/Ozark/Smoky Mountain speech.",
+    "Dropping every r for every character. Most Southern accents are rhotic today.",
+    "Using 'not fixin' to' as a polite 'not yet'. It means a firm refusal.",
+    "Spelling words in eye-dialect ('gonna', 'yer', 'ah'). Keep standard spelling; carry the accent in delivery notes.",
+    "Applying the PRICE monophthong to every Southern character. Atlanta/Charleston-type urban speech does not drop the glide.",
+    "Piling on ain't, fixin' to, y'all and bless your heart in one speech. Choose one or two."
   ],
   "generational_notes": [
-    "Source describes the Southern accent as in gradual decline, especially among younger and urban speakers; rural white speakers keep more features.",
-    "Historic r-dropping is the clearest example of decline. Current white Southern speakers have become more rhotic.",
-    "PRICE monophthongisation and glide weakening are documented as the most defining features of the current Southern accent, but the source does not give age-by-age frequency figures.",
-    "Double modals, y'all and fixin' to are presented in the source as widely used and not heavily stigmatized, with large variation between speakers."
+    "Source 1: the Southern accent is receding, especially among younger and more urban Southerners.",
+    "Drawl: strongest in speakers born before 1960 and declining (source 11 citing Thomas 2004).",
+    "R-dropping: older white Southern speech was non-rhotic; younger white speakers are strongly rhotic (source 1).",
+    "A-prefixing in Ozark English was absent in speakers under 15, but used by all ages in the Appalachian data (YGDP, source 9).",
+    "Perfective done and 'riz/drownded' type forms read as older, rural or working-class; 'y'all' and 'fixin' to' are the most age-stable."
   ],
   "conversion_guidelines": [
-    "Decide first whether the character is older/rural, middle-aged, or young/urban. Apply historic r-dropping only to older/rural characters, and keep r for young/urban characters.",
-    "Apply the PRICE rule (my, ride, time, I) consistently, but do not use it on every word that contains an 'I' sound in one line.",
-    "Apply the pin-pen merger only before m, n and ng. Never before other consonants.",
-    "Apply the drawl to one stressed word per line at most.",
-    "Use no more than two grammar markers in a monologue. Prefer one of: y'all (group address), fixin' to (near future), might could (hedged ability).",
-    "Keep spelling close to standard English. Do not apostrophise words just to signal an accent, except for the grammar items above.",
-    "Vocabulary: use at most two or three Southern words per monologue, chosen where they fit the character.",
-    "In stage notes, list which rules were applied so the actor can practise each one separately."
+    "Natural spoken film-dialogue English first; add Southern flavour with 1-3 items per monologue, not everything at once.",
+    "Decide the character: older/rural, middle-aged, or young/urban. Only older/rural characters get r-fading, drawl, a-prefixing or 'riz/drownded'.",
+    "Best-value grammar: y'all (group), fixin' to (near future; 'not fixin' to' = refusal), might could (hedge), 'I love me some X' (enthusiasm), liketa/done (drama).",
+    "Vocabulary: 2-3 words at most (reckon, buggy, ornery, 'Coke' for any soda); pick words that fit the scene.",
+    "No eye-dialect respelling. Do not write 'ah', 'yer', 'gonna'. Put sound instructions in actor notes: PRICE as one open 'ah', pin=pen before m/n/ng, one drawled word.",
+    "Apply pin-pen only before m, n, ng. Apply PRICE monophthong only to inland/rural/older characters (and with a normal glide for city characters).",
+    "In actor notes, list which rules were applied so they can be practised one by one."
   ],
   "sources": [
     {
@@ -216,16 +505,233 @@
       "title": "Multiple modals, Yale Grammatical Diversity Project",
       "url": "https://ygdp.yale.edu/phenomena/multiple-modals",
       "type": "academic"
+    },
+    {
+      "id": 5,
+      "title": "Fixin' to, Yale Grammatical Diversity Project",
+      "url": "https://ygdp.yale.edu/phenomena/fixin-to",
+      "type": "academic"
+    },
+    {
+      "id": 6,
+      "title": "Liketa, Yale Grammatical Diversity Project",
+      "url": "https://ygdp.yale.edu/phenomena/liketa",
+      "type": "academic"
+    },
+    {
+      "id": 7,
+      "title": "Perfective done, Yale Grammatical Diversity Project",
+      "url": "https://ygdp.yale.edu/phenomena/perfective-done",
+      "type": "academic"
+    },
+    {
+      "id": 8,
+      "title": "Personal datives, Yale Grammatical Diversity Project",
+      "url": "https://ygdp.yale.edu/phenomena/personal-datives",
+      "type": "academic"
+    },
+    {
+      "id": 9,
+      "title": "A-prefixing, Yale Grammatical Diversity Project",
+      "url": "https://ygdp.yale.edu/phenomena/a-prefixing",
+      "type": "academic"
+    },
+    {
+      "id": 10,
+      "title": "Negative concord, Yale Grammatical Diversity Project",
+      "url": "https://ygdp.yale.edu/phenomena/negative-concord",
+      "type": "academic"
+    },
+    {
+      "id": 11,
+      "title": "Southern Vowel Shift (Wikipedia; summarises Labov, Ash and Boberg 2006 and Thomas 2004)",
+      "url": "https://en.wikipedia.org/wiki/Southern_Vowel_Shift",
+      "type": "encyclopedia"
     }
   ],
   "confidence": "medium",
   "open_questions": [
-    "Southern Vowel Shift (the chain shift of several vowels) is named in the source but its specific steps were not captured. Check Labov, Ash and Boberg (Atlas of North American English) before adding it.",
-    "Exact IPA targets for the fronted back vowels and the drawl are approximate. Verify against a phonetic source or native recordings (e.g., the Yale or DARE audio) before the actor relies on them.",
-    "No intonation pattern was verified from the sources. Leave intonation empty until checked.",
-    "Frequency and age distribution of double modals, y'all and fixin' to in current speech.",
-    "'Needs washed' and habitual 'be' were not verified in the opened sources and are omitted.",
-    "Whether PRICE monophthongisation applies before voiced consonants only, or in all environments as the source says (the source says 'many or all environments'), needs a primary phonetic source.",
-    "Current status of the Mary-merry merger outside Louisiana and the Deep South."
-  ]
+    "Primary sources (Labov, Ash and Boberg 2006; Thomas 2004; Dictionary of American Regional English) were not opened. Vowel IPA comes via a Wikipedia summary; check the ANAE Southern chapter or native recordings before relying on exact values.",
+    "Whether PRICE monophthongisation differs before voiced vs voiceless consonants: the opened pages say only 'many or all environments' (inland: all positions). The widely repeated claim that it is most common before voiced consonants was not verified.",
+    "No verified intonation/pitch description for Southern speech beyond front stress and drawl. Check IDEA or Thomas 2004 recordings.",
+    "Differences between Deep South and Texas were not systematically verified (only Texas data in the multiple-modals page and 'tump').",
+    "Age distribution of vocabulary (yonder, varmint, taters, reckon, tote) is not in the sources. Labels here are coaching judgement.",
+    "'Bless your heart' meaning shift (sincere vs sarcastic) is stated in source 1; frequency by region/age is not.",
+    "Existential 'it' and 'riz/drownded' rest on a single Wikipedia sentence each.",
+    "Pin-pen areas: a Penn phonological atlas map page was not accessible (403); the merger area for Texas and South Midland comes only from a search-result excerpt, not an opened page."
+  ],
+  "examples": [
+    {
+      "korean_idea": "너희 오늘 저녁 먹으러 올 거야? (여러 명에게)",
+      "neutral_english": "Are you all coming to dinner tonight?",
+      "regional_english": "Are y'all coming to dinner tonight?",
+      "note": "'y'all'은 두 명 이상에게만 씁니다(출처 1). 한 사람에게 쓰면 틀립니다.",
+      "source_ids": [
+        1
+      ],
+      "constructed": true
+    },
+    {
+      "korean_idea": "난 그거 안 할 거야! (강한 거절)",
+      "neutral_english": "I'm not going to do that!",
+      "regional_english": "I'm not fixin' to do that!",
+      "note": "YGDP: 'not fixin' to'는 '절대 ~하지 않겠다'는 강한 거절 뉘앙스입니다.",
+      "source_ids": [
+        5
+      ],
+      "constructed": true
+    },
+    {
+      "korean_idea": "걔가 날 죽일 뻔했어!",
+      "neutral_english": "She almost killed me!",
+      "regional_english": "She liketa killed me!",
+      "note": "liketa는 '하마터면'. 의문문이나 be동사 앞에는 못 씁니다(YGDP).",
+      "source_ids": [
+        6
+      ],
+      "constructed": true
+    },
+    {
+      "korean_idea": "내가 벌써 말했잖아! (짜증)",
+      "neutral_english": "I've already told you!",
+      "regional_english": "I done told you!",
+      "note": "perfective done은 놀람/짜증 감정이 실립니다. AAE와 일부 백인 남부 화자(YGDP).",
+      "source_ids": [
+        7
+      ],
+      "constructed": true
+    },
+    {
+      "korean_idea": "아이고, 불쌍하네. (위로)",
+      "neutral_english": "Oh, you poor thing.",
+      "regional_english": "Aw, bless your heart.",
+      "note": "진심 동정에도, 빈정거림에도 쓰입니다. 톤으로 구분(출처 1). 한 번만 쓰세요.",
+      "source_ids": [
+        1
+      ],
+      "constructed": true
+    },
+    {
+      "korean_idea": "너 오늘 왜 이렇게 까칠해? (농담)",
+      "neutral_english": "You're in a bad mood today.",
+      "regional_english": "You're ornery today.",
+      "note": "ornery = bad-tempered. 가벼운 농담조의 시비에 좋습니다(출처 1).",
+      "source_ids": [
+        1
+      ],
+      "constructed": true
+    },
+    {
+      "korean_idea": "곧 비 올 것 같아.",
+      "neutral_english": "It's about to rain.",
+      "regional_english": "It's fixin' to rain.",
+      "note": "YGDP 예문과 같은 구조(사물 주어도 가능).",
+      "source_ids": [
+        5
+      ],
+      "constructed": false
+    },
+    {
+      "korean_idea": "내가 좀 도와줄 수 있을지도 몰라.",
+      "neutral_english": "I might be able to help you with that.",
+      "regional_english": "I might could help you with that.",
+      "note": "이중 조동사. 남부에서 흔하고 낙인이 약하지만 사람마다 빈도 차이가 큽니다(YGDP).",
+      "source_ids": [
+        4
+      ],
+      "constructed": true
+    },
+    {
+      "korean_idea": "나 구운 콩 진짜 좋아해.",
+      "neutral_english": "I love baked beans.",
+      "regional_english": "I love me some baked beans.",
+      "note": "personal dative. YGDP 예문 그대로의 구조입니다.",
+      "source_ids": [
+        8
+      ],
+      "constructed": false
+    },
+    {
+      "korean_idea": "콜라 하나 사 와야겠다.",
+      "neutral_english": "I'm going to get a soda.",
+      "regional_english": "I'm gonna get me a Coke.",
+      "note": "Coke는 탄산음료 전반을 뜻할 수 있음(출처 1) + personal dative(YGDP).",
+      "source_ids": [
+        1,
+        8
+      ],
+      "constructed": true
+    },
+    {
+      "korean_idea": "나는 비스킷 안 먹어.",
+      "neutral_english": "I don't eat any biscuits.",
+      "regional_english": "I don't eat no biscuit.",
+      "note": "부정 일치. YGDP의 Alabama White English 예문과 같은 구조.",
+      "source_ids": [
+        10
+      ],
+      "constructed": false
+    },
+    {
+      "korean_idea": "얘들아, 들어와! (인사/초대)",
+      "neutral_english": "Hey, everybody, come on in!",
+      "regional_english": "Y'all come on in!",
+      "note": "y'all은 인사 호칭으로도 자연스럽습니다(구성 예문).",
+      "source_ids": [
+        1
+      ],
+      "constructed": true
+    }
+  ],
+  "sub_regions": [
+    {
+      "name": "내륙 남부 vs 해안 도시",
+      "note": "PRICE 활음 탈락은 내륙(애팔래치아, 중부 텍사스)에서 모든 위치에 나타나고 찰스턴·애틀랜타·서배너 같은 동부 해안 도시에서는 거의 없습니다.",
+      "source_ids": [
+        11
+      ]
+    },
+    {
+      "name": "pin-pen 예외 지역",
+      "note": "뉴올리언스, 남부 플로리다, 사우스캐롤라이나·조지아 로컬랜드는 병합이 거의 없거나 불완전합니다.",
+      "source_ids": [
+        11
+      ]
+    },
+    {
+      "name": "루이지애나",
+      "note": "po' boy, banquette, neutral ground 같은 지역 어휘. Mary-merry 병합이 특히 흔합니다.",
+      "source_ids": [
+        1,
+        3
+      ]
+    },
+    {
+      "name": "애팔래치아·오자크·스모키마운틴",
+      "note": "a-prefixing, liketa, personal dative 등 가장 '시골/산악' 색이 강한 문법. 일반 남부 인물에게는 쓰지 마세요.",
+      "source_ids": [
+        9,
+        6,
+        8
+      ]
+    },
+    {
+      "name": "텍사스와 남서부",
+      "note": "이중 조동사(Di Paolo 1989 텍사스 자료)와 tump가 확인됨. 딥사우스와의 체계적 차이는 이번에 검증하지 못했습니다(open_questions).",
+      "source_ids": [
+        4,
+        1
+      ]
+    },
+    {
+      "name": "백인 vs 흑인 남부 화자",
+      "note": "perfective done과 finna는 AAE에서 중심. 전통적 r 탈락은 일부 흑인 남부 화자에게 남아 있고 백인 남부 화자는 r을 강하게 발음하는 쪽으로 변했습니다.",
+      "source_ids": [
+        7,
+        5,
+        1
+      ]
+    }
+  ],
+  "confidence_detail": "medium-high for grammar (each item checked on a Yale Grammatical Diversity Project page); medium for pronunciation (Wikipedia summaries of ANAE/Thomas; primary works not opened); medium-low for vocabulary age/region labels (Wikipedia list, no age data)."
 }

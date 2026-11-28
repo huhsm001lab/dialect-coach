@@ -2,185 +2,855 @@
   "code": "zh-tw",
   "name": "台湾国语 (Taiwan Mandarin)",
   "language": "zh",
-  "summary": "Taiwan Mandarin is Standard Mandarin as spoken in Taiwan. It uses Traditional characters and keeps some differences in vocabulary, sentence-final particles and pronunciation. Only one encyclopedia page was opened and it covers pronunciation, a set of vocabulary pairs, and a few particles, so the evidence base is thin. The Ministry of Education dictionary pages I reached were index pages, not entries, so I did not verify any dictionary entry. Taiwanese Hokkien loan expressions are included only where the source mentions them. Common expressions such as 歹勢 and 呷飽未 are widely used, but the source did not confirm them.",
+  "summary": "Taiwan Mandarin (國語) is written in Traditional characters and differs from Mainland Putonghua in vocabulary, sentence-final particles and some sounds. Round 2 re-read English Wikipedia's Taiwanese Mandarin page in full detail and opened 15 Wiktionary entries for Taiwan-labelled words and particles, plus one phonetics paper (Chuang et al. 2019). The Ministry of Education dictionaries and a Chinese-Wikipedia comparison list were unreachable, so MOE dictionary entries were not confirmed. 土豆/馬鈴薯 is a false friend and kept corrected. Hokkien loans (歹勢, 夭壽, 古錐, 黑白講, 阿-) are marked as loans, not neutral Mandarin.",
   "grammar": [
     {
-      "standard": "了啊 (completed action plus sentence-final tone)",
+      "standard": "了啊 (completed or changed, plus emotion)",
       "dialect": "啦",
-      "condition": "Sentence-final particle used for complaints, suggestions and rebuttals. The source says it combines 了 and 啊.",
-      "example_standard": "快去睡觉吧！",
+      "condition": "English Wikipedia: in Taiwan 啦 is very common and can follow 了; it carries irritation or complaint (睡覺了啦！明天還要上課耶！). The source also traces the use to Hokkien 'la'. Wiktionary says in Mandarin it is a contraction of 了 + 啊.",
+      "example_standard": "快去睡觉！",
       "example_dialect": "睡覺了啦！",
       "romanization": "shuì jiào le la",
-      "source_ids": [1]
+      "source_ids": [
+        1,
+        17
+      ]
     },
     {
-      "standard": "吧 (suggestion)",
+      "standard": "吧 (urging)",
       "dialect": "啦",
-      "condition": "Use 啦 for a friendly urging or suggestion that Mainland speakers would express with 吧.",
-      "example_standard": "不要客气，再吃一碗吧。",
-      "example_dialect": "不要客氣，再吃一碗啦。",
-      "romanization": "bú yào kè qi, zài chī yì wǎn la",
-      "source_ids": [1]
+      "condition": "Friendly repeated urging: 再吃一碗啦！ (English Wikipedia).",
+      "example_standard": "再吃一碗吧。",
+      "example_dialect": "再吃一碗啦。",
+      "romanization": "zài chī yì wǎn la",
+      "source_ids": [
+        1
+      ]
     },
     {
-      "standard": "不可能 (it is impossible)",
+      "standard": "rebuttal",
       "dialect": "不可能啦",
-      "condition": "Rebuttal. Adds 啦 to show that the speaker is pushing back on a claim.",
-      "example_standard": "不可能（啊）。",
+      "condition": "啦 added to push back on a claim. English Wikipedia example 不可能啦。",
+      "example_standard": "不可能。",
       "example_dialect": "不可能啦。",
-      "romanization": "bù kě néng la",
-      "source_ids": [1]
+      "romanization": "bù kěnéng la",
+      "source_ids": [
+        1
+      ]
     },
     {
       "standard": "妹妹 (younger sister)",
       "dialect": "阿妹",
-      "condition": "A Hokkien-influenced prefix 阿 added to a kinship term or a name to show familiarity.",
+      "condition": "Prefix 阿 adds familiarity to a kinship term or name, from Hokkien (阿妹, 阿英).",
       "example_standard": "妹妹",
       "example_dialect": "阿妹",
       "romanization": "ā mèi",
-      "source_ids": [1]
+      "source_ids": [
+        1
+      ]
+    },
+    {
+      "standard": "对吧？ (seeking agreement)",
+      "dialect": "齁 (hōu) at sentence end",
+      "condition": "Wiktionary: in Taiwan Mandarin and Taiwanese Hokkien a final particle that seeks agreement or confirmation ('right?'). Hokkien reading honnh. No example sentence given on the page; the example below is constructed.",
+      "example_standard": "这个很好笑，对吧？",
+      "example_dialect": "這個很好笑齁？",
+      "romanization": "zhè ge hěn hǎo xiào hōu?",
+      "source_ids": [
+        6
+      ]
+    },
+    {
+      "standard": "对吧？ (seeking agreement, Hokkien loan)",
+      "dialect": "乎 (hoⁿh) at sentence end",
+      "condition": "English Wikipedia lists hoⁿh [hɔ̃ʔ] as a Hokkien loan particle asking for agreement ('..., all right?'), and says it may also express a command. Written forms vary (乎, 厚, 齁).",
+      "example_standard": "(no example given in source)",
+      "example_dialect": "(no example given in source)",
+      "romanization": "",
+      "source_ids": [
+        1
+      ]
+    },
+    {
+      "standard": "(attention-getter / surprise / objection / agreement)",
+      "dialect": "欸 at the start of a sentence",
+      "condition": "Wiktionary lists 欸 as an interjection with tone-coded uses: 1st tone to get attention (欸，我告訴你一個秘密), 2nd tone surprise (欸，他怎麼走了), 3rd tone objection, 4th tone agreement. Taiwanese Hokkien reading --eh.",
+      "example_standard": "喂，我告诉你一个秘密。",
+      "example_dialect": "欸，我告訴你一個秘密。",
+      "romanization": "ēi, wǒ gàosù nǐ yí ge mìmì",
+      "source_ids": [
+        9
+      ]
+    },
+    {
+      "standard": "吧 (request or suggestion)",
+      "dialect": "喔 at sentence end",
+      "condition": "Wiktionary: 喔 as a Mandarin particle conveys realization or surprise (ō); in Taiwanese Hokkien it is an emphatic final particle used for requests, listed as the Hokkien counterpart of 吧 for Taipei and Kaohsiung. Taiwan Mandarin itself is shown with 吧 in that table, so treat 喔 in Mandarin lines as Hokkien-influenced colour. No sentence example on the page.",
+      "example_standard": "你小心一点吧。",
+      "example_dialect": "你小心一點喔。",
+      "romanization": "nǐ xiǎoxīn yì diǎn ō",
+      "source_ids": [
+        8
+      ]
+    },
+    {
+      "standard": "(joy, surprise, or reminder particle)",
+      "dialect": "耶 at sentence end",
+      "condition": "English Wikipedia's 啦 example uses 耶 at the end of 明天還要上課耶 as a reminder ('you know, there's class tomorrow'). Wiktionary describes a separate 耶 particle (yē) of joy or surprise, chiefly in Internet slang, e.g. 好耶. The functions overlap, so use 耶 only for reminders and cheerful reactions.",
+      "example_standard": "明天还要上课。",
+      "example_dialect": "明天還要上課耶！",
+      "romanization": "míngtiān hái yào shàngkè yē!",
+      "source_ids": [
+        1,
+        10
+      ]
+    },
+    {
+      "standard": "而已 (only, nothing more)",
+      "dialect": "而已 in colloquial speech",
+      "condition": "English Wikipedia: 而已 is common in Taiwanese colloquial speech, while Beijing-style 呗, 嚜, 罷了 are rare there.",
+      "example_standard": "我只是问问而已。",
+      "example_dialect": "我只是問問而已。",
+      "romanization": "wǒ zhǐ shì wènwen éryǐ",
+      "source_ids": [
+        1
+      ]
     }
   ],
   "vocabulary": [
     {
-      "standard": "互联网 / 网络 (internet)",
+      "standard": "互联网",
       "dialect": "網路",
-      "romanization": "wǎng lù",
-      "note": "Mainland uses 网络 (wǎng luò).",
-      "source_ids": [1]
+      "romanization": "wǎnglù",
+      "note": "Mainland: 网络 wǎngluò.",
+      "source_ids": [
+        1
+      ]
     },
     {
-      "standard": "软件 (software)",
+      "standard": "软件",
       "dialect": "軟體",
-      "romanization": "ruǎn tǐ",
-      "note": "Mainland uses 软件.",
-      "source_ids": [1]
+      "romanization": "ruǎntǐ",
+      "note": "Mainland: 软件 ruǎnjiàn.",
+      "source_ids": [
+        1
+      ]
     },
     {
-      "standard": "打印 (print)",
+      "standard": "打印",
       "dialect": "列印",
-      "romanization": "liè yìn",
-      "note": "Mainland uses 打印.",
-      "source_ids": [1]
+      "romanization": "lièyìn",
+      "note": "Mainland: 打印 dǎyìn.",
+      "source_ids": [
+        1
+      ]
     },
     {
-      "standard": "公共汽车 (bus)",
+      "standard": "盒饭",
+      "dialect": "便當",
+      "romanization": "biàndāng",
+      "note": "Taiwan 'lunch box'; Mainland 盒飯. Wiktionary marks the noun sense as originally Taiwanese Mandarin.",
+      "source_ids": [
+        1,
+        16
+      ]
+    },
+    {
+      "standard": "公文包",
+      "dialect": "公事包",
+      "romanization": "gōngshìbāo",
+      "note": "Mainland: 公文包.",
+      "source_ids": [
+        1
+      ]
+    },
+    {
+      "standard": "公共汽车",
       "dialect": "公車",
-      "romanization": "gōng chē",
-      "note": "In Taiwan 公車 means bus. On the Mainland 公车 means an official vehicle, so do not use it as bus in Mainland-facing material.",
-      "source_ids": [1]
+      "romanization": "gōngchē",
+      "note": "Bus. On the Mainland 公车 means an official vehicle.",
+      "source_ids": [
+        1
+      ]
     },
     {
-      "standard": "土豆 (potato, Mainland usage)",
+      "standard": "马铃薯 / 土豆 (Mainland: potato)",
       "dialect": "馬鈴薯",
-      "romanization": "mǎ líng shǔ",
-      "note": "FALSE FRIEND: in Taiwan 土豆 means peanut, so a Mainland 土豆 (potato) must become 馬鈴薯. Never convert 马铃薯 into 土豆. (Corrected by orchestrator review.)",
-      "source_ids": [1]
+      "romanization": "mǎlíngshǔ",
+      "note": "FALSE FRIEND: Taiwan 土豆 tǔdòu = peanut; Mainland 土豆 = potato. Never turn 马铃薯 into 土豆 in Taiwan lines. (Kept from round 1, now confirmed by English Wikipedia's table.)",
+      "source_ids": [
+        1
+      ]
     },
     {
-      "standard": "红薯 (sweet potato)",
+      "standard": "红薯",
       "dialect": "蕃薯",
-      "romanization": "fān shǔ",
-      "note": "Sweet potato. Source lists it as a Hokkien-origin word used in Taiwan.",
-      "source_ids": [1]
+      "romanization": "fānshǔ",
+      "note": "Sweet potato; Hokkien-origin word.",
+      "source_ids": [
+        1
+      ]
     },
     {
-      "standard": "胡说八道 (talk nonsense)",
-      "dialect": "黑白讲",
-      "romanization": "hēi bái jiǎng",
-      "note": "Hokkien-origin expression (烏白講 in Hokkien) meaning to talk nonsense.",
-      "source_ids": [1]
+      "standard": "信息",
+      "dialect": "資訊",
+      "romanization": "zīxùn",
+      "note": "Wiktionary: mainly Taiwan and Hong Kong; Mainland uses 信息.",
+      "source_ids": [
+        15
+      ]
     },
     {
-      "standard": "拜拜 (ritual worship)",
+      "standard": "视频",
+      "dialect": "影片",
+      "romanization": "yǐngpiàn",
+      "note": "Taiwan: also a short video clip; Mainland 视频. Taiwan also uses 視訊. 影片 can mean a film.",
+      "source_ids": [
+        14
+      ]
+    },
+    {
+      "standard": "电视剧",
+      "dialect": "影集",
+      "romanization": "yǐngjí",
+      "note": "Taiwan: TV series; Mainland 影集 means a photo album.",
+      "source_ids": [
+        1
+      ]
+    },
+    {
+      "standard": "爱人 (Mainland: spouse)",
+      "dialect": "愛人",
+      "romanization": "àirén",
+      "note": "FALSE FRIEND: Taiwan 愛人 usually means lover or sweetheart; Mainland means spouse.",
+      "source_ids": [
+        1
+      ]
+    },
+    {
+      "standard": "石油制品",
+      "dialect": "油品",
+      "romanization": "yóupǐn",
+      "note": "Taiwan: oil products broadly; Mainland: petroleum products.",
+      "source_ids": [
+        1
+      ]
+    },
+    {
+      "standard": "地铁",
+      "dialect": "捷運",
+      "romanization": "jiéyùn",
+      "note": "Taiwan MRT. On the Mainland 捷运 is an aviation people-mover term. Formal writing may say 地鐵.",
+      "source_ids": [
+        11
+      ]
+    },
+    {
+      "standard": "出租车",
+      "dialect": "計程車 (colloquial: 小黃)",
+      "romanization": "jìchéngchē",
+      "note": "Taxi. Wiktionary: chiefly Taiwan; 小黃 is the colloquial 'yellow car'. Hong Kong 的士, Mainland 出租車.",
+      "source_ids": [
+        12
+      ]
+    },
+    {
+      "standard": "摩托车",
+      "dialect": "機車",
+      "romanization": "jīchē",
+      "note": "Taiwan: scooter or motorcycle (short for 機器腳踏車). Mainland 摩托车 mótuōchē. WARNING: 機車 as an adjective is Taiwan slang 'a pain in the neck, picky, annoying' (你很機車), derived from a Hokkien rude word. Mainland 机车 = locomotive.",
+      "source_ids": [
+        7
+      ]
+    },
+    {
+      "standard": "菠萝",
+      "dialect": "鳳梨",
+      "romanization": "fènglí",
+      "note": "Pineapple. Wiktionary: mainly Taiwan; Hong Kong and Guangzhou say 菠蘿.",
+      "source_ids": [
+        13
+      ]
+    },
+    {
+      "standard": "便利店",
+      "dialect": "超商",
+      "romanization": "chāoshāng",
+      "note": "Taiwan: convenience store (also 便利商店). Also 'supermarket' in the second sense.",
+      "source_ids": [
+        18
+      ]
+    },
+    {
+      "standard": "警察 (slang)",
+      "dialect": "條子",
+      "romanization": "tiáozi",
+      "note": "English Wikipedia: slang from military-dependents' villages (眷村). Slang, not neutral.",
+      "source_ids": [
+        1
+      ]
+    },
+    {
+      "standard": "女朋友 (slang)",
+      "dialect": "馬子",
+      "romanization": "mǎzi",
+      "note": "English Wikipedia: slang for a woman or girlfriend from the same 眷村 vocabulary. Can sound crude. Avoid unless the character is a rough speaker.",
+      "source_ids": [
+        1
+      ]
+    },
+    {
+      "standard": "胡说八道",
+      "dialect": "黑白講",
+      "romanization": "hēibáijiǎng",
+      "note": "From Hokkien 烏白講; talk nonsense.",
+      "source_ids": [
+        1
+      ]
+    },
+    {
+      "standard": "拜拜",
       "dialect": "拜拜",
-      "romanization": "bài bài",
-      "note": "Source gives the Hokkien-origin sense of worship or religious ritual. Its use as a casual goodbye was not confirmed by the source.",
-      "source_ids": [1]
+      "romanization": "bàibài",
+      "note": "English Wikipedia gives the Hokkien sense 'worship or ritual'. Its casual goodbye use is not confirmed in the sources I opened.",
+      "source_ids": [
+        1
+      ]
+    },
+    {
+      "standard": "(chewy texture)",
+      "dialect": "Q",
+      "romanization": "Q",
+      "note": "English Wikipedia: the letter Q marks a springy, chewy texture, from Hokkien khiū. Used for food.",
+      "source_ids": [
+        1
+      ]
+    },
+    {
+      "standard": "对不起 / 不好意思",
+      "dialect": "歹勢 (also written 拍謝)",
+      "romanization": "dǎishì / pāixiè",
+      "note": "Wiktionary: Hokkien interjection 'excuse me, sorry', adjective 'embarrassed'. The page lists 拍謝 as a Mandarin-based respelling. It is a Hokkien loan, so it fits casual, local or older speakers more than formal speech. Taiwan Mandarin equivalents shown on that page: 不好意思, 對不起.",
+      "source_ids": [
+        3
+      ]
+    },
+    {
+      "standard": "可怜 / 糟糕透了 (exclamation)",
+      "dialect": "夭壽 / 夭壽喔",
+      "romanization": "yāoshòu",
+      "note": "Wiktionary: in Taiwan an adjective 'wicked, miserable'; Hokkien slang interjection 'damn'. Originally means to die young, so it can read as a curse. Casual exclamations only.",
+      "source_ids": [
+        4
+      ]
+    },
+    {
+      "standard": "可爱",
+      "dialect": "古錐",
+      "romanization": "gǔzhuī",
+      "note": "Wiktionary lists 古錐 'cute, adorable' as a Hokkien adjective (Xiamen, Quanzhou, Zhangzhou, Tainan, Singapore). Its use inside Taiwan Mandarin was not confirmed. Prefer 可愛 in Mandarin lines.",
+      "source_ids": [
+        5
+      ]
+    },
+    {
+      "standard": "(authority terms retained in Taiwan)",
+      "dialect": "里長 / 郵差 / 次長",
+      "romanization": "lǐzhǎng / yóuchāi / cìzhǎng",
+      "note": "English Wikipedia: terms from pre-1949 China still used in Taiwan; 先生, 小姐, 太太, 老闆 also used as titles more freely.",
+      "source_ids": [
+        1
+      ]
     }
   ],
   "particles": [
     {
-      "particle": "啦",
-      "function": "Very common in Taiwan Mandarin. Used for complaints, suggestions and rebuttals. Source says it combines 了 and 啊.",
-      "example": "睡覺了啦 (shuì jiào le la)",
-      "source_ids": [1]
+      "particle": "啦 (la)",
+      "function": "Very common in Taiwan. Uses listed by English Wikipedia: irritation or complaint, friendly urging, rebuttal. Wiktionary: a contraction of 了 + 啊 in Mandarin; the Hokkien la shows reluctance, 'all right already'. Needs different pitch in each use.",
+      "example": "睡覺了啦！ / 再吃一碗啦！ / 不可能啦。",
+      "source_ids": [
+        1,
+        17
+      ]
+    },
+    {
+      "particle": "耶 (yē)",
+      "function": "Reminder or joyful reaction at the end of a clause. English Wikipedia's complaint example ends with it; Wiktionary calls the joy/surprise use chiefly Internet slang.",
+      "example": "明天還要上課耶！",
+      "source_ids": [
+        1,
+        10
+      ]
+    },
+    {
+      "particle": "齁 (hōu)",
+      "function": "Seeks agreement or confirmation ('right?'), Taiwan Mandarin and Taiwanese Hokkien.",
+      "example": "這個很好笑齁？ (constructed)",
+      "source_ids": [
+        6
+      ]
     },
     {
       "particle": "乎 (hoⁿh)",
-      "function": "Hokkien-influenced particle that asks for agreement, similar to English 'right?'. Source gives it as a loan from Hokkien.",
-      "example": "No example verified in the source.",
-      "source_ids": [1]
+      "function": "Hokkien loan: asks for agreement ('..., all right?'); may express a command.",
+      "example": "",
+      "source_ids": [
+        1
+      ]
     },
     {
-      "particle": "呗 / 嚜 / 罢了",
-      "function": "Source says these are more common in Beijing Mandarin and rare in Taiwan Mandarin. Avoid using them as Taiwan markers.",
+      "particle": "喔 (ō)",
+      "function": "Mandarin sense: realization or surprise. Hokkien sense: emphatic final particle in requests. Taiwan Mandarin tables show 吧 where Hokkien uses 喔, so in Mandarin lines this is a Hokkien-flavoured softener.",
       "example": "",
-      "source_ids": [1]
+      "source_ids": [
+        8
+      ]
+    },
+    {
+      "particle": "欸 (ēi / éi / ěi / èi)",
+      "function": "Interjection at the start of a sentence: attention (1st tone), surprise (2nd), objection (3rd), agreement (4th).",
+      "example": "欸，我告訴你一個秘密。",
+      "source_ids": [
+        9
+      ]
+    },
+    {
+      "particle": "而已 (éryǐ)",
+      "function": "Colloquially common in Taiwan, where Beijing-style 呗, 嚜, 罷了 are rare.",
+      "example": "",
+      "source_ids": [
+        1
+      ]
+    },
+    {
+      "particle": "呗 / 嚜 / 罷了",
+      "function": "Common in Beijing Mandarin and rare in Taiwan Mandarin. Do not use them as Taiwan markers.",
+      "example": "",
+      "source_ids": [
+        1
+      ]
     }
   ],
   "pronunciation": [
     {
-      "rule": "Retroflex initials zh-, ch- and sh- are mostly pronounced as z-, c- and s- in Taiwan Mandarin. Source says retroflex pronunciation is treated as a sign of good Mandarin in Taiwan.",
-      "actor_tip": "Do not curl the tongue for zh, ch, sh. Say them with a flat tongue position, like z, c, s. Keep it natural, not exaggerated.",
-      "example": "知道 zhīdào → zīdào (illustrative; the source describes the rule, not this word)",
-      "source_ids": [1]
+      "rule": "Retroflex initials zh, ch, sh are often read as z, c, s (dental), in most situations. A 2019 study of 331 speakers from 120 places found merging is less common in big cities than in the surrounding areas; the study ties the merging to contact with Hokkien.",
+      "actor_tip": "Do not say all zh/ch/sh flat in every line. For a Taipei or highly educated character keep retroflex; for a rural or Hokkien-speaking character flatten a part of them.",
+      "example": "知道 zhīdào → zīdào (illustrative); 是 shì → sì (illustrative)",
+      "source_ids": [
+        1,
+        19
+      ]
     },
     {
-      "rule": "Erhua (adding a curled r-ending to words) is rare in Taiwan Mandarin and common in Beijing Mandarin.",
-      "actor_tip": "Drop the r-ending on words that take it in Beijing speech. Say the word without the curled tongue at the end.",
-      "example": "玩儿 wánr → wán (illustrative)",
-      "source_ids": [1]
+      "rule": "Final -ing/-eng often become -in/-en, and -n and -ng can merge, so 爭 zhēng and 真 zhēn may sound the same.",
+      "actor_tip": "Make 'ing' lighter, like 'in'. 'eng' ≈ 'en'. Use this on casual lines only.",
+      "example": "爭 = 真; 英 yīng ≈ yīn",
+      "source_ids": [
+        1
+      ]
     },
     {
-      "rule": "The neutral (light) tone is less common in Taiwan. Many words keep their full tone where Beijing speech would soften them.",
-      "actor_tip": "Do not soften the last syllable of words like 但是 and 先生. Keep full tones. Exception: some -子 nouns like 孩子 may still soften.",
-      "example": "但是 dànshì; 先生 xiānshēng",
-      "source_ids": [1]
+      "rule": "The r- initial may be realized as [ɹ] (English Wikipedia). The page does not say r becomes l or z.",
+      "actor_tip": "Use a soft, light r that is not strongly curled. Do not convert r to l.",
+      "example": "人 rén soft [ɹ]",
+      "source_ids": [
+        1
+      ]
+    },
+    {
+      "rule": "Neutral tone is less frequent: final syllables often keep their full tone (但是 dànshì, 先生 xiānshēng). Nouns ending in 子 or 頭 still soften (孩子 is not háizǐ).",
+      "actor_tip": "Give the last syllable of 但是, 先生, 知道 a clear tone. Keep 子 light.",
+      "example": "先生 xiānshēng (not xiānsheng)",
+      "source_ids": [
+        1
+      ]
+    },
+    {
+      "rule": "Erhua is very rare, common in Beijing. Taiwan retroflex sounds and tones are described as less prominent and flatter (zh.wikipedia: 國語捲舌音較普通話不明顯，兒化音較少，聲調也較平緩).",
+      "actor_tip": "Drop the r-ending (玩儿 → 玩). Keep pitch movement smaller than Beijing speech.",
+      "example": "玩儿 wánr → wán",
+      "source_ids": [
+        1,
+        2
+      ]
+    },
+    {
+      "rule": "The vowel ㄛ is read as a half-open [ɔ] (Mainland closer [o]); after ㄅㄆㄇㄈ the ㄥ is read near [oŋ].",
+      "actor_tip": "Say 'o' in 我, 多, 波 a bit more open and 'eng' after b/p/m/f (like 風, 夢) as 'ong'.",
+      "example": "風 fēng ≈ fōng",
+      "source_ids": [
+        2
+      ]
+    },
+    {
+      "rule": "About 13% of character readings differ between Taiwan and Mainland standards (a figure cited to Li 2002 on zh.wikipedia).",
+      "actor_tip": "Check readings in the Ministry of Education dictionary when a line has unusual characters.",
+      "example": "",
+      "source_ids": [
+        2
+      ]
     }
   ],
   "tones_intonation": [
     {
-      "rule": "啦 carries emotion through intonation: a complaint, a friendly urging or a rebuttal. The same particle needs different pitch in each case.",
-      "source_ids": [1]
+      "rule": "啦 changes meaning by pitch: irritation uses a lower, extended pitch; urging a bright, lightly rising pitch; rebuttal a short, flat denial. The three functions are listed by English Wikipedia; the pitch descriptions are my acting suggestions, not verified phonetics.",
+      "source_ids": [
+        1
+      ]
+    },
+    {
+      "rule": "欸 has four tone-coded uses: tone 1 attention, tone 2 surprise, tone 3 objection, tone 4 agreement (Wiktionary).",
+      "source_ids": [
+        9
+      ]
+    },
+    {
+      "rule": "Taiwan Mandarin pitch movement is described as flatter than Beijing speech (zh.wikipedia), and the neutral tone appears less often, so the rhythm is steadier and each syllable is a bit more separate.",
+      "source_ids": [
+        1,
+        2
+      ]
+    },
+    {
+      "rule": "Final 齁 and 喔 invite a response and normally take a slightly raised or held pitch. This is my acting suggestion; no phonetic source was opened.",
+      "source_ids": [
+        6,
+        8
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "korean_idea": "자라니까! 내일 수업 있잖아!",
+      "putonghua": "快去睡觉！明天还要上课！",
+      "regional": "睡覺了啦！明天還要上課耶！",
+      "romanization": "shuì jiào le la! míngtiān hái yào shàngkè yē!",
+      "note": "영문 위키 예문. 짜증 섞인 재촉의 啦와 상기시키는 耶.",
+      "source_ids": [
+        1
+      ],
+      "constructed": false
+    },
+    {
+      "korean_idea": "사양하지 말고 한 그릇 더 먹어.",
+      "putonghua": "不要客气，再吃一碗吧。",
+      "regional": "不要客氣，再吃一碗啦。",
+      "romanization": "bú yào kèqi, zài chī yì wǎn la",
+      "note": "다정한 권유의 啦. 따뜻하고 밝게.",
+      "source_ids": [
+        1
+      ],
+      "constructed": false
+    },
+    {
+      "korean_idea": "그럴 리 없어.",
+      "putonghua": "不可能。",
+      "regional": "不可能啦。",
+      "romanization": "bù kěnéng la",
+      "note": "반박. 짧고 단호하게.",
+      "source_ids": [
+        1
+      ],
+      "constructed": false
+    },
+    {
+      "korean_idea": "미안, 늦었어.",
+      "putonghua": "不好意思，我来晚了。",
+      "regional": "歹勢啦，我來晚了。",
+      "romanization": "pāixiè la, wǒ lái wǎn le",
+      "note": "歹勢는 민난어 차용어. 가까운 사이·구어에서만. 격식 자리에선 不好意思.",
+      "source_ids": [
+        3,
+        1
+      ],
+      "constructed": true
+    },
+    {
+      "korean_idea": "너 정말 까다롭게 군다.",
+      "putonghua": "你很难缠。",
+      "regional": "你很機車。",
+      "romanization": "nǐ hěn jīchē",
+      "note": "Wiktionary 예문. 대만 속어, 친구 사이 투정이나 짜증.",
+      "source_ids": [
+        7
+      ],
+      "constructed": false
+    },
+    {
+      "korean_idea": "지하철 타고 가자.",
+      "putonghua": "我们坐地铁去吧。",
+      "regional": "我們搭捷運去啦。",
+      "romanization": "wǒmen dā jiéyùn qù la",
+      "note": "捷運 = 대만 MRT. 搭는 대만에서 '타다'로 자주 쓰이는 인상이나 출처 미확인.",
+      "source_ids": [
+        11
+      ],
+      "constructed": true
+    },
+    {
+      "korean_idea": "택시 한 대 불렀어.",
+      "putonghua": "我叫了一辆出租车。",
+      "regional": "我叫了一輛計程車。",
+      "romanization": "wǒ jiào le yí liàng jìchéngchē",
+      "note": "Wiktionary: 計程車는 대만 선호어, 양사는 輛 또는 臺.",
+      "source_ids": [
+        12
+      ],
+      "constructed": true
+    },
+    {
+      "korean_idea": "점심은 도시락 먹었어.",
+      "putonghua": "我中午吃盒饭。",
+      "regional": "我中午吃便當。",
+      "romanization": "wǒ zhōngwǔ chī biàndāng",
+      "note": "便當 = 도시락. 대만의 일상어.",
+      "source_ids": [
+        16,
+        1
+      ],
+      "constructed": true
+    },
+    {
+      "korean_idea": "감자 좀 사다 줘.",
+      "putonghua": "帮我买点土豆。",
+      "regional": "幫我買一點馬鈴薯。",
+      "romanization": "bāng wǒ mǎi yì diǎn mǎlíngshǔ",
+      "note": "대만에서 土豆는 땅콩. 감자는 반드시 馬鈴薯.",
+      "source_ids": [
+        1
+      ],
+      "constructed": true
+    },
+    {
+      "korean_idea": "이 영상 웃기지?",
+      "putonghua": "这个视频很好笑，对吧？",
+      "regional": "這支影片很好笑齁？",
+      "romanization": "zhè zhī yǐngpiàn hěn hǎoxiào hōu?",
+      "note": "影片(영상)과 齁(동의 구하기). 齁는 Wiktionary 설명을 조합한 구성.",
+      "source_ids": [
+        14,
+        6
+      ],
+      "constructed": true
+    },
+    {
+      "korean_idea": "헛소리하지 마.",
+      "putonghua": "你别胡说八道。",
+      "regional": "你不要黑白講啦！",
+      "romanization": "nǐ bú yào hēibáijiǎng la!",
+      "note": "黑白講 = 烏白講(민난어). 화난 톤이지만 啦로 약간 완화.",
+      "source_ids": [
+        1
+      ],
+      "constructed": true
+    },
+    {
+      "korean_idea": "어, 비밀 하나 말해 줄게.",
+      "putonghua": "喂，我告诉你一个秘密。",
+      "regional": "欸，我告訴你一個秘密。",
+      "romanization": "ēi, wǒ gàosù nǐ yí ge mìmì",
+      "note": "Wiktionary 예문. 欸의 1성은 주의를 끄는 말.",
+      "source_ids": [
+        9
+      ],
+      "constructed": false
+    },
+    {
+      "korean_idea": "어, 왜 벌써 갔어?(놀람)",
+      "putonghua": "咦，他怎么走了！",
+      "regional": "欸，他怎麼走了！",
+      "romanization": "éi, tā zěnme zǒu le!",
+      "note": "Wiktionary 예문. 2성 欸는 놀람.",
+      "source_ids": [
+        9
+      ],
+      "constructed": false
+    },
+    {
+      "korean_idea": "아이고, 너무 비싸!(감탄)",
+      "putonghua": "天哪，怎么这么贵！",
+      "regional": "夭壽喔，怎麼這麼貴！",
+      "romanization": "yāoshòu ō, zěnme zhème guì!",
+      "note": "夭壽는 '못된/참담한'이라는 뜻의 감탄. 어르신 느낌의 구어. 喔는 민난어 색. 배역에 맞는지 확인.",
+      "source_ids": [
+        4,
+        8
+      ],
+      "constructed": true
+    }
+  ],
+  "sub_regions": [
+    {
+      "region": "台北 / 大都市 (Taipei and other metropolitan cities)",
+      "features": "A study of 331 speakers from 120 places found that merging of dental and retroflex sibilants (zh/ch/sh → z/c/s) is less common in metropolitan cities than in the surrounding areas. For acting: a Taipei character keeps more retroflex sounds.",
+      "source_ids": [
+        19
+      ]
+    },
+    {
+      "region": "南部 / 中部 (Southern and Central Taiwan)",
+      "features": "The same study implies more merging outside big cities. A separate common claim that Hokkien influence is stronger in the south and centre comes from a search summary of an archived Wikipedia page that I did not open, so it is unverified. Hokkien loan words (歹勢, 夭壽, 黑白講, 阿-prefix) should be tied to the character's background, not to a region.",
+      "source_ids": [
+        19
+      ]
+    },
+    {
+      "region": "Standard vs 台灣國語",
+      "features": "Everything in this file describes Taiwan Mandarin broadly. A heavy Hokkien-accented Mandarin (台灣國語) is a stereotype that can read as a caricature; avoid it unless the script demands it.",
+      "source_ids": [
+        1
+      ]
     }
   ],
   "common_mistakes": [
-    "Putting 啦 at the end of every sentence. It is common but not in every line.",
-    "Using Hokkien-origin words (阿妹, 蕃薯, 黑白讲) as standard Taiwan Mandarin in formal speech.",
-    "Exaggerating z/c/s for zh/ch/sh until the words are hard to understand.",
-    "Mixing Mainland words (网络, 软件, 打印) into Taiwan-facing lines.",
-    "Using 呗, 嚜 or 罢了 as Taiwan markers, since the source says they are rare there.",
-    "Using 歹勢, 夭壽 or 呷飽未 without checking them, because the source did not confirm them."
+    "Putting 啦 at the end of every sentence. It marks irritation, urging or rebuttal, and each needs a different pitch.",
+    "Converting 馬鈴薯 into 土豆. In Taiwan 土豆 is peanut.",
+    "Using 機車 for 'motorcycle' without noticing the adjective meaning 'annoying' in a line of dialogue, and the reverse.",
+    "Using Hokkien loans (歹勢, 夭壽, 古錐, 黑白講, 阿妹) in formal or narrated lines, or for every character.",
+    "Using Mainland words (网络, 软件, 打印, 视频, 信息, 出租车) in Taiwan lines.",
+    "Using 呗, 嚜, 罷了 or erhua as Taiwan markers. They are rare there.",
+    "Flattening zh/ch/sh in every word until the speech sounds like a parody of 台灣國語.",
+    "Writing 古錐 or 拍謝 as everyday Mandarin. Wiktionary shows them as Hokkien."
   ],
   "generational_notes": [
-    "The source does not compare older and younger Taiwan speakers. Vocabulary such as 網路 and 軟體 is standard across ages.",
-    "Hokkien-origin expressions are more often used by older or more local speakers. This is general knowledge and was not verified in the source."
+    "Hokkien loans such as 歹勢 and 夭壽 are generally more at home with older or more local speakers. This is general knowledge and no opened source gives age data.",
+    "耶 as a joyful reaction is called chiefly Internet slang by Wiktionary, so younger-sounding.",
+    "A search result summary (NCCU thesis, not opened) said young speakers vary in the realization of tone 2, more among Hokkien-Mandarin bilinguals. Unverified."
   ],
   "conversion_guidelines": [
-    "Use Traditional characters throughout. Replace Mainland vocabulary with the Taiwan form from the vocabulary list (網路, 軟體, 列印, 公車).",
-    "Add 啦 to at most one or two lines, matching emotion: complaints, suggestions or rebuttals.",
-    "Soften the zh/ch/sh sounds only in pronunciation practice notes, not in written lines. Keep actor guidance in the script's notes.",
-    "Keep full tones on words like 但是 and 先生. Do not add erhua.",
-    "Do not add 呗, 嚜 or 罢了. Do not use Hokkien-origin words in formal or narrated lines.",
-    "Flag every low-confidence item (歹勢, 夭壽, 呷飽未, 乎) for checking against the Ministry of Education's 臺灣閩南語常用詞辭典 or a Taiwan native speaker."
+    "Write in Traditional characters, as natural spoken Taiwan Mandarin like film dialogue. Keep full tones on 但是, 先生, 知道.",
+    "Swap Mainland vocabulary for the Taiwan form: 网络→網路, 软件→軟體, 打印→列印, 视频→影片, 信息→資訊, 地铁→捷運, 出租车→計程車, 摩托车→機車, 盒饭→便當, 菠萝→鳳梨, 便利店→超商, 土豆(potato)→馬鈴薯, 公交车→公車.",
+    "Add 啦 to at most one or two lines per speech, matched to emotion (complaint, urging, rebuttal). Use 齁 or 耶 once at most, 欸 for an attention-getting start.",
+    "Use Hokkien loans (歹勢, 夭壽, 黑白講, 阿-) sparingly and only for casual or local characters.",
+    "Do not add erhua, 呗, 嚜 or 罷了.",
+    "Soften zh/ch/sh only through actor notes, not in the written line. Note that merging is less common in big cities.",
+    "Flag every constructed line and unconfirmed item (古錐, 泡麵, 拜拜 as goodbye, 乎) for a Taiwan native or the MOE dictionary."
   ],
   "sources": [
     {
       "id": 1,
-      "title": "Taiwanese Mandarin - Wikipedia (English)",
+      "title": "Taiwanese Mandarin - Wikipedia (English) (re-read in round 2: phonology, vocabulary table, Hokkien loans, particles)",
       "url": "https://en.wikipedia.org/wiki/Taiwanese_Mandarin",
       "type": "encyclopedia"
+    },
+    {
+      "id": 2,
+      "title": "台灣華語 - 中文維基百科 (opened; mostly history and vocabulary examples, little on particles)",
+      "url": "https://zh.wikipedia.org/wiki/台灣華語",
+      "type": "encyclopedia"
+    },
+    {
+      "id": 3,
+      "title": "Wiktionary: 歹勢",
+      "url": "https://en.wiktionary.org/wiki/歹勢",
+      "type": "dictionary"
+    },
+    {
+      "id": 4,
+      "title": "Wiktionary: 夭壽",
+      "url": "https://en.wiktionary.org/wiki/夭壽",
+      "type": "dictionary"
+    },
+    {
+      "id": 5,
+      "title": "Wiktionary: 古錐",
+      "url": "https://en.wiktionary.org/wiki/古錐",
+      "type": "dictionary"
+    },
+    {
+      "id": 6,
+      "title": "Wiktionary: 齁",
+      "url": "https://en.wiktionary.org/wiki/齁",
+      "type": "dictionary"
+    },
+    {
+      "id": 7,
+      "title": "Wiktionary: 機車",
+      "url": "https://en.wiktionary.org/wiki/機車",
+      "type": "dictionary"
+    },
+    {
+      "id": 8,
+      "title": "Wiktionary: 喔",
+      "url": "https://en.wiktionary.org/wiki/喔",
+      "type": "dictionary"
+    },
+    {
+      "id": 9,
+      "title": "Wiktionary: 欸",
+      "url": "https://en.wiktionary.org/wiki/欸",
+      "type": "dictionary"
+    },
+    {
+      "id": 10,
+      "title": "Wiktionary: 耶",
+      "url": "https://en.wiktionary.org/wiki/耶",
+      "type": "dictionary"
+    },
+    {
+      "id": 11,
+      "title": "Wiktionary: 捷運",
+      "url": "https://en.wiktionary.org/wiki/捷運",
+      "type": "dictionary"
+    },
+    {
+      "id": 12,
+      "title": "Wiktionary: 計程車",
+      "url": "https://en.wiktionary.org/wiki/計程車",
+      "type": "dictionary"
+    },
+    {
+      "id": 13,
+      "title": "Wiktionary: 鳳梨",
+      "url": "https://en.wiktionary.org/wiki/鳳梨",
+      "type": "dictionary"
+    },
+    {
+      "id": 14,
+      "title": "Wiktionary: 影片",
+      "url": "https://en.wiktionary.org/wiki/影片",
+      "type": "dictionary"
+    },
+    {
+      "id": 15,
+      "title": "Wiktionary: 資訊",
+      "url": "https://en.wiktionary.org/wiki/資訊",
+      "type": "dictionary"
+    },
+    {
+      "id": 16,
+      "title": "Wiktionary: 便當",
+      "url": "https://en.wiktionary.org/wiki/便當",
+      "type": "dictionary"
+    },
+    {
+      "id": 17,
+      "title": "Wiktionary: 啦",
+      "url": "https://en.wiktionary.org/wiki/啦",
+      "type": "dictionary"
+    },
+    {
+      "id": 18,
+      "title": "Wiktionary: 超商",
+      "url": "https://en.wiktionary.org/wiki/超商",
+      "type": "dictionary"
+    },
+    {
+      "id": 19,
+      "title": "Yu-Ying Chuang, Ching-Chu Sun, Janice Fon, R. Harald Baayen 2019, Geographical variation of the merging between dental and retroflex sibilants in Taiwan Mandarin, Proc. ICPhS 2019 (full paper read)",
+      "url": "https://assta.org/proceedings/ICPhS2019Microsite/pdf/full-paper_958.pdf",
+      "type": "academic"
     }
   ],
-  "confidence": "low",
+  "confidence": "medium",
   "open_questions": [
-    "Only one source was opened for this file. Verify the vocabulary pairs against the Ministry of Education's 國語辭典 (dict.revised.moe.edu.tw) and 臺灣閩南語常用詞辭典 (sutian.moe.edu.tw). The sutian page I reached was an index page, not an entry.",
-    "Confirm the usage of 歹勢, 夭壽 and 呷飽未 in current Taiwan Mandarin. They are common in practice but were not confirmed by a source I opened.",
-    "Confirm 计程车 vs 出租车 (taxi), 机车 (motorcycle) and 垃圾车 (garbage truck) with a Taiwan source. The sources reviewed did not confirm them.",
-    "Confirm whether 喔, 喲 and 厚 are used as sentence-final particles in Taiwan Mandarin. The source did not cover them.",
-    "The source's claim that 啦 combines 了 and 啊 is a historical or analytical claim. Check it against a Taiwan linguistics source before using the explanation in actor notes.",
-    "The pronunciation rules (zh/ch/sh to z/c/s, erhua, neutral tone) need a phonetic study or Taiwan speaker check for how strong the effect is in each age group.",
-    "Check the meaning of 拜拜 as a casual goodbye in Taiwan. The source only gives the worship sense."
-  ]
+    "Ministry of Education 《國語辭典》 and 《臺灣閩南語常用詞辭典》 entries could not be opened (404 or JavaScript pages). Check 歹勢, 夭壽, 古錐 and the particles there.",
+    "Whether 喔, 齁, 耶, 欸 are used as often in Taiwan Mandarin speech as in Hokkien; Wiktionary labels several of them as Hokkien.",
+    "The pitch descriptions for 啦, 齁, 喔 in tones_intonation are acting suggestions, not phonetics.",
+    "古錐 as a word used within Taiwan Mandarin was not confirmed: Wiktionary treats it as Hokkien.",
+    "泡麵, 拜拜 as 'goodbye', 搭 vs 坐 for taking the MRT and 小黃 usage were not confirmed in an opened source.",
+    "Whether the north-south pronunciation difference is also affected by sex, age and social class: the study mentions limited prior work.",
+    "Check a Taiwanese native on constructed lines: 歹勢啦, 夭壽喔, 這支影片很好笑齁."
+  ],
+  "confidence_note": "medium-low (vocabulary: medium; particles: medium-low; pronunciation: medium-low; MOE dictionary not accessible)"
 }

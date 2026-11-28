@@ -2,157 +2,515 @@
   "code": "en-au",
   "name": "Australian English",
   "language": "en",
-  "summary": "Australian English is a non-rhotic accent (r is not pronounced after a vowel) with a distinctive vowel system. The most noticeable features are the PRICE and MOUTH vowels (starting from a more open or back position), a split short-a system (bath and grass use a long vowel while most other short-a words do not), dark l, flapping of t and d between vowels, and a high rising terminal ('uptalk') in statements. Australian English keeps Mary, marry and merry distinct. Vocabulary is strongly informal (diminutives such as 'arvo' and 'barbie'). Grammar evidence in the sources is thin, so this file has no grammar rules. The 'broad' and 'cultivated' varieties are distinct: most actors will need General Australian. Evidence comes from the Australian English Wikipedia article, which cites academic phonetic work (Macquarie University phonetics pages were seen in search results only, not opened). Primary sources were not opened and should be checked before the file is finalised.",
-  "grammar": [],
+  "summary": "Australian English is non-rhotic, with a distinctive vowel system (raised KIT and DRESS, fronted GOOSE, FACE/GOAT/PRICE/MOUTH with unusual starting points), a partial trap-bath split, t-flapping, dark l, and in casual speech a high rising terminal. Its three traditional accent labels are Broad, General and Cultivated; General is the default for actors and Cultivated is nearly extinct. Round 2 added: grammar (youse, sentence-final 'but', 'eh', heaps/full, adverbs without -ly, 'sweet as', -o/-ie word formation, 'yeah-no'), vocabulary checked in the Australian National Dictionary Centre (ANDC), vowel IPA from the Australian English phonology article (which cites Cox and Fletcher 2017 and Harrington et al.), and regional notes (South Australia, Victoria, WA, Queensland). Evidence still relies on Wikipedia for vowels and some grammar; ANDC, the Macquarie Dictionary and eWAVE (via a feature page) support vocabulary and two grammar items. Primary phonetic works were not opened directly.",
+  "grammar": [
+    {
+      "standard": "you (plural)",
+      "dialect": "youse",
+      "condition": "Macquarie Dictionary: second-person plural; first recorded in the 1890s and from Irish English; still non-standard and divisive in speech and writing. Informal, working-class flavour.",
+      "example_standard": "Are you all coming?",
+      "example_dialect": "Are youse coming?",
+      "source_ids": [
+        5
+      ]
+    },
+    {
+      "standard": "..., though.",
+      "dialect": "..., but. (sentence-final 'but')",
+      "condition": "Final particle 'but' meaning 'though' ('Yeah it would fit in but'); eWAVE rates it B (neither pervasive nor extremely rare in Australian English); Wikipedia says especially Western Australia and Queensland (Collins and Peters).",
+      "example_standard": "Yeah, it would fit in, though.",
+      "example_dialect": "Yeah it would fit in but.",
+      "source_ids": [
+        6,
+        1
+      ]
+    },
+    {
+      "standard": "question tag (isn't it?)",
+      "dialect": "eh? (tag)",
+      "condition": "A questioning 'eh' (also spelt 'ay, aye'), especially linked to Queensland (source 1).",
+      "example_standard": "It's a nice day, isn't it?",
+      "example_dialect": "It's a nice day, eh?",
+      "source_ids": [
+        1
+      ]
+    },
+    {
+      "standard": "very (intensifier)",
+      "dialect": "heaps / full + adjective",
+      "condition": "'heaps good', 'full' as an intensifier (source 1). Informal.",
+      "example_standard": "It's really good.",
+      "example_dialect": "It's heaps good.",
+      "source_ids": [
+        1
+      ]
+    },
+    {
+      "standard": "really good / quickly",
+      "dialect": "adverb without -ly: 'real good'",
+      "condition": "Source 1 lists dropping -ly on adverbs.",
+      "example_standard": "He did really well.",
+      "example_dialect": "He did real good.",
+      "source_ids": [
+        1
+      ]
+    },
+    {
+      "standard": "as nice as anything",
+      "dialect": "sweet as (comparison with no second term)",
+      "condition": "Source 1: incomplete comparisons such as 'sweet as'.",
+      "example_standard": "That's really nice.",
+      "example_dialect": "That's sweet as.",
+      "source_ids": [
+        1
+      ]
+    },
+    {
+      "standard": "afternoon / breakfast / sandwich",
+      "dialect": "word + -o / -ie: arvo, sanger, tradie, trackie",
+      "condition": "ANDC: arvo (1920s, 'see you Saturday arvo') shows the Australian habit of clipping a word and adding -o; sanger (sandwich), trackie (tracksuit), Aussie and tradie appear in the entries or as -ie examples. Source 7 lists research on hypocoristics.",
+      "example_standard": "I'll see you Saturday afternoon.",
+      "example_dialect": "I'll see you Saturday arvo.",
+      "source_ids": [
+        4,
+        7
+      ]
+    },
+    {
+      "standard": "Yes, but no. / agree-then-disagree",
+      "dialect": "yeah-no (discourse marker)",
+      "condition": "ANDC's grammar bibliography lists research titled 'Yeah-No He's a Good Kid' (Burridge and Florey 2002) - so it is a studied Australian discourse feature. Meaning/function not summarised in the opened page: LOW confidence. Example constructed.",
+      "example_standard": "Yes, but it's fine.",
+      "example_dialect": "Yeah, no, it's fine.",
+      "source_ids": [
+        7
+      ],
+      "constructed": true
+    },
+    {
+      "standard": "not great",
+      "dialect": "not bad (understatement / litotes)",
+      "condition": "Source 1: litotes such as 'not bad' for good. Shared with British English; Australian flavour comes from tone.",
+      "example_standard": "It was very good.",
+      "example_dialect": "It was not bad.",
+      "source_ids": [
+        1
+      ]
+    }
+  ],
   "vocabulary": [
     {
       "standard": "afternoon",
       "dialect": "arvo",
-      "note": "Listed in the source as an example of Australian shortening and diminutives.",
-      "source_ids": [1]
+      "note": "ANDC: afternoon; from clipping + -o; recorded from the 1920s ('see you Saturday arvo').",
+      "source_ids": [
+        4
+      ]
     },
     {
-      "standard": "barbecue",
-      "dialect": "barbie",
-      "note": "Listed in the source as an Australian diminutive. Use for a barbecue meal or event.",
-      "source_ids": [1]
-    },
-    {
-      "standard": "smoke break / tea break (meaning to verify)",
-      "dialect": "smoko",
-      "note": "Listed in the source as an Australian term. The meaning given here is not stated in the source and must be verified before use.",
-      "source_ids": [1]
-    },
-    {
-      "standard": "Australian (informal)",
-      "dialect": "Aussie",
-      "note": "Diminutive, listed in the source. Common and friendly.",
-      "source_ids": [1]
-    },
-    {
-      "standard": "Australia (informal)",
-      "dialect": "Straya",
-      "note": "Listed in the source as a casual, humorous shortening. Use only in comedic or very informal dialogue.",
-      "source_ids": [1]
-    },
-    {
-      "standard": "friend",
-      "dialect": "mate",
-      "note": "Source says it means the same as in British English. Use freely.",
-      "source_ids": [1]
-    },
-    {
-      "standard": "true, genuine, honest",
+      "standard": "honest, genuine",
       "dialect": "fair dinkum",
-      "note": "Source gives 'true' or 'legitimate'. Informal, a little old-fashioned.",
-      "source_ids": [1]
+      "note": "ANDC: reliable, genuine; from British dialect 'fair dinkum' (fair dealing); 'fair dinkum' 1881, 'dinkum' adjective 1890s. Slightly old-fashioned.",
+      "source_ids": [
+        4
+      ]
     },
     {
-      "standard": "uncouth working-class person",
-      "dialect": "bogan",
-      "note": "Source compares it with the British 'chav' and describes it as a lower-socio-economic term. Can be insulting.",
-      "source_ids": [1]
+      "standard": "friend (address)",
+      "dialect": "mate",
+      "note": "ANDC: friend or address of equality and goodwill; sometimes ironic.",
+      "source_ids": [
+        4
+      ]
+    },
+    {
+      "standard": "hello",
+      "dialect": "g'day",
+      "note": "ANDC: shortening of 'good day'; recorded in the 1880s; made globally famous by 1980s tourism ads. Now somewhat jokey for young speakers (no age data in source).",
+      "source_ids": [
+        4
+      ]
+    },
+    {
+      "standard": "don't worry; you're welcome",
+      "dialect": "no worries",
+      "note": "ANDC: colloquial from 'not to worry'; recorded from the 1960s; used as a reply or reassurance.",
+      "source_ids": [
+        4
+      ]
+    },
+    {
+      "standard": "sausage",
+      "dialect": "snag",
+      "note": "ANDC: first recorded 1937; probably from Scottish dialect.",
+      "source_ids": [
+        4
+      ]
+    },
+    {
+      "standard": "sandwich",
+      "dialect": "sanger",
+      "note": "ANDC: from sandwich; sanger widely used from the 1960s (earlier sango, 1940s).",
+      "source_ids": [
+        4
+      ]
+    },
+    {
+      "standard": "small beer bottle",
+      "dialect": "stubby",
+      "note": "ANDC: short fat beer bottle, particularly 375 ml; recorded 1965; 'stubby holder' for the insulator.",
+      "source_ids": [
+        4
+      ]
     },
     {
       "standard": "pickup truck",
       "dialect": "ute",
-      "note": "Listed in the source. Common everyday word.",
-      "source_ids": [1]
+      "note": "ANDC: from 'utility'; two-door cab with a rear tray; first recorded 1943.",
+      "source_ids": [
+        4
+      ]
+    },
+    {
+      "standard": "portable cooler box",
+      "dialect": "esky",
+      "note": "ANDC: from a brand name; recorded from the 1950s.",
+      "source_ids": [
+        4
+      ]
+    },
+    {
+      "standard": "tracksuit",
+      "dialect": "trackie (daks = trousers)",
+      "note": "ANDC: trackie recorded from the 1980s; daks 1930s brand name, general 'trousers' from the 1960s.",
+      "source_ids": [
+        4
+      ]
+    },
+    {
+      "standard": "woman, girl",
+      "dialect": "sheila",
+      "note": "ANDC: first recorded 1832 (as shelah) for Irish women, later any woman. Dated and may offend; use only for older characters.",
+      "source_ids": [
+        4
+      ]
+    },
+    {
+      "standard": "crude, unsophisticated person",
+      "dialect": "bogan",
+      "note": "ANDC: unsophisticated, uncouth; popularised by a 1980s TV character (Kylie Mole); origin uncertain. Insult or self-description.",
+      "source_ids": [
+        4
+      ]
+    },
+    {
+      "standard": "lazy freeloader",
+      "dialect": "bludger",
+      "note": "ANDC: originally British slang for a man living off prostitutes; now a person who relies on others' effort or does not do their share; short for 'bludgeoner'.",
+      "source_ids": [
+        4
+      ]
+    },
+    {
+      "standard": "unfashionable, awkward person",
+      "dialect": "dag / daggy",
+      "note": "ANDC: dag (nerd-like person; 1960s) from British dialect; 'daggy sheep' sense also.",
+      "source_ids": [
+        4
+      ]
+    },
+    {
+      "standard": "barbecue",
+      "dialect": "barbie",
+      "note": "Source 1: Australian diminutive.",
+      "source_ids": [
+        1
+      ]
+    },
+    {
+      "standard": "cigarette break",
+      "dialect": "smoko",
+      "note": "Source 1 lists it; ANDC meanings page opened had no entry. Meaning per source 1 summary.",
+      "source_ids": [
+        1
+      ]
+    },
+    {
+      "standard": "Australian",
+      "dialect": "Aussie",
+      "note": "Source 1; ANDC notes -ie suffix example.",
+      "source_ids": [
+        1
+      ]
+    },
+    {
+      "standard": "Australia (humorous)",
+      "dialect": "Straya",
+      "note": "Source 1; comic.",
+      "source_ids": [
+        1
+      ]
+    },
+    {
+      "standard": "tradesperson",
+      "dialect": "tradie",
+      "note": "ANDC mentions tradie as an -ie example in the 'Aussie' entry (meaning inferred from the word: someone in the trades).",
+      "source_ids": [
+        4
+      ]
+    },
+    {
+      "standard": "flip-flops (the footwear)",
+      "dialect": "thongs",
+      "note": "Source 1: toe sandals in Australia; in the UK and US 'thong' means underwear.",
+      "source_ids": [
+        1
+      ]
+    },
+    {
+      "standard": "liquor shop",
+      "dialect": "bottle-o",
+      "note": "Source 1: shop selling alcohol (like British off-licence).",
+      "source_ids": [
+        1
+      ]
+    },
+    {
+      "standard": "very",
+      "dialect": "heaps",
+      "note": "Source 1: intensifier ('heaps good').",
+      "source_ids": [
+        1
+      ]
+    },
+    {
+      "standard": "remote country area",
+      "dialect": "the outback / the bush",
+      "note": "Source 1.",
+      "source_ids": [
+        1
+      ]
+    },
+    {
+      "standard": "shout out, call",
+      "dialect": "cooee",
+      "note": "Source 1: Aboriginal-origin call to attract attention at a distance.",
+      "source_ids": [
+        1
+      ]
+    },
+    {
+      "standard": "hard work",
+      "dialect": "hard yakka",
+      "note": "Source 1: Aboriginal-origin.",
+      "source_ids": [
+        1
+      ]
+    },
+    {
+      "standard": "duvet",
+      "dialect": "doona",
+      "note": "Source 1: Australian word for duvet.",
+      "source_ids": [
+        1
+      ]
+    },
+    {
+      "standard": "bell pepper",
+      "dialect": "capsicum",
+      "note": "Source 1.",
+      "source_ids": [
+        1
+      ]
+    },
+    {
+      "standard": "swimsuit",
+      "dialect": "togs / bathers / cossies / swimmers",
+      "note": "Source 1: varies by state (NSW cossies, togs, swimmers; Queensland togs; Victoria bathers).",
+      "source_ids": [
+        1
+      ]
     }
   ],
   "pronunciation": [
     {
-      "rule": "Non-rhoticity: r is not pronounced at the end of a word or before a consonant (it is pronounced only before a vowel).",
+      "rule": "Non-rhoticity: r is not pronounced after a vowel at the end of a word or before a consonant.",
       "ipa": "/r/ -> silent in coda",
-      "actor_tip": "Drop the r in 'car', 'bird', 'word', 'hard' so they sound like 'cah', 'buhd', 'wuhd', 'hahd'. Keep the r before a vowel ('car alarm' keeps it).",
-      "example": "car, bird, hard, word",
-      "source_ids": [1]
+      "actor_tip": "'car' -> 'cah', 'bird' -> 'buhd'. Keep r before a vowel ('car alarm').",
+      "example": "car, bird, hard",
+      "source_ids": [
+        1,
+        3
+      ]
     },
     {
-      "rule": "Linking and intrusive r: where a word ends in an r-spelling and the next word begins with a vowel, a linking r is pronounced. In some cases an r is added where the spelling has none.",
-      "ipa": "linking /r/ between vowels across words (e.g. 'law-r-and order')",
-      "actor_tip": "If the next word starts with a vowel, add a soft r between the words: 'idea of' becomes 'idea-r-of'. Use it naturally, not on every vowel junction.",
-      "example": "law and order -> law-r-and order; idea of -> idea-r-of",
-      "source_ids": [1]
+      "rule": "Linking and intrusive r: linking r between words; an r can be inserted where the spelling has none ('drawing' -> 'draw-ring').",
+      "ipa": "linking /ɹ/; intrusive [ɹ]",
+      "actor_tip": "Add a soft r when a word ending in a vowel meets a vowel: 'saw it' -> 'saw-r-it'.",
+      "example": "car alarm, drawing, law and order",
+      "source_ids": [
+        1,
+        3
+      ]
     },
     {
-      "rule": "PRICE vowel (as in 'ride', 'my', 'time') starts from an open, back vowel and glides up to 'ee'. General Australian is more open; Cultivated Australian is more centralised.",
-      "ipa": "General: [ɑe] or [ɒe]; Cultivated: [a̠e]",
-      "actor_tip": "Start the 'I' sound with an open, slightly back 'ah' (lips neutral, not rounded) and glide up quickly toward 'ee'. 'My' is roughly 'mah-ee' with a fast glide, not 'my' as in American English.",
-      "example": "my, ride, time, price",
-      "source_ids": [1]
+      "rule": "PRICE: starts back and rounded-open: General [ɒe]; Cultivated [a̠e]; Broad starts higher and rounder [ɒːe].",
+      "ipa": "General [ɒe]",
+      "actor_tip": "Open the mouth, lips slightly rounded at the start, glide up. 'my' like 'moy' for Broad.",
+      "example": "my, ride, time",
+      "source_ids": [
+        3,
+        1
+      ]
     },
     {
-      "rule": "MOUTH vowel (as in 'house', 'now', 'down') starts from an open front or central vowel and glides to a rounded 'oo'. General is more front-starting; Cultivated is more central.",
-      "ipa": "General: [æo]; Cultivated: [a̠ʊ]",
-      "actor_tip": "Start 'house' and 'now' from a front open 'a' (as in 'cat') and glide to 'oo'. Round the lips at the end.",
-      "example": "house, now, down, mouth",
-      "source_ids": [1]
+      "rule": "MOUTH: General [æo]; Cultivated [a̠ʊ]; Broad [ɛːo] with a fronted, raised start.",
+      "ipa": "General [æo]",
+      "actor_tip": "Start with 'a' as in cat and glide to 'o'.",
+      "example": "house, now, down",
+      "source_ids": [
+        3,
+        1
+      ]
     },
     {
-      "rule": "Trap-bath split (partial): bath, grass and can't use a long open vowel (like 'father'); most other short-a words such as 'cat', 'dance' and 'plant' use a flat short 'a'. South Australia has a fuller split.",
-      "ipa": "/ɐː/ in bath, grass, can't; /æ/ in cat, dance, plant",
-      "actor_tip": "For 'bath', 'grass' and 'can't', say a long 'ah' like the vowel in 'father'. For 'cat', 'dance' and 'plant', use the flat 'a' of 'cat'. Note that 'dance' and 'plant' are in the flat group per the source's general description.",
-      "example": "bath / cat; grass / gas; can't / cat",
-      "source_ids": [1]
+      "rule": "FACE: low start, [æ̠ɪ] in General; Cultivated [ɛɪ]; Broad [a̠ːɪ]. GOAT: [æ̠ʉ] in General; Cultivated [ö̞ʊ]; before l the vowel is backed [ɔʊ] (spreading from South Australia).",
+      "ipa": "FACE [æ̠ɪ]; GOAT [æ̠ʉ]",
+      "actor_tip": "'day' with a low start ('dai'); 'go' like 'gaoh' with a fronted second part.",
+      "example": "face, day, go, home",
+      "source_ids": [
+        3
+      ]
     },
     {
-      "rule": "NEAR and SQUARE: in Western Australia and Queensland these are centring diphthongs (two-part vowels); in other states they are a single long vowel.",
-      "ipa": "WA and QLD: [ɪə] (near), [ɛə] (square); other states: [ɪː], [ɛː]",
-      "actor_tip": "In WA or Queensland characters, say 'near' and 'square' as two parts ('ee-uh', 'eh-uh'). In other states, keep a single long vowel ('neer', 'skwair'). Medium-low confidence on the square vowel.",
-      "example": "near, here, square, hair",
-      "source_ids": [1]
+      "rule": "KIT is raised toward [i] (younger speakers now lowering); DRESS [e] raised (Broad even higher); TRAP [æ] (younger often [a]); BAD [æː] long.",
+      "ipa": "KIT /ɪ/ ~ [i]; DRESS /e/ [e]",
+      "actor_tip": "Keep 'bit' and 'bet' close and high: 'bet' like 'bait' without glide.",
+      "example": "kit, dress, trap, bad",
+      "source_ids": [
+        3
+      ]
     },
     {
-      "rule": "Dark l: l is dark (back, velarised) in almost all positions in Australian English. L-vocalisation (l becoming a vowel-like sound) is more common in South Australia.",
-      "ipa": "/l/ -> [ɫ] (almost all positions); L-vocalisation in South Australia",
-      "actor_tip": "Keep the l dark everywhere: pull the back of the tongue up and keep the tongue tip low. In South Australian characters, the l at the end of words can become a w-like sound.",
+      "rule": "FLEECE and GOOSE: FLEECE [ɪi]-like; GOOSE fronted [ʉː] (ɪ̈ɯ). GOOSE is further forward in NSW than Victoria and moving forward everywhere.",
+      "ipa": "FLEECE [ɪi]; GOOSE [ʉː]",
+      "actor_tip": "'see' starts with a short ih; 'too' pushed forward with rounded lips.",
+      "example": "see, too, food",
+      "source_ids": [
+        3
+      ]
+    },
+    {
+      "rule": "START/PALM/BATH: central /ɐː/; the trap-bath split is partial: more words in South Australia ('dance', 'plant'); Tasmania/Victoria prefer the short vowel. Survey: 'graph' /ɐː/ for 86% of Adelaide speakers and /æ/ for 100% of Hobart speakers.",
+      "ipa": "/ɐː/ in start, palm, bath; /æ/ vs /ɐː/ in dance, graph",
+      "actor_tip": "'bath', 'grass' use a central long 'ah'; check 'dance' by state.",
+      "example": "start, bath, dance, graph",
+      "source_ids": [
+        3,
+        1
+      ]
+    },
+    {
+      "rule": "Mary-marry-merry: Australian English keeps all three words distinct (no merger).",
+      "ipa": "no merger (IPA not given in the source)",
+      "actor_tip": "Say three different vowels; most Americans merge them, Australians do not.",
+      "example": "Mary / marry / merry",
+      "source_ids": [
+        2
+      ]
+    },
+    {
+      "rule": "happY tensing: word-final -y in happy/city is a long [iː] (happee).",
+      "ipa": "[iː]",
+      "actor_tip": "Say 'happee', not a short 'ih'.",
+      "example": "happy, city",
+      "source_ids": [
+        3
+      ]
+    },
+    {
+      "rule": "T-flapping: t (and d) after a stressed vowel and before a weak vowel is a tap [ɾ]; some speakers use a glottal stop for final t.",
+      "ipa": "/t d/ -> [ɾ]",
+      "actor_tip": "Quick tongue tap: 'butter' like 'budder'.",
+      "example": "butter, party, bottle",
+      "source_ids": [
+        3
+      ]
+    },
+    {
+      "rule": "Dark l in almost all positions; l-vocalisation is more common in South Australia (round-1 item, source 1).",
+      "ipa": "/l/ -> [ɫ]",
+      "actor_tip": "Keep the tongue tip low and the back raised.",
       "example": "milk, feel, all",
-      "source_ids": [1]
+      "source_ids": [
+        1
+      ]
     },
     {
-      "rule": "Flapping: t and d between vowels are pronounced as a quick tap of the tongue, so 'latter' and 'ladder' sound alike.",
-      "ipa": "/t/, /d/ between vowels -> [ɾ]",
-      "actor_tip": "Make a very quick tap of the tongue tip on the ridge behind the top teeth for a t or d that sits between two vowels. Do not make a full t sound.",
-      "example": "latter / ladder; butter / budder",
-      "source_ids": [1]
+      "rule": "Yod-dropping after s, l, z, th: 'suit' = 'soot', 'lute' = 'loot'.",
+      "ipa": "/sj lj/ -> /s l/",
+      "actor_tip": "No y after s, l.",
+      "example": "suit, lute, news",
+      "source_ids": [
+        1
+      ]
     },
     {
-      "rule": "Yod-dropping after s, l, z and th: the y-glide before a long 'oo' is dropped, so 'news', 'lute' and 'suit' sound like 'noos', 'loot' and 'soot'.",
-      "ipa": "/sjuː/ -> /suː/; /ljuː/ -> /luː/ (after s, l, z, θ)",
-      "actor_tip": "After s, l, z or th, go straight from the consonant to the 'oo' vowel with no y-sound. 'New' keeps the y after n. 'Suit' is 'soot', 'lute' is 'loot'.",
-      "example": "suit, lute, news, Zeus",
-      "source_ids": [1]
+      "rule": "NURSE: [ɜː], as high as [ɘː] and sometimes rounded [ɵː]; NEAR and SQUARE: SQUARE [eː] (higher than RP); in WA and Queensland NEAR is a two-part [ɪə] and SQUARE [ɛə]; elsewhere a long monophthong.",
+      "ipa": "NURSE [ɜː~ɘː]; SQUARE [eː]",
+      "actor_tip": "'bird' with a rounded, high long vowel; 'square' without the 'uh' glide in most states.",
+      "example": "bird, square, near",
+      "source_ids": [
+        3,
+        1
+      ]
     }
   ],
   "intonation": [
     {
-      "rule": "High rising terminal ('uptalk'): statements often end with a rising pitch, so they sound like questions. The source says it was spread by young people from the 1960s, is used more by young people than older speakers, and is more common among women.",
-      "source_ids": [1]
+      "rule": "High rising terminal (HRT, 'uptalk'): statements end with a rising pitch and can sound like questions. A 1986 Sydney study (source 1) found it spread among young people from the 1960s, used more by younger than older speakers, and more by women.",
+      "source_ids": [
+        1
+      ],
+      "actor_tip": "Use on casual statements of fact from young or relaxed speakers; do not use on serious or emotional lines."
+    },
+    {
+      "rule": "Question-tag and particle melody: 'eh' (Queensland) and sentence-final 'but' are used to check or soften a statement rather than to ask a full question (sources 1, 6). No pitch contour verified.",
+      "source_ids": [
+        1,
+        6
+      ],
+      "actor_tip": "Say the statement flat, then let 'eh' / 'but' close the line lightly."
     }
   ],
   "common_mistakes": [
-    "Using 'G'day mate', 'crikey' and 'strewth' in every speech. These are stereotypes; the sources do not present them as typical features of everyday speech.",
-    "Pulling the uptalk rise onto every sentence, including serious or formal statements.",
-    "Dropping the r at the start of words or before vowels (the rule is only for r after a vowel and before a consonant or at the end of a word).",
-    "Making every short-a word sound like 'father' (the long vowel is only for bath, grass and can't in the source).",
-    "Using the Crocodile Dundee or 'Strine' exaggeration for general characters. Australian accents vary widely by age, class and state.",
-    "Turning every t between vowels into a full t, which loses the flap."
+    "'G'day mate', 'crikey', 'strewth' in every speech. Stereotype; use g'day or mate once, if at all.",
+    "Applying uptalk to serious or formal lines.",
+    "Dropping r at the start of words or before vowels. Only coda r is dropped.",
+    "Making every short-a word 'father'. The long vowel is a partial split that varies by state.",
+    "Crocodile Dundee 'Strine' exaggeration. Use General Australian by default.",
+    "Turning every t between vowels into a full t, losing the flap.",
+    "Using 'sheila' for a modern character. Dated and may offend.",
+    "Treating 'youse' as neutral; it is non-standard and divisive (Macquarie).",
+    "Treating 'no worries' as the only Aussie phrase; use it once.",
+    "Forgetting the raised KIT and DRESS vowels; most listeners notice these."
   ],
   "generational_notes": [
-    "The source describes the broad variety as declining among the population; fewer people in the current generation use the most strongly marked forms.",
-    "Cultivated Australian is described in the source as largely extinct in the 21st century; use General Australian as the default.",
-    "Uptalk (high rising terminal) is spread among young people and women more than older people. The 1986 study described in the source found young speakers used it more than twice as often as older speakers.",
-    "Older speakers keep fuller vowels in endings such as -ary and -ery; younger speakers tend to use full vowels in these positions. The source describes this as a generational change, not a decline."
+    "Source 1: Broad is declining in the current generation; Cultivated is nearly extinct. General Australian is the default.",
+    "Source 3: KIT is lowering and TRAP moving toward [a] among younger speakers; GOOSE and GOAT are changing (fronting; backed GOAT before l spreading from South Australia).",
+    "Source 1: HRT was spread by young people from the 1960s; more by younger than older speakers and by women (1986 Sydney study).",
+    "ANDC dates: 'no worries' from the 1960s; 'sanger' from the 1960s; 'dag' (nerd sense) from the 1960s; 'bogan' popularised in the 1980s. Older: g'day (1880s), fair dinkum (1881), sheila (1832).",
+    "Younger characters use less g'day/fair dinkum; older ones keep fuller Broad vowels."
   ],
   "conversion_guidelines": [
-    "Use General Australian as the default. Use the Cultivated variety only for formal or older characters who are described as educated or upper-class in the text (rare in modern speech).",
-    "Apply non-rhoticity and the PRICE and MOUTH vowels as the core features. Add dark l and flapping for natural speech.",
-    "Apply the trap-bath split only to bath, grass and can't, as the source describes.",
-    "Apply uptalk to casual statements from young or casual characters. Do not apply it to formal, serious or emotional lines.",
-    "Use vocabulary sparingly: 1-2 Australian words per monologue (arvo, mate, ute) where they fit the text.",
-    "Do not add grammar features; none are verified in the sources.",
-    "Keep spelling close to standard English. Do not add apostrophes or spelling changes for the accent."
+    "Natural spoken film-dialogue English first; add Australian features lightly.",
+    "Default General Australian. Use Broad only for rural/working-class older characters; avoid Cultivated unless the text calls for it.",
+    "Grammar (one or two per monologue): sentence-final 'but', 'heaps good', 'sweet as', 'eh' tag (Queensland), -o/-ie words. 'Youse' only for plain, working-class characters. 'Yeah-no' is low confidence.",
+    "Vocabulary: one or two words (arvo, snag, esky, ute, bludger, no worries) where the text fits. Check age: 'sheila' is dated; 'fair dinkum' is old-fashioned.",
+    "Sound notes (to actor): raised KIT/DRESS, General PRICE/MOUTH, t-flap, dark l, non-rhotic with intrusive r.",
+    "HRT on casual statements; not on serious lines.",
+    "No eye-dialect (no 'strewth', 'no wuckers'). Standard spelling.",
+    "Mark the state (e.g. South Australia) when the speaker is from there."
   ],
   "sources": [
     {
@@ -160,18 +518,225 @@
       "title": "Australian English (Wikipedia)",
       "url": "https://en.wikipedia.org/wiki/Australian_English",
       "type": "encyclopedia"
+    },
+    {
+      "id": 2,
+      "title": "Mary-marry-merry merger (Wikipedia)",
+      "url": "https://en.wikipedia.org/wiki/Mary%E2%80%93marry%E2%80%93merry_merger",
+      "type": "encyclopedia"
+    },
+    {
+      "id": 3,
+      "title": "Australian English phonology (Wikipedia; cites Cox and Fletcher 2017, Harrington et al. 1997, Crystal 1995)",
+      "url": "https://en.wikipedia.org/wiki/Australian_English_phonology",
+      "type": "encyclopedia"
+    },
+    {
+      "id": 4,
+      "title": "Australian National Dictionary Centre (ANU): Meanings and origins",
+      "url": "https://history.cass.anu.edu.au/centres/andc/meanings-origins/all",
+      "type": "dictionary"
+    },
+    {
+      "id": 5,
+      "title": "Macquarie Dictionary: What're youse doing?",
+      "url": "https://www.macquariedictionary.com.au/whatre-youse-doing/",
+      "type": "dictionary"
+    },
+    {
+      "id": 6,
+      "title": "eWAVE (Atlas of Varieties of English): sentence-final 'but' meaning 'though' (Collins and Peters)",
+      "url": "https://ewave-atlas.org/valuesets/59-211",
+      "type": "academic"
+    },
+    {
+      "id": 7,
+      "title": "Australian National Dictionary Centre (ANU): Grammar and syntax bibliography",
+      "url": "https://history.cass.anu.edu.au/centres/andc/grammar-and-syntax",
+      "type": "academic"
     }
   ],
   "confidence": "medium",
   "open_questions": [
-    "Only one source (the Australian English Wikipedia article) was opened for this file. Academic sources (Macquarie University phonetics pages, Cox and Palethorpe, Harrington et al.; the Australian National Dictionary Centre) should be checked before finalising the vowel IPA values.",
-    "Mary-marry-merry: the Wikipedia article 'Mary-marry-merry merger' (https://en.wikipedia.org/wiki/Mary%E2%80%93marry%E2%80%93merry_merger) says Australian English keeps the three words distinct. It was opened in this pass; if used as a rule, add it to sources as id 2 and cite it.",
-    "The happY (word-final -y) vowel and the Australian Vowel Shift were not verified in the opened text and are omitted.",
-    "'No worries', 'brekkie' and 'ta' were searched for but do not appear in the opened text. Omit until verified.",
-    "The 'bad-lad' split and the 'can' example were mentioned in one summary; the exact conditions are not verified.",
-    "GOOSE fronting or 'tru-e' diphthongisation was mentioned in a summary and is omitted until verified from the source text.",
-    "Grammar: a final particle 'but' was mentioned in one summary but not confirmed; omitted.",
-    "The 'smoko' meaning is not stated in the source and is marked for verification.",
-    "The uptalk research details (1986 Sydney study) are reported by the Wikipedia summary; verify the original study before quoting it."
-  ]
+    "Primary phonetic sources (Cox and Fletcher 2017; Harrington, Cox and Evans 1997; Cox and Palethorpe 2007) were not opened. Vowel IPA comes from a Wikipedia table (the summary warned that its table columns were scrambled in text form).",
+    "Cultivated Australian monophthong values are not in the opened article.",
+    "ANDC entries for 'smoko', 'servo', 'brekkie', 'barbie', 'esky' (found), 'tradie' (only as an example), 'thongs' (only listed) were not all present. 'Servo' and 'brekkie' left out for lack of a source.",
+    "Hypocoristic rules (-o, -ie) are documented in ANDC bibliography titles; the opened pages did not describe the rules in full.",
+    "'Yeah-no' function is from a bibliography title only. 'She'll be right', 'good on you' and 'knowed' were not found in opened sources; omitted.",
+    "Intonation beyond HRT is not verified. HRT frequency among current young speakers not checked since the 1986 Sydney study.",
+    "Aboriginal English and ethnocultural varieties (Lebanese, Vietnamese, Samoan) are only named; features not verified.",
+    "Whether 'eh' is Queensland-specific or national is not clear from source 1.",
+    "Age labels for fair dinkum/g'day are coaching judgement; ANDC gives dates, not current frequency."
+  ],
+  "examples": [
+    {
+      "korean_idea": "안녕, 친구! (인사)",
+      "neutral_english": "Hello, my friend!",
+      "regional_english": "G'day, mate!",
+      "note": "g'day와 mate 모두 ANDC에서 확인(출처 4). 젊은 도시 인물은 덜 씁니다.",
+      "source_ids": [
+        4
+      ],
+      "constructed": false
+    },
+    {
+      "korean_idea": "괜찮아, 걱정 마. (위로·답례)",
+      "neutral_english": "Don't worry about it.",
+      "regional_english": "No worries.",
+      "note": "ANDC: 1960년대부터 기록된 대답(출처 4).",
+      "source_ids": [
+        4
+      ],
+      "constructed": false
+    },
+    {
+      "korean_idea": "토요일 오후에 보자. (약속)",
+      "neutral_english": "See you Saturday afternoon.",
+      "regional_english": "See you Saturday arvo.",
+      "note": "ANDC 예문 그대로(출처 4).",
+      "source_ids": [
+        4
+      ],
+      "constructed": false
+    },
+    {
+      "korean_idea": "이 얌체야! (분노)",
+      "neutral_english": "You freeloader!",
+      "regional_english": "You bludger!",
+      "note": "bludger = 남에게 기대어 사는 사람(출처 4).",
+      "source_ids": [
+        4
+      ],
+      "constructed": true
+    },
+    {
+      "korean_idea": "아이스박스 챙겨서 바비큐 가자. (제안)",
+      "neutral_english": "Bring the cooler to the barbecue.",
+      "regional_english": "Bring the esky to the barbie.",
+      "note": "esky(ANDC), barbie(출처 1).",
+      "source_ids": [
+        4,
+        1
+      ],
+      "constructed": true
+    },
+    {
+      "korean_idea": "응, 들어맞긴 하는데 말이야. (반론 완화)",
+      "neutral_english": "Yeah, it would fit in, though.",
+      "regional_english": "Yeah it would fit in but.",
+      "note": "eWAVE의 예문(출처 6).",
+      "source_ids": [
+        6
+      ],
+      "constructed": false
+    },
+    {
+      "korean_idea": "너희 다 올 거야? (질문)",
+      "neutral_english": "Are you all coming?",
+      "regional_english": "Are youse coming?",
+      "note": "youse는 구어에서 쓰이나 비표준(출처 5).",
+      "source_ids": [
+        5
+      ],
+      "constructed": true
+    },
+    {
+      "korean_idea": "진짜야? (놀람)",
+      "neutral_english": "Honestly? Is that true?",
+      "regional_english": "Fair dinkum?",
+      "note": "fair dinkum = 진짜(출처 4). 약간 옛 말투.",
+      "source_ids": [
+        4
+      ],
+      "constructed": true
+    },
+    {
+      "korean_idea": "저거 정말 좋다. (칭찬)",
+      "neutral_english": "That's really nice.",
+      "regional_english": "That's sweet as.",
+      "note": "'sweet as' 같은 비교 생략(출처 1).",
+      "source_ids": [
+        1
+      ],
+      "constructed": false
+    },
+    {
+      "korean_idea": "그거 진짜 맛있어. (강조)",
+      "neutral_english": "It's really good.",
+      "regional_english": "It's heaps good.",
+      "note": "heaps = 매우(출처 1).",
+      "source_ids": [
+        1
+      ],
+      "constructed": false
+    },
+    {
+      "korean_idea": "걔 좀 촌스러워. (험담)",
+      "neutral_english": "He's a bit unfashionable.",
+      "regional_english": "He's a bit of a dag.",
+      "note": "dag = 유행에 뒤처지거나 어색한 사람(출처 4).",
+      "source_ids": [
+        4
+      ],
+      "constructed": true
+    },
+    {
+      "korean_idea": "샌드위치 먹을래? (제안)",
+      "neutral_english": "Want a sandwich?",
+      "regional_english": "Want a sanger?",
+      "note": "sanger는 1960년대부터 널리 쓰임(출처 4).",
+      "source_ids": [
+        4
+      ],
+      "constructed": true
+    }
+  ],
+  "sub_regions": [
+    {
+      "name": "남호주",
+      "note": "발음 차이가 가장 큼. dance/plant에 /ɐː/가 더 많고(출처 1) l-vocalisation이 더 흔하며 l 앞 GOAT 후설화가 이 지역에서 퍼졌습니다(출처 3). 애들레이드 86% /ɐː/ vs 호바트 100% /æ/(graph).",
+      "source_ids": [
+        1,
+        3
+      ]
+    },
+    {
+      "name": "빅토리아",
+      "note": "salary-celery 병합이 나타남(출처 1). 수영복은 bathers(출처 1).",
+      "source_ids": [
+        1
+      ]
+    },
+    {
+      "name": "서호주·퀸즐랜드",
+      "note": "문장 끝 'but'이 특징(출처 1). 퀸즐랜드는 'eh' 태그. NEAR/SQUARE가 두 부분 모음(출처 1, 이전 판).",
+      "source_ids": [
+        1
+      ]
+    },
+    {
+      "name": "뉴사우스웨일스·퀸즐랜드",
+      "note": "수영복: cossies, togs, swimmers. 쓰레기: garbage(출처 1). GOOSE는 NSW에서 빅토리아보다 더 앞쪽(출처 3).",
+      "source_ids": [
+        1,
+        3
+      ]
+    },
+    {
+      "name": "Broad / General / Cultivated",
+      "note": "General이 기본(도시, 방송), Broad는 농촌·교외에 더 많고 감소, Cultivated는 영국 RP 영향으로 21세기 초 거의 사라짐(출처 1, 3).",
+      "source_ids": [
+        1,
+        3
+      ]
+    },
+    {
+      "name": "원주민 영어·이민자 영어",
+      "note": "원주민 영어는 지역별로 표준에 가까운 형태부터 비표준까지 연속체. 이민자 가정(레바논계, 베트남계, 사모아계)의 영어도 존재(출처 1). 이번에 세부 검증은 하지 못함.",
+      "source_ids": [
+        1
+      ]
+    }
+  ],
+  "confidence_detail": "medium-high for vocabulary dates/meanings, 'youse' and sentence-final 'but' (ANDC, Macquarie, eWAVE opened); medium for vowels (Wikipedia citing Cox and Fletcher 2017); medium-low for other grammar items and for intonation (one Wikipedia summary of the 1986 study)."
 }

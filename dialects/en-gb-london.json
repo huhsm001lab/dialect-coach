@@ -2,162 +2,510 @@
   "code": "en-gb-london",
   "name": "London English (Cockney and Multicultural London English)",
   "language": "en",
-  "summary": "This file covers two related but different London varieties. Cockney is the traditional East End working-class accent, with features such as th-fronting (th becomes f or v), glottal stop for t, L-vocalisation (dark l becomes w or oo), h-dropping and non-rhoticity. Multicultural London English (MLE) is a newer sociolect spoken by many young Londoners of diverse backgrounds. It has strong Cockney influence but its signature features are th-stopping (th becomes t or d), 'innit' as a tag and 'was' generalised to all persons. Each rule below is tagged with the variety it belongs to in the 'condition' field (for grammar) or in the rule text (for pronunciation). Cockney is now less common among young Londoners; the source (a 2010 report) predicted decline in about 30 years, which is a prediction, not an established fact. Evidence is from Wikipedia summaries; the citations in those articles (e.g., Cheshire et al. 2011; Kerswill 2010) should be read before the file is finalised.",
+  "summary": "This file keeps two different London varieties apart. COCKNEY is the traditional (older) East End working-class accent: TH-fronting, glottal stop for t, L-vocalisation, h-dropping, non-rhoticity, 'me' for 'my', 'ain't', double negatives, and rhyming slang. MULTICULTURAL LONDON ENGLISH (MLE) is the newer sociolect of many young Londoners of diverse backgrounds: both th-stopping and th-fronting occur, innit is its only tag, 'was' is levelled, 'man' works as a pronoun, 'this is' can introduce quotations, FACE/PRICE/MOUTH vowels are different, and intonation has a distinctive rise-fall. Round 2 corrected two round-1 points: (1) MLE is not 'th-stopping only'; the MLE article lists both stopping and fronting, so do not give a hard rule; (2) 'kosher' and 'Mockney' were removed (kosher is not London-specific; Mockney describes a fake accent, not a word to put in a character's mouth). Evidence still leans on Wikipedia summaries of Cheshire, Kerswill, Fox and Torgersen and others, plus a 2026 York/QMUL study on MLE intonation and the Cheshire et al. 2011 abstract. Primary articles beyond abstracts were not read in full.",
   "grammar": [
     {
-      "standard": "We were late / They were there (positive clauses)",
-      "dialect": "We was late / They was there",
-      "condition": "MLE. 'Was' is generalised to all persons in positive clauses. The source says the pattern varies by speaker ethnicity and gender, so do not apply it to every character.",
-      "example_standard": "We were there all day.",
-      "example_dialect": "We was there all day.",
-      "source_ids": [2]
-    },
-    {
-      "standard": "isn't it? (question tag)",
-      "dialect": "innit?",
-      "condition": "MLE, used by many young Londoners. A flexible tag that can attach to almost any statement.",
-      "example_standard": "It's cold, isn't it?",
-      "example_dialect": "It's cold, innit?",
-      "source_ids": [2]
-    },
-    {
-      "standard": "and I said (reported speech)",
-      "dialect": "and this is (quotative)",
-      "condition": "MLE. The source reports 'this is' as a quotation marker, based on one study and one example. Treat as low confidence.",
-      "example_standard": "And I said, 'No way.'",
-      "example_dialect": "And this is, 'No way.'",
-      "source_ids": [2]
-    },
-    {
-      "standard": "am not / is not / are not",
+      "standard": "is not / are not / am not / has not",
       "dialect": "ain't",
-      "condition": "Cockney, informal. Listed in the source as a Cockney feature.",
+      "condition": "COCKNEY, informal. Used for be and have negatives (source 1).",
       "example_standard": "I am not going.",
       "example_dialect": "I ain't going.",
-      "source_ids": [1]
+      "source_ids": [
+        1
+      ]
     },
     {
       "standard": "my (possessive)",
-      "dialect": "me (possessive, e.g., 'me book')",
-      "condition": "Cockney, traditional speakers. LOW confidence: found in one summary of the source and not checked in the original text.",
-      "example_standard": "This is my book.",
-      "example_dialect": "This is me book.",
-      "source_ids": [1]
+      "dialect": "me",
+      "condition": "COCKNEY. Wikipedia gives the example 'At's me book you got 'ere' (source 1). Older / traditional speakers.",
+      "example_standard": "That's my book you've got there.",
+      "example_dialect": "That's me book you've got there.",
+      "source_ids": [
+        1
+      ]
+    },
+    {
+      "standard": "I didn't see anything.",
+      "dialect": "I didn't see nothing. (negative concord)",
+      "condition": "COCKNEY. Wikipedia gives 'I didn't see nuffink' as an example, showing both th-fronting and double negative (source 1). Also found in other working-class speech.",
+      "example_standard": "I didn't see anything!",
+      "example_dialect": "I didn't see nothing!",
+      "source_ids": [
+        1
+      ]
+    },
+    {
+      "standard": "We were / They were (positive clauses)",
+      "dialect": "We was / They was",
+      "condition": "MLE: past 'be' is levelled (was in positives; weren't in negatives is reported) and the choice is linked to ethnicity and gender: non-standard 'was' is highest among Black Caribbean-heritage speakers and lowest among Bangladeshi-heritage speakers (Cheshire and Fox 2008 via source 2). Do not give it to every character.",
+      "example_standard": "We were there all day.",
+      "example_dialect": "We was there all day.",
+      "source_ids": [
+        2
+      ]
+    },
+    {
+      "standard": "isn't it? (tag)",
+      "dialect": "innit?",
+      "condition": "MLE: 'innit' is the (only) tag; it can also mark a topic or stress new information, not just ask for confirmation (Cheshire, Nortier and Adger 2015 via source 2).",
+      "example_standard": "It's cold, isn't it?",
+      "example_dialect": "It's cold, innit?",
+      "source_ids": [
+        2,
+        7
+      ]
+    },
+    {
+      "standard": "I / you / he (singular)",
+      "dialect": "man (as a pronoun)",
+      "condition": "MLE: 'man' can be used as a first-person singular pronoun and sometimes for second or third person (Cheshire 2013 via source 2). Example sentence is constructed.",
+      "example_standard": "I'm tired.",
+      "example_dialect": "Man's tired.",
+      "source_ids": [
+        2
+      ],
+      "constructed": true
+    },
+    {
+      "standard": "and I said (quotative)",
+      "dialect": "and this is (+ subject), e.g. 'this is me, ...'",
+      "condition": "MLE, drama-telling: 'this is' introduces direct speech in dramatic scenes (Cheshire, Hall and Adger 2017 via source 2). BE LIKE is also a main youth quotative (source 5). Optional, once at most. Example constructed.",
+      "example_standard": "And I said, 'What's your problem?'",
+      "example_dialect": "And this is me, 'What's your problem?'",
+      "source_ids": [
+        2,
+        5
+      ],
+      "constructed": true
+    },
+    {
+      "standard": "though (sentence-final)",
+      "dialect": "still (sentence-final)",
+      "condition": "MLE: 'still' at the end of a sentence, alone or with 'though', to seek agreement or soften (Cheshire, Adams and Hall 2024 via source 2). Low-to-medium confidence; example constructed.",
+      "example_standard": "He's not that bad, though.",
+      "example_dialect": "He's not that bad still.",
+      "source_ids": [
+        2
+      ],
+      "constructed": true
+    },
+    {
+      "standard": "Why ...? / What ... for?",
+      "dialect": "Why ... for?",
+      "condition": "MLE: Kerswill (2007) via source 2 lists 'Why ... for?' as an innovative question form. Example constructed.",
+      "example_standard": "Why are you laughing?",
+      "example_dialect": "Why are you laughing for?",
+      "source_ids": [
+        2
+      ],
+      "constructed": true
+    },
+    {
+      "standard": "off (of)",
+      "dialect": "off of",
+      "condition": "Traditional southern English, most common in white female speakers in the data (Kerswill 2007 via source 2).",
+      "example_standard": "Take it off the table.",
+      "example_dialect": "Take it off of the table.",
+      "source_ids": [
+        2
+      ]
     }
   ],
   "vocabulary": [
     {
       "standard": "money",
       "dialect": "wonga",
-      "note": "Cockney slang. Source says it comes from Romani 'wanga' (coal).",
-      "source_ids": [1]
+      "note": "COCKNEY/British slang; from Romani 'wanga' (coal), per source 1. Dated flavour; age data not in the source.",
+      "source_ids": [
+        1
+      ]
     },
     {
-      "standard": "good / great",
+      "standard": "good, great",
       "dialect": "cushty",
-      "note": "Cockney slang. Source says it comes from Romani 'kushtipen' (goodness).",
-      "source_ids": [1]
+      "note": "COCKNEY; Romani 'kushtipen' (goodness), per source 1. Older flavour.",
+      "source_ids": [
+        1
+      ]
     },
     {
-      "standard": "quiet / silent",
+      "standard": "quiet, silent",
       "dialect": "shtum",
-      "note": "Yiddish-German origin word used in London slang per the source. Use sparingly.",
-      "source_ids": [1]
+      "note": "Yiddish-German origin, London slang (source 1). Use sparingly.",
+      "source_ids": [
+        1
+      ]
     },
     {
-      "standard": "legitimate / fine",
-      "dialect": "kosher",
-      "note": "Hebrew origin, passed through Yiddish, listed in the source as Cockney vocabulary.",
-      "source_ids": [1]
+      "standard": "a look, a glance",
+      "dialect": "butcher's (from butcher's hook)",
+      "note": "Rhyming slang with the rhyme dropped; 'to have a butcher's' is described as widely used in Britain (source 4). Safest rhyming-slang item.",
+      "source_ids": [
+        4
+      ]
     },
     {
-      "standard": "fake Cockney accent",
-      "dialect": "Mockney",
-      "note": "Not a speaker word; it names an imitation accent. Use only in meta-dialogue, not as a term of the character's own speech.",
-      "source_ids": [1]
+      "standard": "stairs",
+      "dialect": "apples (and pears)",
+      "note": "Rhyming slang, rhyme dropped (source 4). Current use not stated in the source; older/traditional.",
+      "source_ids": [
+        4
+      ]
+    },
+    {
+      "standard": "hair",
+      "dialect": "barnet (Barnet Fair)",
+      "note": "Rhyming slang, in use since the 1850s per source 4; current use not stated.",
+      "source_ids": [
+        4
+      ]
+    },
+    {
+      "standard": "friend, mate",
+      "dialect": "china (china plate)",
+      "note": "Rhyming slang (source 4); current use not stated.",
+      "source_ids": [
+        4
+      ]
+    },
+    {
+      "standard": "telephone",
+      "dialect": "dog (and bone)",
+      "note": "Rhyming slang (source 4); older.",
+      "source_ids": [
+        4
+      ]
+    },
+    {
+      "standard": "feet",
+      "dialect": "plates (of meat)",
+      "note": "Rhyming slang (source 4); older.",
+      "source_ids": [
+        4
+      ]
+    },
+    {
+      "standard": "wife",
+      "dialect": "trouble (and strife)",
+      "note": "Rhyming slang (source 4); appears in film but real-life use not stated.",
+      "source_ids": [
+        4
+      ]
+    },
+    {
+      "standard": "eyes",
+      "dialect": "minces (mince pies)",
+      "note": "Rhyming slang (source 4).",
+      "source_ids": [
+        4
+      ]
+    },
+    {
+      "standard": "curry",
+      "dialect": "a Ruby (Ruby Murray)",
+      "note": "Rhyming slang (source 4); younger-sounding.",
+      "source_ids": [
+        4
+      ]
+    },
+    {
+      "standard": "very (intensifier)",
+      "dialect": "bare",
+      "note": "MLE: 'bare' = very/many (source 2). Young speakers.",
+      "source_ids": [
+        2
+      ]
+    },
+    {
+      "standard": "bad, embarrassing, unlucky situation",
+      "dialect": "peak",
+      "note": "MLE: terrible, disappointing or embarrassing (source 2). Young speakers.",
+      "source_ids": [
+        2
+      ]
+    },
+    {
+      "standard": "What's up? (greeting)",
+      "dialect": "wagwan",
+      "note": "MLE greeting, from Jamaican-influenced speech (source 2: 'what's going on?').",
+      "source_ids": [
+        2
+      ]
+    },
+    {
+      "standard": "calm down, let it go",
+      "dialect": "allow it / allow that",
+      "note": "MLE: said to calm someone or ask them to drop an emotion (source 2).",
+      "source_ids": [
+        2
+      ]
+    },
+    {
+      "standard": "strong, attractive",
+      "dialect": "buff",
+      "note": "MLE (source 2).",
+      "source_ids": [
+        2
+      ]
+    },
+    {
+      "standard": "family or close friend",
+      "dialect": "fam",
+      "note": "MLE (source 2).",
+      "source_ids": [
+        2
+      ]
+    },
+    {
+      "standard": "close friend (address)",
+      "dialect": "bruv",
+      "note": "MLE (source 2).",
+      "source_ids": [
+        2
+      ]
+    },
+    {
+      "standard": "group of male friends",
+      "dialect": "mandem",
+      "note": "MLE (source 2).",
+      "source_ids": [
+        2
+      ]
+    },
+    {
+      "standard": "close friend (address)",
+      "dialect": "blud (from blood)",
+      "note": "MLE (source 2).",
+      "source_ids": [
+        2
+      ]
+    },
+    {
+      "standard": "neighbourhood",
+      "dialect": "ends",
+      "note": "MLE (source 2).",
+      "source_ids": [
+        2
+      ]
+    },
+    {
+      "standard": "good-looking person / good thing",
+      "dialect": "peng",
+      "note": "MLE slang (source 2).",
+      "source_ids": [
+        2
+      ]
+    },
+    {
+      "standard": "to lie / to joke",
+      "dialect": "gas",
+      "note": "MLE verb (source 2).",
+      "source_ids": [
+        2
+      ]
+    },
+    {
+      "standard": "useless person",
+      "dialect": "wasteman",
+      "note": "MLE (source 2). Insult.",
+      "source_ids": [
+        2
+      ]
     }
   ],
   "pronunciation": [
     {
-      "rule": "TH-fronting (Cockney): th (θ, as in 'think') becomes f in any environment; voiced th (ð, as in 'this') becomes v, except at the start of a word.",
-      "ipa": "θ -> [f]; ð -> [v] (except word-initially)",
-      "actor_tip": "For the voiceless th in 'thin', 'bath', 'maths', put your lower lip against your upper teeth and say f. For the voiced th in the middle of words ('brother'), say v. Keep the normal th at the start of a word ('this').",
-      "example": "thin -> fin; bath -> baf; brother -> brover",
-      "source_ids": [1]
+      "rule": "COCKNEY TH-fronting: th becomes f, and voiced th becomes v (not at the start of a word).",
+      "ipa": "θ -> [f]; ð -> [v] (not word-initially)",
+      "actor_tip": "Lower lip to upper teeth: 'thin' -> 'fin', 'bath' -> 'baf', 'brother' -> 'bruvver'. Keep 'this' / 'the' with an ordinary start.",
+      "example": "thin, bath, brother, nothing",
+      "source_ids": [
+        1
+      ]
     },
     {
-      "rule": "TH-stopping (MLE, not Cockney): th becomes t (voiceless) or d (voiced) in MLE. Some speakers use v for voiced th.",
-      "ipa": "θ -> [t]; ð -> [d] or [v]",
-      "actor_tip": "Make the t or d with the tongue tip on the back of the top teeth. 'Thing' sounds like 'ting', 'this' like 'dis' or 'vis'. This is the MLE version; use it instead of th-fronting for young multicultural London characters.",
-      "example": "thing -> ting; this -> dis",
-      "source_ids": [2, 3]
+      "rule": "MLE th: BOTH th-stopping (thing -> ting, this -> dis) and th-fronting (three -> free, brother -> bruver) are listed for MLE (source 2). Round 1 said MLE = stopping only; that was too strong.",
+      "ipa": "θ -> [t] or [f]; ð -> [d] or [v]",
+      "actor_tip": "For an MLE character choose ONE pattern and use it lightly. Stopping: tongue tip on the back of the upper teeth. Do not use it for every character.",
+      "example": "thing, this, three, brother",
+      "source_ids": [
+        2,
+        3
+      ]
     },
     {
-      "rule": "Glottal stop for t (Cockney): t in the middle or end of words is replaced by a catch in the throat. Exact positions were not fully checked against the source.",
-      "ipa": "/t/ -> [ʔ] (in medial and final position)",
-      "actor_tip": "Where a t sits in the middle or end of a word, stop the air in the throat for a moment instead of making a t sound. It sounds like the pause in 'uh-oh'. 'Hyde Park' becomes 'Hy' Par''. Do not do this to every t in the line.",
-      "example": "Hyde Park -> Hy' Par'; bottle -> bo'le",
-      "source_ids": [1]
+      "rule": "COCKNEY glottal stop: t in the middle or end of words is replaced by a catch in the throat. In MLE a medial/final t is only variably glottal.",
+      "ipa": "/t/ -> [ʔ] (medial, final)",
+      "actor_tip": "'Hyde Park' -> 'Hy' Par''. The air stops for a moment as in 'uh-oh'. Do not apply it to word-initial t or every t.",
+      "example": "Hyde Park, bottle, water",
+      "source_ids": [
+        1,
+        2
+      ]
     },
     {
-      "rule": "L-vocalisation (Cockney): dark l at the end of a word or before a consonant is replaced by a vowel-like sound (w or oo).",
-      "ipa": "/ɫ/ -> [w] or [ʊ] (e.g. Millwall [ˈmɪwwɔw])",
-      "actor_tip": "At the end of a word or before a consonant, do not touch the tongue to the roof of the mouth for l. Round the lips as for 'w' or 'oo' instead. 'Millwall' ends with a rounded 'oh' sound, not an l.",
+      "rule": "COCKNEY L-vocalisation: dark l at the end of a word or before a consonant turns into a w-like vowel. The MLE article does not list this feature.",
+      "ipa": "/ɫ/ -> [w] or [ʊ]",
+      "actor_tip": "Round the lips as for 'w'; do not touch the tongue tip. Use for Cockney only.",
       "example": "Millwall, milk, bell",
-      "source_ids": [1]
+      "source_ids": [
+        1
+      ]
     },
     {
-      "rule": "Cockney diphthongs: MOUTH is a long flat 'a', FACE starts with a front 'a' and glides to 'y', PRICE starts with 'ah' and glides up, GOAT starts with 'uh' and glides to 'oo'. Compare RP (standard British) values in parentheses.",
-      "ipa": "MOUTH /æː/ (RP /aʊ/); FACE /æj/ (RP /eɪ/); PRICE /ɑj/ (RP /aɪ/); GOAT /əw/ (RP /əʊ/)",
-      "actor_tip": "MOUTH: say a long, flat 'a' as in 'cat', without any 'ow' glide. FACE: start with a front 'a' and slide toward 'ee'. PRICE: start from 'ah' and glide up. GOAT: start from 'uh' and glide to 'oo'. Practise each word separately first.",
+      "rule": "COCKNEY diphthongs: MOUTH a long flat vowel; FACE a front 'a' gliding to y; PRICE starts at 'ah' and glides up; GOAT starts at 'uh' and glides to 'oo'.",
+      "ipa": "MOUTH /æː/; FACE /æj/; PRICE /ɑj/; GOAT /əw/",
+      "actor_tip": "Practise each word separately first: 'mouth' (long flat 'a'), 'face' ('fay-ece' with a low start), 'price', 'goat' ('guh-oot').",
       "example": "mouth, face, price, goat",
-      "source_ids": [1]
+      "source_ids": [
+        1
+      ]
     },
     {
-      "rule": "H-dropping (Cockney): /h/ at the start of words is not pronounced.",
-      "ipa": "/h/ -> zero",
-      "actor_tip": "Drop the h in 'house', 'hat', 'home' so they start on the vowel. Restore it only for emphasis, which the source notes can happen.",
-      "example": "house -> 'ouse; hat -> 'at",
-      "source_ids": [1]
+      "rule": "COCKNEY h-dropping: initial /h/ is dropped, but can be restored for emphasis. MLE: h-dropping has declined and many speakers pronounce h.",
+      "ipa": "/h/ -> zero (Cockney)",
+      "actor_tip": "'house' -> 'ouse'; restore the h on an emphasised word.",
+      "example": "house, hat, home",
+      "source_ids": [
+        1,
+        2
+      ]
     },
     {
-      "rule": "Yod-coalescence (Cockney): the y sound after t or d merges with them, so 'tune' becomes 'choon' and 'dune' becomes 'june'.",
+      "rule": "COCKNEY yod-coalescence: tune -> choon, duke -> jook.",
       "ipa": "/tj/ -> [tʃ]; /dj/ -> [dʒ]",
-      "actor_tip": "Do not say 'tyoon'. Say 'choon' for 'tune' and 'june' for 'dune'. Only apply to words spelled with t or d followed by a 'yoo' sound.",
-      "example": "tune -> chune; duke -> jook",
-      "source_ids": [1]
+      "actor_tip": "Not 'tyoon' but 'choon'.",
+      "example": "tune, duke",
+      "source_ids": [
+        1
+      ]
     },
     {
-      "rule": "Non-rhoticity (London): /r/ is not pronounced at the end of a word or before a consonant.",
+      "rule": "Non-rhoticity: /r/ not pronounced after a vowel at the end of a word or before a consonant (Cockney and MLE, like most of England).",
       "ipa": "/r/ -> silent in coda",
-      "actor_tip": "Drop the r at the end of words and before consonants: 'car' sounds like 'cah', 'floor' like 'floh'. Keep the r before vowels.",
+      "actor_tip": "'car' -> 'cah'; keep r before a vowel.",
       "example": "car, floor, park",
-      "source_ids": [1]
+      "source_ids": [
+        1,
+        2
+      ]
+    },
+    {
+      "rule": "COCKNEY strong aspiration of p, t, k (word-initial).",
+      "ipa": "[pʰ tʰ kʰ]",
+      "actor_tip": "Add a puff of air to initial p, t, k when stressed.",
+      "example": "pen, tea, cup",
+      "source_ids": [
+        1
+      ]
+    },
+    {
+      "rule": "MLE FACE: onset raised to [eɪ]-like; monophthong [eː] is strongest in speakers of Black and minority ethnic background (BAME). MLE PRICE: lowered and fronted, sometimes a monophthong [aː] (also strongest in BAME speakers).",
+      "ipa": "FACE [eɪ]~[eː]; PRICE [aː]",
+      "actor_tip": "'day' and 'time' with less glide than RP; only for MLE.",
+      "example": "day, make, time, my",
+      "source_ids": [
+        2
+      ]
+    },
+    {
+      "rule": "MLE MOUTH: [aː] is the default in inner London; some BAME speakers (especially women) use [ɑʊ].",
+      "ipa": "MOUTH [aː]",
+      "actor_tip": "'now' / 'down' as a long 'aa' without the 'oo' glide.",
+      "example": "now, down, house",
+      "source_ids": [
+        2
+      ]
+    },
+    {
+      "rule": "MLE GOOSE and FOOT fronting: /uː/ is strongly fronted (sometimes [ʏː]); /ʊ/ is fronted too, more in outer London (Havering) than inner (Hackney). GOOSE fronting is one of the two most widespread youth features (Cheshire et al. 2011 abstract, source 5).",
+      "ipa": "GOOSE [ʉː~ʏː]; FOOT fronted",
+      "actor_tip": "'you', 'too', 'food' said further forward, nearer 'ew'.",
+      "example": "you, too, food, good",
+      "source_ids": [
+        2,
+        5
+      ]
+    },
+    {
+      "rule": "MLE GOAT: fronting of the end of /oʊ/ is absent for most inner-city speakers and present in some outer-city girls (source 2). Do not give inner-London MLE characters a fronted GOAT.",
+      "ipa": "GOAT not fronted (inner London)",
+      "actor_tip": "Keep 'go' / 'no' back-ish.",
+      "example": "go, no, home",
+      "source_ids": [
+        2
+      ]
+    },
+    {
+      "rule": "MLE K-backing: k before back vowels is produced further back (cousin, come) [q]-like.",
+      "ipa": "/k/ -> [q]-like before back vowels",
+      "actor_tip": "Subtle; skip unless you have a recording.",
+      "example": "cousin, come",
+      "source_ids": [
+        2
+      ]
+    },
+    {
+      "rule": "MLE TRAP is backed toward [a]-like.",
+      "ipa": "TRAP [a̠]",
+      "actor_tip": "'bad', 'man' with a less front 'a'.",
+      "example": "bad, man, cat",
+      "source_ids": [
+        2
+      ]
     }
   ],
-  "intonation": [],
+  "intonation": [
+    {
+      "rule": "MLE: the most common nuclear contour is a RISE-FALL; it is near-ubiquitous on yes/no questions and on emphatically lengthened words. It is the same contour as in other English varieties but used far more often (Hellmuth and Passoni 2026, sources 6, 7).",
+      "source_ids": [
+        6,
+        7
+      ],
+      "actor_tip": "For MLE questions, rise then fall on the key word, instead of a plain rise."
+    },
+    {
+      "rule": "MLE emphatic consonant lengthening: a word-initial consonant (p, t, k type) is stretched for dramatic effect (study example: 'meedy' with long m); more by male teens (sources 6, 7).",
+      "source_ids": [
+        6,
+        7
+      ],
+      "actor_tip": "Lengthen the first consonant of the emphasised word, once per speech."
+    },
+    {
+      "rule": "MLE declarative questions ('She's your friend?') without inversion, matching Caribbean-creole patterns (source 6).",
+      "source_ids": [
+        6
+      ],
+      "actor_tip": "Make a statement and let the question come from rising pitch, not word order."
+    }
+  ],
   "common_mistakes": [
-    "Using Cockney and MLE features together with no distinction. Cockney uses th-fronting; MLE uses th-stopping. Choose one per character.",
-    "Applying a glottal stop to every t, including the start of words. The source describes it in the middle and end of words.",
-    "Dropping every h in every word, including emphasised words.",
-    "Using 'guv'nor', 'blimey', 'cor' and other stock phrases to signal Cockney. These are not verified in the sources and tend to be caricature.",
-    "Giving a Cockney East End working-class character MLE grammar (innit, 'was' generalisation) or the reverse, without a reason in the text.",
-    "Overdoing the 'mockney' accent by adding a feature to every line. The source explicitly names 'Mockney' as a fake, self-deprecating imitation."
+    "Using Cockney and MLE features together on one character. Choose one: Cockney (older East End) or MLE (young, diverse).",
+    "Giving MLE speakers Cockney's L-vocalisation and h-dropping. The MLE article does not list L-vocalisation, and h-dropping has declined.",
+    "Treating th-fronting as Cockney-only and th-stopping as the only MLE pattern. Both are reported for MLE (source 2).",
+    "Glottal-stopping every t, including word-initial.",
+    "Over-using 'innit', 'bare', 'peak', 'wagwan' in one speech, or giving MLE slang to older characters.",
+    "Using 'guv'nor', 'blimey', 'cor' or 'cushty' as Cockney signals in modern scenes. Caricature, unverified.",
+    "Using 'kosher' as London slang. It is not London-specific and was removed.",
+    "Respelling with eye-dialect (nuffink, 'ouse, innit as 'init'). Keep standard spelling; carry the sounds in notes.",
+    "Putting 'was' levelling on every MLE character; it varies by ethnicity and gender."
   ],
   "generational_notes": [
-    "The source says some aspects of Cockney are declining in multicultural areas and that younger Londoners are increasingly using a new hybrid dialect (MLE).",
-    "A 2010 report (Kerswill) predicted Cockney would disappear within about 30 years. This is a prediction, not an observed outcome; treat it as a background note.",
-    "MLE is used by many young Londoners of diverse backgrounds, and is also imitated by some middle-class speakers, according to the source.",
-    "Traditional Cockney features (th-fronting, glottal stop, L-vocalisation) are more common among older and traditional speakers. MLE features (th-stopping, innit, was generalisation) are more common among young speakers."
+    "Source 1: traditional Cockney features are declining in multicultural areas and being replaced among the young by MLE; a 2010 Kerswill report predicted Cockney would disappear in about 30 years (a prediction, not a fact).",
+    "Source 2: older Londoners are closer to the Cockney system, younger speakers show MLE features (Cheshire et al. 2011, 2013). MLE is mostly working-class youth speech and is imitated by some middle-class speakers.",
+    "Source 5 (Cheshire et al. 2011 abstract): the features that clearly distinguish the youngest speakers are BE LIKE and GOOSE-fronting; age differences in other features come from community-internal factors.",
+    "Intonation: no age difference was found between 2005 and 2024 recordings of Caribbean-heritage MLE speakers (source 6): a stable feature.",
+    "Rhyming slang: only 'butcher's' is stated as widely used; others are older or nostalgic."
   ],
   "conversion_guidelines": [
-    "Decide first: traditional East End working-class character (Cockney) or young multicultural London character (MLE). Do not mix the two for one character.",
-    "For Cockney, apply th-fronting, L-vocalisation and h-dropping as the core features. Add glottal stop only for t in middle or end of words.",
-    "For MLE, apply th-stopping and 'innit' tags. Use 'was' generalisation only where a character speaks in positive clauses.",
-    "Limit to 2-3 pronunciation rules per monologue. Drop h and add glottal stops only on the lines that are most natural for the character.",
-    "Keep spelling close to standard English. Do not write 'innit' with extra spelling tricks; the sound is in the rule, not the spelling.",
-    "Use vocabulary only at one or two points in a monologue (wonga, cushty), and only where the text naturally refers to money or quality.",
-    "In stage notes, name which variety was applied (Cockney or MLE), so the actor knows which set of rules to use."
+    "Natural spoken film-dialogue English first. Decide the character: Cockney (older East End, working class) or MLE (young, multicultural). Never mix.",
+    "Cockney: ain't, 'me' for 'my', one double negative, th-fronting + glottal t + h-dropping in notes; maybe one rhyming-slang word (butcher's) with the rhyme dropped.",
+    "MLE: innit as a tag, one of 'bare / peak / allow it / wagwan', optional 'man' pronoun or 'this is' quotative once; 'was' levelling only if the character fits.",
+    "Choose ONE th pattern for MLE (stopping or fronting) and use it lightly.",
+    "MLE intonation: use the rise-fall on emphatic questions and a lengthened first consonant on one word, rather than writing slang into every line.",
+    "No eye-dialect respelling. No stock phrases (guv'nor, blimey, cor). No gun/knife slang.",
+    "Limit to 2-3 sound rules per monologue. In actor notes, state which variety was applied."
   ],
   "sources": [
     {
@@ -168,7 +516,7 @@
     },
     {
       "id": 2,
-      "title": "Multicultural London English (Wikipedia)",
+      "title": "Multicultural London English (Wikipedia; cites Cheshire, Fox, Kerswill, Torgersen 2008-2013; Cheshire et al. 2015-2024)",
       "url": "https://en.wikipedia.org/wiki/Multicultural_London_English",
       "type": "encyclopedia"
     },
@@ -177,18 +525,204 @@
       "title": "Th-stopping (Wikipedia)",
       "url": "https://en.wikipedia.org/wiki/Th-stopping",
       "type": "encyclopedia"
+    },
+    {
+      "id": 4,
+      "title": "Cockney rhyming slang (Wikipedia; its own accuracy tag says citations needed)",
+      "url": "https://en.wikipedia.org/wiki/Cockney_rhyming_slang",
+      "type": "encyclopedia"
+    },
+    {
+      "id": 5,
+      "title": "Cheshire, Kerswill, Fox, Torgersen: Contact, the feature pool and the speech community (abstract, White Rose eprints)",
+      "url": "https://eprints.whiterose.ac.uk/id/eprint/75321/",
+      "type": "academic"
+    },
+    {
+      "id": 6,
+      "title": "MLE intonation case study (Hellmuth and Passoni), University of York English Language Toolkit",
+      "url": "https://englishlanguagetoolkit.york.ac.uk/case-studies/mle-intonation",
+      "type": "academic"
+    },
+    {
+      "id": 7,
+      "title": "Hellmuth and Passoni (2026): Multicultural London English Intonation: Pattern and Performance (Speech Prosody 2026, abstract)",
+      "url": "https://eprints.whiterose.ac.uk/id/eprint/241442/",
+      "type": "academic"
     }
   ],
   "confidence": "medium",
   "open_questions": [
-    "Th-stopping is not described in the Cockney article as summarised, and the Th-stopping article does not list Cockney or MLE. The Cockney-specific th-stopping status is unverified and is not included as a Cockney rule.",
-    "The Cockney article's section on TH-stopping and the rest of its text were truncated in the summary; the glottal stop and rhyming slang sections should be checked against the full text.",
-    "Cockney rhyming slang: the source confirms it exists and that some phrases are still common, but no examples were given in the summary. Add examples only after checking a primary or reference source.",
-    "The 'me' for 'my' possessive feature came from one summary and is low confidence; verify before use.",
-    "The MLE FACE vowel and GOAT fronting: the source says GOAT fronting is absent for most central London speakers, so it is not included. The MLE FACE vowel description was ambiguous and is not included.",
-    "The 'this is' quotative in MLE rests on one study and one example. Check Cheshire 2017 or related work before use.",
-    "Whether 'was' generalisation in MLE is equally common for all ethnic and gender groups is not established; the source says it varies.",
-    "No intonation pattern was verified for London. Leave empty until checked.",
-    "Cockney vocabulary list is short. Expand with a reference such as a Cockney slang dictionary once verified."
-  ]
+    "Primary articles (Cheshire et al. 2011 full text; Cheshire and Fox 2008; Cheshire 2013, 2017; Kerswill 2007) were not read in full, only through the Wikipedia article and an abstract. Check them before treating any MLE grammar item as certain.",
+    "Whether th-stopping or th-fronting is more typical of MLE is not settled in the opened sources. The MLE article lists both.",
+    "Cockney intonation: no verified description found. Needs Wells (1982) or the British Library 'Sounds Familiar' pages (the BL page URL tried returned 404).",
+    "The 'this is' quotative frequency (about 5% of youth quotatives per a search-result summary of Cheshire and Fox) was not opened; example sentence is constructed.",
+    "'Man' pronoun, 'still' and 'Why ... for?' examples are constructed from the rule descriptions, not quotes.",
+    "Rhyming slang: only butcher's is stated as widely current; the Wikipedia article is flagged as disputed/needs citations. Check Ayto (Oxford Dictionary of Rhyming Slang) before adding more.",
+    "Which words are age-marked (cushty, wonga) was not verified; labels are coaching judgement.",
+    "MLE vocabulary also includes gun/knife slang in the source; deliberately omitted.",
+    "Th-stopping/glottal-t in 'Jamaican-heritage speakers' per source 2 is a narrow claim; not used as a general rule."
+  ],
+  "examples": [
+    {
+      "korean_idea": "춥네, 그렇지? (확인 질문)",
+      "neutral_english": "It's cold, isn't it?",
+      "regional_english": "It's cold, innit?",
+      "note": "MLE의 대표 부가의문 표지(출처 2).",
+      "source_ids": [
+        2
+      ],
+      "constructed": false
+    },
+    {
+      "korean_idea": "난 안 갈 거야. (거절)",
+      "neutral_english": "I am not going.",
+      "regional_english": "I ain't going.",
+      "note": "Cockney의 ain't(출처 1). MLE 인물에게 자동 적용하지 마세요.",
+      "source_ids": [
+        1
+      ],
+      "constructed": false
+    },
+    {
+      "korean_idea": "난 아무것도 못 봤어! (분노·부정)",
+      "neutral_english": "I didn't see anything!",
+      "regional_english": "I didn't see nothing!",
+      "note": "이중 부정은 Cockney 예(출처 1). th는 'nuffink'처럼 f로 들리게(연기 노트).",
+      "source_ids": [
+        1
+      ],
+      "constructed": false
+    },
+    {
+      "korean_idea": "그거 내 책이잖아. (일상)",
+      "neutral_english": "That's my book you've got there.",
+      "regional_english": "That's me book you've got there.",
+      "note": "Cockney의 me=my. 위키 예문 구조(출처 1). 철자는 me만 바꿉니다.",
+      "source_ids": [
+        1
+      ],
+      "constructed": false
+    },
+    {
+      "korean_idea": "그거 진짜 창피하다. (농담)",
+      "neutral_english": "That's really embarrassing.",
+      "regional_english": "That's peak.",
+      "note": "peak은 끔찍/창피한 상황(MLE, 출처 2).",
+      "source_ids": [
+        2
+      ],
+      "constructed": true
+    },
+    {
+      "korean_idea": "진정해, 그냥 넘겨. (위로)",
+      "neutral_english": "Calm down, let it go.",
+      "regional_english": "Allow it, bruv.",
+      "note": "allow it은 감정을 가라앉히라고 달래는 말(출처 2).",
+      "source_ids": [
+        2
+      ],
+      "constructed": true
+    },
+    {
+      "korean_idea": "뭐 해? (인사)",
+      "neutral_english": "What's up?",
+      "regional_english": "Wagwan?",
+      "note": "MLE 인사(출처 2). 성인·격식 장면에는 쓰지 마세요.",
+      "source_ids": [
+        2
+      ],
+      "constructed": true
+    },
+    {
+      "korean_idea": "그래서 내가 이랬거든, '뭐가 문제야?'",
+      "neutral_english": "And I said, 'What's your problem?'",
+      "regional_english": "And this is me, 'What's your problem?'",
+      "note": "MLE quotative 'this is'. 극적인 이야기에서만 한 번(출처 2).",
+      "source_ids": [
+        2
+      ],
+      "constructed": true
+    },
+    {
+      "korean_idea": "나 피곤해. (일상)",
+      "neutral_english": "I'm tired.",
+      "regional_english": "Man's tired.",
+      "note": "'man'은 MLE에서 1인칭 대명사로 쓸 수 있음(출처 2). 구성 예문이므로 한 번만.",
+      "source_ids": [
+        2
+      ],
+      "constructed": true
+    },
+    {
+      "korean_idea": "이것 좀 봐 봐. (제안)",
+      "neutral_english": "Take a look at this.",
+      "regional_english": "Have a butcher's at this.",
+      "note": "butcher's hook = look. 흔히 쓰이는 라이밍 슬랭(출처 4).",
+      "source_ids": [
+        4
+      ],
+      "constructed": false
+    },
+    {
+      "korean_idea": "계단 올라가. (지시)",
+      "neutral_english": "Go up the stairs.",
+      "regional_english": "Go up the apples.",
+      "note": "apples and pears = stairs, 뒤 운을 생략(출처 4). 현재 사용도는 미확인, 옛 느낌.",
+      "source_ids": [
+        4
+      ],
+      "constructed": true
+    },
+    {
+      "korean_idea": "우리는 하루 종일 거기 있었어. (일상)",
+      "neutral_english": "We were there all day.",
+      "regional_english": "We was there all day.",
+      "note": "MLE의 was 평준화. 민족·성별에 따라 빈도 차(출처 2).",
+      "source_ids": [
+        2
+      ],
+      "constructed": true
+    }
+  ],
+  "sub_regions": [
+    {
+      "name": "Cockney vs MLE",
+      "note": "Cockney는 런던 동부 노동계층의 전통 말투로 th-fronting, glottal stop, l-vocalisation, h-dropping이 특징. MLE는 다문화 지역 젊은층의 새로운 사회방언이며 영어·자메이카 영어·여러 이민 언어의 접촉에서 형성됨. 한 인물에 섞지 마세요.",
+      "source_ids": [
+        1,
+        2,
+        5
+      ]
+    },
+    {
+      "name": "도심 vs 외곽 런던",
+      "note": "FOOT 전설화는 외곽 Havering이 Hackney보다 더 앞쪽, GOAT 앞쪽화는 외곽 도시 소녀들에게 나타남(출처 2).",
+      "source_ids": [
+        2
+      ]
+    },
+    {
+      "name": "민족·성별 차이",
+      "note": "was 평준화와 FACE/PRICE 단모음화는 민족에 따라 빈도가 달라 '양적 차이'로 설명됨(출처 2).",
+      "source_ids": [
+        2
+      ]
+    },
+    {
+      "name": "Estuary English",
+      "note": "Cockney와 표준 영국 발음의 중간 억양으로 1980~90년대 런던 주변 남동부로 퍼졌다고 설명됩니다(출처 1).",
+      "source_ids": [
+        1
+      ]
+    },
+    {
+      "name": "Mockney",
+      "note": "Cockney를 흉내 낸 가짜 말투를 가리키는 말(출처 1). 등장인물이 쓰는 어휘가 아니며, 제거했습니다.",
+      "source_ids": [
+        1
+      ]
+    }
+  ],
+  "confidence_detail": "medium for Cockney features and MLE grammar (Wikipedia summaries of named academic studies); medium-high for MLE intonation (two 2026 academic pages); low for rhyming slang currency and the 'this is' quotative, 'still' and 'Why ... for?' items."
 }

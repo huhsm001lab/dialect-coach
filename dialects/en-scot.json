@@ -2,167 +2,472 @@
   "code": "en-scot",
   "name": "Scottish English (Scottish Standard English and Scots)",
   "language": "en",
-  "summary": "Scottish English covers a range of speech from Scottish Standard English (SSE), the formal variety used in Scotland, to Scots, a separate Germanic language closely related to English that sits at the broad end of a continuum. Most middle-class speakers conform to standard grammar and use SSE in formal settings and Scots-influenced speech informally. The most useful features for an actor are sound features: rhoticity (r is pronounced), the /hw/ versus /w/ distinction in 'which' and 'witch', the Scottish Vowel Length Rule (vowels before voiced sounds are longer), the pull-pool merger, and the 'ch' sound in 'loch'. Grammar and vocabulary differences are fewer and mostly come from Scots. Sources are Wikipedia articles on Scottish English, the Scottish Vowel Length Rule and Scots. Scots-specific words such as 'och', 'ken' and 'dinnae' were NOT found in the opened sources and are deliberately left out.",
+  "summary": "Scottish English is a continuum from Scottish Standard English (SSE: professional-class, standard grammar, Scottish accent) to broad Scots (a related language with its own words and grammar). For an actor the safest layers are: (1) sound features of SSE (rhotic r, /hw/ in 'which', pull=pool, Scottish Vowel Length Rule, monophthong FACE/GOAT, no TRAP/BATH split); (2) a few Scots words and the -nae negatives (dinnae, cannae, isnae), checked in the Dictionary of the Scots Language (DSL, Scottish National Dictionary); (3) 'ken' as 'know' and as a discourse tag. Round 2 verified ken, dinnae/cannae, outwith, wean, bairn and glaikit in DSL, Scots grammar items in an Open University Scots course, 'needs washed' on the Yale Grammatical Diversity Project, and Glasgow consonant change in the University of Glasgow STELLA report. Removed or demoted: 'provost' (a civic title, irrelevant to acting) and formal/legal words (depute, interdict etc.); 'och' is left out (not confirmed in a dictionary entry and a stereotype when paired as 'och aye'). Region matters: Glasgow, Edinburgh, North-East (Doric), Highlands, Shetland differ.",
   "grammar": [
+    {
+      "standard": "I don't / can't / wasn't / isn't",
+      "dialect": "-nae negatives: dinnae, cannae, didnae, isnae, wisnae (-na in the North-East and Shetland)",
+      "condition": "DSL (SND) records -na as the unstressed enclitic 'not' with auxiliaries (canna, dinna, haena, winna; first recorded in 1588), with -nae forms: dinnae (Sc. 1994), cannae (Sc. 1893), disnae (w.Lth. 2000). OpenLearn: -nae in West Central and East Central South, -na in the North-East and Shetland. Broad-Scots register; SSE speakers use not/n't.",
+      "example_standard": "I don't know. / She can't stop here.",
+      "example_dialect": "I dinnae know. / She cannae stop here.",
+      "source_ids": [
+        4,
+        5,
+        11
+      ]
+    },
+    {
+      "standard": "another negative form (never as simple 'didn't')",
+      "dialect": "nivver (single occasion 'did not')",
+      "condition": "OpenLearn: 'nivver' can negate a specific past event ('A nivver bocht it'). Broad Scots only.",
+      "example_standard": "I didn't buy it.",
+      "example_dialect": "I never bought it. (Scots: 'I nivver bocht it.')",
+      "source_ids": [
+        11
+      ]
+    },
+    {
+      "standard": "I didn't say anything to anybody.",
+      "dialect": "negative concord: 'A nivver said naething tae naebody.'",
+      "condition": "OpenLearn: double and triple negatives intensify; no cancelling. Broad Scots. Many speakers of SSE would not.",
+      "example_standard": "I never said anything to anybody.",
+      "example_dialect": "I never said nothing to nobody.",
+      "source_ids": [
+        11
+      ]
+    },
     {
       "standard": "My hair needs washing.",
       "dialect": "My hair needs washed.",
-      "condition": "Scottish English, including some northern English. The source gives the example and says it means 'needs washing'. Medium confidence (from one summary).",
+      "condition": "Need/want/like + past participle. YGDP: Scotland and Northern Ireland are the likely origin; 'The car needs repaired'. Common in Scottish English including educated speakers (source 1).",
       "example_standard": "The car needs cleaning.",
       "example_dialect": "The car needs cleaned.",
-      "source_ids": [1]
+      "source_ids": [
+        1,
+        14
+      ]
+    },
+    {
+      "standard": "I'm waiting for you.",
+      "dialect": "I'm waiting on you.",
+      "condition": "Source 1 lists 'wait on' = wait for. Medium confidence; one summary.",
+      "example_standard": "I'll wait for you at the station.",
+      "example_dialect": "I'll wait on you at the station.",
+      "source_ids": [
+        1
+      ]
     },
     {
       "standard": "I want a drink.",
       "dialect": "I'm wanting a drink.",
-      "condition": "Informal speech. Progressive form used with verbs of wanting or liking that standard English normally does not use in the progressive. LOW confidence: from one summary, not checked in the original text.",
-      "example_standard": "I know what you mean.",
-      "example_dialect": "I'm knowing what you mean.",
-      "source_ids": [1]
+      "condition": "Progressive with state verbs (source 1). Everyday in Scottish English.",
+      "example_standard": "I want a drink.",
+      "example_dialect": "I'm wanting a drink.",
+      "source_ids": [
+        1
+      ]
     },
     {
-      "standard": "wait for you",
-      "dialect": "wait on you",
-      "condition": "Scottish English, informal. LOW confidence: noted in one summary of the source; check before use.",
-      "example_standard": "I'll wait for you at the station.",
-      "example_dialect": "I'll wait on you at the station.",
-      "source_ids": [1]
+      "standard": "(past tense) -ed",
+      "dialect": "-it in Scots: lowpit, chappit; past tense = participle: 'A seen', 'A done'",
+      "condition": "OpenLearn: -it past ('A lowpit the dyke', 'He haes chappit the tatties'); levelling of past/participle ('A seen', 'A done'). Broad Scots; label as register.",
+      "example_standard": "I jumped the wall.",
+      "example_dialect": "I lowpit the dyke. (Scots)",
+      "source_ids": [
+        11
+      ]
+    },
+    {
+      "standard": "I get / she says (narrative present)",
+      "dialect": "narrative present with -s on all verbs: 'We gets off the train and she says nothing.'",
+      "condition": "OpenLearn: when telling a story in the present tense, -s is added to every verb. Broad Scots; good for storytelling beats.",
+      "example_standard": "We get off the train and she says nothing.",
+      "example_dialect": "We gets off the train and she says nothing.",
+      "source_ids": [
+        11
+      ]
+    },
+    {
+      "standard": "better than",
+      "dialect": "better nor",
+      "condition": "OpenLearn: 'nor' for 'than' ('This ane's better nor thon'). Scots.",
+      "example_standard": "This one's better than that.",
+      "example_dialect": "This one's better nor that. (Scots: 'ane', 'thon')",
+      "source_ids": [
+        11
+      ]
+    },
+    {
+      "standard": "you (plural)",
+      "dialect": "youse",
+      "condition": "OpenLearn: youse is used in West Central Scots and Ulster Scots and is spreading. Glasgow/West.",
+      "example_standard": "Are you coming?",
+      "example_dialect": "Are youse coming?",
+      "source_ids": [
+        12
+      ]
+    },
+    {
+      "standard": "He can't come today.",
+      "dialect": "double modals: 'He'll no can come the day'",
+      "condition": "OpenLearn: Edinburgh, Hawick and Ulster Scots; 'We used to could dae that'. Strongly local; skip unless the character is from there.",
+      "example_standard": "He won't be able to come today.",
+      "example_dialect": "He'll no can come the day.",
+      "source_ids": [
+        12
+      ]
+    },
+    {
+      "standard": "He has gone.",
+      "dialect": "He is after going. (after-perfect)",
+      "condition": "Source 1 lists 'He is after going' for Scottish English; YGDP says Scots and Hebridean English also have after-perfects (Irish-origin construction). Low-medium confidence for ordinary Scottish speech; the Highlands/Islands are more likely.",
+      "example_standard": "He has just gone.",
+      "example_dialect": "He's after going.",
+      "source_ids": [
+        1,
+        15
+      ]
+    },
+    {
+      "standard": "Am I not invited?",
+      "dialect": "Amn't I invited?",
+      "condition": "Source 1 lists 'amn't'. Also found in Irish English.",
+      "example_standard": "Aren't I invited?",
+      "example_dialect": "Amn't I invited?",
+      "source_ids": [
+        1
+      ]
+    },
+    {
+      "standard": "take it off the table",
+      "dialect": "off of",
+      "condition": "Source 1: 'Take that off of the table.'",
+      "example_standard": "Take that off the table.",
+      "example_dialect": "Take that off of the table.",
+      "source_ids": [
+        1
+      ]
     }
   ],
   "vocabulary": [
     {
-      "standard": "yes",
-      "dialect": "aye",
-      "note": "Scots word for 'yes'. Source gives it in the Scots article. Common in informal Scottish speech; use for working-class or rural characters, or as a neutral yes in Scottish speech.",
-      "source_ids": [3]
+      "standard": "know",
+      "dialect": "ken",
+      "note": "DSL (SND, Ken v., 1710-2005): to know a fact, or to know/recognise a person or place; negative kenna. Discourse use: 'ye ken' and 'Ken?' to check you follow ('Just a bit o' wrestlin'. Like they do on the telly. Ken?', Glasgow 1985).",
+      "source_ids": [
+        6
+      ]
     },
     {
-      "standard": "small / little",
+      "standard": "do",
+      "dialect": "dae",
+      "note": "DSL: Scots form of 'do'; dinna, dinnae, disnae, doesna are its negatives (source 4).",
+      "source_ids": [
+        4
+      ]
+    },
+    {
+      "standard": "no, not any",
+      "dialect": "nae",
+      "note": "DSL (na adv. 2 etc.): 'nae' as a form of 'no', e.g. 'Ye need nae fash'. Scots.",
+      "source_ids": [
+        5
+      ]
+    },
+    {
+      "standard": "yes",
+      "dialect": "aye",
+      "note": "Scots word for yes (source 3). The stereotype 'och aye the noo' is not recommended.",
+      "source_ids": [
+        3
+      ]
+    },
+    {
+      "standard": "small",
       "dialect": "wee",
-      "note": "Listed in the source as Scots-origin. Very common.",
-      "source_ids": [1]
+      "note": "Listed in source 1 as Scots-origin; very common in everyday Scottish speech.",
+      "source_ids": [
+        1
+      ]
     },
     {
       "standard": "child",
-      "dialect": "wean / bairn",
-      "note": "Listed in the source as Scots-origin. Regional preference (e.g. wean vs bairn) was not verified; check before choosing by region.",
-      "source_ids": [1]
+      "dialect": "wean",
+      "note": "DSL (SND): child, especially pre-teen; shortened from 'wee ane'; originates in the west-central area, widespread in central-southern Scotland; also found in Ulster. Glasgow/West flavour.",
+      "source_ids": [
+        8
+      ]
     },
     {
-      "standard": "pretty / nice",
-      "dialect": "bonnie",
-      "note": "Listed in the source as Scots-origin.",
-      "source_ids": [1]
+      "standard": "child",
+      "dialect": "bairn",
+      "note": "DSL (SND): child of either sex, any age; used widely in Scotland, with region labels for Aberdeen, Orkney, Edinburgh, Glasgow. Often more East/North.",
+      "source_ids": [
+        9
+      ]
     },
     {
-      "standard": "fine / excellent",
-      "dialect": "braw",
-      "note": "Listed in the source as Scots-origin. Used for 'good' or 'excellent'.",
-      "source_ids": [1]
+      "standard": "foolish, daft, dazed",
+      "dialect": "glaikit",
+      "note": "DSL (SND, 1706-2003): silly, thoughtless, giddy; first recorded for women; Scott: 'a glaikit ne'er-do-weel'.",
+      "source_ids": [
+        10
+      ]
     },
     {
-      "standard": "big",
-      "dialect": "muckle",
-      "note": "Listed in the source as Scots-origin. Older or rural.",
-      "source_ids": [1]
-    },
-    {
-      "standard": "outside of",
+      "standard": "outside of, beyond",
       "dialect": "outwith",
-      "note": "Listed in the source as a Scottish formal/legal term used in everyday speech. Use only for formal or official speech.",
-      "source_ids": [1]
+      "note": "DSL (SND 1701-1997): outside, beyond; 'outwith business hours', 'outwith Shetland'. Everyday in formal/official Scottish usage.",
+      "source_ids": [
+        7
+      ]
     },
     {
-      "standard": "you (singular or plural, informal)",
-      "dialect": "ye",
-      "note": "Source gives 'haste ye back' as an example. Use sparingly.",
-      "source_ids": [3]
+      "standard": "pretty, attractive",
+      "dialect": "bonnie",
+      "note": "Listed in source 1 as Scots-origin.",
+      "source_ids": [
+        1
+      ]
     },
     {
-      "standard": "mayor (council leader in a Scottish town)",
-      "dialect": "provost",
-      "note": "Civic title used in Scotland, listed in the source. Use only for civic or political scenes.",
-      "source_ids": [1]
+      "standard": "fine, excellent",
+      "dialect": "braw",
+      "note": "Listed in source 1 as Scots-origin.",
+      "source_ids": [
+        1
+      ]
+    },
+    {
+      "standard": "large",
+      "dialect": "muckle",
+      "note": "Source 1. Rural/older flavour (round-1 note; no age data in source).",
+      "source_ids": [
+        1
+      ]
+    },
+    {
+      "standard": "church",
+      "dialect": "kirk",
+      "note": "Source 1.",
+      "source_ids": [
+        1
+      ]
+    },
+    {
+      "standard": "fool, idiot",
+      "dialect": "numpty",
+      "note": "Source 1. Mild, colloquial.",
+      "source_ids": [
+        1
+      ]
+    },
+    {
+      "standard": "live (reside)",
+      "dialect": "stay",
+      "note": "Source 1: 'Where do you stay?' means 'Where do you live?'.",
+      "source_ids": [
+        1
+      ]
     },
     {
       "standard": "why",
-      "dialect": "how? (meaning 'why?')",
-      "note": "Source notes this use. LOW confidence: one summary; check before use.",
-      "source_ids": [1]
+      "dialect": "how? (How no? = why not)",
+      "note": "Source 1: 'How?' = 'Why?' in Scottish, northern English and Northern Irish English.",
+      "source_ids": [
+        1
+      ]
     },
     {
       "standard": "your turn",
       "dialect": "it's your shot",
-      "note": "Source gives this as a meaning of 'your turn'. LOW confidence: one summary; check before use.",
-      "source_ids": [1]
+      "note": "Source 1.",
+      "source_ids": [
+        1
+      ]
+    },
+    {
+      "standard": "little boy / little girl",
+      "dialect": "laddie / lassie",
+      "note": "Source 1 (diminutive -ie).",
+      "source_ids": [
+        1
+      ]
+    },
+    {
+      "standard": "you",
+      "dialect": "ye",
+      "note": "Source 3 gives 'haste ye back'; informal/poetic. Use sparingly.",
+      "source_ids": [
+        3
+      ]
+    },
+    {
+      "standard": "potatoes",
+      "dialect": "tatties",
+      "note": "Source 11 uses 'chappit the tatties'. Everyday Scots food word.",
+      "source_ids": [
+        11
+      ]
+    },
+    {
+      "standard": "today",
+      "dialect": "the day",
+      "note": "Source 12 example 'He'll no can come the day'. Scots idiom.",
+      "source_ids": [
+        12
+      ]
+    },
+    {
+      "standard": "than",
+      "dialect": "nor",
+      "note": "Source 11: 'better nor thon'. Scots.",
+      "source_ids": [
+        11
+      ]
     }
   ],
   "pronunciation": [
     {
-      "rule": "Rhoticity: Scottish English is mostly rhotic, so /r/ is pronounced in the syllable coda (after a vowel, at the end of a word or before a consonant).",
-      "ipa": "/r/ in coda pronounced (realisation varies by speaker)",
-      "actor_tip": "Pronounce every r you see after a vowel: 'car', 'hard', 'bird', 'worst'. Do not drop it. Keep it clear rather than soft.",
+      "rule": "Rhoticity: Scottish English is mostly rhotic; /r/ is pronounced after vowels. Realisations: approximant, tap (flap), or a now rare trill. Some Edinburgh and Glasgow speakers are non-rhotic, especially working-class youth in reports (sources 1, 13).",
+      "ipa": "/r/ pronounced in coda; [ɹ] [ɾ] ([r] rare)",
+      "actor_tip": "Pronounce every r in 'car', 'hard', 'bird'. A light tap is more natural than a heavy trill.",
       "example": "car, hard, bird, first",
-      "source_ids": [1]
+      "source_ids": [
+        1,
+        13
+      ]
     },
     {
-      "rule": "W and wh are distinct in many speakers: 'which' starts with a /hw/ sound while 'witch' starts with a plain /w/.",
+      "rule": "wh / w distinction: 'which' /hw/ vs 'witch' /w/ in many speakers.",
       "ipa": "which /hwɪtʃ/; witch /wɪtʃ/",
-      "actor_tip": "Breathe a little puff of air before the w in 'which', 'whale', 'whisky' so it starts like 'hw'. 'Witch' and 'wind' start with a plain w, no puff.",
-      "example": "which vs witch; whale vs wail",
-      "source_ids": [1]
+      "actor_tip": "A small puff of air before the w in 'which', 'whale'.",
+      "example": "which / witch; whale / wail",
+      "source_ids": [
+        1
+      ]
     },
     {
-      "rule": "Scottish Vowel Length Rule: a vowel is phonetically longer before voiced fricatives (v, z, th as in 'this', zh), before /r/, and before a morpheme boundary; it is shorter before the voiceless counterparts.",
-      "ipa": "[seːv] save vs [sef] safe; [doːz] doze vs [dos] dose; [tiːð] teethe vs [tiθ] teeth",
-      "actor_tip": "Lengthen the vowel before voiced sounds (v, z, 'th' in 'this'). 'Save' has a longer vowel than 'safe'; 'doze' is longer than 'dose'. Keep the length moderate; this is about length, not stress or emphasis. Note that 'need' stays short but 'kneed' (the past of 'knee' used as a verb) is longer, showing the rule responds to word structure.",
-      "example": "save / safe; doze / dose; teethe / teeth; need / kneed",
-      "source_ids": [2]
+      "rule": "Scottish Vowel Length Rule (Aitken's Law): vowels are long before voiced fricatives, before /r/ and at morpheme boundaries; short before voiceless sounds. It also splits PRICE into short [ʌi, ai] and long [aˑe, ɑːe] ('side' vs 'sighed').",
+      "ipa": "[seːv] save vs [sef] safe; [tiːð] teethe vs [tiθ] teeth; need vs kneed",
+      "actor_tip": "Lengthen the vowel before v, z, th (as in 'this'), r. It is duration, not emphasis. Weaker in Northern Scots and Shetland.",
+      "example": "save/safe, side/sighed, need/kneed",
+      "source_ids": [
+        2,
+        1
+      ]
     },
     {
-      "rule": "Pull-pool merger: Scottish English has no /ʊ/ and uses Scots /u/ instead, so 'pull' and 'pool' are homophones (sound the same).",
-      "ipa": "/ʊ/ -> [u] (pull = pool)",
-      "actor_tip": "Say 'pull' with the same vowel as 'pool' (the long 'oo'). Do not use the short 'uh'-like vowel of standard English.",
+      "rule": "Pull-pool merger: Scottish English has no /ʊ/; it uses /u/ so pull = pool, full = fool.",
+      "ipa": "/ʊ/ -> [u]",
+      "actor_tip": "Say 'pull' with the vowel of 'pool'.",
       "example": "pull / pool; full / fool",
-      "source_ids": [1]
+      "source_ids": [
+        1
+      ]
     },
     {
-      "rule": "BATH, TRAP and PALM share the same open 'a' vowel in many Scottish speakers, so they do not get the long RP-style 'bahth' vowel.",
-      "ipa": "/a/ in bath, trap, palm (approximate)",
-      "actor_tip": "Use the same short open 'a' as in 'cat' for 'bath', 'path' and 'palm'. Do not lengthen 'bath' into 'bahth'.",
+      "rule": "TRAP-BATH-PALM merger: most varieties have no /æ/-/ɑː/ split; 'bath', 'trap', 'palm' share the same vowel.",
+      "ipa": "/a/ in all three",
+      "actor_tip": "Do not lengthen 'bath' to 'bahth'.",
       "example": "bath, cat, palm",
-      "source_ids": [1]
+      "source_ids": [
+        1
+      ]
     },
     {
-      "rule": "Loch sound: the ch in 'loch' (and some Scots words) is a voiceless velar fricative, made at the back of the throat.",
+      "rule": "cot-caught merger in most Central Scots varieties: 'cot' and 'caught' are the same.",
+      "ipa": "/ɔ/ = /ɒ/",
+      "actor_tip": "Use one vowel for both.",
+      "example": "cot / caught",
+      "source_ids": [
+        1
+      ]
+    },
+    {
+      "rule": "FACE and GOAT are monophthongs in most varieties: [e] and [o~oʊ].",
+      "ipa": "FACE [e]; GOAT [o]",
+      "actor_tip": "Hold the vowel steady in 'day', 'go', 'home'; no glide to 'ee' or 'oo'.",
+      "example": "face, day, go, home",
+      "source_ids": [
+        1
+      ]
+    },
+    {
+      "rule": "Loch sound: the ch in 'loch' is a voiceless velar fricative /x/ in words that have it.",
       "ipa": "/x/",
-      "actor_tip": "Make a soft 'kh' sound with the back of the tongue near the soft palate, like a gentle throat clear. Use only in words that have this sound in the text (loch, Gaelic-derived names). Do not add it to ordinary 'ch' words like 'church'.",
+      "actor_tip": "Soft throat-clearing 'kh'; only in loch-type words, not 'church'.",
       "example": "loch, Lochaber",
-      "source_ids": [1]
+      "source_ids": [
+        1
+      ]
+    },
+    {
+      "rule": "Glottal stop for t: in some colloquial speech /t/ after a vowel becomes [ʔ] ('butter' [ˈbʌʔər]). Glasgow is described as the possible home of the glottal stop; it is increasing in Glasgow as a traditional feature reinforced (STELLA report).",
+      "ipa": "/t/ -> [ʔ] after vowels",
+      "actor_tip": "Use mainly for casual urban (Glasgow) characters: 'bu'er', 'wa'er'.",
+      "example": "butter, water, bottle",
+      "source_ids": [
+        1,
+        13
+      ]
+    },
+    {
+      "rule": "th in Glasgow: traditional [h] for th (debuccalised, 'something' ~ 'somehing'); th-fronting [f] ('think' ~ 'fink') has been reported since the early 1980s and is spreading in working-class youth speech but is not traditional (STELLA report).",
+      "ipa": "θ -> [h] (traditional); [f] (newer)",
+      "actor_tip": "Use only for Glasgow working-class characters; don't use for Edinburgh or SSE speakers.",
+      "example": "think, something, three",
+      "source_ids": [
+        13,
+        1
+      ]
+    },
+    {
+      "rule": "L is mostly dark (velarised) in Scottish English; 'glen' is an exception.",
+      "ipa": "/ɫ/",
+      "actor_tip": "Pull the back of the tongue up for l.",
+      "example": "milk, feel, all",
+      "source_ids": [
+        1
+      ]
     }
   ],
-  "intonation": [],
+  "intonation": [
+    {
+      "rule": "No pitch-contour description for Scottish English was verified in the opened sources. What can be used is RHYTHM: the Scottish Vowel Length Rule gives vowel duration that depends on the following sound, not on stress, so word rhythm differs from English (source 2).",
+      "source_ids": [
+        2
+      ],
+      "actor_tip": "Time long and short vowels by the sound that follows them, not by emphasis."
+    }
+  ],
   "common_mistakes": [
-    "Putting 'och', 'aye', 'ken', 'dinnae' and similar Scots words into every line. Only 'aye' is verified here; the others need checking before use.",
-    "Applying the Scottish Vowel Length Rule as a stressed drawl. It is a length difference, not emphasis.",
-    "Rolling the r heavily in every word. Rhotic means the r is pronounced, not that it is trilled throughout.",
-    "Using a 'Highland' or 'Braveheart' accent for a Glasgow or Edinburgh character. Scottish accents differ strongly by region.",
-    "Using Scots vocabulary for a formal or professional character. SSE is the formal variety.",
-    "Applying the loch sound to every 'ch'."
+    "Putting 'och', 'aye', 'ken', 'dinnae' and 'wee' in every line. Use one or two per monologue.",
+    "'Och aye the noo' and other stage-Scotland phrases. Stereotype; not used.",
+    "Using the Braveheart/Highland accent for a Glasgow or Edinburgh character. Regional differences are large.",
+    "Rolling the r heavily in every word. It is rhotic, not trilled.",
+    "Giving the Scottish Vowel Length Rule a drawl. It is duration set by the next sound, not emphasis.",
+    "Using Scots grammar (nivver, -it past, 'A seen') for a professional or formal character. SSE is the formal variety.",
+    "Using th-fronting or glottal stops for every Scottish character. These are mostly Glasgow/urban working-class.",
+    "Using 'provost' and similar formal civic words in ordinary dialogue.",
+    "Writing eye-dialect ('dinna ken', 'aboot', 'oot'). Use light word choices and standard spelling; carry the sounds in notes."
   ],
   "generational_notes": [
-    "The source describes Scots as informal and Scottish Standard English as the formal variety, with many speakers switching between them.",
-    "Source does not give clear age-based decline figures for Scots or SSE; treat generational claims as unverified until checked.",
-    "The Scottish Vowel Length Rule article notes that some Scots dialects, including Northern Scots and Shetland, apply the rule less consistently; regional spread of other features was not verified."
+    "Source 1/3: Scots is the informal end and SSE the formal end of a continuum; many speakers switch.",
+    "Glasgow: th-fronting is a newer feature reported since the early 1980s; the glottal stop is described as a traditional feature that is strengthening; r-lessness in youth speech is a loss of a traditional Scottish feature (STELLA report, source 13).",
+    "The SND date ranges show wean (1725-2000), glaikit (1706-2003), ken (1710-2005) as long-lived, but the dictionary gives no age-by-age usage.",
+    "Aitken's Law is applied less consistently in Northern Scots and Shetland (source 2).",
+    "Specific age data for Scots vocabulary use was not found."
   ],
   "conversion_guidelines": [
-    "Decide the register first: formal or professional character uses SSE (no Scots vocabulary, standard grammar, sound features only). Informal, working-class or rural characters can take Scots vocabulary.",
-    "Apply sound features first: rhoticity, /hw/ in wh-words, pull-pool, and the Scottish Vowel Length Rule. These are the safest and most accurate.",
-    "Use at most one or two grammar items per monologue (needs washed; wait on).",
-    "Use aye and wee where they fit naturally. Use bairn/wean only for children, chosen by region.",
-    "Apply the loch sound only to words spelled with ch that the text uses as loch-type words.",
-    "Do not add 'och', 'ken' or 'dinnae' unless the user supplies a verified source for them.",
-    "In stage notes, mark the register (SSE or Scots) and the region if known, because Scottish speech differs greatly by place."
+    "Natural spoken film-dialogue English first; add Scottish flavour in layers.",
+    "Step 1: decide register and place. Professional/formal = SSE (standard grammar + accent only). Informal/working-class = a few Scots words. Glasgow/West and Edinburgh/East differ.",
+    "Step 2 (sound notes): rhotic r, pull=pool, monophthong FACE/GOAT, vowel length rule, /hw/ for wh-words.",
+    "Step 3 (grammar): choose at most two: -nae negatives (dinnae, cannae, isnae), 'needs washed', 'wait on', 'I'm wanting'. Add 'ye ken' as a tag only for casual speech.",
+    "Step 4 (vocabulary): one or two of aye, wee, wean (West) or bairn, braw, bonnie, numpty. Do not add 'och aye'.",
+    "No eye-dialect (aboot, oot, wis). No 'provost' or legal vocabulary.",
+    "Glasgow working-class youth: glottal stop and th-fronting only in sound notes.",
+    "In actor notes, state the register (SSE / Scots) and region."
   ],
   "sources": [
     {
@@ -182,17 +487,267 @@
       "title": "Scots language (Wikipedia)",
       "url": "https://en.wikipedia.org/wiki/Scots_language",
       "type": "encyclopedia"
+    },
+    {
+      "id": 4,
+      "title": "Dictionary of the Scots Language, Scottish National Dictionary: Dae v.1 (dinna, dinnae, disnae)",
+      "url": "https://dsl.ac.uk/entry/snd/dae_v",
+      "type": "dictionary"
+    },
+    {
+      "id": 5,
+      "title": "Dictionary of the Scots Language, SND: na adv. 2 (-na/-nae negatives)",
+      "url": "https://www.dsl.ac.uk/entry/snd/na_adv2",
+      "type": "dictionary"
+    },
+    {
+      "id": 6,
+      "title": "Dictionary of the Scots Language, SND: Ken v.",
+      "url": "https://dsl.ac.uk/entry/snd/ken",
+      "type": "dictionary"
+    },
+    {
+      "id": 7,
+      "title": "Dictionary of the Scots Language, SND: Outwith",
+      "url": "https://dsl.ac.uk/entry/snd/outwith",
+      "type": "dictionary"
+    },
+    {
+      "id": 8,
+      "title": "Dictionary of the Scots Language, SND: Wean",
+      "url": "https://dsl.ac.uk/entry/snd/wean",
+      "type": "dictionary"
+    },
+    {
+      "id": 9,
+      "title": "Dictionary of the Scots Language, SND: Bairn",
+      "url": "https://dsl.ac.uk/entry/snd/bairn",
+      "type": "dictionary"
+    },
+    {
+      "id": 10,
+      "title": "Dictionary of the Scots Language, SND: Glaikit",
+      "url": "https://dsl.ac.uk/entry/snd/glaikit",
+      "type": "dictionary"
+    },
+    {
+      "id": 11,
+      "title": "Open University OpenLearn, Scots language and culture: Some widespread features of Scots grammar",
+      "url": "https://www.open.edu/openlearncreate/mod/oucontent/view.php?id=147479&section=3",
+      "type": "academic"
+    },
+    {
+      "id": 12,
+      "title": "Open University OpenLearn: Some regional features (Scots)",
+      "url": "https://www.open.edu/openlearncreate/mod/oucontent/view.php?id=147479&section=5",
+      "type": "academic"
+    },
+    {
+      "id": 13,
+      "title": "University of Glasgow STELLA project: Accent change in Glaswegian, final report, Annexe 4",
+      "url": "https://www.gla.ac.uk/schools/critical/aboutus/resources/stella/projects/accent-change-in-glaswegian/final-report/annexe-4",
+      "type": "academic"
+    },
+    {
+      "id": 14,
+      "title": "Needs washed, Yale Grammatical Diversity Project",
+      "url": "https://ygdp.yale.edu/phenomena/needs-washed",
+      "type": "academic"
+    },
+    {
+      "id": 15,
+      "title": "After-perfects, Yale Grammatical Diversity Project",
+      "url": "https://ygdp.yale.edu/phenomena/after-perfects",
+      "type": "academic"
     }
   ],
   "confidence": "medium",
   "open_questions": [
-    "Scots words 'och', 'ken', 'dinnae' and 'wee' in Scots versus English were not confirmed in the Scots article; 'aye' is confirmed there. Check the Scots Language Dictionaries (dsl.ac.uk) and the Scottish Language Dictionaries site before using the others.",
-    "The source for 'loch' is the Scottish English summary, which did not give IPA or a detailed pronunciation. Confirm the realisation against a phonetic source.",
-    "Whether BATH/TRAP/PALM share a vowel in all Scottish speakers or only in some central dialects: the summary did not specify.",
-    "Grammar items 'I'm wanting' and 'wait on you' are low confidence and need checking in the original text.",
-    "The 'how? meaning why?' and 'it's your shot' items are low confidence.",
-    "Intonation: no pattern verified for Scottish English. Leave empty until checked.",
-    "Glottal stop for /t/ in Scottish speech was mentioned in one summary but was not verified in the source text, so it is omitted.",
-    "The FOOT / GOOSE / pull-pool details rest on the pull-pool statement only; the broader vowel system has not been verified."
-  ]
+    "'wee', 'aye' and 'och' have no opened DSL entry: the DSL pages for 'wee' and 'aye' returned a source-file error. They rest on Wikipedia only. 'Och' is left out; 'och aye the noo' is a stereotype (seen in a search result, not opened).",
+    "Intonation: no pitch description verified (the Wells UCL lecture PDF and Hirst's UK declarative rises paper could not be read). Glasgow/Edinburgh rise or fall patterns are open.",
+    "The Glasgow th-fronting and glottal-stop claims come from a STELLA annex that is summarised from research; frequency by age/class was not checked.",
+    "Edinburgh non-rhotic speakers: reported in source 1/13; status today not checked.",
+    "Highland English features (Gaelic influence) not verified beyond one sentence.",
+    "The DSL wean entry is from the 1700+ dictionary; it gives no modern frequency. Region split (wean West, bairn East/North) is directional, not quantitative.",
+    "After-perfect ('He is after going') is listed for Scotland in source 1 and in YGDP, but frequency in everyday Scottish English is unclear; treated as low.",
+    "Whether 'needs washed' is general Scots, SSE or only some regions was not checked beyond YGDP and source 1."
+  ],
+  "examples": [
+    {
+      "korean_idea": "나 몰라. (대답)",
+      "neutral_english": "I don't know.",
+      "regional_english": "I dinnae ken.",
+      "note": "dinnae(dae의 부정)와 ken(알다), 모두 DSL에서 확인(출처 4, 6).",
+      "source_ids": [
+        4,
+        6
+      ],
+      "constructed": true
+    },
+    {
+      "korean_idea": "바보같이 굴지 마. (꾸짖음)",
+      "neutral_english": "Don't be silly.",
+      "regional_english": "Dinnae be silly.",
+      "note": "DSL이 인용한 1994년 문장 'Dinnae be silly'와 같은 구조(출처 4).",
+      "source_ids": [
+        4
+      ],
+      "constructed": false
+    },
+    {
+      "korean_idea": "그녀는 여기 못 멈춰. (확인)",
+      "neutral_english": "She can't stop here.",
+      "regional_english": "She cannae stop here.",
+      "note": "DSL의 1893년 예문(출처 5).",
+      "source_ids": [
+        5
+      ],
+      "constructed": false
+    },
+    {
+      "korean_idea": "응, 당연하지. (대답)",
+      "neutral_english": "Yes, of course.",
+      "regional_english": "Aye, of course.",
+      "note": "aye = yes(출처 3).",
+      "source_ids": [
+        3
+      ],
+      "constructed": false
+    },
+    {
+      "korean_idea": "애들은 괜찮아? (질문)",
+      "neutral_english": "Are the kids all right?",
+      "regional_english": "Are the weans all right?",
+      "note": "wean은 서부/글래스고 쪽 색, 동·북부는 bairn(출처 8, 9).",
+      "source_ids": [
+        8,
+        9
+      ],
+      "constructed": true
+    },
+    {
+      "korean_idea": "걱정 마, 괜찮을 거야. (위로)",
+      "neutral_english": "Don't worry, it'll be fine.",
+      "regional_english": "Dinnae worry, it'll be fine.",
+      "note": "dinnae는 가장 안전한 Scots 부정형.",
+      "source_ids": [
+        4
+      ],
+      "constructed": true
+    },
+    {
+      "korean_idea": "이 멍청이! (분노)",
+      "neutral_english": "You idiot!",
+      "regional_english": "You numpty!",
+      "note": "numpty는 비교적 가벼운 욕(출처 1). glaikit은 '멍하고 경솔한'(출처 10).",
+      "source_ids": [
+        1,
+        10
+      ],
+      "constructed": true
+    },
+    {
+      "korean_idea": "아늑하고 예쁜 작은 곳이네. (칭찬)",
+      "neutral_english": "That's a nice little place.",
+      "regional_english": "That's a bonnie wee place.",
+      "note": "bonnie(예쁜)와 wee(작은)(출처 1).",
+      "source_ids": [
+        1
+      ],
+      "constructed": true
+    },
+    {
+      "korean_idea": "차 세차를 해야겠어. (일상)",
+      "neutral_english": "The car needs cleaning.",
+      "regional_english": "The car needs cleaned.",
+      "note": "'needs + 과거분사'는 스코틀랜드 기원으로 설명됨(YGDP, 출처 14).",
+      "source_ids": [
+        14
+      ],
+      "constructed": false
+    },
+    {
+      "korean_idea": "역에서 기다릴게. (약속)",
+      "neutral_english": "I'll wait for you at the station.",
+      "regional_english": "I'll wait on you at the station.",
+      "note": "wait on = wait for(출처 1).",
+      "source_ids": [
+        1
+      ],
+      "constructed": true
+    },
+    {
+      "korean_idea": "우리는 기차에서 내리는데 그녀는 아무 말도 안 해. (이야기)",
+      "neutral_english": "We get off the train and she says nothing.",
+      "regional_english": "We gets off the train and she says nothing.",
+      "note": "OpenLearn 예문과 동일한 서술적 현재형 -s(출처 11). 철자는 그대로, Scots 인물에게만.",
+      "source_ids": [
+        11
+      ],
+      "constructed": false
+    },
+    {
+      "korean_idea": "그는 전에 비해 훨씬 나아졌어, 알지? (대화 완충)",
+      "neutral_english": "He's a lot better than he was, you know.",
+      "regional_english": "He's a lot better nor he wis, ye ken.",
+      "note": "SND의 담화용 'ye ken'(Fife 1987)을 참고한 구성 문장(출처 6, 11).",
+      "source_ids": [
+        6,
+        11
+      ],
+      "constructed": true
+    }
+  ],
+  "sub_regions": [
+    {
+      "name": "글래스고 vs 에든버러",
+      "note": "글래스고: 성문음 t(오랜 전통이 강화되는 중), 노동계층 청소년의 th-fronting과 r 약화(출처 13). 에든버러: 비-rhotic 변이가 언급됨(출처 1). 단어 wean은 서부 중심, bairn은 더 넓게 쓰임(출처 8, 9).",
+      "source_ids": [
+        13,
+        1,
+        8,
+        9
+      ]
+    },
+    {
+      "name": "서부 중부 vs 북동부(Doric)",
+      "note": "부정형은 서부/중부에서 -nae, 북동부·셰틀랜드에서 -na(출처 11). 북동부는 도릭 방언의 발음과 문법을 따름(출처 1). youse는 서부 중부 스코츠에서 퍼지는 형태(출처 12).",
+      "source_ids": [
+        11,
+        1,
+        12
+      ]
+    },
+    {
+      "name": "에든버러·호익(Hawick)·울스터 스코츠",
+      "note": "이중 조동사(He'll no can come the day)가 보고됨(출처 12).",
+      "source_ids": [
+        12
+      ]
+    },
+    {
+      "name": "셰틀랜드·오크니",
+      "note": "친밀한 2인칭 단수 du/dee/dy가 아직 남아 있고, -in/-an 구별이 보존됨(출처 12). 모음 길이 규칙이 덜 일관(출처 2).",
+      "source_ids": [
+        12,
+        2
+      ]
+    },
+    {
+      "name": "하일랜드 영어",
+      "note": "스코틀랜드 게일어의 영향으로 발음·문법·어휘가 저지대 영어와 다름(출처 1). 이번에 세부 항목은 검증하지 못함.",
+      "source_ids": [
+        1
+      ]
+    },
+    {
+      "name": "SSE vs Scots 레지스터",
+      "note": "SSE는 전문직 계층의 표준 스코틀랜드 영어, Scots는 별개 언어에 가까운 연속체의 한쪽 끝(출처 1, 3). 인물의 계층·장면에 맞춰 선택.",
+      "source_ids": [
+        1,
+        3
+      ]
+    }
+  ],
+  "confidence_detail": "medium-high for -nae negatives, ken, outwith, wean, bairn, glaikit (DSL entries opened); medium for grammar and regional items (OpenLearn, YGDP); medium for sounds (Wikipedia); low for intonation (nothing verified) and for Highland English."
 }

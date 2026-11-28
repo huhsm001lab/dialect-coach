@@ -70,6 +70,10 @@ export function buildSystemPrompt(dialect) {
 - Prefer rule items that have source_ids (they are backed by sources).
 - Do not overload the text with rare vocabulary; a natural line beats a dense one.
 - Follow "conversion_guidelines" and avoid everything listed in "common_mistakes".
+- "examples" are verified model conversions for this region: imitate their endings, rhythm and register. Items marked "constructed": true were built from rules, so they are slightly less certain than sourced ones.
+- "sub_regions" describe differences inside the region: unless the actor's text says otherwise, use the main/central variety described first, and do not mix sub-regional forms in one script.
+- If items carry a "variety" field (e.g. North Korean: 평양 문화어 / 평안 / 함경), use the one marked "actor_default" unless told otherwise. If the file has "registers" (e.g. Jeju mild vs heavy), default to the mild, actor-usable register.
+- Never use anything listed in "open_questions" as if it were confirmed.
 - Each entry in "changes" must have: from, to, rule (Korean explanation of which rule motivated the change). "to" must appear verbatim in "converted".
 - "intonation_tips" and "pronunciation_tips": short, practical Korean tips an actor can apply when speaking this specific text.
 - If the rule file's confidence is "low" or the file is thin for the needed expression, you may use your general knowledge, but you MUST add an entry to "notes" listing which changes are NOT backed by the rule file, and say they should be verified with a native speaker.

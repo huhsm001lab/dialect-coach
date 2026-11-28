@@ -2,142 +2,569 @@
   "code": "en-ie",
   "name": "Irish English (Hiberno-English, with Dublin focus)",
   "language": "en",
-  "summary": "Irish English (Hiberno-English) is the English spoken across Ireland, with strong regional variation. This file focuses on the Dublin varieties because they are the most documented and most often used for drama: Local (traditional working-class) Dublin English and Advanced (newer, higher-status) Dublin English. Key sound features are th-stopping outside Ulster (th becomes t and d), a rhotic or weakly rhotic r, a vowel system with a diphthong in PRICE and a fronted MOUTH vowel, and a low starting point for the CHOICE vowel. Grammar features include the 'after' perfect (for recent past), habitual 'do be', and plural 'ye' and 'yous'. Ulster English (Northern Ireland) differs: it does not use th-stopping. Evidence comes from the Hiberno-English and Dublin English Wikipedia articles; the Hiberno-English article contains a section marked as uncited, and that section is flagged in the open questions. Primary sources (Raymond Hickey, Irish English: History and Present-Day Forms; the IDEA archive recordings) were not opened in this pass.",
+  "summary": "Irish English (Hiberno-English) covers a wide range. This file separates DUBLIN (Local, Mainstream, Advanced/new Dublin) from GENERAL/RURAL Irish English (south-west Cork/Kerry, west, Ulster). Grammar is where Irish English is most distinctive: the 'after' perfect ('hot-news'), habitual 'does be', answering by echoing the verb ('I am.'), 'so I can' tags, 'sure' tags, 'Will I...?', and second-person plurals ye / yis / yous. Round 2 added verified grammar from the Yale Grammatical Diversity Project (after-perfects, embedded-question inversion), a Frontiers in Communication study of Cork/Kerry English (be after, do be), Macquarie Dictionary on 'youse', and more everyday vocabulary from the Hiberno-English article (which cites Dolan's Dictionary of Hiberno-English). It also fixed the FACE vowel: general Irish English tends to a monophthong [eː], Local Dublin to a diphthong. Intonation: Ulster tends to rising statements; the south-west to a 'sing-song' fall. Primary sources (Hickey 2005, 2007; Dolan; the IDEA archive) were NOT opened directly.",
   "grammar": [
     {
       "standard": "He has just given me cheek.",
-      "dialect": "He was after giving me cheek.",
-      "condition": "Recent past: something that just happened. The construction is 'was/is after + -ing'. Source calls it the 'hot news' or 'after' perfect and gives it as a feature of Irish English.",
+      "dialect": "He was after giving me cheek. (after-perfect)",
+      "condition": "YGDP: be after + -ing, from the Irish prepositional 'tar éis'; the 'hot-news' perfect used for a recent event the speaker is involved in. Cork example from a study: 'We are after missing the bus.' Present is commoner than past; used with all verb types; rarely negated.",
       "example_standard": "She has just finished her dinner.",
       "example_dialect": "She is after finishing her dinner.",
-      "source_ids": [1]
+      "source_ids": [
+        1,
+        4,
+        5
+      ]
     },
     {
-      "standard": "He is always working. / He usually works.",
-      "dialect": "He does be working every day.",
-      "condition": "Habitual aspect: repeated or regular action. Source lists it as used in rural areas and in parts of Dublin and Cork. The source section on this is uncited, so use with medium confidence.",
+      "standard": "He usually works every day.",
+      "dialect": "He does be working every day. (habitual 'do be')",
+      "condition": "Habitual aspect with does be + -ing. Study: Cork/Kerry example 'He does be eating in John B's' (usual habit); speakers aware of standard English increasingly avoid it. Wikipedia lists it for Mayo, Sligo, Wexford, Dublin city centre and Cork, but that section is flagged as uncited. Rural and older flavour.",
       "example_standard": "He works every day.",
       "example_dialect": "He does be working every day.",
-      "source_ids": [1]
+      "source_ids": [
+        1,
+        5
+      ]
+    },
+    {
+      "standard": "Yes. / No. (as answers)",
+      "dialect": "echo the verb: 'I am.', 'He did.', 'They won't.'",
+      "condition": "Irish English tends to answer yes/no questions by repeating the verb instead of saying yes or no (Wikipedia, Irish influence).",
+      "example_standard": "Are you coming home soon? - Yes.",
+      "example_dialect": "Are you coming home soon? - I am.",
+      "source_ids": [
+        1
+      ]
+    },
+    {
+      "standard": "I can speak Irish!",
+      "dialect": "I can speak Irish, so I can. / I am so!",
+      "condition": "'so' as an emphatic tag or a contradiction. Wikipedia: especially in northern dialects (Sligo, Mayo, Ulster).",
+      "example_standard": "I can speak Irish!",
+      "example_dialect": "I can speak Irish, so I can.",
+      "source_ids": [
+        1
+      ]
+    },
+    {
+      "standard": "I was only here five minutes ago!",
+      "dialect": "..., sure!",
+      "condition": "'sure' at the end of a sentence for 'of course / after all'. Munster (south-west) especially (source 1; the passage was partly truncated).",
+      "example_standard": "I was only here five minutes ago!",
+      "example_dialect": "I was only here five minutes ago, sure!",
+      "source_ids": [
+        1
+      ]
+    },
+    {
+      "standard": "It is / it is not",
+      "dialect": "'tis / 'tisn't",
+      "condition": "Older-sounding contractions of 'it is' (source 1). Traditional, rural or deliberately folksy.",
+      "example_standard": "It is herself that's coming.",
+      "example_dialect": "'Tis herself that's coming now.",
+      "source_ids": [
+        1
+      ]
     },
     {
       "standard": "you (plural)",
-      "dialect": "yous / youse",
-      "condition": "Second-person plural, Dublin and Ulster, informal.",
-      "example_standard": "Are you coming to the pub?",
-      "example_dialect": "Are yous coming to the pub?",
-      "source_ids": [1, 2]
+      "dialect": "ye / yis / yiz / yous / youse",
+      "condition": "Second-person plural. 'Yous' mainly Dublin and Ulster; 'yiz' in parts of Leinster; 'ye' widely, informal (source 1). Macquarie: 'yez' is the usual Irish spelling and Australian 'youse' came from Irish English (1890s).",
+      "example_standard": "Did you all go to see it?",
+      "example_dialect": "Did ye all go to see it?",
+      "source_ids": [
+        1,
+        7
+      ]
     },
     {
-      "standard": "you (plural)",
-      "dialect": "ye",
-      "condition": "Second-person plural across Ireland. The source says it is otherwise archaic but still used in place of 'you'. Informal.",
-      "example_standard": "Are you all ready?",
-      "example_dialect": "Are ye all ready?",
-      "source_ids": [1]
+      "standard": "Shall I make us a cup of tea?",
+      "dialect": "Will I make us a cup of tea?",
+      "condition": "'Will' used where British English has 'shall' and American 'should' (source 1).",
+      "example_standard": "Shall I make us a cup of tea?",
+      "example_dialect": "Will I make us a cup of tea?",
+      "source_ids": [
+        1
+      ]
+    },
+    {
+      "standard": "I'm not allowed to go out tonight.",
+      "dialect": "I'm not allowed go out tonight.",
+      "condition": "'to' dropped after allowed (source 1; flagged citation needed). Low confidence.",
+      "example_standard": "I'm not allowed to go out tonight.",
+      "example_dialect": "I'm not allowed go out tonight.",
+      "source_ids": [
+        1
+      ]
+    },
+    {
+      "standard": "when / as long as",
+      "dialect": "once",
+      "condition": "'once' in a conditional sense: 'I have no problem laughing at myself once the joke is funny' (source 1).",
+      "example_standard": "I have no problem laughing at myself if the joke is funny.",
+      "example_dialect": "I have no problem laughing at myself once the joke is funny.",
+      "source_ids": [
+        1
+      ]
+    },
+    {
+      "standard": "aren't I?",
+      "dialect": "amn't I? / amn't",
+      "condition": "Old English contraction 'amn't' (source 1). Verified as listed; current frequency not stated.",
+      "example_standard": "Aren't I invited?",
+      "example_dialect": "Amn't I invited?",
+      "source_ids": [
+        1
+      ]
+    },
+    {
+      "standard": "I asked if she was coming.",
+      "dialect": "I asked her was she coming. (inversion in embedded questions)",
+      "condition": "YGDP lists Hiberno English and Belfast English among dialects where the auxiliary can come before the subject in an embedded question (and no 'if/whether'). Frequency not stated; example constructed.",
+      "example_standard": "I asked her if she was coming.",
+      "example_dialect": "I asked her was she coming.",
+      "source_ids": [
+        6
+      ],
+      "constructed": true
+    },
+    {
+      "standard": "Is that you?",
+      "dialect": "Is it yourself? / 'Tis herself",
+      "condition": "Emphatic reflexive for the person present; may sound formal or teasing (source 1). Medium confidence.",
+      "example_standard": "Is that you?",
+      "example_dialect": "Is it yourself?",
+      "source_ids": [
+        1
+      ]
     }
   ],
   "vocabulary": [
     {
       "standard": "fun, good times",
       "dialect": "craic",
-      "note": "Listed in the source as meaning 'fun, entertainment'. Common in Irish speech; spelling is also 'crack'. Use one or two times per monologue at most.",
-      "source_ids": [1]
+      "note": "Source 1: fun, enjoyment ('have the craic'); also spelt 'crack'. Irish-spelling form; widespread across Ireland.",
+      "source_ids": [
+        1
+      ]
     },
     {
-      "standard": "idiot, fool",
+      "standard": "idiot",
       "dialect": "eejit",
-      "note": "Listed in the source as Irish and Scottish term for idiot. Used in Ireland and spread to UK broadcasting.",
-      "source_ids": [1]
+      "note": "Source 1; very common; mild.",
+      "source_ids": [
+        1
+      ]
     },
     {
       "standard": "broken, ruined",
       "dialect": "banjaxed",
-      "note": "Listed in the source with the meaning 'broken, ruined, or rendered incapable of use'. The source says it is not widespread, so use only for colour.",
-      "source_ids": [1]
+      "note": "Source 1: broken, wrecked (like German kaputt); origin unclear.",
+      "source_ids": [
+        1
+      ]
+    },
+    {
+      "standard": "(mild expletive)",
+      "dialect": "feck",
+      "note": "Source 1: softened form of a stronger word ('Feck it!'). Mild in Ireland but still a swear.",
+      "source_ids": [
+        1
+      ]
+    },
+    {
+      "standard": "to scold, to complain",
+      "dialect": "give out / giving out",
+      "note": "Source 1: from Irish 'tabhair amach'; 'giving out to someone' = scolding.",
+      "source_ids": [
+        1
+      ]
+    },
+    {
+      "standard": "thing, gadget",
+      "dialect": "yoke",
+      "note": "Source 1: thing or machine.",
+      "source_ids": [
+        1
+      ]
+    },
+    {
+      "standard": "grocery shopping",
+      "dialect": "the messages",
+      "note": "Source 1: 'Messages' = groceries.",
+      "source_ids": [
+        1
+      ]
+    },
+    {
+      "standard": "cupboard",
+      "dialect": "press",
+      "note": "Source 1.",
+      "source_ids": [
+        1
+      ]
+    },
+    {
+      "standard": "toilet",
+      "dialect": "jacks",
+      "note": "Source 1. Informal.",
+      "source_ids": [
+        1
+      ]
+    },
+    {
+      "standard": "trainers, sneakers",
+      "dialect": "runners",
+      "note": "Source 1.",
+      "source_ids": [
+        1
+      ]
+    },
+    {
+      "standard": "soft drinks",
+      "dialect": "minerals",
+      "note": "Source 1.",
+      "source_ids": [
+        1
+      ]
+    },
+    {
+      "standard": "sliced bread",
+      "dialect": "sliced pan",
+      "note": "Source 1.",
+      "source_ids": [
+        1
+      ]
+    },
+    {
+      "standard": "to skip school",
+      "dialect": "mitch",
+      "note": "Source 1.",
+      "source_ids": [
+        1
+      ]
+    },
+    {
+      "standard": "private tutoring",
+      "dialect": "grinds",
+      "note": "Source 1.",
+      "source_ids": [
+        1
+      ]
+    },
+    {
+      "standard": "mess",
+      "dialect": "hames (make a hames of it)",
+      "note": "Source 1.",
+      "source_ids": [
+        1
+      ]
+    },
+    {
+      "standard": "dump; horrible place",
+      "dialect": "kip",
+      "note": "Source 1.",
+      "source_ids": [
+        1
+      ]
+    },
+    {
+      "standard": "worn out, exhausted",
+      "dialect": "jaded",
+      "note": "Source 1: means physically tired, not bored.",
+      "source_ids": [
+        1
+      ]
+    },
+    {
+      "standard": "rough, troublesome young man",
+      "dialect": "gurrier",
+      "note": "Source 1 (mixed origin list).",
+      "source_ids": [
+        1
+      ]
+    },
+    {
+      "standard": "country person (rural)",
+      "dialect": "culchie",
+      "note": "Source 1. Affectionate or mocking depending on speaker.",
+      "source_ids": [
+        1
+      ]
+    },
+    {
+      "standard": "Dubliner (somewhat disparaging)",
+      "dialect": "jackeen",
+      "note": "Source 1. Dublin; old-fashioned.",
+      "source_ids": [
+        1
+      ]
+    },
+    {
+      "standard": "girlfriend, young woman",
+      "dialect": "mot",
+      "note": "Source 1. Dublin slang flavour.",
+      "source_ids": [
+        1
+      ]
+    },
+    {
+      "standard": "crockery, dishes",
+      "dialect": "delph",
+      "note": "Source 1. Older.",
+      "source_ids": [
+        1
+      ]
+    },
+    {
+      "standard": "overcast drizzly day",
+      "dialect": "soft day",
+      "note": "Source 1.",
+      "source_ids": [
+        1
+      ]
+    },
+    {
+      "standard": "flattery",
+      "dialect": "plámás",
+      "note": "Source 1 (Irish loan).",
+      "source_ids": [
+        1
+      ]
+    },
+    {
+      "standard": "cheers (a toast)",
+      "dialect": "sláinte",
+      "note": "Source 1 (Irish loan).",
+      "source_ids": [
+        1
+      ]
+    },
+    {
+      "standard": "police",
+      "dialect": "the guards / gardaí",
+      "note": "Source 1: Garda (plural Gardaí) = Irish police; 'the guards' informal.",
+      "source_ids": [
+        1
+      ]
+    },
+    {
+      "standard": "be quiet",
+      "dialect": "whisht (huist)",
+      "note": "Source 1: old word, also in northern Britain; 'huist' as a variant. Older flavour.",
+      "source_ids": [
+        1
+      ]
+    },
+    {
+      "standard": "children (old plural)",
+      "dialect": "childer",
+      "note": "Source 1: archaic plural of child. Old, rural.",
+      "source_ids": [
+        1
+      ]
+    },
+    {
+      "standard": "exclamations (Oh!, Well)",
+      "dialect": "arra / yerra / musha",
+      "note": "Source 1: e.g. 'Yerra, sure if it rains, it rains.' Rural/older.",
+      "source_ids": [
+        1
+      ]
     }
   ],
   "pronunciation": [
     {
-      "rule": "Th-stopping outside Ulster: th (θ, as in 'think') becomes t and th (ð, as in 'then') becomes d. Usually a dental stop, with the tongue against the back of the upper teeth.",
-      "ipa": "θ -> [t̪] or [t]; ð -> [d̪] or [d]",
-      "actor_tip": "Say 'think' as 'tink' and 'then' as 'den', with the tongue against the back of the top front teeth. Ulster speakers keep the normal th sound, so do not apply this to Northern Irish characters.",
-      "example": "think -> tink; then -> den; three -> tree",
-      "source_ids": [1, 2, 3]
+      "rule": "Th-stopping outside Ulster: th becomes a dental t or d ('think' -> 'tink', 'this' -> 'dis'). In Dublin it is a Local (working-class) feature, not Mainstream or Advanced; Ulster speakers keep th.",
+      "ipa": "θ -> [t̪]; ð -> [d̪]",
+      "actor_tip": "Tongue tip against the back of the top teeth. Only for Local Dublin or rural (non-Ulster) characters.",
+      "example": "think, this, three",
+      "source_ids": [
+        1,
+        2,
+        3
+      ]
     },
     {
-      "rule": "Rhoticity: historical r is pronounced in Irish English. Local Dublin is described as weakly rhotic; Advanced Dublin uses a retroflex r (tongue tip curled slightly back).",
-      "ipa": "Local Dublin: weak r; Advanced Dublin: [ɻ]",
-      "actor_tip": "Pronounce r after vowels in 'car', 'hard', 'girl', but lightly in Local Dublin, where it is soft and almost a hint of sound. In Advanced Dublin, curl the tongue tip slightly back for the r.",
+      "rule": "T-lenition: /t/ between vowels or at word end is a slit fricative (like a weak 's') in most of Ireland outside Ulster. Dublin: Local [t̪] [ʔ] or [h]; Mainstream [ʔ], tap [ɾ] or slit fricative; Advanced Dublin: initial /t, d/ can be affricated [ts] [dz].",
+      "ipa": "/t/ -> [t̠] slit fricative (non-Ulster)",
+      "actor_tip": "'water' with a soft hissy 't'. Use sparingly; in Advanced Dublin it can sound like 'tsea'.",
+      "example": "water, better, cat",
+      "source_ids": [
+        1,
+        2
+      ]
+    },
+    {
+      "rule": "Rhoticity: r is pronounced everywhere; Local Dublin is weakly rhotic, Advanced Dublin uses retroflex [ɻ].",
+      "ipa": "Local: weak [ɹ]; Advanced: [ɻ]",
+      "actor_tip": "Pronounce r after vowels in car, hard, girl. Retroflex for Advanced Dublin.",
       "example": "car, hard, girl, word",
-      "source_ids": [1, 2]
+      "source_ids": [
+        1,
+        2
+      ]
     },
     {
-      "rule": "TRAP vowel: 'bad', 'cat' have a flat front a in Local Dublin, and a more open a in Advanced Dublin. In Local Dublin, BATH and DANCE use the same long vowel.",
-      "ipa": "Local: [æ] (BATH/DANCE long); Advanced: [a] or [ä]",
-      "actor_tip": "Say 'bad' with a flat front 'a' as in 'cat' for Local Dublin. In Advanced Dublin, open the mouth more for the same vowel. In Local Dublin, hold 'bath' and 'dance' longer with the same flat 'a'.",
-      "example": "bad, cat, bath, dance",
-      "source_ids": [2]
+      "rule": "No h-dropping: h is kept; the letter name is 'haitch' /heɪtʃ/.",
+      "ipa": "/h/ kept; haitch",
+      "actor_tip": "Say the letter H as 'haitch'.",
+      "example": "house, haitch",
+      "source_ids": [
+        1
+      ]
     },
     {
-      "rule": "PRICE vowel is a diphthong: 'ride', 'my', 'time' start from a mid vowel and glide up. Local Dublin starts mid-central and narrow; Advanced Dublin starts lower and more open.",
-      "ipa": "Local: [əɪ]; Advanced: [ɐɪ] to [ɑɪ]",
-      "actor_tip": "For Local Dublin, start from a mid 'uh' sound and glide up toward 'ee' in 'my', 'ride', 'time'. For Advanced Dublin, start from a lower, more open 'ah' sound.",
-      "example": "my, ride, time, price",
-      "source_ids": [2]
+      "rule": "Yod-dropping after n, l, s ('new', 'sue' = 'noo', 'soo') and yod-coalescence after t, d ('tune' ~ 'choon', 'duty' ~ 'joo-ty').",
+      "ipa": "/nj lj sj/ -> /n l s/; /tj dj/ -> [tʃ dʒ]",
+      "actor_tip": "No 'y' in 'new'; 'tune' -> 'choon'.",
+      "example": "new, sue, tune, duty",
+      "source_ids": [
+        1
+      ]
     },
     {
-      "rule": "FACE vowel is a clear diphthong in all Dublin accents: a glide from a front mid vowel up to 'ee'.",
-      "ipa": "[eɪ] to [ɛɪ]",
-      "actor_tip": "Keep a clear 'ay' glide in 'face', 'day', 'make'. Do not make it a single long vowel.",
-      "example": "face, day, make",
-      "source_ids": [2]
-    },
-    {
-      "rule": "MOUTH vowel is fronted and raised in Dublin English, starting from a front vowel and gliding up toward 'oo'. Mainstream Dublin speech is less raised.",
-      "ipa": "[æʊ] to [ɛʊ] to [eʊ] (fronted/raised); mainstream [aʊ]",
-      "actor_tip": "Start 'house' and 'now' from a front vowel, like the 'a' in 'cat' or a bit higher, then glide up and back to 'oo'. Lift the middle of the tongue for the start of the sound.",
-      "example": "house, now, down, mouth",
-      "source_ids": [2]
-    },
-    {
-      "rule": "CHOICE vowel starts lower than in most accents outside Ulster: the 'oi' in 'boy' and 'choice' opens more at the start.",
-      "ipa": "/ɔɪ/ starts lower outside Ulster (exact IPA not verified)",
-      "actor_tip": "Start 'boy' and 'choice' with a more open 'aw' than standard English, then glide up to 'ee'. Do not use a short flat 'oy'.",
-      "example": "boy, choice, voice",
-      "source_ids": [1]
-    },
-    {
-      "rule": "L colour: l is usually clear (light) in most Irish English. Advanced Dublin is described as velarised (darker) for word-final l; Ulster can have a dark l occasionally.",
-      "ipa": "Usually [l]; Advanced Dublin and some Ulster: [ɫ] (word-final)",
-      "actor_tip": "Keep l clear (tongue tip on the ridge behind the top teeth) in most words. For Advanced Dublin, make word-final l darker by pulling the back of the tongue up slightly. Do not turn it into a vowel.",
+      "rule": "Light (clear) l in most Irish English; Advanced Dublin has darker word-final l; Ulster can have a dark l.",
+      "ipa": "[l]; [ɫ] (Adv. Dublin, final)",
+      "actor_tip": "Keep l light with the tongue tip up.",
       "example": "milk, feel, all",
-      "source_ids": [1, 2]
+      "source_ids": [
+        1,
+        2
+      ]
+    },
+    {
+      "rule": "TRAP: [æ] in Local Dublin, [a~ä] in Advanced Dublin; the trap-bath split is partial across Irish English.",
+      "ipa": "Local [æ]; Advanced [a]",
+      "actor_tip": "Open the mouth a little more for Advanced Dublin.",
+      "example": "bad, cat, bath",
+      "source_ids": [
+        1,
+        2
+      ]
+    },
+    {
+      "rule": "FACE: general Irish English tends to a monophthong [eː]; Dublin (all kinds) is a diphthong [eɪ~ɛɪ]. Round 1 gave only the Dublin form.",
+      "ipa": "General: [eː]; Dublin: [eɪ~ɛɪ]",
+      "actor_tip": "Rural/Western/Cork characters: steady 'ay'. Dubliners: a clear glide.",
+      "example": "face, rain, day",
+      "source_ids": [
+        1,
+        2
+      ]
+    },
+    {
+      "rule": "GOAT: Local Dublin has a wide diphthong [ʌʊ~ʌo]; Advanced a narrower [əʊ]; elsewhere (west) often a monophthong [oː].",
+      "ipa": "Local [ʌʊ]; Adv. [əʊ]; West [oː]",
+      "actor_tip": "Local Dublin 'go' starts with 'uh'; Western 'go' is one pure 'oh'.",
+      "example": "go, home, road",
+      "source_ids": [
+        2,
+        1
+      ]
+    },
+    {
+      "rule": "PRICE: Local Dublin [əɪ]; Advanced [ɐɪ~ɑɪ]; Ulster front 'ɛɪ'-like before voiceless consonants.",
+      "ipa": "Local [əɪ]; Adv. [ɐɪ~ɑɪ]",
+      "actor_tip": "Start 'my' with 'uh' (Local) or a lower 'ah' (Advanced).",
+      "example": "my, ride, time",
+      "source_ids": [
+        2,
+        1
+      ]
+    },
+    {
+      "rule": "MOUTH: Dublin front and raised [æʊ~ɛʊ~eʊ]; Mainstream [aʊ]; the West has a back start; Ulster fronts the second element.",
+      "ipa": "Dublin [æʊ~ɛʊ]; Mainstream [aʊ]",
+      "actor_tip": "Start 'now' from the front of the mouth ('neh-oo').",
+      "example": "house, now, down",
+      "source_ids": [
+        2,
+        1
+      ]
+    },
+    {
+      "rule": "CHOICE: starts lower outside Ulster: Local Dublin [ɑɪ] or [ɒɪ]; Advanced [ɔɪ]/[oɪ].",
+      "ipa": "Local [ɑɪ~ɒɪ]; Adv. [ɔɪ]",
+      "actor_tip": "Open start for Local Dublin ('boy' like 'bah-ee').",
+      "example": "boy, choice, voice",
+      "source_ids": [
+        2,
+        1
+      ]
+    },
+    {
+      "rule": "THOUGHT/LOT: Local Dublin [ä(ː)] (can merge with LOT); Mainstream [ɒː]; Advanced [oː] closed syllable, [ɔː] open syllable. cot-caught merger is inconsistent.",
+      "ipa": "Local [äː]; Main. [ɒː]; Adv. [oː]",
+      "actor_tip": "Do not assume cot = caught for every Irish speaker.",
+      "example": "caught, thought, cot",
+      "source_ids": [
+        2,
+        1
+      ]
+    },
+    {
+      "rule": "Advanced (new) Dublin merges NORTH/FORCE (horse = hoarse) and NURSE/SQUARE ('fur'/'fair'); Local/conservative speakers keep 'earn' and 'urn' distinct. Advanced Dublin is the likely accent of most Dubliners born after the 1980s (probable, per source 2).",
+      "ipa": "horse = hoarse; fur = fair [øːɻ] (Advanced)",
+      "actor_tip": "Only for young Dubliners; not for Local characters or rural speakers.",
+      "example": "horse / hoarse, fur / fair",
+      "source_ids": [
+        2
+      ]
     }
   ],
-  "intonation": [],
+  "intonation": [
+    {
+      "rule": "Ulster English: statements often end on a rising pitch, so they can sound like questions (source 1).",
+      "source_ids": [
+        1
+      ],
+      "actor_tip": "Use only for Northern Irish characters; a rise at the end of declaratives."
+    },
+    {
+      "rule": "West and South-West (Cork): a 'sing-song' effect, with pitch rising on stressed long vowels and then falling sharply (source 1).",
+      "source_ids": [
+        1
+      ],
+      "actor_tip": "Raise pitch on the stressed long vowel and drop it away in the next syllable; use only for Cork/Kerry-type characters."
+    },
+    {
+      "rule": "Dublin: no pitch pattern found in the opened Dublin English page; do not attach a sing-song to Dublin speakers by default.",
+      "source_ids": [
+        2
+      ],
+      "actor_tip": "Use the vowel and consonant features first."
+    }
+  ],
   "common_mistakes": [
-    "Applying th-stopping to Ulster or Northern Irish characters. Ulster speakers usually keep the normal th sounds.",
-    "Using 'top o' the morning', 'begorrah' or leprechaun-style phrases. These are stage stereotypes and are not supported by the sources.",
-    "Using craic in every line. The source says it is common, but overuse becomes a caricature.",
-    "Putting the Local Dublin and Advanced Dublin features together on the same character. Choose one register.",
-    "Turning the Irish 'r' into a strong American r on every word. Local Dublin's r is weak; Advanced Dublin's is retroflex.",
-    "Using the 'after' perfect or do be in every sentence. Use only in one or two lines of a monologue."
+    "Applying th-stopping to Ulster or to Mainstream/Advanced Dublin characters.",
+    "'Top o' the morning', 'begorrah', leprechaun phrases: stage stereotypes.",
+    "Putting craic, eejit, feck, banjaxed in every line.",
+    "Mixing Local and Advanced Dublin features on one character.",
+    "Using a strong American r on every word: Local Dublin is weakly rhotic; Advanced is retroflex.",
+    "Using 'after', 'does be', 'yous' and 'so I can' in the same line. Choose one or two per speech.",
+    "Giving 'does be' to a young urban character; speakers aware of standard English avoid it (source 5).",
+    "A 'sing-song' intonation for all Irish characters. It is a south-west description; Ulster is rising-statements; Dublin is unverified.",
+    "Using 'Is it yourself' or 'Tis herself' as general Irish speech; formal, teasing, rare.",
+    "Eye-dialect ('tink', 'yer', 'me' for 'my'). Keep standard spelling."
   ],
   "generational_notes": [
-    "Source describes Local Dublin English as traditional working-class speech and Advanced Dublin English as a newer, higher-status accent used by many younger speakers from the 1990s on, which some describe as rejecting traditional working-class Dublin.",
-    "In Advanced Dublin, earn and urn merge into the NURSE vowel, and horse and hoarse become the same (the NORTH/FORCE merger). These are features of the newer accent only and should not be applied to Local Dublin characters.",
-    "Advanced Dublin English is described in the source as a 'new mainstream accent' for younger speakers.",
-    "Local Dublin's r is described as weakly rhotic in the 21st century, so older Dublin speakers who were once non-rhotic now have a weak r."
+    "Advanced (new) Dublin English is probably the accent of most Dubliners born since the 1980s (source 2), and is said to be becoming the new standard nationwide.",
+    "Local Dublin is the traditional working-class accent; its r is weak in the 21st century.",
+    "Speakers conscious of standard English increasingly avoid 'does be' (source 5, Cork/Kerry study).",
+    "'Whisht', 'childer', 'delph', 'boreen' read as older/rural; 'craic' and 'eejit' are current. No age data in sources.",
+    "The Cork/Kerry grammar study used speakers born in the 1920s-1970s (source 5)."
   ],
   "conversion_guidelines": [
-    "Choose the variety first: Local Dublin (working-class, older) or Advanced Dublin (younger, higher-status). Do not mix the two for one character.",
-    "For Local Dublin, apply th-stopping, the PRICE diphthong and the fronted MOUTH vowel as the core features. Add weak r.",
-    "For Advanced Dublin, apply the lower PRICE onset, retroflex r, and the horse-hoarse merger (only if the text uses these words).",
-    "For Ulster characters, do not apply th-stopping; use the other vowel features only after checking a source.",
-    "Use grammar sparingly: at most one of 'after' perfect, 'do be', 'yous', or 'ye' per monologue.",
-    "Use craic or eejit at most once or twice; choose the line where it fits best.",
-    "Keep spelling close to standard English. Do not spell out the accent (for example, do not write 'tink' in the text), except where the text uses th words, and then only in stage notes."
+    "Natural spoken film-dialogue English first. Irish flavour comes from rhythm of statement/answer, one or two grammar items, and sparing vocabulary.",
+    "Choose the variety first: Dublin (Local / Mainstream / Advanced), or rural (Cork-Kerry, West), or Ulster. Do not mix.",
+    "Grammar (one or two per monologue): 'after' perfect for just-happened events; echo-verb answers ('I am.'); 'so I can'; 'Will I...?'; 'ye' for plural you.",
+    "'Does be' only for older/rural characters.",
+    "Vocabulary: craic, eejit, feck, give out, the messages, press. One or two, only where the scene fits.",
+    "Sound notes: Local Dublin th-stopping, MOUTH raised; Advanced Dublin retroflex r and horse=hoarse; rural: monophthong FACE/GOAT.",
+    "No eye-dialect; no leprechaun phrases. Ulster: no th-stopping; consider rising statements.",
+    "In actor notes name the variety and region."
   ],
   "sources": [
     {
@@ -148,7 +575,7 @@
     },
     {
       "id": 2,
-      "title": "Dublin English (Wikipedia)",
+      "title": "Dublin English (Wikipedia; cites Hickey 2005, 2007)",
       "url": "https://en.wikipedia.org/wiki/Dublin_English",
       "type": "encyclopedia"
     },
@@ -157,18 +584,206 @@
       "title": "Th-stopping (Wikipedia)",
       "url": "https://en.wikipedia.org/wiki/Th-stopping",
       "type": "encyclopedia"
+    },
+    {
+      "id": 4,
+      "title": "After-perfects, Yale Grammatical Diversity Project",
+      "url": "https://ygdp.yale.edu/phenomena/after-perfects",
+      "type": "academic"
+    },
+    {
+      "id": 5,
+      "title": "Be after and habitual do be in south-western Hiberno-English (Frontiers in Communication, 2022)",
+      "url": "https://www.frontiersin.org/articles/10.3389/fcomm.2022.832128",
+      "type": "academic"
+    },
+    {
+      "id": 6,
+      "title": "Inversion in embedded questions, Yale Grammatical Diversity Project",
+      "url": "https://ygdp.yale.edu/phenomena/inversion-embedded-questions",
+      "type": "academic"
+    },
+    {
+      "id": 7,
+      "title": "Macquarie Dictionary: What're youse doing? (on 'youse', Irish English origin)",
+      "url": "https://www.macquariedictionary.com.au/whatre-youse-doing/",
+      "type": "dictionary"
     }
   ],
   "confidence": "medium",
   "open_questions": [
-    "The Hiberno-English article section on habitual 'do be' is uncited; the regional list (Mayo, Sligo, Waterford, Dublin city, Cork city) was not checked against a source.",
-    "'Sure look', 'grand' and 'gas' were not found in the opened text (the article was truncated) and are omitted.",
-    "'Amn't' was listed as a vocabulary item in the source but its current usage was not stated; omitted until verified.",
-    "The h-dropping and h-adding status in Dublin was not found in the opened sources and is omitted.",
-    "The Hiberno-English article's section on the PRICE vowel described it as a diphthong, while an earlier summary described FACE as a monophthong; the Dublin English article describes FACE as a diphthong, which is used here. Verify with a primary source (Hickey 2005).",
-    "Whether the 'bad' vowel and the PRICE onset apply to all Dublin speakers or only Local speakers needs checking.",
-    "The 'is it yourself' construction and 'Is it...' tags were not verified and are omitted.",
-    "Intonation for Irish English was not verified. Leave empty until checked.",
-    "Ulster English is only mentioned as an exception to th-stopping; a separate Ulster file would be needed for full coverage."
-  ]
+    "Primary sources (Hickey 2004, 2005, 2007; Dolan's Dictionary of Hiberno-English; IDEA recordings) were not opened. Wikipedia cites them; vowel IPA should be checked with native recordings.",
+    "The Hiberno-English 'To be' (do be) section is flagged uncited on Wikipedia; the regional list (Mayo, Sligo, Wexford, Dublin city centre, Cork) is unverified.",
+    "'Grand', 'gas', 'sure look', 'yer man', 'gobshite', 'gaff' and 'slagging' were not found in the opened text; omitted.",
+    "Dublin intonation: not described in the opened Dublin article. Derry (rising) and Galway (falling) studies appeared in search results only (not opened).",
+    "Is 'Is it yourself' / 'Tis herself' used by younger speakers? Unknown.",
+    "Embedded-question inversion: YGDP lists Hiberno English but gives no frequency; example is constructed.",
+    "Word ages (whisht, childer, delph, jackeen, mot) are coaching judgement; sources give no age.",
+    "'Sure' tag: the Wikipedia passage was truncated; check Munster use.",
+    "Ulster English needs its own file (Ulster Scots, rising declaratives, different vowels)."
+  ],
+  "examples": [
+    {
+      "korean_idea": "그가 방금 나한테 버릇없이 굴었어. (분노)",
+      "neutral_english": "He just gave me cheek.",
+      "regional_english": "He was after giving me cheek.",
+      "note": "after-perfect: 방금 일어난 일을 '새 소식'처럼(YGDP, 출처 1, 4).",
+      "source_ids": [
+        1,
+        4
+      ],
+      "constructed": false
+    },
+    {
+      "korean_idea": "우리가 막 버스를 놓쳤어. (놀람)",
+      "neutral_english": "We just missed the bus.",
+      "regional_english": "We're after missing the bus.",
+      "note": "Cork 연구의 'We are after missing the bus' 구조(출처 5).",
+      "source_ids": [
+        5
+      ],
+      "constructed": false
+    },
+    {
+      "korean_idea": "곧 집에 올 거야? / 응. (대답)",
+      "neutral_english": "Are you coming home soon? - Yes.",
+      "regional_english": "Are you coming home soon? - I am.",
+      "note": "yes/no 대신 동사 반복(출처 1).",
+      "source_ids": [
+        1
+      ],
+      "constructed": false
+    },
+    {
+      "korean_idea": "난 아일랜드어 할 줄 알거든! (강조)",
+      "neutral_english": "I can speak Irish!",
+      "regional_english": "I can speak Irish, so I can.",
+      "note": "'so I can' 태그. 서부·북부에서 흔함(출처 1).",
+      "source_ids": [
+        1
+      ],
+      "constructed": false
+    },
+    {
+      "korean_idea": "내가 차 끓일까? (제안)",
+      "neutral_english": "Shall I make us a cup of tea?",
+      "regional_english": "Will I make us a cup of tea?",
+      "note": "shall 자리에 will(출처 1).",
+      "source_ids": [
+        1
+      ],
+      "constructed": false
+    },
+    {
+      "korean_idea": "이 바보야! (분노)",
+      "neutral_english": "You idiot!",
+      "regional_english": "You eejit!",
+      "note": "eejit은 가볍고 흔한 말(출처 1).",
+      "source_ids": [
+        1
+      ],
+      "constructed": true
+    },
+    {
+      "korean_idea": "조용히 해, 괜찮아. (위로)",
+      "neutral_english": "Hush now, it's all right.",
+      "regional_english": "Whisht now, it's all right.",
+      "note": "whisht = 조용히(출처 1). 다소 옛스럽고 따뜻한 말투.",
+      "source_ids": [
+        1
+      ],
+      "constructed": true
+    },
+    {
+      "korean_idea": "어젯밤 재미있었어? (농담)",
+      "neutral_english": "Did you have a good time last night?",
+      "regional_english": "Did you have the craic last night?",
+      "note": "craic = 즐거움(출처 1). 구성 예문.",
+      "source_ids": [
+        1
+      ],
+      "constructed": true
+    },
+    {
+      "korean_idea": "너희 다 보러 갔니? (질문)",
+      "neutral_english": "Did you all go to see it?",
+      "regional_english": "Did ye all go to see it?",
+      "note": "ye는 2인칭 복수. 위키 예문 그대로(출처 1).",
+      "source_ids": [
+        1
+      ],
+      "constructed": false
+    },
+    {
+      "korean_idea": "그녀에게 올 거냐고 물었어. (간접 질문)",
+      "neutral_english": "I asked her if she was coming.",
+      "regional_english": "I asked her was she coming.",
+      "note": "YGDP가 Hiberno English를 도치 방언으로 나열. 구성 예문(출처 6).",
+      "source_ids": [
+        6
+      ],
+      "constructed": true
+    },
+    {
+      "korean_idea": "그는 매일 일하곤 해. (습관)",
+      "neutral_english": "He works every day.",
+      "regional_english": "He does be working every day.",
+      "note": "습관 표현 'does be'. 나이 든 농촌 화자에게(출처 1, 5).",
+      "source_ids": [
+        1,
+        5
+      ],
+      "constructed": false
+    },
+    {
+      "korean_idea": "나 장 좀 보러 갔다 올게. (일상)",
+      "neutral_english": "I'm going out for the groceries.",
+      "regional_english": "I'm just going for the messages.",
+      "note": "messages = 식료품 장보기(출처 1). 구성 예문.",
+      "source_ids": [
+        1
+      ],
+      "constructed": true
+    }
+  ],
+  "sub_regions": [
+    {
+      "name": "더블린: Local vs Mainstream vs Advanced",
+      "note": "Local = 전통 노동계층(th-stopping, [t̪]/[ʔ]/[h], 넓은 GOAT), Mainstream = 중산층, Advanced = 1980년대 이후 출생 다수의 새 억양(horse=hoarse, 레트로플렉스 r). 한 인물에 섞지 마세요(출처 2).",
+      "source_ids": [
+        2
+      ]
+    },
+    {
+      "name": "더블린 vs 시골",
+      "note": "'does be'는 시골과 더블린 시내·코크 도시에서 보고되지만 위키 해당 절은 출처 미표기. 'youse'는 더블린·얼스터, 'yiz'는 레인스터 일부(출처 1). 시골 화자일수록 whisht/childer 등 옛 어휘가 어울림(감).",
+      "source_ids": [
+        1,
+        5
+      ]
+    },
+    {
+      "name": "얼스터(북아일랜드)",
+      "note": "th-stopping 없음, 평서문 끝 상승 억양, GOOSE-FOOT 병합 경향, 'so' 태그가 많음(출처 1). 별도 파일 필요.",
+      "source_ids": [
+        1
+      ]
+    },
+    {
+      "name": "서부·남서부(코크·케리)",
+      "note": "MOUTH가 뒤쪽, GOAT는 단모음 유지, 'sing-song' 억양, 'sure' 태그(먼스터). be after, do be 연구 지역(출처 1, 5).",
+      "source_ids": [
+        1,
+        5
+      ]
+    },
+    {
+      "name": "표준(supraregional) 아일랜드 영어",
+      "note": "교육받은 중산·상류층의 전국 억양. 영국 RP와 일부 닮았지만 아일랜드적 특징이 남음(출처 1).",
+      "source_ids": [
+        1
+      ]
+    }
+  ],
+  "confidence_detail": "medium-high for after-perfect, do be and 'youse' (academic pages opened); medium for Dublin vowel values (Wikipedia citing Hickey); medium-low for general vocabulary and regional labels (Wikipedia only); low for Dublin intonation (none found)."
 }
