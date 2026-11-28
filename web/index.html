@@ -178,6 +178,8 @@
             <button class="btn btn-sm" type="button" data-switch="dialect">🎭 사투리 코치</button>
             <button class="btn btn-sm" type="button" data-switch="analyze">📖 대본 분석</button>
             <button class="btn btn-sm" type="button" data-switch="note">📝 연기 노트</button>
+            <button class="btn btn-sm" type="button" data-switch="portfolio">🎬 포트폴리오</button>
+            <button class="btn btn-sm" type="button" data-switch="records">📂 내 기록</button>
           </nav>
           <button id="introOpen" class="btn btn-sm" type="button">🏠 처음으로</button>
           <!-- 로그인 영역: 서버에 로그인 설정이 없으면 "로그인 준비 중"만 흐리게 보여요 (app.js가 채움) -->
@@ -216,8 +218,11 @@
         <button class="tab" role="tab" id="tab-convert" aria-controls="panel-convert" aria-selected="true" tabindex="0">① 변환</button>
         <button class="tab" role="tab" id="tab-practice" aria-controls="panel-practice" aria-selected="false" tabindex="-1">② 연습</button>
         <button class="tab" role="tab" id="tab-listen" aria-controls="panel-listen" aria-selected="false" tabindex="-1">③ 듣고 따라하기</button>
-        <button class="tab" role="tab" id="tab-analyze" aria-controls="panel-analyze" aria-selected="false" tabindex="-1">대본 분석</button>
+        <button class="tab" role="tab" id="tab-analyze" aria-controls="panel-analyze" aria-selected="false" tabindex="-1">흐름 분석</button>
+        <button class="tab" role="tab" id="tab-storyboard" aria-controls="panel-storyboard" aria-selected="false" tabindex="-1" hidden>콘티 · 무드 영상</button>
         <button class="tab" role="tab" id="tab-note" aria-controls="panel-note" aria-selected="false" tabindex="-1" hidden>연기 노트</button>
+        <button class="tab" role="tab" id="tab-portfolio" aria-controls="panel-portfolio" aria-selected="false" tabindex="-1" hidden>나의 포트폴리오</button>
+        <button class="tab" role="tab" id="tab-records" aria-controls="panel-records" aria-selected="false" tabindex="-1" hidden>내 기록 전체</button>
       </div>
     </div>
   </header>
@@ -479,6 +484,21 @@
       </div>
     </section>
 
+    <!-- ============ 콘티 · 무드 영상 (storyboard.js 가 채워요) ============ -->
+    <section id="panel-storyboard" class="panel" role="tabpanel" aria-labelledby="tab-storyboard" hidden>
+      <div id="sbRoot"></div>
+    </section>
+
+    <!-- ============ 나의 포트폴리오 (portfolio.js 가 채워요) ============ -->
+    <section id="panel-portfolio" class="panel" role="tabpanel" aria-labelledby="tab-portfolio" hidden>
+      <div id="pfRoot"></div>
+    </section>
+
+    <!-- ============ 내 기록 전체 (records.js 가 채워요) ============ -->
+    <section id="panel-records" class="panel" role="tabpanel" aria-labelledby="tab-records" hidden>
+      <div id="rcRoot"></div>
+    </section>
+
     <!-- ============ 연기 노트 ============ -->
     <section id="panel-note" class="panel" role="tabpanel" aria-labelledby="tab-note" hidden>
 
@@ -639,5 +659,8 @@
   <noscript><p class="notice notice-error wrap">이 앱은 JavaScript가 켜져 있어야 동작해요.</p></noscript>
   <script src="/vendor/supabase-2.119.2.js"></script>
   <script src="app.js"></script>
+  <script src="records.js"></script>
+  <script src="portfolio.js"></script>
+  <script src="storyboard.js"></script>
 </body>
 </html>

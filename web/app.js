@@ -428,8 +428,10 @@ function loadSaved() {
 var ROOM_KEY = 'dialectCoach.room';
 var ROOMS = {
   dialect: { name: '사투리 코치', tabs: ['convert', 'practice', 'listen'], other: 'analyze' },
-  analyze: { name: '대본 분석 스튜디오', tabs: ['analyze'], other: 'dialect' },
-  note: { name: '연기 노트', tabs: ['note'], other: 'dialect' }
+  analyze: { name: '대본 분석 스튜디오', tabs: ['analyze', 'storyboard'], other: 'dialect' },
+  note: { name: '연기 노트', tabs: ['note'], other: 'dialect' },
+  portfolio: { name: '나의 포트폴리오', tabs: ['portfolio'], other: 'dialect' },
+  records: { name: '내 기록 전체', tabs: ['records'], other: 'dialect' }
 };
 var currentRoom = 'dialect';
 
@@ -587,6 +589,7 @@ function enterRoom(room) {
   vaultListOpen = false;
   vaultStatus('');
   vaultRefresh();
+  appEmit('app:room', { room: room });
 }
 
 function roomFromHash() {
@@ -616,7 +619,7 @@ function initIntro() {
 }
 
 /* ---------- 탭 ---------- */
-var TAB_IDS = ['convert', 'practice', 'listen', 'analyze', 'note'];
+var TAB_IDS = ['convert', 'practice', 'listen', 'analyze', 'storyboard', 'note', 'portfolio', 'records'];
 
 function selectTab(name, focus) {
   stopListening();
@@ -632,6 +635,8 @@ function selectTab(name, focus) {
   });
   if (name === 'practice') renderPractice();
   if (name === 'listen') renderListen();
+  if (typeof vaultRefresh === 'function' && authChecked !== undefined) vaultRefresh();
+  appEmit('app:tab', { tab: name });
 }
 
 function initTabs() {
@@ -3323,6 +3328,7 @@ function authRender() {
     $('authChip').setAttribute('aria-label', '로그인한 계정 ' + local);
   }
   vaultRefresh();
+  appEmit('app:auth', { user: authUser });
 }
 
 // 로그인 창 열기 / 링크 보내기
@@ -3573,7 +3579,12 @@ function askTitle(heading, defaultValue) {
 }
 
 /* ---------- 내 보관함: 저장 / 목록 / 열기 / 이름 바꾸기 / 삭제 ---------- */
-function vaultRoomService() { return document.body.classList.contains('show-intro') ? null : currentRoom; }
+function vaultRoomService() {
+  if (document.body.classList.contains('show-intro')) return null;
+  if (!VAULT_NAMES[currentRoom]) return null; // 포트폴리오·내 기록 전체는 자기 화면에서 따로 저장해요
+  if (currentRoom === 'analyze' && $('panel-analyze').hidden) return null; // 콘티 탭은 자체 저장
+  return currentRoom;
+}
 
 // 막대를 지금 상태(서비스·로그인)에 맞게 보여줘요
 function vaultRefresh() {
@@ -3719,5 +3730,23 @@ function initVault() {
     if (vaultListOpen) vaultLoadList();
   });
 }
+
+/* ---------- 새 기능 파일들이 함께 쓰는 창구 (window.App) ----------
+   records.js / portfolio.js / storyboard.js 는 app.js 를 직접 고치지 않고 이 창구만 써요.
+   이벤트: 'app:room' {room}, 'app:tab' {tab}, 'app:auth' {user} — document 에서 들을 수 있어요. */
+function appEmit(name, detail) {
+  try { document.dispatchEvent(new CustomEvent(name, { detail: detail || {} })); } catch (e) { /* 무시 */ }
+}
+window.App = {
+  get auth() { return authClient; },          // supabase 클라이언트 (설정 없으면 null)
+  get user() { return authUser; },            // 로그인한 사람 (없으면 null)
+  get room() { return currentRoom; },
+  enterRoom: function (room) { enterRoom(room); },
+  selectTab: function (tab) { selectTab(tab, false); },
+  // 보관함의 기록 하나를 해당 서비스에서 열기: service = 'dialect' | 'analyze' | 'note', row = { id, title }
+  openRecord: function (service, row) { enterRoom(service); return vaultOpen(service, row); },
+  toast: function (msg) { showToast(msg); },
+  $: $, el: el, show: show
+};
 
 init();
