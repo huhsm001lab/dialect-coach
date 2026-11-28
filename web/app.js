@@ -548,7 +548,11 @@ function initIntro() {
   document.querySelectorAll('#roomSwitch [data-switch]').forEach(function (b) {
     b.addEventListener('click', function () { enterRoom(b.getAttribute('data-switch')); });
   });
-  window.addEventListener('hashchange', function () { var r = roomFromHash(); if (r && r !== currentRoom) enterRoom(r); });
+  window.addEventListener('hashchange', function () {
+    var r = roomFromHash();
+    // 다른 서비스로 가거나, 첫 페이지·로그인 화면에서 서비스 주소로 오면 열어요
+    if (r && (r !== currentRoom || document.body.classList.contains('show-intro'))) enterRoom(r);
+  });
 
   var saved = null;
   try { saved = sessionStorage.getItem(ROOM_KEY); } catch (e) { /* 저장 막힘 */ }
