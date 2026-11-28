@@ -435,7 +435,63 @@ var currentRoom = 'dialect';
 
 function roomTabs() { return ROOMS[currentRoom].tabs; }
 
+/* ---------- 로그인 화면 (서비스에 들어가기 전) ----------
+   로그인 기능이 켜져 있으면(Supabase 설정 있음), 로그인하지 않은 사람은 서비스 대신 이 화면을 먼저 봐요.
+   로그인 링크로 돌아오면 고른 서비스가 바로 열려요. */
+var gateRoom = null;      // 로그인 뒤에 열 서비스
+var authChecked = false;  // 로그인 상태 확인이 끝났는지 (확인 전에는 화면을 막지 않아요)
+
+function needGate() { return authChecked && !!authClient && !authUser; }
+
+function showGate(room) {
+  gateRoom = ROOMS[room] ? room : 'dialect';
+  document.body.classList.remove('show-intro');
+  $('intro').hidden = true;
+  document.body.classList.add('show-gate');
+  $('loginGate').hidden = false;
+  $('gateRoomName').textContent = ROOMS[gateRoom].name;
+  $('gateMsg').textContent = '';
+  $('gateMsg').classList.remove('is-error');
+  $('gateSend').disabled = false;
+  if (location.hash !== '#' + gateRoom) history.replaceState(null, '', '#' + gateRoom);
+  window.scrollTo(0, 0);
+  $('gateEmail').focus({ preventScroll: true });
+}
+
+function hideGate() {
+  document.body.classList.remove('show-gate');
+  $('loginGate').hidden = true;
+}
+
+async function sendGateLink(e) {
+  e.preventDefault();
+  var email = $('gateEmail').value.trim();
+  var msg = $('gateMsg');
+  msg.classList.remove('is-error');
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
+    msg.textContent = '이메일 주소를 확인해 주세요. 예: example@email.com';
+    msg.classList.add('is-error');
+    $('gateEmail').focus();
+    return;
+  }
+  $('gateSend').disabled = true;
+  msg.textContent = '로그인 링크를 보내는 중이에요…';
+  try {
+    var r = await authClient.auth.signInWithOtp({
+      email: email,
+      options: { emailRedirectTo: location.origin + location.pathname + '#' + (gateRoom || 'dialect') }
+    });
+    if (r.error) throw r.error;
+    msg.textContent = '📬 메일을 보냈어요! 메일함에서 로그인 링크를 눌러 주세요.';
+  } catch (err) {
+    msg.textContent = authErrorMsg(err);
+    msg.classList.add('is-error');
+  }
+  $('gateSend').disabled = false;
+}
+
 function showIntro(on) {
+  if (on) hideGate();
   document.body.classList.toggle('show-intro', on);
   $('intro').hidden = !on;
   window.scrollTo(0, 0);
@@ -450,6 +506,8 @@ function showIntro(on) {
 
 function enterRoom(room) {
   if (!ROOMS[room]) room = 'dialect';
+  if (needGate()) { showGate(room); return; } // 로그인 먼저
+  hideGate();
   currentRoom = room;
   var r = ROOMS[room];
   document.body.setAttribute('data-room', room);
@@ -3249,6 +3307,7 @@ async function doLogout() {
   vaultListOpen = false;
   authRender();
   showToast('로그아웃했어요');
+  showIntro(true); // 로그아웃하면 첫 페이지로
 }
 
 // 세 서비스 화면을 빈 상태로 되돌려요
@@ -3293,12 +3352,15 @@ async function initAuth() {
   $('loginCancel').addEventListener('click', function () { $('loginDlg').close(); });
   $('loginForm').addEventListener('submit', sendLoginLink);
   $('logoutBtn').addEventListener('click', doLogout);
+  $('gateForm').addEventListener('submit', sendGateLink);
+  $('gateBack').addEventListener('click', function () { showIntro(true); });
 
   var cfg = null;
   try { cfg = await api('/api/config'); } catch (e) { cfg = null; }
   if (!cfg || !cfg.authReady || !cfg.supabaseUrl || !cfg.supabaseAnonKey ||
       typeof supabase === 'undefined' || !supabase.createClient) {
-    authRender(); // "로그인 준비 중"만 보여요
+    authChecked = true;
+    authRender(); // "로그인 준비 중"만 보여요 (로그인 없이 그대로 써요)
     return;
   }
   try {
@@ -3316,6 +3378,8 @@ async function initAuth() {
       setTimeout(function () {
         authRender();
         if (ev === 'SIGNED_IN' && authUser && $('loginDlg').open) { $('loginDlg').close(); showToast('로그인했어요'); }
+        // 로그인 화면에서 기다리던 중이면, 고른 서비스로 바로 들어가요
+        if (authUser && !$('loginGate').hidden) { enterRoom(gateRoom || currentRoom); showToast('로그인했어요'); }
       }, 0);
     });
     var r = await authClient.auth.getSession(); // 로그인 링크로 돌아온 경우 여기서 처리돼요
@@ -3325,7 +3389,10 @@ async function initAuth() {
     authUser = null;
   }
   cleanAuthUrl();
+  authChecked = true;
   authRender();
+  // 로그인하지 않았는데 이미 서비스 화면(#note 등)이 열려 있으면 로그인 화면으로 바꿔요
+  if (needGate() && !document.body.classList.contains('show-intro')) showGate(currentRoom);
 }
 
 /* ---------- 내 보관함: 저장할 내용 만들기 / 불러오기 ---------- */

@@ -133,6 +133,29 @@
     </div>
   </section>
 
+  <!-- 로그인 화면: 서비스에 들어가기 전에 먼저 보여요. 로그인하면 고른 서비스가 바로 열려요. -->
+  <section id="loginGate" class="gate" aria-labelledby="gateTitle" hidden>
+    <div class="wrap">
+      <div class="card gate-box">
+        <p class="intro-eyebrow">배우의 대본 저장소</p>
+        <h1 id="gateTitle" class="gate-title">로그인하고 시작해요</h1>
+        <p class="gate-lead">로그인하면 <strong id="gateRoomName">서비스</strong>가 바로 열리고, 내 기록이 내 계정에 남아요.</p>
+        <form id="gateForm" novalidate>
+          <label for="gateEmail" class="block-label">이메일</label>
+          <input id="gateEmail" class="text-input gate-input" type="email" inputmode="email" autocomplete="email" maxlength="120" placeholder="example@email.com">
+          <button id="gateSend" class="btn btn-primary btn-lg gate-send" type="submit">로그인 링크 받기</button>
+        </form>
+        <p id="gateMsg" class="gate-msg" role="status" aria-live="polite"></p>
+        <ul class="gate-help small muted">
+          <li>비밀번호는 없어요. 메일로 온 <strong>로그인 링크</strong>를 누르면 바로 들어가져요.</li>
+          <li>링크는 <strong>지금 이 브라우저</strong>에서 열어 주세요. (메일 앱 안에서 열면 로그인이 안 될 수 있어요)</li>
+          <li>메일이 안 보이면 스팸함도 확인해 주세요.</li>
+        </ul>
+        <button id="gateBack" class="btn" type="button">← 처음으로</button>
+      </div>
+    </div>
+  </section>
+
   <header class="site-header">
     <div class="wrap">
       <div class="brand-row">

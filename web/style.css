@@ -630,3 +630,19 @@ body:not([data-room="dialect"]) .site-footer { display: none; }
   max-width: calc(100vw - 32px); transition: opacity .2s, transform .2s;
 }
 .toast.on { opacity: 1; transform: translateX(-50%); }
+
+/* ---------- 로그인 화면 (서비스 들어가기 전) ---------- */
+body.show-gate .site-header,
+body.show-gate main,
+body.show-gate .site-footer { display: none; }
+.gate { min-height: 100vh; display: flex; align-items: center; padding: 32px 0;
+  background: linear-gradient(180deg, var(--accent-soft), var(--bg)); }
+.gate .wrap { width: 100%; }
+.gate-box { max-width: 520px; margin: 0 auto; padding: 32px 28px; }
+.gate-title { font-family: var(--font-script); color: var(--text); font-size: clamp(1.7rem, 5vw, 2.2rem); margin: 0 0 10px; }
+.gate-lead { line-height: 1.7; margin: 0 0 20px; word-break: keep-all; }
+.gate-input { width: 100%; font-size: 1.1rem; min-height: 52px; }
+.gate-send { width: 100%; margin-top: 12px; }
+.gate-msg { min-height: 1.6em; margin: 14px 0 6px; font-weight: 700; color: var(--accent); }
+.gate-msg.is-error { color: var(--bad); }
+.gate-help { padding-left: 18px; margin: 8px 0 20px; line-height: 1.7; }
