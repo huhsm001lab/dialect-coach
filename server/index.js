@@ -193,6 +193,14 @@ app.post("/api/analyze", async (req, res) => {
   }
 });
 
+// 7) 로그인 설정 — 브라우저가 Supabase에 직접 로그인할 때 쓰는 "공개용" 값만 알려줘요.
+//    (SUPABASE_ANON_KEY 는 원래 브라우저에 공개되는 키예요. 비밀 키 service_role 은 절대 여기에 넣지 않아요)
+app.get("/api/config", (req, res) => {
+  const url = (process.env.SUPABASE_URL || "").trim();
+  const anon = (process.env.SUPABASE_ANON_KEY || "").trim();
+  res.json({ authReady: Boolean(url && anon), supabaseUrl: url || null, supabaseAnonKey: anon || null });
+});
+
 // 모르는 /api 주소는 JSON 오류로 응답
 app.use("/api", (req, res) => res.status(404).json({ error: "없는 주소입니다." }));
 

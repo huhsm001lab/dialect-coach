@@ -445,6 +445,7 @@ function showIntro(on) {
     var first = document.querySelector('.room-card');
     if (first) first.focus({ preventScroll: true });
   }
+  vaultRefresh(); // 소개 화면에서는 보관함 막대를 숨겨요
 }
 
 function enterRoom(room) {
@@ -469,6 +470,10 @@ function enterRoom(room) {
     : room === 'note' ? (noteHasText() ? $('ntModeSelect') : $('ntText')) : $('sourceText');
   if (focusEl) focusEl.focus();
   if (room === 'note') noteOnShow();
+  // 서비스를 옮기면 보관함 목록·안내는 닫고 새로 시작해요
+  vaultListOpen = false;
+  vaultStatus('');
+  vaultRefresh();
 }
 
 function roomFromHash() {
@@ -2159,6 +2164,8 @@ async function init() {
   initIntro(); // 탭 준비가 끝난 뒤 첫 페이지 또는 방을 열어요
   initTooltip();
   initAnalyze();
+  initVault();
+  initAuth(); // 서버 설정이 없으면 "로그인 준비 중"만 보여요 (기다리지 않고 따로 진행)
 
   // 저장돼 있던 변환 결과 불러오기 (새로고침해도 ②③ 탭이 동작하도록)
   var saved = loadSaved();
@@ -3127,6 +3134,456 @@ function applyLinkParams() {
   }
   if (role && currentRoom === 'analyze' && $('anRole')) $('anRole').value = role;
   history.replaceState(null, '', location.pathname + location.hash);
+}
+
+/* =====================================================================
+   로그인 + 내 보관함 (Supabase)
+   - 로그인하지 않으면 지금까지처럼 "이 탭에만" 남아요 (sessionStorage).
+   - 로그인하면 💾 버튼으로 내 계정(records 표)에 저장하고, 📂 에서 다시 열 수 있어요.
+   - 기록은 localStorage에 절대 두지 않아요. (supabase-js가 로그인 정보만 localStorage에 둬요)
+   - 이메일 주소는 주소창·콘솔 로그에 남기지 않아요.
+   ===================================================================== */
+var authClient = null;   // supabase 클라이언트 (설정이 없으면 null)
+var authUser = null;     // 로그인한 사람 { id, email } (로그아웃 상태면 null)
+var SESSION_KEYS = ['dialectCoach.v1', 'dialectCoach.analysis.v1', 'dialectCoach.note.v1', 'dialectCoach.prosody.v1'];
+// 서비스마다 "지금 열어 둔 기록" (같은 기록을 다시 저장하면 덮어쓰기 위해)
+var vaultCur = { dialect: { id: null, title: '' }, analyze: { id: null, title: '' }, note: { id: null, title: '' } };
+var vaultListOpen = false;
+var vaultBusy = false;
+var VAULT_NAMES = { dialect: '사투리 코치', analyze: '대본 분석', note: '연기 노트' };
+
+// 잠깐 떴다 사라지는 안내
+function showToast(msg) {
+  var t = $('toast');
+  if (!t) {
+    t = el('div', 'toast');
+    t.id = 'toast';
+    t.setAttribute('role', 'status');
+    t.setAttribute('aria-live', 'polite');
+    document.body.appendChild(t);
+  }
+  t.textContent = msg;
+  t.classList.add('on');
+  clearTimeout(showToast.timer);
+  showToast.timer = setTimeout(function () { t.classList.remove('on'); }, 3000);
+}
+
+function vaultStatus(msg, isError) {
+  var s = $('vaultStatus');
+  s.textContent = msg || '';
+  s.classList.toggle('is-error', !!isError);
+}
+
+// 오류를 쉬운 한국어로 (메일 주소 같은 건 넣지 않아요)
+function authErrorMsg(e) {
+  var m = String((e && e.message) || '').toLowerCase();
+  var status = e && e.status;
+  if (status === 429 || m.indexOf('rate limit') !== -1 || m.indexOf('too many') !== -1 || m.indexOf('security purposes') !== -1) {
+    return '메일을 너무 자주 요청했어요. 잠시(1분쯤) 뒤에 다시 시도해 주세요.';
+  }
+  if (m.indexOf('invalid') !== -1 && m.indexOf('email') !== -1) return '이메일 주소 모양이 올바르지 않아요.';
+  if (m.indexOf('failed to fetch') !== -1 || m.indexOf('network') !== -1) return '인터넷 연결을 확인하고 다시 시도해 주세요.';
+  return '로그인 링크를 보내지 못했어요. 잠시 뒤 다시 시도해 주세요.';
+}
+function vaultErrorMsg(e) {
+  var m = String((e && (e.message || e.code)) || '').toLowerCase();
+  if (m.indexOf('failed to fetch') !== -1 || m.indexOf('network') !== -1) return '인터넷 연결을 확인하고 다시 시도해 주세요.';
+  if (m.indexOf('jwt') !== -1 || m.indexOf('row-level') !== -1 || m.indexOf('permission') !== -1 || (e && e.code === '42501')) {
+    return '권한이 없거나 로그인이 만료됐어요. 다시 로그인해 주세요.';
+  }
+  return '보관함과 통신하지 못했어요. 잠시 뒤 다시 시도해 주세요.';
+}
+
+// 로그인 상태에 맞게 헤더와 보관함 막대를 다시 맞춰요
+function authRender() {
+  var ready = !!authClient;
+  show($('authSoon'), !ready);
+  show($('loginOpen'), ready && !authUser);
+  show($('authUser'), ready && !!authUser);
+  if (authUser) {
+    var local = String(authUser.email || '').split('@')[0] || '내 계정';
+    $('authChip').textContent = '👤 ' + local;
+    $('authChip').setAttribute('aria-label', '로그인한 계정 ' + local);
+  }
+  vaultRefresh();
+}
+
+// 로그인 창 열기 / 링크 보내기
+function openLogin() {
+  $('loginMsg').textContent = '';
+  $('loginSend').disabled = false;
+  if (!$('loginDlg').open) $('loginDlg').showModal();
+  $('loginEmail').focus();
+}
+async function sendLoginLink(e) {
+  e.preventDefault();
+  var email = $('loginEmail').value.trim();
+  var msg = $('loginMsg');
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
+    msg.textContent = '이메일 주소를 확인해 주세요. 예: example@email.com';
+    $('loginEmail').focus();
+    return;
+  }
+  $('loginSend').disabled = true;
+  msg.textContent = '링크를 보내는 중이에요…';
+  try {
+    var r = await authClient.auth.signInWithOtp({
+      email: email,
+      options: { emailRedirectTo: location.origin + location.pathname + location.hash }
+    });
+    if (r.error) throw r.error;
+    msg.textContent = '메일함에서 로그인 링크를 눌러 주세요 (스팸함도 확인)';
+  } catch (err) {
+    msg.textContent = authErrorMsg(err);
+  }
+  $('loginSend').disabled = false;
+}
+
+// 로그아웃: 이 탭에 남은 작업도 모두 지워서, 다음 사람에게 내 자료가 보이지 않게 해요.
+async function doLogout() {
+  try { await authClient.auth.signOut(); } catch (e) { /* 이미 만료됐어도 아래에서 화면은 비워요 */ }
+  authUser = null;
+  SESSION_KEYS.forEach(function (k) { try { sessionStorage.removeItem(k); } catch (e) { /* 무시 */ } });
+  resetAllScreens();
+  ['dialect', 'analyze', 'note'].forEach(function (s) { vaultCur[s] = { id: null, title: '' }; });
+  vaultListOpen = false;
+  authRender();
+  showToast('로그아웃했어요');
+}
+
+// 세 서비스 화면을 빈 상태로 되돌려요
+function resetAllScreens() {
+  // 사투리 코치
+  state.conversion = null; state.prosody = null;
+  $('sourceText').value = '';
+  updateCharCount();
+  renderResult();
+  // 대본 분석
+  anData = null;
+  $('anText').value = ''; $('anRole').value = '';
+  renderAnalysis();
+  anUpdateButton();
+  // 연기 노트
+  note = { text: '', marks: [], strokes: [], sketchStrokes: [], stageGuide: false };
+  ntLines = []; ntHistory = [];
+  $('ntText').value = '';
+  noteOnShow();
+  if (ntScript) ntScript.redraw();
+  if (ntSketch) ntSketch.redraw();
+  // 사투리 코치의 ②③ 탭에 있었다면 첫 탭으로
+  if (!document.body.classList.contains('show-intro')) selectTab(ROOMS[currentRoom].tabs[0], false);
+}
+
+// 로그인 주소로 돌아왔을 때 주소창에서 인증 조각을 지워요 (방 해시(#note 등)는 남겨요)
+function cleanAuthUrl() {
+  try {
+    var u = new URL(location.href);
+    var changed = false;
+    ['code', 'error', 'error_code', 'error_description'].forEach(function (k) {
+      if (u.searchParams.has(k)) { u.searchParams.delete(k); changed = true; }
+    });
+    var hash = u.hash;
+    if (/access_token=|refresh_token=|error_description=/.test(hash)) { hash = ''; changed = true; }
+    if (changed) history.replaceState(null, '', u.pathname + u.search + hash);
+  } catch (e) { /* 무시 */ }
+}
+
+async function initAuth() {
+  $('loginOpen').addEventListener('click', openLogin);
+  $('loginCancel').addEventListener('click', function () { $('loginDlg').close(); });
+  $('loginForm').addEventListener('submit', sendLoginLink);
+  $('logoutBtn').addEventListener('click', doLogout);
+
+  var cfg = null;
+  try { cfg = await api('/api/config'); } catch (e) { cfg = null; }
+  if (!cfg || !cfg.authReady || !cfg.supabaseUrl || !cfg.supabaseAnonKey ||
+      typeof supabase === 'undefined' || !supabase.createClient) {
+    authRender(); // "로그인 준비 중"만 보여요
+    return;
+  }
+  try {
+    authClient = supabase.createClient(cfg.supabaseUrl, cfg.supabaseAnonKey, {
+      auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true, flowType: 'pkce' }
+    });
+    // 로그인/로그아웃이 일어날 때마다 화면을 맞춰요. (이 안에서는 supabase를 다시 부르지 않아요)
+    authClient.auth.onAuthStateChange(function (ev, session) {
+      var was = authUser && authUser.id;
+      authUser = session && session.user ? session.user : null;
+      if ((authUser && authUser.id) !== was) {
+        ['dialect', 'analyze', 'note'].forEach(function (s) { vaultCur[s] = { id: null, title: '' }; });
+        vaultListOpen = false;
+      }
+      setTimeout(function () {
+        authRender();
+        if (ev === 'SIGNED_IN' && authUser && $('loginDlg').open) { $('loginDlg').close(); showToast('로그인했어요'); }
+      }, 0);
+    });
+    var r = await authClient.auth.getSession(); // 로그인 링크로 돌아온 경우 여기서 처리돼요
+    authUser = r && r.data && r.data.session ? r.data.session.user : null;
+  } catch (e) {
+    authClient = null; // 문제가 있으면 로그인 기능만 끄고 나머지는 그대로 써요
+    authUser = null;
+  }
+  cleanAuthUrl();
+  authRender();
+}
+
+/* ---------- 내 보관함: 저장할 내용 만들기 / 불러오기 ---------- */
+function firstChars(s, n) {
+  var t = String(s || '').replace(/\s+/g, ' ').trim();
+  return t.length > n ? t.slice(0, n) + '…' : t;
+}
+
+// 지금 서비스의 작업물 → { ok, title, data }
+function vaultCollect(service) {
+  if (service === 'dialect') {
+    var c = state.conversion;
+    if (!c) return { ok: false, msg: '저장할 변환 결과가 아직 없어요. 먼저 변환을 해 주세요.' };
+    return { ok: true, title: firstChars(c.original, 20) + (c.name ? ' · ' + c.name : ''), data: { conversion: c } };
+  }
+  if (service === 'analyze') {
+    if (!anData) return { ok: false, msg: '저장할 분석 결과가 아직 없어요. 먼저 분석을 해 주세요.' };
+    return {
+      ok: true,
+      title: anData.title_guess || firstChars($('anText').value, 20) || '대본 분석',
+      data: { text: $('anText').value, role: $('anRole').value, result: anData }
+    };
+  }
+  if (!noteHasText()) return { ok: false, msg: '저장할 노트가 아직 없어요. 먼저 노트를 만들어 주세요.' };
+  var first = note.text.split(/\r?\n/).filter(function (l) { return l.trim(); })[0] || '';
+  return { ok: true, title: firstChars(first, 20) || '연기 노트', data: note };
+}
+
+// 불러온 기록을 화면과 sessionStorage(이 탭)에 되돌려 놓아요
+function vaultApply(service, d) {
+  if (!d || typeof d !== 'object') throw new Error('bad data');
+  if (service === 'dialect') {
+    var sc = d.conversion;
+    if (!sc || typeof sc.converted !== 'string') throw new Error('bad data');
+    sc.changes = Array.isArray(sc.changes) ? sc.changes : [];
+    sc.notes = Array.isArray(sc.notes) ? sc.notes : [];
+    sc.tips = sc.tips || { intonation: [], pronunciation: [] };
+    state.conversion = sc;
+    state.prosody = null; saveProsody();
+    if (sc.language) $('langSelect').value = sc.language;
+    fillRegions(sc.code);
+    $('sourceText').value = sc.original || '';
+    updateCharCount();
+    renderResult();
+    saveState();
+    selectTab('convert', false);
+  } else if (service === 'analyze') {
+    if (!d.result || !Array.isArray(d.result.scenes)) throw new Error('bad data');
+    $('anText').value = typeof d.text === 'string' ? d.text.slice(0, AN_MAX) : '';
+    $('anRole').value = typeof d.role === 'string' ? d.role.slice(0, 40) : '';
+    anData = normalizeAnalysis(d.result);
+    renderAnalysis();
+    anUpdateButton();
+    anSave();
+  } else {
+    if (typeof d.text !== 'string') throw new Error('bad data');
+    // 기존 불러오기 함수(noteLoad)가 안전하게 걸러 주도록 sessionStorage를 거쳐요
+    note = { text: '', marks: [], strokes: [], sketchStrokes: [], stageGuide: false };
+    try { sessionStorage.setItem(NOTE_KEY, JSON.stringify(d)); } catch (e) { /* 저장이 막혀도 화면은 바뀌어요 */ }
+    noteLoad();
+    ntHistory = [];
+    noteOnShow();
+    if (ntScript) ntScript.redraw();
+    if (ntSketch) ntSketch.redraw();
+    noteSaveNow();
+  }
+}
+
+// "방금 / 3분 전 / 어제 / 2026-11-28"
+function relDate(iso) {
+  var t = new Date(iso);
+  if (isNaN(t.getTime())) return '';
+  var sec = Math.floor((Date.now() - t.getTime()) / 1000);
+  if (sec < 60) return '방금';
+  if (sec < 3600) return Math.floor(sec / 60) + '분 전';
+  var today = new Date(); today.setHours(0, 0, 0, 0);
+  var day = new Date(t); day.setHours(0, 0, 0, 0);
+  var diff = Math.round((today - day) / 86400000);
+  if (diff <= 0) return Math.floor(sec / 3600) + '시간 전';
+  if (diff === 1) return '어제';
+  var p = function (n) { return (n < 10 ? '0' : '') + n; };
+  return t.getFullYear() + '-' + p(t.getMonth() + 1) + '-' + p(t.getDate());
+}
+
+// 제목 입력 창을 열고, 확인하면 글자를 돌려줘요 (취소하면 null)
+function askTitle(heading, defaultValue) {
+  return new Promise(function (resolve) {
+    var dlg = $('titleDlg');
+    var done = false;
+    function finish(v) {
+      if (done) return;
+      done = true;
+      $('titleForm').removeEventListener('submit', onSubmit);
+      $('titleCancel').removeEventListener('click', onCancel);
+      dlg.removeEventListener('close', onClose);
+      if (dlg.open) dlg.close();
+      resolve(v);
+    }
+    function onSubmit(e) { e.preventDefault(); var v = $('titleInput').value.trim(); if (!v) { $('titleInput').focus(); return; } finish(v); }
+    function onCancel() { finish(null); }
+    function onClose() { finish(null); } // Esc로 닫은 경우
+    $('titleDlgTitle').textContent = heading;
+    $('titleInput').value = defaultValue || '';
+    $('titleForm').addEventListener('submit', onSubmit);
+    $('titleCancel').addEventListener('click', onCancel);
+    dlg.addEventListener('close', onClose);
+    dlg.showModal();
+    $('titleInput').focus();
+    $('titleInput').select();
+  });
+}
+
+/* ---------- 내 보관함: 저장 / 목록 / 열기 / 이름 바꾸기 / 삭제 ---------- */
+function vaultRoomService() { return document.body.classList.contains('show-intro') ? null : currentRoom; }
+
+// 막대를 지금 상태(서비스·로그인)에 맞게 보여줘요
+function vaultRefresh() {
+  var s = vaultRoomService();
+  show($('vaultBar'), !!s && !!authClient);
+  if (!s || !authClient) return;
+  var on = !!authUser;
+  $('vaultSave').disabled = !on || vaultBusy;
+  $('vaultListBtn').disabled = !on;
+  show($('vaultHint'), !on);
+  var cur = vaultCur[s];
+  show($('vaultSaveNew'), on && !!cur.id);
+  $('vaultSaveNew').disabled = vaultBusy;
+  $('vaultSave').textContent = on && cur.id ? '💾 보관함에 덮어쓰기' : '💾 보관함에 저장';
+  $('vaultSave').setAttribute('aria-label', '보관함에 저장 (' + VAULT_NAMES[s] + ')');
+  if (!on) { vaultListOpen = false; }
+  $('vaultListBtn').setAttribute('aria-expanded', vaultListOpen ? 'true' : 'false');
+  show($('vaultList'), on && vaultListOpen);
+}
+
+async function vaultSave(asNew) {
+  var s = vaultRoomService();
+  if (!s || !authUser || vaultBusy) return;
+  var got = vaultCollect(s);
+  if (!got.ok) { vaultStatus(got.msg, true); return; }
+  var cur = vaultCur[s];
+  var updating = !asNew && !!cur.id;
+  var title = await askTitle(updating ? '기록 덮어쓰기' : '보관함에 저장', updating && cur.title ? cur.title : got.title);
+  if (title === null) return;
+  vaultBusy = true; vaultRefresh();
+  vaultStatus('저장하는 중이에요…');
+  try {
+    if (updating) {
+      var u = await authClient.from('records').update({ title: title, data: got.data }).eq('id', cur.id).select('id');
+      if (u.error) throw u.error;
+      if (!u.data || !u.data.length) throw new Error('row-level security: no rows'); // 지워졌거나 내 기록이 아님
+    } else {
+      var r = await authClient.from('records').insert({ service: s, title: title, data: got.data }).select('id').single();
+      if (r.error) throw r.error;
+      cur.id = r.data.id;
+    }
+    cur.title = title;
+    vaultStatus('보관함에 저장했어요: ' + title);
+    if (vaultListOpen) vaultLoadList();
+  } catch (e) {
+    vaultStatus('저장하지 못했어요. ' + vaultErrorMsg(e), true);
+  }
+  vaultBusy = false; vaultRefresh();
+}
+
+async function vaultLoadList() {
+  var s = vaultRoomService();
+  var box = $('vaultList');
+  if (!s || !authUser) return;
+  box.textContent = '';
+  box.appendChild(el('p', 'vault-empty', '불러오는 중이에요…'));
+  try {
+    var r = await authClient.from('records').select('id,service,title,updated_at')
+      .eq('service', s).order('updated_at', { ascending: false }).limit(50);
+    if (r.error) throw r.error;
+    if (vaultRoomService() !== s) return; // 그 사이에 다른 서비스로 옮겼으면 그리지 않아요
+    vaultRenderList(s, r.data || []);
+  } catch (e) {
+    box.textContent = '';
+    vaultStatus('기록을 불러오지 못했어요. ' + vaultErrorMsg(e), true);
+  }
+}
+
+function vaultRenderList(s, rows) {
+  var box = $('vaultList');
+  box.textContent = '';
+  if (!rows.length) { box.appendChild(el('p', 'vault-empty', '아직 저장한 기록이 없어요')); return; }
+  var ul = el('ul', 'plain-list');
+  rows.forEach(function (row) {
+    var li = el('li', 'vault-row' + (vaultCur[s].id === row.id ? ' is-open' : ''));
+    li.appendChild(el('span', 'vault-row-title', row.title || '(이름 없음)'));
+    li.appendChild(el('span', 'vault-row-date', relDate(row.updated_at)));
+    [['열기', function () { vaultOpen(s, row); }],
+     ['이름 바꾸기', function () { vaultRename(s, row); }],
+     ['삭제', function () { vaultDelete(s, row); }]].forEach(function (b) {
+      var btn = el('button', 'btn btn-sm', b[0]);
+      btn.type = 'button';
+      btn.setAttribute('aria-label', '"' + (row.title || '이름 없음') + '" ' + b[0]);
+      btn.addEventListener('click', b[1]);
+      li.appendChild(btn);
+    });
+    ul.appendChild(li);
+  });
+  box.appendChild(ul);
+}
+
+async function vaultOpen(s, row) {
+  if (vaultBusy) return;
+  vaultBusy = true;
+  vaultStatus('기록을 여는 중이에요…');
+  try {
+    var r = await authClient.from('records').select('data,title').eq('id', row.id).single();
+    if (r.error) throw r.error;
+    vaultApply(s, r.data.data);
+    vaultCur[s] = { id: row.id, title: r.data.title || row.title || '' };
+    vaultStatus('기록을 열었어요: ' + (r.data.title || row.title || ''));
+    vaultLoadList();
+  } catch (e) {
+    vaultStatus('기록을 열지 못했어요. ' + (e && e.message === 'bad data' ? '저장된 내용 모양이 맞지 않아요.' : vaultErrorMsg(e)), true);
+  }
+  vaultBusy = false; vaultRefresh();
+}
+
+async function vaultRename(s, row) {
+  var t = await askTitle('이름 바꾸기', row.title || '');
+  if (t === null) return;
+  try {
+    var r = await authClient.from('records').update({ title: t }).eq('id', row.id).select('id');
+    if (r.error) throw r.error;
+    if (vaultCur[s].id === row.id) vaultCur[s].title = t;
+    vaultStatus('이름을 바꿨어요.');
+    vaultLoadList();
+  } catch (e) {
+    vaultStatus('이름을 바꾸지 못했어요. ' + vaultErrorMsg(e), true);
+  }
+}
+
+async function vaultDelete(s, row) {
+  if (!window.confirm('"' + (row.title || '이름 없음') + '" 기록을 삭제할까요?\n삭제하면 되돌릴 수 없어요.')) return;
+  try {
+    var r = await authClient.from('records').delete().eq('id', row.id);
+    if (r.error) throw r.error;
+    if (vaultCur[s].id === row.id) vaultCur[s] = { id: null, title: '' };
+    vaultStatus('삭제했어요.');
+    vaultRefresh();
+    vaultLoadList();
+  } catch (e) {
+    vaultStatus('삭제하지 못했어요. ' + vaultErrorMsg(e), true);
+  }
+}
+
+function initVault() {
+  $('vaultSave').addEventListener('click', function () { vaultSave(false); });
+  $('vaultSaveNew').addEventListener('click', function () { vaultSave(true); });
+  $('vaultListBtn').addEventListener('click', function () {
+    vaultListOpen = !vaultListOpen;
+    vaultRefresh();
+    if (vaultListOpen) vaultLoadList();
+  });
 }
 
 init();

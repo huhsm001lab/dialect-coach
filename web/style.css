@@ -595,3 +595,38 @@ body.show-intro main { display: none; }
 
 /* 서비스는 서로 독립: 사투리 안내 문구(아래 footer)는 사투리 코치에서만 보여요 */
 body:not([data-room="dialect"]) .site-footer { display: none; }
+
+/* ---------- 로그인 · 내 보관함 ---------- */
+.auth-box { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.auth-user { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.auth-chip {
+  display: inline-flex; align-items: center; min-height: 44px; padding: 4px 12px; border-radius: 999px;
+  border: 1px solid var(--border); background: var(--surface); color: var(--text); font-size: .9rem;
+  max-width: 100%; overflow-wrap: anywhere;
+}
+.auth-soon { opacity: .6; color: var(--muted); }
+
+.vault-bar { margin: 10px 0; padding: 8px 12px; border: 1px solid var(--border); border-radius: 10px; background: var(--surface); }
+.vault-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.vault-status { margin: 6px 0 0; min-height: 1.2em; }
+.vault-status.is-error { color: var(--bad); }
+.vault-list { margin-top: 8px; border-top: 1px solid var(--border); padding-top: 8px; }
+.vault-row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; padding: 6px 0; border-bottom: 1px dashed var(--border); }
+.vault-row:last-child { border-bottom: 0; }
+.vault-row-title { flex: 1 1 160px; min-width: 0; overflow-wrap: anywhere; font-weight: 600; }
+.vault-row-date { color: var(--muted); font-size: .85rem; }
+.vault-row.is-open .vault-row-title::before { content: "▶ "; color: var(--accent); }
+.vault-empty { margin: 4px 0; color: var(--muted); }
+#loginDlg .actions, #titleDlg .actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+#loginMsg { min-height: 1.2em; margin: 8px 0 0; }
+.vault-bar .btn:focus-visible, .auth-box .btn:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+@media (max-width: 480px) {
+  .brand-actions { justify-content: flex-start; }
+  .vault-row .btn-sm { padding: 6px 12px; }
+}
+.toast {
+  position: fixed; left: 50%; bottom: 20px; transform: translateX(-50%) translateY(20px); opacity: 0; pointer-events: none;
+  background: var(--text); color: var(--bg); padding: 10px 18px; border-radius: 999px; z-index: 50;
+  max-width: calc(100vw - 32px); transition: opacity .2s, transform .2s;
+}
+.toast.on { opacity: 1; transform: translateX(-50%); }
