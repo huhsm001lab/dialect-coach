@@ -6,11 +6,24 @@ export const MODEL = process.env.CLAUDE_MODEL || "claude-opus-5-5";
 
 // 서버 코드에서 던질 때 쓰는 "사용자에게 그대로 보여줄 수 있는" 오류
 export class UserError extends Error {
-  constructor(status, message) {
+  constructor(status, message, code) {
     super(message);
     this.status = status;
+    // "ai_down": 키가 만료·폐기됐거나 권한이 없을 때 → 화면에 "AI 점검 중" 안내
+    if (code) this.code = code;
   }
 }
+
+// AI 점검 중 상태 (11-28). 키 오류가 나면 기록해 두고 /api/health 가 알려 줘요.
+// Vercel에서는 서버가 여러 개라 서버마다 따로 기억해요(대략). 확실히 켜려면 환경변수 AI_MAINTENANCE=1.
+let aiDownAt = 0;
+export const markAiDown = () => { aiDownAt = Date.now(); };
+export const clearAiDown = () => { aiDownAt = 0; };
+export const aiDownNow = () => {
+  const forced = ["1", "true", "on"].includes(String(process.env.AI_MAINTENANCE || "").trim().toLowerCase());
+  return forced || (aiDownAt > 0 && Date.now() - aiDownAt < 10 * 60 * 1000);
+};
+export const AI_DOWN_MSG = "AI 기능을 점검하고 있어요. 잠시 뒤에 다시 이용해 주세요. (연기 노트·보관함은 그대로 쓸 수 있어요)";
 
 // AI가 돌려줄 JSON의 모양(스키마). 이 모양대로만 답하도록 강제합니다.
 export const OUTPUT_SCHEMA = {
@@ -130,7 +143,8 @@ export async function claudeJSON(systemText, userText, schema, maxTokens = 8000)
     // 서버 콘솔에는 종류만 남기고(키/내용 노출 방지), 화면에는 쉬운 한국어 안내를 돌려줍니다.
     console.error("[Claude 호출 실패]", err?.name, err?.status);
     if (err instanceof Anthropic.AuthenticationError || err instanceof Anthropic.PermissionDeniedError) {
-      throw new UserError(502, "API 키가 올바르지 않거나 권한이 없습니다. .env 파일의 ANTHROPIC_API_KEY를 확인해 주세요.");
+      markAiDown();
+      throw new UserError(503, AI_DOWN_MSG, "ai_down");
     }
     if (err instanceof Anthropic.RateLimitError) {
       throw new UserError(502, "요청이 너무 많거나 사용 한도를 넘었습니다. 잠시 후 다시 시도해 주세요.");

@@ -199,6 +199,12 @@
         (키는 이 화면에 붙여넣지 않아요.)
       </p>
 
+      <!-- AI 점검 중 (11-28): 키가 만료되었거나 점검 중일 때 app.js가 보여줘요. AI 없이 되는 기능은 그대로 -->
+      <p id="aiDownNotice" class="notice notice-warn" role="status" hidden>
+        <strong>AI 점검 중</strong> — 사투리 변환·억양 악보·AI 음성·대본 분석은 잠시 쉬어요.
+        연기 노트, 내 보관함, 브라우저 음성으로 듣기·따라 말하기는 그대로 쓸 수 있어요.
+      </p>
+
       <!-- 내 보관함 막대: 서비스 안에서만 보여요. 로그인해야 저장할 수 있어요 (app.js가 채움) -->
       <section id="vaultBar" class="vault-bar" aria-label="내 보관함" hidden>
         <div class="vault-actions">

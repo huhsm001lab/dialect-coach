@@ -1,7 +1,7 @@
 // ChatGPT(OpenAI)를 불러 사투리 변환을 하는 모듈입니다.
 // Claude용(claude.js)과 같은 프롬프트·같은 답변 모양을 써서, 화면은 어느 AI든 똑같이 동작합니다.
 import OpenAI from "openai";
-import { buildSystemPrompt, OUTPUT_SCHEMA, UserError, normalizeConversion } from "./claude.js";
+import { buildSystemPrompt, OUTPUT_SCHEMA, UserError, normalizeConversion, markAiDown, AI_DOWN_MSG } from "./claude.js";
 
 // 쓸 모델 이름. 내 계정에서 쓸 수 있는 모델로 .env의 OPENAI_MODEL을 바꿀 수 있습니다.
 export const OPENAI_MODEL = process.env.OPENAI_MODEL || "gpt-4o";
@@ -33,7 +33,8 @@ export async function openaiJSON(systemText, userText, schema, schemaName = "res
     // 콘솔엔 종류만, 화면엔 쉬운 한국어 안내 (키·내용은 남기지 않음)
     console.error("[OpenAI 호출 실패]", err?.name, err?.status);
     if (err instanceof OpenAI.AuthenticationError || err instanceof OpenAI.PermissionDeniedError) {
-      throw new UserError(502, "ChatGPT API 키가 올바르지 않거나 권한이 없습니다. .env 파일의 OPENAI_API_KEY를 확인해 주세요.");
+      markAiDown();
+      throw new UserError(503, AI_DOWN_MSG, "ai_down");
     }
     if (err instanceof OpenAI.RateLimitError) {
       throw new UserError(502, "요청이 너무 많거나 잔액(크레딧)이 부족합니다. platform.openai.com의 Billing을 확인해 주세요.");
@@ -107,7 +108,8 @@ export async function openaiSpeech(text, dialect, tips) {
   } catch (err) {
     console.error("[OpenAI 음성 실패]", err?.name, err?.status);
     if (err instanceof OpenAI.AuthenticationError || err instanceof OpenAI.PermissionDeniedError) {
-      throw new UserError(502, "ChatGPT API 키가 올바르지 않거나 음성 기능 권한이 없습니다.");
+      markAiDown();
+      throw new UserError(503, AI_DOWN_MSG, "ai_down");
     }
     if (err instanceof OpenAI.RateLimitError) {
       throw new UserError(502, "요청이 너무 많거나 잔액(크레딧)이 부족합니다. 잠시 후 다시 시도해 주세요.");

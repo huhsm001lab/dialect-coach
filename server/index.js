@@ -5,7 +5,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { loadDialects, getDialect, listDialects } from "./dialects.js";
 import { demoConvert } from "./demo.js";
-import { claudeConvert, MODEL, UserError } from "./claude.js";
+import { claudeConvert, MODEL, UserError, aiDownNow } from "./claude.js";
 import { openaiConvert, openaiSpeech, OPENAI_MODEL } from "./openai.js";
 import { prosodyFor } from "./prosody.js";
 import { analyzeScript } from "./analyze.js";
@@ -73,7 +73,8 @@ app.use(express.json({ limit: "300kb" })); // 긴 대본(최대 2만 자)도 받
 
 // 1) 서버 상태 확인
 app.get("/api/health", (req, res) => {
-  res.json({ ok: true, hasKey: hasKey(), provider: provider(), model: currentModel(), tts: hasTts() });
+  const aiDown = hasKey() && aiDownNow();
+  res.json({ ok: true, hasKey: hasKey(), provider: provider(), model: currentModel(), tts: hasTts() && !aiDown, aiDown });
 });
 
 // 2) 사투리 목록
@@ -122,7 +123,7 @@ app.post("/api/convert", async (req, res) => {
       confidence: dialect.confidence,
     });
   } catch (err) {
-    if (err instanceof UserError) return res.status(err.status).json({ error: err.message });
+    if (err instanceof UserError) return res.status(err.status).json({ error: err.message, ...(err.code ? { code: err.code } : {}) });
     // 스택 트레이스나 키가 화면에 나가지 않도록 서버 콘솔에만 이름/메시지를 남깁니다.
     console.error("[변환 오류]", err?.name, err?.message);
     res.status(500).json({ error: "서버에서 문제가 생겼습니다. 잠시 후 다시 시도해 주세요." });
@@ -143,7 +144,7 @@ app.post("/api/prosody", async (req, res) => {
     if (blocked) return res.status(429).json({ error: blocked });
     res.json(await prosodyFor(text, dialect, who));
   } catch (err) {
-    if (err instanceof UserError) return res.status(err.status).json({ error: err.message });
+    if (err instanceof UserError) return res.status(err.status).json({ error: err.message, ...(err.code ? { code: err.code } : {}) });
     console.error("[억양 오류]", err?.name, err?.message);
     res.status(500).json({ error: "억양 표시 중 문제가 생겼습니다. 잠시 후 다시 시도해 주세요." });
   }
@@ -165,7 +166,7 @@ app.post("/api/tts", async (req, res) => {
     res.set("Cache-Control", "no-store");
     res.send(audio);
   } catch (err) {
-    if (err instanceof UserError) return res.status(err.status).json({ error: err.message });
+    if (err instanceof UserError) return res.status(err.status).json({ error: err.message, ...(err.code ? { code: err.code } : {}) });
     console.error("[음성 오류]", err?.name, err?.message);
     res.status(500).json({ error: "AI 음성을 만드는 중 문제가 생겼습니다." });
   }
@@ -187,7 +188,7 @@ app.post("/api/analyze", async (req, res) => {
     const myRole = typeof role === "string" ? role.trim().slice(0, 40) : "";
     res.json(await analyzeScript(text, myRole, who));
   } catch (err) {
-    if (err instanceof UserError) return res.status(err.status).json({ error: err.message });
+    if (err instanceof UserError) return res.status(err.status).json({ error: err.message, ...(err.code ? { code: err.code } : {}) });
     console.error("[분석 오류]", err?.name, err?.message);
     res.status(500).json({ error: "대본 분석 중 문제가 생겼습니다. 잠시 후 다시 시도해 주세요." });
   }

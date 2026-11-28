@@ -656,6 +656,13 @@ function initTabs() {
 
 /* ---------- 서버에 요청 ---------- */
 // 서버와 이야기하는 공통 함수. 실패하면 사람이 읽을 수 있는 한국어 메시지로 던져요.
+/* AI 점검 중 안내 (11-28): 키가 멈추면 위쪽에 안내를 띄워요. AI가 필요 없는 기능은 그대로 */
+function setAiDown(on) {
+  state.aiDown = !!on;
+  var n = document.getElementById('aiDownNotice');
+  if (n) n.hidden = !on;
+}
+
 async function api(path, options) {
   var res;
   try {
@@ -668,7 +675,10 @@ async function api(path, options) {
   var data = null;
   try { data = await res.json(); } catch (e) { /* 내용이 JSON이 아닐 수 있어요 */ }
   if (!res.ok) {
-    throw new Error((data && data.error) || '요청에 실패했어요. (오류 번호 ' + res.status + ') 잠시 뒤 다시 시도해 주세요.');
+    if (data && data.code === 'ai_down') setAiDown(true);
+    var e2 = new Error((data && data.error) || '요청에 실패했어요. (오류 번호 ' + res.status + ') 잠시 뒤 다시 시도해 주세요.');
+    if (data && data.code) e2.code = data.code;
+    throw e2;
   }
   return data;
 }
@@ -2343,6 +2353,7 @@ async function init() {
   // 서버 상태 확인 (키 안내) + 지역 목록
   api('/api/health').then(function (h) {
     show($('keyNotice'), h && h.hasKey === false);
+    setAiDown(!!(h && h.aiDown));
     applyHealth(h);
     anUpdateButton();
   }).catch(function () { applyHealth(null); /* 지역 목록 실패 때도 안내해요 */ });

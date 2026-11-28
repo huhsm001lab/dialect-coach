@@ -59,7 +59,7 @@ research-review.md  리서치 검토 (1차 + 2차 요약)
   - AI: `OPENAI_API_KEY`, `OPENAI_MODEL`, `OPENAI_TTS_MODEL`, `OPENAI_TTS_VOICE`, `ANTHROPIC_API_KEY`, `CLAUDE_MODEL`, `AI_PROVIDER`
   - 로그인: `SUPABASE_URL`, `SUPABASE_ANON_KEY` (publishable 키, 브라우저 공개용. service_role/secret 키는 쓰지 않음)
   - 사용량 제한(선택): `RATE_PER_HOUR`, `DAILY_LIMIT`, `PROSODY_PER_HOUR`, `PROSODY_DAILY`, `TTS_PER_HOUR`, `TTS_DAILY`, `ANALYZE_PER_HOUR`, `ANALYZE_DAILY`
-  - 기타: `PORT`(로컬만), `VERCEL`(Vercel이 자동 설정)
+  - 기타: `PORT`(로컬만), `VERCEL`(Vercel이 자동 설정), `AI_MAINTENANCE`(선택, 1이면 AI 점검 중 안내를 강제로 켬)
 - Supabase 프로젝트: 이름 `actor-archive`, 지역 서울. 대시보드 설정(코드 밖에 있음): Authentication → URL Configuration(Site URL·Redirect URL = 배포 주소), Custom SMTP(Gmail 앱 비밀번호), Email 템플릿(Magic Link·Confirm signup에 `{{ .Token }}` 코드 표시, 제목 "[배우의 저장소] 로그인 코드").
 
 ## 4. 지금까지 내린 결정과 이유 (날짜순)
@@ -99,7 +99,7 @@ main 최신 + 아래 미완성 변경이 들어 있어요. **이대로 배포하
 
 ### 5-2. 남은 할 일 (우선순위 순)
 1. **AI 키 교체** (만료) → Vercel `OPENAI_API_KEY` 갱신 + Redeploy. 그 뒤 2차 리서치 반영된 변환 품질을 지역별로 한두 문장 시험
-2. **"AI 점검 중" 안내**: 키가 없거나 만료일 때 AI 버튼에 미리 안내하고, AI가 필요 없는 기능(연기 노트·보관함)은 정상 사용
+2. ~~"AI 점검 중" 안내~~ **완료(11-28, 새 계정)**: 키 오류(만료·권한 없음)가 나면 서버가 10분간 기억하고 `/api/health`의 `aiDown`으로 알려 줌 → 화면 위쪽 「AI 점검 중」 안내, AI 음성 선택 꺼짐. 환경변수 `AI_MAINTENANCE=1`이면 강제로 켬. 오류 응답은 `code: "ai_down"`(503). AI 없는 기능은 그대로
 3. **보관함 실제 시험**: 로그인 후 각 서비스에서 💾 저장 → 탭 닫기 → 📂 내 기록 → 열기 (사용자가 아직 확인 안 함)
 4. **무드 영상 v2** (사용자 요청, 진행 중 멈춤): 절차적 WebAudio 음악·효과음, 1080p, 여러 층 깊이감·빛·입자, 소리 포함 .webm 저장. `/demo/mood.html` 주소 유지하고 교체
 5. **예문 검수 페이지**: 지역 출신자에게 링크로 `dialects/*.json`의 examples를 보여 주고 👍/👎·고친 문장 받기 → 규칙에 반영 (제안만 하고 사용자 답 대기 상태였음)
