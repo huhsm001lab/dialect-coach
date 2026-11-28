@@ -393,10 +393,20 @@ function el(tag, className, text) {
 
 function show(node, on) { node.hidden = !on; }
 
-/* ---------- 저장/불러오기 (localStorage는 막혀 있을 수 있어서 try/catch) ---------- */
+/* ---------- 저장/불러오기 ----------
+   - sessionStorage: 같은 탭에서는 새로고침해도 남고, 탭을 닫으면 지워져요.
+     (같은 컴퓨터를 다음 사람이 써도 앞사람 기록이 보이지 않게. 계정별 보관함이 생기면 그쪽에 저장할 예정)
+   - 저장소가 막혀 있을 수 있어서 모두 try/catch로 감싸요. */
+// 예전 버전이 오래 남는 저장소(localStorage)에 남긴 기록은 처음 열 때 지워요.
+(function clearOldRecords() {
+  try {
+    ['dialectCoach.v1', 'dialectCoach.prosody.v1', 'dialectCoach.analysis.v1', 'dialectCoach.note.v1']
+      .forEach(function (k) { localStorage.removeItem(k); });
+  } catch (e) { /* 저장소가 막혀 있으면 지울 것도 없어요 */ }
+})();
 function saveState() {
   try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify({
+    sessionStorage.setItem(STORAGE_KEY, JSON.stringify({
       conversion: state.conversion,
       language: $('langSelect').value,
       code: $('regionSelect').value
@@ -406,7 +416,7 @@ function saveState() {
 
 function loadSaved() {
   try {
-    var raw = localStorage.getItem(STORAGE_KEY);
+    var raw = sessionStorage.getItem(STORAGE_KEY);
     return raw ? JSON.parse(raw) : null;
   } catch (e) { return null; }
 }
@@ -1256,7 +1266,7 @@ var prosodyVisible = false;
 
 function loadProsodySaved() {
   try {
-    var raw = localStorage.getItem(PROSODY_KEY);
+    var raw = sessionStorage.getItem(PROSODY_KEY);
     var p = raw ? JSON.parse(raw) : null;
     if (p && typeof p.code === 'string' && typeof p.converted === 'string' && p.data) return p;
   } catch (e) { /* 저장된 게 없거나 막힌 경우 */ }
@@ -1265,8 +1275,8 @@ function loadProsodySaved() {
 
 function saveProsody() {
   try {
-    if (state.prosody) localStorage.setItem(PROSODY_KEY, JSON.stringify(state.prosody));
-    else localStorage.removeItem(PROSODY_KEY);
+    if (state.prosody) sessionStorage.setItem(PROSODY_KEY, JSON.stringify(state.prosody));
+    else sessionStorage.removeItem(PROSODY_KEY);
   } catch (e) { /* 저장이 안 돼도 괜찮아요 */ }
 }
 
@@ -1806,7 +1816,7 @@ var AN_PROGRESS = [
 
 function anSave() {
   try {
-    localStorage.setItem(AN_KEY, JSON.stringify({
+    sessionStorage.setItem(AN_KEY, JSON.stringify({
       text: $('anText').value, role: $('anRole').value, analysis: anData
     }));
   } catch (e) { /* 저장이 안 돼도 괜찮아요 */ }
@@ -1814,7 +1824,7 @@ function anSave() {
 
 function anLoad() {
   try {
-    var raw = localStorage.getItem(AN_KEY);
+    var raw = sessionStorage.getItem(AN_KEY);
     return raw ? JSON.parse(raw) : null;
   } catch (e) { return null; }
 }
@@ -2392,7 +2402,7 @@ function noteHasText() { return !!(note.text && note.text.trim()); }
 
 function noteSaveNow() {
   try {
-    localStorage.setItem(NOTE_KEY, JSON.stringify(note));
+    sessionStorage.setItem(NOTE_KEY, JSON.stringify(note));
   } catch (e) {
     ntStatus('저장 공간이 부족하거나 막혀 있어서 이번 변경은 저장되지 않았어요.');
   }
@@ -2403,7 +2413,7 @@ function noteSaveSoon() {
 }
 function noteLoad() {
   try {
-    var raw = localStorage.getItem(NOTE_KEY);
+    var raw = sessionStorage.getItem(NOTE_KEY);
     if (!raw) return;
     var d = JSON.parse(raw);
     note.text = typeof d.text === 'string' ? d.text.slice(0, 20000) : '';
