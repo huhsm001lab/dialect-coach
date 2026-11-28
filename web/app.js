@@ -495,7 +495,7 @@ async function sendGateLink(e) {
     $('gateCodeForm').hidden = false;
     $('gateCode').value = '';
     $('gateCode').focus();
-    msg.textContent = '📬 메일을 보냈어요. 메일에 숫자 코드가 있으면 아래에 입력하고, 링크만 있으면 그 링크를 이 브라우저에서 눌러 주세요.';
+    msg.textContent = '📬 메일로 숫자 8자리 로그인 코드를 보냈어요. 아래에 입력해 주세요.';
     // 너무 자주 보내지 않게 30초 뒤에 "다시 받기"를 켜요
     setTimeout(function () { $('gateResend').disabled = false; }, 30000);
   } catch (err) {
@@ -513,7 +513,7 @@ async function verifyGateCode(e) {
   var msg = $('gateMsg');
   msg.classList.remove('is-error');
   if (code.length < 6) {
-    msg.textContent = '메일로 받은 숫자 코드를 모두 입력해 주세요.';
+    msg.textContent = '메일로 받은 숫자 8자리를 모두 입력해 주세요.';
     msg.classList.add('is-error');
     $('gateCode').focus();
     return;
