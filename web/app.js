@@ -467,9 +467,12 @@ function hideGate() {
   $('loginGate').hidden = true;
 }
 
+var gateEmailSent = ''; // 코드를 보낸 이메일 (코드 확인할 때 같이 써요. 화면 밖으로 내보내지 않아요)
+
+// 1단계: 이메일로 숫자 로그인 코드 보내기 (처음 온 사람은 자동으로 가입돼요)
 async function sendGateLink(e) {
-  e.preventDefault();
-  var email = $('gateEmail').value.trim();
+  if (e) e.preventDefault();
+  var email = (gateEmailSent && !$('gateCodeForm').hidden) ? gateEmailSent : $('gateEmail').value.trim();
   var msg = $('gateMsg');
   msg.classList.remove('is-error');
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
@@ -479,19 +482,66 @@ async function sendGateLink(e) {
     return;
   }
   $('gateSend').disabled = true;
-  msg.textContent = '로그인 링크를 보내는 중이에요…';
+  $('gateResend').disabled = true;
+  msg.textContent = '로그인 코드를 보내는 중이에요…';
   try {
     var r = await authClient.auth.signInWithOtp({
       email: email,
-      options: { emailRedirectTo: location.origin + location.pathname + (gateRoom ? '#' + gateRoom : '') }
+      options: { shouldCreateUser: true, emailRedirectTo: location.origin + location.pathname + (gateRoom ? '#' + gateRoom : '') }
     });
     if (r.error) throw r.error;
-    msg.textContent = '📬 메일을 보냈어요! 메일함에서 로그인 링크를 눌러 주세요.';
+    gateEmailSent = email;
+    $('gateForm').hidden = true;
+    $('gateCodeForm').hidden = false;
+    $('gateCode').value = '';
+    $('gateCode').focus();
+    msg.textContent = '📬 메일로 로그인 코드를 보냈어요. 숫자를 입력해 주세요.';
+    // 너무 자주 보내지 않게 30초 뒤에 "다시 받기"를 켜요
+    setTimeout(function () { $('gateResend').disabled = false; }, 30000);
   } catch (err) {
     msg.textContent = authErrorMsg(err);
     msg.classList.add('is-error');
+    $('gateResend').disabled = false;
   }
   $('gateSend').disabled = false;
+}
+
+// 2단계: 받은 코드 확인 → 로그인 (성공하면 onAuthStateChange 가 서비스 화면으로 넘겨요)
+async function verifyGateCode(e) {
+  e.preventDefault();
+  var code = $('gateCode').value.replace(/\D/g, '');
+  var msg = $('gateMsg');
+  msg.classList.remove('is-error');
+  if (code.length < 6) {
+    msg.textContent = '메일로 받은 숫자 코드를 모두 입력해 주세요.';
+    msg.classList.add('is-error');
+    $('gateCode').focus();
+    return;
+  }
+  $('gateVerify').disabled = true;
+  msg.textContent = '확인하는 중이에요…';
+  try {
+    var r = await authClient.auth.verifyOtp({ email: gateEmailSent, token: code, type: 'email' });
+    if (r.error) throw r.error;
+    msg.textContent = '로그인했어요!';
+  } catch (err) {
+    var m = String((err && err.message) || '').toLowerCase();
+    msg.textContent = (m.indexOf('expired') !== -1 || m.indexOf('invalid') !== -1)
+      ? '코드가 맞지 않거나 시간이 지났어요. 다시 확인하거나 "코드 다시 받기"를 눌러 주세요.'
+      : authErrorMsg(err);
+    msg.classList.add('is-error');
+    $('gateCode').select();
+  }
+  $('gateVerify').disabled = false;
+}
+
+// 이메일을 다시 입력하고 싶을 때
+function gateChangeEmail() {
+  gateEmailSent = '';
+  $('gateCodeForm').hidden = true;
+  $('gateForm').hidden = false;
+  $('gateMsg').textContent = '';
+  $('gateEmail').focus();
 }
 
 function showIntro(on) {
@@ -3362,6 +3412,11 @@ async function initAuth() {
   $('loginForm').addEventListener('submit', sendLoginLink);
   $('logoutBtn').addEventListener('click', doLogout);
   $('gateForm').addEventListener('submit', sendGateLink);
+  $('gateCodeForm').addEventListener('submit', verifyGateCode);
+  $('gateResend').addEventListener('click', function () { sendGateLink(null); });
+  $('gateChangeEmail').addEventListener('click', gateChangeEmail);
+  // 코드 칸에는 숫자만
+  $('gateCode').addEventListener('input', function () { this.value = this.value.replace(/\D/g, ''); });
   $('gateBack').addEventListener('click', function () { showGate(null); });
 
   var cfg = null;

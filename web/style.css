@@ -647,3 +647,6 @@ body.show-gate .site-footer { display: none; }
 .gate-msg.is-error { color: var(--bad); }
 .gate-help { padding-left: 18px; margin: 8px 0 20px; line-height: 1.7; }
 .gate-new { margin: 0 0 12px; padding: 8px 12px; border-radius: 8px; background: var(--accent-soft); color: var(--text); line-height: 1.6; word-break: keep-all; }
+.gate-code { margin-top: 18px; }
+.gate-code-input { text-align: center; letter-spacing: .4em; font-size: 1.5rem; font-weight: 700; }
+.gate-code-links { display: flex; gap: 8px; justify-content: center; margin-top: 10px; flex-wrap: wrap; }
